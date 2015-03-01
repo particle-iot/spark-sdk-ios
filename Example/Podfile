@@ -2,6 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'spark-sdk', :exclusive => true do
   pod "spark-sdk", :path => "../"
+  pod 'AFNetworking'
 end
 
 target 'Tests', :exclusive => true do

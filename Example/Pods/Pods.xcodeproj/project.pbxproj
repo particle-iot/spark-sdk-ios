@@ -1,1665 +1,858 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>00128328EAA821AF810A8B79</key>
-		<dict>
-			<key>fileRef</key>
-			<string>52D1ECBCD27AAE592323AD34</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>01595425A1CE2F945954DC78</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>93A34F7BFAAB0868A1171D8E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>08A6CB71E094292726B9DBEA</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>BBC7FD9D555D3F7EF7838D2E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>09D6C9BE6B49D9D54153B130</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>7CFB640056C2B257435A3CDD</string>
-			<key>buildPhases</key>
-			<array>
-				<string>BE0E4DDE60AED001C2047A02</string>
-				<string>82C31530FB2144BBB097A540</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>C7B4128DFAEAF70ADC3BD119</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-Tests-spark-sdk</string>
-			<key>productName</key>
-			<string>Pods-Tests-spark-sdk</string>
-			<key>productReference</key>
-			<string>F6C43C5B509253E304F554BF</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>1037DE543C0F06F2D7179907</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Pods-Tests-spark-sdk</string>
-			<key>target</key>
-			<string>09D6C9BE6B49D9D54153B130</string>
-			<key>targetProxy</key>
-			<string>454287DAB81497855EF9F005</string>
-		</dict>
-		<key>1727D8F52D5690D087C0E461</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F2E29B957A400CF3CBCBFFE3</string>
-				<string>F03F9C46573F667070EC3835</string>
-				<string>52CAB558F8291CEF4760C22C</string>
-				<string>66D6479816AEB53D2636A492</string>
-				<string>F6D57DE2F54544AF4A299AC3</string>
-				<string>D3EEB79EFB8EBE0DD7B867DB</string>
-				<string>F979D0127DFC9B96D51203D4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods-spark-sdk</string>
-			<key>path</key>
-			<string>Target Support Files/Pods-spark-sdk</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>196236ECDE79C530A2C0A74B</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-Tests.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>19AF3DFC65240C4285F61BA6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-Tests-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>273751260C91DFC7616CF647</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>B5DDAE48DB8F8DB509620C0F</string>
-			<key>buildPhases</key>
-			<array>
-				<string>6F2153BEEB846B2F6DA5E9BC</string>
-				<string>F6E396B66DC0AEDD029E2F4A</string>
-				<string>A531547ED639F9B0077E2734</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>spark-sdk</string>
-			<key>productName</key>
-			<string>spark-sdk</string>
-			<key>productReference</key>
-			<string>5D8284D0AF26CB194095E75F</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle</string>
-		</dict>
-		<key>2CE3F4CB9A09D299F9D22F0B</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>440EBDFF905A91B2E2118F66</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>2F0C958BA5479E255D7786AF</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastUpgradeCheck</key>
-				<string>0510</string>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>50120B97A751FE8C2E29A46E</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>42B9B02E36457897BC19197A</string>
-			<key>productRefGroup</key>
-			<string>3B780BCD140E3B82B30BB0C6</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>E4449FF26745E0A4B39EF87C</string>
-				<string>09D6C9BE6B49D9D54153B130</string>
-				<string>9E438528ED5F9FB8BCEE688C</string>
-				<string>81B0484FD95BB0E46FECAAE2</string>
-				<string>273751260C91DFC7616CF647</string>
-			</array>
-		</dict>
-		<key>381A4DAD68EAC021079CE538</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>E42F78FAADC81161F7982703</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>3A3CBEBCEF481F8B3093E54F</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>8C39DDCB4CCF2265EB081446</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>3B780BCD140E3B82B30BB0C6</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>196236ECDE79C530A2C0A74B</string>
-				<string>F6C43C5B509253E304F554BF</string>
-				<string>E4D36D2196EA2AE519717AAC</string>
-				<string>ABF2AF0C9D69386C145D7A1D</string>
-				<string>5D8284D0AF26CB194095E75F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>42B9B02E36457897BC19197A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>E5A7C287E8ED324F21665BEB</string>
-				<string>79DDC82E3E5050D5028BD06B</string>
-				<string>6FC0FEBC1B782F0C62569A70</string>
-				<string>3B780BCD140E3B82B30BB0C6</string>
-				<string>5F6680F47B923660751ED583</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>43A427131F4A87FF85C07FF7</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Pods-spark-sdk-spark-sdk</string>
-			<key>target</key>
-			<string>81B0484FD95BB0E46FECAAE2</string>
-			<key>targetProxy</key>
-			<string>C4524E8E9706AEC5F3D13752</string>
-		</dict>
-		<key>440EBDFF905A91B2E2118F66</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-Tests.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>44EA0A76B6F79BD33A8229C0</key>
-		<dict>
-			<key>fileRef</key>
-			<string>4FE90DBCE07791B1D6CD386B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>454287DAB81497855EF9F005</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>2F0C958BA5479E255D7786AF</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>09D6C9BE6B49D9D54153B130</string>
-			<key>remoteInfo</key>
-			<string>Pods-Tests-spark-sdk</string>
-		</dict>
-		<key>47EF05F46BBA2BAAFF399670</key>
-		<dict>
-			<key>fileRef</key>
-			<string>52D1ECBCD27AAE592323AD34</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>491D9FC548B4543B4425F3CF</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>2CE3F4CB9A09D299F9D22F0B</string>
-				<string>3A3CBEBCEF481F8B3093E54F</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>4DEA6D555F84BAC85C5B755B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-Tests-spark-sdk.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4EEB7DFD88C0E51F7DCDFD57</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>Pods-spark-sdk-spark-sdk-prefix.pch</string>
-			<key>path</key>
-			<string>../Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4F3F1478214CFA5A81B26F04</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>4DEA6D555F84BAC85C5B755B</string>
-				<string>8F35C37AEDC2A3F7BC03C818</string>
-				<string>4FE90DBCE07791B1D6CD386B</string>
-				<string>89E327AA12C1099930EDD906</string>
-				<string>6C37D07028419CB52CD681BD</string>
-				<string>FCE8D908E8A5CBF34A03F099</string>
-				<string>E10CECE9DF27C79B538B42BF</string>
-				<string>4EEB7DFD88C0E51F7DCDFD57</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>Example/Pods/Target Support Files/Pods-Tests-spark-sdk</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4FE90DBCE07791B1D6CD386B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-Tests-spark-sdk-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>50120B97A751FE8C2E29A46E</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>B12C74396C9A2005FAFA3DD1</string>
-				<string>E7FF129B26938BC9C59701E9</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>51B2485E3C8DBD336F633493</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>00128328EAA821AF810A8B79</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>52CAB558F8291CEF4760C22C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-spark-sdk-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>52D1ECBCD27AAE592323AD34</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>565A1047301BEF2608C7D55C</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>spark-sdk</string>
-			<key>target</key>
-			<string>273751260C91DFC7616CF647</string>
-			<key>targetProxy</key>
-			<string>DC9109166CABB20693714C6A</string>
-		</dict>
-		<key>567D41956D89EDB52040173C</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>47EF05F46BBA2BAAFF399670</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>570D89A2420E2F3D1F977FFB</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>F979D0127DFC9B96D51203D4</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>597CC5F8E752A189FD60AD2A</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>8F35C37AEDC2A3F7BC03C818</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-Tests-spark-sdk/Pods-Tests-spark-sdk-prefix.pch</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>5D8284D0AF26CB194095E75F</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>spark-sdk.bundle</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>5F6680F47B923660751ED583</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>819C55FE5C67CD0BA534D4A8</string>
-				<string>1727D8F52D5690D087C0E461</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Targets Support Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>66D6479816AEB53D2636A492</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-spark-sdk-environment.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>680F33218F92E955437CA061</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>D3EEB79EFB8EBE0DD7B867DB</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>6877C17506C3EBEE6C26F19D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E8668B97798E6BA76E5B403D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>6C37D07028419CB52CD681BD</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-spark-sdk-spark-sdk.xcconfig</string>
-			<key>path</key>
-			<string>../Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6F2153BEEB846B2F6DA5E9BC</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>6FC0FEBC1B782F0C62569A70</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>83E83C8156BBC260B0EF6A00</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>79DDC82E3E5050D5028BD06B</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>9BA61EAC2B2882396545C1DC</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Development Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7BE1B83AA1146ED889A31B3C</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>FCE8D908E8A5CBF34A03F099</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk-prefix.pch</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>7CFB640056C2B257435A3CDD</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>824328BF2EBBC1BC0D38BA1B</string>
-				<string>597CC5F8E752A189FD60AD2A</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>819C55FE5C67CD0BA534D4A8</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>19AF3DFC65240C4285F61BA6</string>
-				<string>C0092E87841C542F9E957675</string>
-				<string>E8668B97798E6BA76E5B403D</string>
-				<string>8A1B441003534BEE7EF887B1</string>
-				<string>CD6A743179AA82E355596CC0</string>
-				<string>440EBDFF905A91B2E2118F66</string>
-				<string>8C39DDCB4CCF2265EB081446</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods-Tests</string>
-			<key>path</key>
-			<string>Target Support Files/Pods-Tests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>81B0484FD95BB0E46FECAAE2</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>D2F8327CB46F5553DC9AF38B</string>
-			<key>buildPhases</key>
-			<array>
-				<string>381A4DAD68EAC021079CE538</string>
-				<string>51B2485E3C8DBD336F633493</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>565A1047301BEF2608C7D55C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-spark-sdk-spark-sdk</string>
-			<key>productName</key>
-			<string>Pods-spark-sdk-spark-sdk</string>
-			<key>productReference</key>
-			<string>ABF2AF0C9D69386C145D7A1D</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>824328BF2EBBC1BC0D38BA1B</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>8F35C37AEDC2A3F7BC03C818</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-Tests-spark-sdk/Pods-Tests-spark-sdk-prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>82C31530FB2144BBB097A540</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>AB4100C51A9315A628464061</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>83E83C8156BBC260B0EF6A00</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>52D1ECBCD27AAE592323AD34</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>iOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89E327AA12C1099930EDD906</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-Tests-spark-sdk-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8A1B441003534BEE7EF887B1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-Tests-environment.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8C39DDCB4CCF2265EB081446</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-Tests.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8C8075B485BC151B6F75D2D3</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>FCE8D908E8A5CBF34A03F099</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk-prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>8F35C37AEDC2A3F7BC03C818</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-Tests-spark-sdk-Private.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>93A34F7BFAAB0868A1171D8E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>52CAB558F8291CEF4760C22C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>983B105073E0420F7BDD29AC</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>bundle</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>9BA61EAC2B2882396545C1DC</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>4F3F1478214CFA5A81B26F04</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>spark-sdk</string>
-			<key>path</key>
-			<string>../..</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9E438528ED5F9FB8BCEE688C</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>E7A75550DBD410D9A2428B3F</string>
-			<key>buildPhases</key>
-			<array>
-				<string>01595425A1CE2F945954DC78</string>
-				<string>08A6CB71E094292726B9DBEA</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>43A427131F4A87FF85C07FF7</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-spark-sdk</string>
-			<key>productName</key>
-			<string>Pods-spark-sdk</string>
-			<key>productReference</key>
-			<string>E4D36D2196EA2AE519717AAC</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>A531547ED639F9B0077E2734</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>AB4100C51A9315A628464061</key>
-		<dict>
-			<key>fileRef</key>
-			<string>52D1ECBCD27AAE592323AD34</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>ABF2AF0C9D69386C145D7A1D</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-spark-sdk-spark-sdk.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>AEE3392B0B10B8A3E849E41E</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>2F0C958BA5479E255D7786AF</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>273751260C91DFC7616CF647</string>
-			<key>remoteInfo</key>
-			<string>spark-sdk</string>
-		</dict>
-		<key>B12C74396C9A2005FAFA3DD1</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>STRIP_INSTALLED_PRODUCT</key>
-				<string>NO</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>B50662DA40E6225A69B491AE</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>6877C17506C3EBEE6C26F19D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B5DDAE48DB8F8DB509620C0F</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>C21B1E361969C7ABF0BDE121</string>
-				<string>983B105073E0420F7BDD29AC</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>BBC7FD9D555D3F7EF7838D2E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>52D1ECBCD27AAE592323AD34</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>BE0E4DDE60AED001C2047A02</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>44EA0A76B6F79BD33A8229C0</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>C0092E87841C542F9E957675</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Pods-Tests-acknowledgements.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C21B1E361969C7ABF0BDE121</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>bundle</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>C4524E8E9706AEC5F3D13752</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>2F0C958BA5479E255D7786AF</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>81B0484FD95BB0E46FECAAE2</string>
-			<key>remoteInfo</key>
-			<string>Pods-spark-sdk-spark-sdk</string>
-		</dict>
-		<key>C7B4128DFAEAF70ADC3BD119</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>spark-sdk</string>
-			<key>target</key>
-			<string>273751260C91DFC7616CF647</string>
-			<key>targetProxy</key>
-			<string>AEE3392B0B10B8A3E849E41E</string>
-		</dict>
-		<key>CD6A743179AA82E355596CC0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-Tests-resources.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D2F8327CB46F5553DC9AF38B</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>8C8075B485BC151B6F75D2D3</string>
-				<string>7BE1B83AA1146ED889A31B3C</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>D3EEB79EFB8EBE0DD7B867DB</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-spark-sdk.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DC9109166CABB20693714C6A</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>2F0C958BA5479E255D7786AF</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>273751260C91DFC7616CF647</string>
-			<key>remoteInfo</key>
-			<string>spark-sdk</string>
-		</dict>
-		<key>E10CECE9DF27C79B538B42BF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>Pods-spark-sdk-spark-sdk-dummy.m</string>
-			<key>path</key>
-			<string>../Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E42F78FAADC81161F7982703</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E10CECE9DF27C79B538B42BF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E4449FF26745E0A4B39EF87C</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>491D9FC548B4543B4425F3CF</string>
-			<key>buildPhases</key>
-			<array>
-				<string>B50662DA40E6225A69B491AE</string>
-				<string>567D41956D89EDB52040173C</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>1037DE543C0F06F2D7179907</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-Tests</string>
-			<key>productName</key>
-			<string>Pods-Tests</string>
-			<key>productReference</key>
-			<string>196236ECDE79C530A2C0A74B</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>E4D36D2196EA2AE519717AAC</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-spark-sdk.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>E5A7C287E8ED324F21665BEB</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>name</key>
-			<string>Podfile</string>
-			<key>path</key>
-			<string>../Podfile</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-			<key>xcLanguageSpecificationIdentifier</key>
-			<string>xcode.lang.ruby</string>
-		</dict>
-		<key>E7A75550DBD410D9A2428B3F</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>680F33218F92E955437CA061</string>
-				<string>570D89A2420E2F3D1F977FFB</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>E7FF129B26938BC9C59701E9</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>RELEASE=1</string>
-				</array>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>STRIP_INSTALLED_PRODUCT</key>
-				<string>NO</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>E8668B97798E6BA76E5B403D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-Tests-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F03F9C46573F667070EC3835</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Pods-spark-sdk-acknowledgements.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F2E29B957A400CF3CBCBFFE3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-spark-sdk-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F6C43C5B509253E304F554BF</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-Tests-spark-sdk.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>F6D57DE2F54544AF4A299AC3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-spark-sdk-resources.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F6E396B66DC0AEDD029E2F4A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F979D0127DFC9B96D51203D4</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-spark-sdk.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>FCE8D908E8A5CBF34A03F099</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-spark-sdk-spark-sdk-Private.xcconfig</string>
-			<key>path</key>
-			<string>../Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk-Private.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>2F0C958BA5479E255D7786AF</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00128328EAA821AF810A8B79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D1ECBCD27AAE592323AD34 /* Foundation.framework */; };
+		44EA0A76B6F79BD33A8229C0 /* Pods-Tests-spark-sdk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE90DBCE07791B1D6CD386B /* Pods-Tests-spark-sdk-dummy.m */; };
+		47EF05F46BBA2BAAFF399670 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D1ECBCD27AAE592323AD34 /* Foundation.framework */; };
+		50EC21F31AA296FB0050CF03 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21E81AA296FB0050CF03 /* KeychainItemWrapper.m */; };
+		50EC21F41AA296FB0050CF03 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21E81AA296FB0050CF03 /* KeychainItemWrapper.m */; };
+		50EC21F51AA296FB0050CF03 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21EA1AA296FB0050CF03 /* Reachability.m */; };
+		50EC21F61AA296FB0050CF03 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21EA1AA296FB0050CF03 /* Reachability.m */; };
+		50EC21F71AA296FB0050CF03 /* SparkAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21EC1AA296FB0050CF03 /* SparkAccessToken.m */; };
+		50EC21F81AA296FB0050CF03 /* SparkAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21EC1AA296FB0050CF03 /* SparkAccessToken.m */; };
+		50EC21F91AA296FB0050CF03 /* SparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21EE1AA296FB0050CF03 /* SparkCloud.m */; };
+		50EC21FA1AA296FB0050CF03 /* SparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21EE1AA296FB0050CF03 /* SparkCloud.m */; };
+		50EC21FB1AA296FB0050CF03 /* SparkDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21F01AA296FB0050CF03 /* SparkDevice.m */; };
+		50EC21FC1AA296FB0050CF03 /* SparkDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21F01AA296FB0050CF03 /* SparkDevice.m */; };
+		50EC21FD1AA296FB0050CF03 /* SparkUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21F21AA296FB0050CF03 /* SparkUser.m */; };
+		50EC21FE1AA296FB0050CF03 /* SparkUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC21F21AA296FB0050CF03 /* SparkUser.m */; };
+		6877C17506C3EBEE6C26F19D /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E8668B97798E6BA76E5B403D /* Pods-Tests-dummy.m */; };
+		93A34F7BFAAB0868A1171D8E /* Pods-spark-sdk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CAB558F8291CEF4760C22C /* Pods-spark-sdk-dummy.m */; };
+		AB4100C51A9315A628464061 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D1ECBCD27AAE592323AD34 /* Foundation.framework */; };
+		BBC7FD9D555D3F7EF7838D2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D1ECBCD27AAE592323AD34 /* Foundation.framework */; };
+		E42F78FAADC81161F7982703 /* Pods-spark-sdk-spark-sdk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CECE9DF27C79B538B42BF /* Pods-spark-sdk-spark-sdk-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		454287DAB81497855EF9F005 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F0C958BA5479E255D7786AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09D6C9BE6B49D9D54153B130;
+			remoteInfo = "Pods-Tests-spark-sdk";
+		};
+		AEE3392B0B10B8A3E849E41E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F0C958BA5479E255D7786AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 273751260C91DFC7616CF647;
+			remoteInfo = "spark-sdk";
+		};
+		C4524E8E9706AEC5F3D13752 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F0C958BA5479E255D7786AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 81B0484FD95BB0E46FECAAE2;
+			remoteInfo = "Pods-spark-sdk-spark-sdk";
+		};
+		DC9109166CABB20693714C6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F0C958BA5479E255D7786AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 273751260C91DFC7616CF647;
+			remoteInfo = "spark-sdk";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		196236ECDE79C530A2C0A74B /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		19AF3DFC65240C4285F61BA6 /* Pods-Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		440EBDFF905A91B2E2118F66 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		4DEA6D555F84BAC85C5B755B /* Pods-Tests-spark-sdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests-spark-sdk.xcconfig"; sourceTree = "<group>"; };
+		4EEB7DFD88C0E51F7DCDFD57 /* Pods-spark-sdk-spark-sdk-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-spark-sdk-spark-sdk-prefix.pch"; path = "../Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk-prefix.pch"; sourceTree = "<group>"; };
+		4FE90DBCE07791B1D6CD386B /* Pods-Tests-spark-sdk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tests-spark-sdk-dummy.m"; sourceTree = "<group>"; };
+		50EC21E71AA296FB0050CF03 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		50EC21E81AA296FB0050CF03 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		50EC21E91AA296FB0050CF03 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		50EC21EA1AA296FB0050CF03 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		50EC21EB1AA296FB0050CF03 /* SparkAccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SparkAccessToken.h; path = Pod/Classes/SparkAccessToken.h; sourceTree = "<group>"; };
+		50EC21EC1AA296FB0050CF03 /* SparkAccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SparkAccessToken.m; path = Pod/Classes/SparkAccessToken.m; sourceTree = "<group>"; };
+		50EC21ED1AA296FB0050CF03 /* SparkCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SparkCloud.h; path = Pod/Classes/SparkCloud.h; sourceTree = "<group>"; };
+		50EC21EE1AA296FB0050CF03 /* SparkCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SparkCloud.m; path = Pod/Classes/SparkCloud.m; sourceTree = "<group>"; };
+		50EC21EF1AA296FB0050CF03 /* SparkDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SparkDevice.h; path = Pod/Classes/SparkDevice.h; sourceTree = "<group>"; };
+		50EC21F01AA296FB0050CF03 /* SparkDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SparkDevice.m; path = Pod/Classes/SparkDevice.m; sourceTree = "<group>"; };
+		50EC21F11AA296FB0050CF03 /* SparkUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SparkUser.h; path = Pod/Classes/SparkUser.h; sourceTree = "<group>"; };
+		50EC21F21AA296FB0050CF03 /* SparkUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SparkUser.m; path = Pod/Classes/SparkUser.m; sourceTree = "<group>"; };
+		52CAB558F8291CEF4760C22C /* Pods-spark-sdk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-spark-sdk-dummy.m"; sourceTree = "<group>"; };
+		52D1ECBCD27AAE592323AD34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		5D8284D0AF26CB194095E75F /* spark-sdk.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "spark-sdk.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		66D6479816AEB53D2636A492 /* Pods-spark-sdk-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-spark-sdk-environment.h"; sourceTree = "<group>"; };
+		6C37D07028419CB52CD681BD /* Pods-spark-sdk-spark-sdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spark-sdk-spark-sdk.xcconfig"; path = "../Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk.xcconfig"; sourceTree = "<group>"; };
+		89E327AA12C1099930EDD906 /* Pods-Tests-spark-sdk-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tests-spark-sdk-prefix.pch"; sourceTree = "<group>"; };
+		8A1B441003534BEE7EF887B1 /* Pods-Tests-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tests-environment.h"; sourceTree = "<group>"; };
+		8C39DDCB4CCF2265EB081446 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		8F35C37AEDC2A3F7BC03C818 /* Pods-Tests-spark-sdk-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests-spark-sdk-Private.xcconfig"; sourceTree = "<group>"; };
+		ABF2AF0C9D69386C145D7A1D /* libPods-spark-sdk-spark-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-spark-sdk-spark-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0092E87841C542F9E957675 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		CD6A743179AA82E355596CC0 /* Pods-Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-resources.sh"; sourceTree = "<group>"; };
+		D3EEB79EFB8EBE0DD7B867DB /* Pods-spark-sdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-spark-sdk.debug.xcconfig"; sourceTree = "<group>"; };
+		E10CECE9DF27C79B538B42BF /* Pods-spark-sdk-spark-sdk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-spark-sdk-spark-sdk-dummy.m"; path = "../Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk-dummy.m"; sourceTree = "<group>"; };
+		E4D36D2196EA2AE519717AAC /* libPods-spark-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-spark-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5A7C287E8ED324F21665BEB /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		E8668B97798E6BA76E5B403D /* Pods-Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tests-dummy.m"; sourceTree = "<group>"; };
+		F03F9C46573F667070EC3835 /* Pods-spark-sdk-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-spark-sdk-acknowledgements.plist"; sourceTree = "<group>"; };
+		F2E29B957A400CF3CBCBFFE3 /* Pods-spark-sdk-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-spark-sdk-acknowledgements.markdown"; sourceTree = "<group>"; };
+		F6C43C5B509253E304F554BF /* libPods-Tests-spark-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests-spark-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6D57DE2F54544AF4A299AC3 /* Pods-spark-sdk-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-spark-sdk-resources.sh"; sourceTree = "<group>"; };
+		F979D0127DFC9B96D51203D4 /* Pods-spark-sdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-spark-sdk.release.xcconfig"; sourceTree = "<group>"; };
+		FCE8D908E8A5CBF34A03F099 /* Pods-spark-sdk-spark-sdk-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spark-sdk-spark-sdk-Private.xcconfig"; path = "../Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk-Private.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		08A6CB71E094292726B9DBEA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBC7FD9D555D3F7EF7838D2E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51B2485E3C8DBD336F633493 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00128328EAA821AF810A8B79 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		567D41956D89EDB52040173C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47EF05F46BBA2BAAFF399670 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82C31530FB2144BBB097A540 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB4100C51A9315A628464061 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6E396B66DC0AEDD029E2F4A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1727D8F52D5690D087C0E461 /* Pods-spark-sdk */ = {
+			isa = PBXGroup;
+			children = (
+				F2E29B957A400CF3CBCBFFE3 /* Pods-spark-sdk-acknowledgements.markdown */,
+				F03F9C46573F667070EC3835 /* Pods-spark-sdk-acknowledgements.plist */,
+				52CAB558F8291CEF4760C22C /* Pods-spark-sdk-dummy.m */,
+				66D6479816AEB53D2636A492 /* Pods-spark-sdk-environment.h */,
+				F6D57DE2F54544AF4A299AC3 /* Pods-spark-sdk-resources.sh */,
+				D3EEB79EFB8EBE0DD7B867DB /* Pods-spark-sdk.debug.xcconfig */,
+				F979D0127DFC9B96D51203D4 /* Pods-spark-sdk.release.xcconfig */,
+			);
+			name = "Pods-spark-sdk";
+			path = "Target Support Files/Pods-spark-sdk";
+			sourceTree = "<group>";
+		};
+		3B780BCD140E3B82B30BB0C6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				196236ECDE79C530A2C0A74B /* libPods-Tests.a */,
+				F6C43C5B509253E304F554BF /* libPods-Tests-spark-sdk.a */,
+				E4D36D2196EA2AE519717AAC /* libPods-spark-sdk.a */,
+				ABF2AF0C9D69386C145D7A1D /* libPods-spark-sdk-spark-sdk.a */,
+				5D8284D0AF26CB194095E75F /* spark-sdk.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		42B9B02E36457897BC19197A = {
+			isa = PBXGroup;
+			children = (
+				E5A7C287E8ED324F21665BEB /* Podfile */,
+				79DDC82E3E5050D5028BD06B /* Development Pods */,
+				6FC0FEBC1B782F0C62569A70 /* Frameworks */,
+				3B780BCD140E3B82B30BB0C6 /* Products */,
+				5F6680F47B923660751ED583 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		4F3F1478214CFA5A81B26F04 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4DEA6D555F84BAC85C5B755B /* Pods-Tests-spark-sdk.xcconfig */,
+				8F35C37AEDC2A3F7BC03C818 /* Pods-Tests-spark-sdk-Private.xcconfig */,
+				4FE90DBCE07791B1D6CD386B /* Pods-Tests-spark-sdk-dummy.m */,
+				89E327AA12C1099930EDD906 /* Pods-Tests-spark-sdk-prefix.pch */,
+				6C37D07028419CB52CD681BD /* Pods-spark-sdk-spark-sdk.xcconfig */,
+				FCE8D908E8A5CBF34A03F099 /* Pods-spark-sdk-spark-sdk-Private.xcconfig */,
+				E10CECE9DF27C79B538B42BF /* Pods-spark-sdk-spark-sdk-dummy.m */,
+				4EEB7DFD88C0E51F7DCDFD57 /* Pods-spark-sdk-spark-sdk-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/Pods-Tests-spark-sdk";
+			sourceTree = "<group>";
+		};
+		50EC21E61AA296FB0050CF03 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				50EC21E71AA296FB0050CF03 /* KeychainItemWrapper.h */,
+				50EC21E81AA296FB0050CF03 /* KeychainItemWrapper.m */,
+				50EC21E91AA296FB0050CF03 /* Reachability.h */,
+				50EC21EA1AA296FB0050CF03 /* Reachability.m */,
+			);
+			name = Helpers;
+			path = Pod/Classes/Helpers;
+			sourceTree = "<group>";
+		};
+		5F6680F47B923660751ED583 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				819C55FE5C67CD0BA534D4A8 /* Pods-Tests */,
+				1727D8F52D5690D087C0E461 /* Pods-spark-sdk */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		6FC0FEBC1B782F0C62569A70 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				83E83C8156BBC260B0EF6A00 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		79DDC82E3E5050D5028BD06B /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9BA61EAC2B2882396545C1DC /* spark-sdk */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		819C55FE5C67CD0BA534D4A8 /* Pods-Tests */ = {
+			isa = PBXGroup;
+			children = (
+				19AF3DFC65240C4285F61BA6 /* Pods-Tests-acknowledgements.markdown */,
+				C0092E87841C542F9E957675 /* Pods-Tests-acknowledgements.plist */,
+				E8668B97798E6BA76E5B403D /* Pods-Tests-dummy.m */,
+				8A1B441003534BEE7EF887B1 /* Pods-Tests-environment.h */,
+				CD6A743179AA82E355596CC0 /* Pods-Tests-resources.sh */,
+				440EBDFF905A91B2E2118F66 /* Pods-Tests.debug.xcconfig */,
+				8C39DDCB4CCF2265EB081446 /* Pods-Tests.release.xcconfig */,
+			);
+			name = "Pods-Tests";
+			path = "Target Support Files/Pods-Tests";
+			sourceTree = "<group>";
+		};
+		83E83C8156BBC260B0EF6A00 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				52D1ECBCD27AAE592323AD34 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		9BA61EAC2B2882396545C1DC /* spark-sdk */ = {
+			isa = PBXGroup;
+			children = (
+				50EC21E61AA296FB0050CF03 /* Helpers */,
+				50EC21EB1AA296FB0050CF03 /* SparkAccessToken.h */,
+				50EC21EC1AA296FB0050CF03 /* SparkAccessToken.m */,
+				50EC21ED1AA296FB0050CF03 /* SparkCloud.h */,
+				50EC21EE1AA296FB0050CF03 /* SparkCloud.m */,
+				50EC21EF1AA296FB0050CF03 /* SparkDevice.h */,
+				50EC21F01AA296FB0050CF03 /* SparkDevice.m */,
+				50EC21F11AA296FB0050CF03 /* SparkUser.h */,
+				50EC21F21AA296FB0050CF03 /* SparkUser.m */,
+				4F3F1478214CFA5A81B26F04 /* Support Files */,
+			);
+			name = "spark-sdk";
+			path = ../..;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		09D6C9BE6B49D9D54153B130 /* Pods-Tests-spark-sdk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CFB640056C2B257435A3CDD /* Build configuration list for PBXNativeTarget "Pods-Tests-spark-sdk" */;
+			buildPhases = (
+				BE0E4DDE60AED001C2047A02 /* Sources */,
+				82C31530FB2144BBB097A540 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C7B4128DFAEAF70ADC3BD119 /* PBXTargetDependency */,
+			);
+			name = "Pods-Tests-spark-sdk";
+			productName = "Pods-Tests-spark-sdk";
+			productReference = F6C43C5B509253E304F554BF /* libPods-Tests-spark-sdk.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		273751260C91DFC7616CF647 /* spark-sdk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B5DDAE48DB8F8DB509620C0F /* Build configuration list for PBXNativeTarget "spark-sdk" */;
+			buildPhases = (
+				6F2153BEEB846B2F6DA5E9BC /* Sources */,
+				F6E396B66DC0AEDD029E2F4A /* Frameworks */,
+				A531547ED639F9B0077E2734 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "spark-sdk";
+			productName = "spark-sdk";
+			productReference = 5D8284D0AF26CB194095E75F /* spark-sdk.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		81B0484FD95BB0E46FECAAE2 /* Pods-spark-sdk-spark-sdk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D2F8327CB46F5553DC9AF38B /* Build configuration list for PBXNativeTarget "Pods-spark-sdk-spark-sdk" */;
+			buildPhases = (
+				381A4DAD68EAC021079CE538 /* Sources */,
+				51B2485E3C8DBD336F633493 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				565A1047301BEF2608C7D55C /* PBXTargetDependency */,
+			);
+			name = "Pods-spark-sdk-spark-sdk";
+			productName = "Pods-spark-sdk-spark-sdk";
+			productReference = ABF2AF0C9D69386C145D7A1D /* libPods-spark-sdk-spark-sdk.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		9E438528ED5F9FB8BCEE688C /* Pods-spark-sdk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7A75550DBD410D9A2428B3F /* Build configuration list for PBXNativeTarget "Pods-spark-sdk" */;
+			buildPhases = (
+				01595425A1CE2F945954DC78 /* Sources */,
+				08A6CB71E094292726B9DBEA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				43A427131F4A87FF85C07FF7 /* PBXTargetDependency */,
+			);
+			name = "Pods-spark-sdk";
+			productName = "Pods-spark-sdk";
+			productReference = E4D36D2196EA2AE519717AAC /* libPods-spark-sdk.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		E4449FF26745E0A4B39EF87C /* Pods-Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 491D9FC548B4543B4425F3CF /* Build configuration list for PBXNativeTarget "Pods-Tests" */;
+			buildPhases = (
+				B50662DA40E6225A69B491AE /* Sources */,
+				567D41956D89EDB52040173C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1037DE543C0F06F2D7179907 /* PBXTargetDependency */,
+			);
+			name = "Pods-Tests";
+			productName = "Pods-Tests";
+			productReference = 196236ECDE79C530A2C0A74B /* libPods-Tests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2F0C958BA5479E255D7786AF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+			};
+			buildConfigurationList = 50120B97A751FE8C2E29A46E /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 42B9B02E36457897BC19197A;
+			productRefGroup = 3B780BCD140E3B82B30BB0C6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E4449FF26745E0A4B39EF87C /* Pods-Tests */,
+				09D6C9BE6B49D9D54153B130 /* Pods-Tests-spark-sdk */,
+				9E438528ED5F9FB8BCEE688C /* Pods-spark-sdk */,
+				81B0484FD95BB0E46FECAAE2 /* Pods-spark-sdk-spark-sdk */,
+				273751260C91DFC7616CF647 /* spark-sdk */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A531547ED639F9B0077E2734 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		01595425A1CE2F945954DC78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50EC21F91AA296FB0050CF03 /* SparkCloud.m in Sources */,
+				50EC21F31AA296FB0050CF03 /* KeychainItemWrapper.m in Sources */,
+				50EC21F71AA296FB0050CF03 /* SparkAccessToken.m in Sources */,
+				50EC21FB1AA296FB0050CF03 /* SparkDevice.m in Sources */,
+				50EC21FD1AA296FB0050CF03 /* SparkUser.m in Sources */,
+				50EC21F51AA296FB0050CF03 /* Reachability.m in Sources */,
+				93A34F7BFAAB0868A1171D8E /* Pods-spark-sdk-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		381A4DAD68EAC021079CE538 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50EC21FA1AA296FB0050CF03 /* SparkCloud.m in Sources */,
+				50EC21F41AA296FB0050CF03 /* KeychainItemWrapper.m in Sources */,
+				50EC21F81AA296FB0050CF03 /* SparkAccessToken.m in Sources */,
+				50EC21FC1AA296FB0050CF03 /* SparkDevice.m in Sources */,
+				50EC21FE1AA296FB0050CF03 /* SparkUser.m in Sources */,
+				50EC21F61AA296FB0050CF03 /* Reachability.m in Sources */,
+				E42F78FAADC81161F7982703 /* Pods-spark-sdk-spark-sdk-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F2153BEEB846B2F6DA5E9BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50662DA40E6225A69B491AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6877C17506C3EBEE6C26F19D /* Pods-Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE0E4DDE60AED001C2047A02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44EA0A76B6F79BD33A8229C0 /* Pods-Tests-spark-sdk-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1037DE543C0F06F2D7179907 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-Tests-spark-sdk";
+			target = 09D6C9BE6B49D9D54153B130 /* Pods-Tests-spark-sdk */;
+			targetProxy = 454287DAB81497855EF9F005 /* PBXContainerItemProxy */;
+		};
+		43A427131F4A87FF85C07FF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-spark-sdk-spark-sdk";
+			target = 81B0484FD95BB0E46FECAAE2 /* Pods-spark-sdk-spark-sdk */;
+			targetProxy = C4524E8E9706AEC5F3D13752 /* PBXContainerItemProxy */;
+		};
+		565A1047301BEF2608C7D55C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "spark-sdk";
+			target = 273751260C91DFC7616CF647 /* spark-sdk */;
+			targetProxy = DC9109166CABB20693714C6A /* PBXContainerItemProxy */;
+		};
+		C7B4128DFAEAF70ADC3BD119 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "spark-sdk";
+			target = 273751260C91DFC7616CF647 /* spark-sdk */;
+			targetProxy = AEE3392B0B10B8A3E849E41E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2CE3F4CB9A09D299F9D22F0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 440EBDFF905A91B2E2118F66 /* Pods-Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		3A3CBEBCEF481F8B3093E54F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C39DDCB4CCF2265EB081446 /* Pods-Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		570D89A2420E2F3D1F977FFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F979D0127DFC9B96D51203D4 /* Pods-spark-sdk.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		597CC5F8E752A189FD60AD2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F35C37AEDC2A3F7BC03C818 /* Pods-Tests-spark-sdk-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-Tests-spark-sdk/Pods-Tests-spark-sdk-prefix.pch";
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		680F33218F92E955437CA061 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3EEB79EFB8EBE0DD7B867DB /* Pods-spark-sdk.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7BE1B83AA1146ED889A31B3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCE8D908E8A5CBF34A03F099 /* Pods-spark-sdk-spark-sdk-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk-prefix.pch";
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		824328BF2EBBC1BC0D38BA1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F35C37AEDC2A3F7BC03C818 /* Pods-Tests-spark-sdk-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-Tests-spark-sdk/Pods-Tests-spark-sdk-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8C8075B485BC151B6F75D2D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCE8D908E8A5CBF34A03F099 /* Pods-spark-sdk-spark-sdk-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-spark-sdk-spark-sdk/Pods-spark-sdk-spark-sdk-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		983B105073E0420F7BDD29AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		B12C74396C9A2005FAFA3DD1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		C21B1E361969C7ABF0BDE121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		E7FF129B26938BC9C59701E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				STRIP_INSTALLED_PRODUCT = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		491D9FC548B4543B4425F3CF /* Build configuration list for PBXNativeTarget "Pods-Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CE3F4CB9A09D299F9D22F0B /* Debug */,
+				3A3CBEBCEF481F8B3093E54F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50120B97A751FE8C2E29A46E /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B12C74396C9A2005FAFA3DD1 /* Debug */,
+				E7FF129B26938BC9C59701E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CFB640056C2B257435A3CDD /* Build configuration list for PBXNativeTarget "Pods-Tests-spark-sdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				824328BF2EBBC1BC0D38BA1B /* Debug */,
+				597CC5F8E752A189FD60AD2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B5DDAE48DB8F8DB509620C0F /* Build configuration list for PBXNativeTarget "spark-sdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C21B1E361969C7ABF0BDE121 /* Debug */,
+				983B105073E0420F7BDD29AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D2F8327CB46F5553DC9AF38B /* Build configuration list for PBXNativeTarget "Pods-spark-sdk-spark-sdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C8075B485BC151B6F75D2D3 /* Debug */,
+				7BE1B83AA1146ED889A31B3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7A75550DBD410D9A2428B3F /* Build configuration list for PBXNativeTarget "Pods-spark-sdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				680F33218F92E955437CA061 /* Debug */,
+				570D89A2420E2F3D1F977FFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2F0C958BA5479E255D7786AF /* Project object */;
+}
