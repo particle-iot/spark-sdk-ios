@@ -1,0 +1,14 @@
+PODS:
+  - spark-sdk (0.1.0)
+
+DEPENDENCIES:
+  - spark-sdk (from `../`)
+
+EXTERNAL SOURCES:
+  spark-sdk:
+    :path: ../
+
+SPEC CHECKSUMS:
+  spark-sdk: 172878caee06c10e46b8680d4aca1b9248ce1d07
+
+COCOAPODS: 0.35.0
