@@ -10,11 +10,12 @@
 Pod::Spec.new do |s|
   s.name             = "spark-sdk"
   s.version          = "0.1.0"
-  s.summary          = "A short description of spark-sdk."
+  s.summary          = "Cocoapod library of Spark mobile SDK for iOS"
   s.description      = <<-DESC
                        Cocoapod library of Spark mobile SDK for iOS
+                       Longer description to follow
                        DESC
-  s.homepage         = "https://github.com/spark/spark-sdk"
+  s.homepage         = "https://github.com/spark/spark-sdk-ios"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'LGPL v3'
   s.author           = { "Ido Kleinman" => "idokleinman@gmail.com" }
