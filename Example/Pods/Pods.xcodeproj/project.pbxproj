@@ -404,7 +404,7 @@
 		8337A600E64A858C91DA2CF6 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B5A14F206B67D297E9D21217 /* spark-sdk */,
+				B5A14F206B67D297E9D21217 /* Spark-SDK */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
@@ -449,14 +449,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B5A14F206B67D297E9D21217 /* spark-sdk */ = {
+		B5A14F206B67D297E9D21217 /* Spark-SDK */ = {
 			isa = PBXGroup;
 			children = (
 				50EC22011AA297E90050CF03 /* Assets */,
 				50EC22001AA297CE0050CF03 /* Classes */,
 				1985CB56725F82D95BFDDCB0 /* Support Files */,
 			);
-			name = "spark-sdk";
+			name = "Spark-SDK";
 			path = ../..;
 			sourceTree = "<group>";
 		};

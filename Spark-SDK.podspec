@@ -8,13 +8,16 @@
 #
 
 Pod::Spec.new do |s|
-    s.name             = "spark-sdk"
-    # s.name             = "Spark-SDK" // that's how it was supposed to be
-    s.version          = "0.1.1"
+    s.name             = "Spark-SDK"
+    s.version          = "0.1.2"
     s.summary          = "Spark mobile SDK for interacting with connected products via Spark Cloud"
     s.description      = <<-DESC
                         Cocoapod library of Spark mobile SDK for iOS
                         Spark mobile SDK for iOS devices interacting with connected products via Spark Cloud
+                        This library will allow you to easily perform the following:
+                        - User session management for Spark cloud
+                        - Read/write data to/from Spark Core, Photon or Electron devices
+                        - Publish and subscribe events to/from the cloud or to/from devices (beta)
                         DESC
     s.homepage         = "https://github.com/spark/spark-sdk-ios"
     # s.screenshots      = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
@@ -37,7 +40,7 @@ Pod::Spec.new do |s|
     s.subspec 'SDK' do |ss|
         ss.source_files = 'Pod/Classes/Spark*.{h,m}'
         ss.dependency 'AFNetworking'
-        ss.dependency 'spark-sdk/Helpers'
+        ss.dependency 'Spark-SDK/Helpers'
     end
 
 
