@@ -13,10 +13,9 @@ Pod::Spec.new do |s|
     s.version          = "0.1.1"
     s.summary          = "Spark mobile SDK for interacting with connected products via Spark Cloud"
     s.description      = <<-DESC
-    Cocoapod library of Spark mobile SDK for iOS
-    Longer description to follow
-    DESC
-    # s.homepage         = "https://github.com/spark/spark-sdk-ios"
+                        Cocoapod library of Spark mobile SDK for iOS
+                        Longer description soon...
+                        DESC
     s.homepage         = "https://github.com/spark/spark-sdk-ios"
     # s.screenshots      = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
     s.license          = 'LGPL v3'

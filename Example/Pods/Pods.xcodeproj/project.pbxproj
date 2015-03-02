@@ -22,10 +22,22 @@
 		2A67177305D5B868230503CE /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A6873690CBB776E4BC7022 /* UIImageView+AFNetworking.m */; };
 		2BFC1A66B3091588FF44E166 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8053CB40DA5E1D4D7467238 /* Foundation.framework */; };
 		3A1FF27F42E7460E216169F3 /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 29E17D5B85D69B0DC2861B81 /* UIWebView+AFNetworking.h */; };
-		50EC22131AA3DF200050CF03 /* SparkAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC220C1AA3DF200050CF03 /* SparkAccessToken.m */; };
-		50EC22141AA3DF200050CF03 /* SparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC220E1AA3DF200050CF03 /* SparkCloud.m */; };
-		50EC22151AA3DF200050CF03 /* SparkDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC22101AA3DF200050CF03 /* SparkDevice.m */; };
-		50EC22161AA3DF200050CF03 /* SparkUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC22121AA3DF200050CF03 /* SparkUser.m */; };
+		50EC22171AA3E4C50050CF03 /* SparkAccessToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC220B1AA3DF200050CF03 /* SparkAccessToken.h */; };
+		50EC22181AA3E4C50050CF03 /* SparkAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC220C1AA3DF200050CF03 /* SparkAccessToken.m */; };
+		50EC22191AA3E4C50050CF03 /* SparkCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC220D1AA3DF200050CF03 /* SparkCloud.h */; };
+		50EC221A1AA3E4C50050CF03 /* SparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC220E1AA3DF200050CF03 /* SparkCloud.m */; };
+		50EC221B1AA3E4C50050CF03 /* SparkDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC220F1AA3DF200050CF03 /* SparkDevice.h */; };
+		50EC221C1AA3E4C50050CF03 /* SparkDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC22101AA3DF200050CF03 /* SparkDevice.m */; };
+		50EC221D1AA3E4C50050CF03 /* SparkUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC22111AA3DF200050CF03 /* SparkUser.h */; };
+		50EC221E1AA3E4C50050CF03 /* SparkUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC22121AA3DF200050CF03 /* SparkUser.m */; };
+		50EC221F1AA3E4C60050CF03 /* SparkAccessToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC220B1AA3DF200050CF03 /* SparkAccessToken.h */; };
+		50EC22201AA3E4C60050CF03 /* SparkAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC220C1AA3DF200050CF03 /* SparkAccessToken.m */; };
+		50EC22211AA3E4C60050CF03 /* SparkCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC220D1AA3DF200050CF03 /* SparkCloud.h */; };
+		50EC22221AA3E4C60050CF03 /* SparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC220E1AA3DF200050CF03 /* SparkCloud.m */; };
+		50EC22231AA3E4C60050CF03 /* SparkDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC220F1AA3DF200050CF03 /* SparkDevice.h */; };
+		50EC22241AA3E4C60050CF03 /* SparkDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC22101AA3DF200050CF03 /* SparkDevice.m */; };
+		50EC22251AA3E4C60050CF03 /* SparkUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC22111AA3DF200050CF03 /* SparkUser.h */; };
+		50EC22261AA3E4C60050CF03 /* SparkUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC22121AA3DF200050CF03 /* SparkUser.m */; };
 		54A239C3E674832950C605EB /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = B6FFE896E7DAE26E13FCEB31 /* UIAlertView+AFNetworking.m */; };
 		5915F9F21F1A6F4D15463A23 /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5250FE28C3553040906391B0 /* AFURLSessionManager.h */; };
 		5B36C535E426BC640989961B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8053CB40DA5E1D4D7467238 /* Foundation.framework */; };
@@ -536,7 +548,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50EC221B1AA3E4C50050CF03 /* SparkDevice.h in Headers */,
 				F904C77075C626CE407394A9 /* KeychainItemWrapper.h in Headers */,
+				50EC22171AA3E4C50050CF03 /* SparkAccessToken.h in Headers */,
+				50EC221D1AA3E4C50050CF03 /* SparkUser.h in Headers */,
+				50EC22191AA3E4C50050CF03 /* SparkCloud.h in Headers */,
 				A64667585B6FAB2F4CD840C7 /* Reachability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -545,7 +561,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50EC22231AA3E4C60050CF03 /* SparkDevice.h in Headers */,
 				75F66EA0928E42126E26A29B /* KeychainItemWrapper.h in Headers */,
+				50EC221F1AA3E4C60050CF03 /* SparkAccessToken.h in Headers */,
+				50EC22251AA3E4C60050CF03 /* SparkUser.h in Headers */,
+				50EC22211AA3E4C60050CF03 /* SparkCloud.h in Headers */,
 				CDF7A681708A2B7D8E14E0D3 /* Reachability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -729,7 +749,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50EC221A1AA3E4C50050CF03 /* SparkCloud.m in Sources */,
 				5F055851BDFF121F63593DAB /* KeychainItemWrapper.m in Sources */,
+				50EC22181AA3E4C50050CF03 /* SparkAccessToken.m in Sources */,
+				50EC221C1AA3E4C50050CF03 /* SparkDevice.m in Sources */,
+				50EC221E1AA3E4C50050CF03 /* SparkUser.m in Sources */,
 				ECEB7797A4FCA3B1614A9916 /* Pods-spark-sdk-spark-sdk-dummy.m in Sources */,
 				C28F254A90B5C28A2E51C072 /* Reachability.m in Sources */,
 			);
@@ -739,10 +763,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50EC22151AA3DF200050CF03 /* SparkDevice.m in Sources */,
-				50EC22131AA3DF200050CF03 /* SparkAccessToken.m in Sources */,
-				50EC22161AA3DF200050CF03 /* SparkUser.m in Sources */,
-				50EC22141AA3DF200050CF03 /* SparkCloud.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,7 +795,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50EC22221AA3E4C60050CF03 /* SparkCloud.m in Sources */,
 				2464901367D2EDA2CB50D712 /* KeychainItemWrapper.m in Sources */,
+				50EC22201AA3E4C60050CF03 /* SparkAccessToken.m in Sources */,
+				50EC22241AA3E4C60050CF03 /* SparkDevice.m in Sources */,
+				50EC22261AA3E4C60050CF03 /* SparkUser.m in Sources */,
 				2881F9F3EE8C1C92A4128951 /* Pods-Tests-spark-sdk-dummy.m in Sources */,
 				7F0C4590905A2B786A60BD3B /* Reachability.m in Sources */,
 			);
