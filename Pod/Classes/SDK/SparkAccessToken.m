@@ -7,7 +7,7 @@
 //
 
 #import "SparkAccessToken.h"
-#import "KeychainItemWrapper.h"
+#import "../Helpers/KeychainItemWrapper.h"
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "SparkCloud.h"
 
