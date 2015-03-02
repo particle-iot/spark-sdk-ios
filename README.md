@@ -2,8 +2,10 @@
 <img src="https://s3.amazonaws.com/spark-website/spark.png" alt="Spark" title="Spark">
 </p>
 
+<!---
+(Update link)
 [![Build Status](https://travis-ci.org/AFNetworking/AFNetworking.svg)](https://travis-ci.org/Spark-SDK/Spark-SDK)
-
+-->
 Spark SDK is a library that will allow you to easily interact with internet connected hardware powered by Spark, that includes:
 - User session management for Spark cloud
 - Read/write data to/from Spark Core, Photon or Electron devices
@@ -25,7 +27,7 @@ Spark SDK is a library that will allow you to easily interact with internet conn
 
 ### Installation with CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like AFNetworking in your projects. See the ["Getting Started" guide for more information](https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking).
+[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries in your projects. 
 
 #### Podfile
 
