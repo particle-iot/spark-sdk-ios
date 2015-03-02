@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
     s.summary          = "Spark mobile SDK for interacting with connected products via Spark Cloud"
     s.description      = <<-DESC
                         Cocoapod library of Spark mobile SDK for iOS
-                        Longer description soon...
+                        Spark mobile SDK for iOS devices interacting with connected products via Spark Cloud
                         DESC
     s.homepage         = "https://github.com/spark/spark-sdk-ios"
     # s.screenshots      = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
