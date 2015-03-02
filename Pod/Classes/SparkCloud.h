@@ -83,7 +83,7 @@ extern NSString *const kSparkAPIBaseURL;
 -(void)getDevice:(NSString *)deviceID completion:(void(^)(SparkDevice *device, NSError *error))completion;
 
 // Not available yet
--(void)publishEvent:(NSString *)eventName data:(NSData *)data;
+//-(void)publishEvent:(NSString *)eventName data:(NSData *)data;
 
 /**
  *  Claim the specified device to the currently logged in user (without claim code mechanism)

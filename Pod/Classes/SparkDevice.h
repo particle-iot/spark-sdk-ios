@@ -63,8 +63,10 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  */
 -(void)callFunction:(NSString *)functionName withArguments:(NSArray *)args completion:(void (^)(NSNumber *, NSError *))completion;
 
+/*
 -(void)addEventHandler:(NSString *)eventName handler:(void(^)(void))handler;
 -(void)removeEventHandler:(NSString *)eventName;
+ */
 
 /**
  *  Remove device from current logged in user account
@@ -73,8 +75,9 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  */
 -(void)unclaim:(void(^)(NSError* error))completion;
 
+/*
 -(void)compileAndFlash:(NSString *)sourceCode completion:(void(^)(NSError* error))completion;
 -(void)flash:(NSData *)binary completion:(void(^)(NSError* error))completion;
-
+*/
 
 @end

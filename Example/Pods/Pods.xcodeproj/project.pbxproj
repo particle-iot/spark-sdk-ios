@@ -341,9 +341,9 @@
 		50EC22001AA297CE0050CF03 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				50EC224F1AA3F9390050CF03 /* SDK */,
 				50EC224E1AA3F92E0050CF03 /* Helpers */,
 				50EC222B1AA3F9270050CF03 /* Spark-SDK.h */,
-				50EC224F1AA3F9390050CF03 /* SDK */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
