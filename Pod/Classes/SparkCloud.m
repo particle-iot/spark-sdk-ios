@@ -7,7 +7,7 @@
 //
 
 #import "SparkCloud.h"
-#import "../Helpers/KeychainItemWrapper.h"
+#import "KeychainItemWrapper.h"
 #import "SparkAccessToken.h"
 #import "SparkUser.h"
 //#import "SparkSetupCustomization.h"

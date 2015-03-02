@@ -7,7 +7,7 @@
 //
 
 #import "SparkUser.h"
-#import "../Helpers/KeychainItemWrapper.h"
+#import "KeychainItemWrapper.h"
 
 NSString *const kSparkCredentialsKeychainEntry = @"io.spark.api.Keychain.Credentials";
 
