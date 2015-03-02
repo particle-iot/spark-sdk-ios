@@ -8,7 +8,7 @@
 #
 
 Pod::Spec.new do |s|
-    s.name             = "Spark-SDK"
+    s.name             = "spark-sdk"
     s.version          = "0.1.2"
     s.summary          = "Spark mobile SDK for interacting with connected products via Spark Cloud"
     s.description      = <<-DESC
