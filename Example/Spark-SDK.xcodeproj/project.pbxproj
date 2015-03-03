@@ -519,7 +519,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33C99C6238D91716E59C86A5 /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/spark-sdk.app/spark-sdk";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -533,7 +533,7 @@
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spark-SDK.app/Spark-SDK";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -542,7 +542,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 88E832F99144B3F7AB122A9F /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/spark-sdk.app/spark-sdk";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -552,7 +552,7 @@
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spark-SDK.app/Spark-SDK";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

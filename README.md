@@ -13,14 +13,14 @@ Spark SDK is a library that will allow you to easily interact with internet conn
 
 ## How To Get Started
 
-(Update links)
+(Links are not yet online)
 - [Download Spark-SDK](https://github.com/AFNetworking/AFNetworking/archive/master.zip) and try out the included iOS example app
 - Read the ["Getting Started" guide](https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking), [FAQ](https://github.com/AFNetworking/AFNetworking/wiki/AFNetworking-FAQ), or [other articles on the Wiki](https://github.com/AFNetworking/AFNetworking/wiki)
 - Check out the [documentation](http://cocoadocs.org/docsets/AFNetworking/) for a comprehensive look at all of the APIs available in AFNetworking
 
 ## Communication
 
-- If you **need help**, use [Our community website](http://comuunity.spark.io)
+- If you **need help**, use [Our community website](http://community.spark.io)
 - If you **found a bug**, _and can provide steps to reliably reproduce it_, open an issue.
 - If you **have a feature request**, open an issue.
 - If you **want to contribute**, submit a pull request.
