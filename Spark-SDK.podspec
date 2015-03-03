@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint spark-sdk.podspec' to ensure this is a
+# Be sure to run `pod lib lint Spark-SDK.podspec' to ensure this is a
 # valid spec and remove all comments before submitting the spec.
 #
 # Any lines starting with a # are optional, but encouraged
@@ -19,11 +19,11 @@ Pod::Spec.new do |s|
                         - Read/write data to/from Spark Core, Photon or Electron devices
                         - Publish and subscribe events to/from the cloud or to/from devices (beta)
                         DESC
-    s.homepage         = "https://github.com/spark/spark-sdk-ios"
+    s.homepage         = "https://github.com/spark/Spark-SDK-ios"
     # s.screenshots      = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
     s.license          = 'LGPL v3'
     s.author           = { "Ido Kleinman" => "ido@spark.io" }
-    s.source           = { :git => "https://github.com/spark/spark-sdk-ios.git", :tag => s.version.to_s }
+    s.source           = { :git => "https://github.com/spark/Spark-SDK-ios.git", :tag => s.version.to_s }
     # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
     s.platform     = :ios, '7.0'
@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
 
 
     s.resource_bundles = {
-        'spark-sdk' => ['Pod/Assets/*.png']
+        'Spark-SDK' => ['Pod/Assets/*.png']
     }
 
     # s.frameworks = 'SystemConfiguration', 'Security'

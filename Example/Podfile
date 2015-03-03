@@ -1,12 +1,12 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-target 'spark-sdk', :exclusive => true do
-  pod "spark-sdk", :path => "../"
+target 'Spark-SDK', :exclusive => true do
+  pod "Spark-SDK", :path => "../"
   pod 'AFNetworking'
 end
 
 target 'Tests', :exclusive => true do
-  pod "spark-sdk", :path => "../"
+  pod "Spark-SDK", :path => "../"
 
   
 end

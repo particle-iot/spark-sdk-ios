@@ -1,7 +1,7 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## spark-sdk
+## Spark-SDK
 
 Copyright (c) 2015 Ido Kleinman <idokleinman@gmail.com>
 

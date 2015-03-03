@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## spark-sdk
+## Spark-SDK
 
 Copyright (c) 2015 Ido Kleinman <idokleinman@gmail.com>
 

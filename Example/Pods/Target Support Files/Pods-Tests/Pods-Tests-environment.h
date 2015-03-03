@@ -6,7 +6,7 @@
 // project.
 
 
-// spark-sdk
+// Spark-SDK
 #define COCOAPODS_POD_AVAILABLE_spark_sdk
 #define COCOAPODS_VERSION_MAJOR_spark_sdk 0
 #define COCOAPODS_VERSION_MINOR_spark_sdk 1

@@ -1,6 +1,6 @@
 //
 //  SparkAppDelegate.h
-//  spark-sdk
+//  Spark-SDK
 //
 //  Created by CocoaPods on 03/01/2015.
 //  Copyright (c) 2014 Ido Kleinman. All rights reserved.

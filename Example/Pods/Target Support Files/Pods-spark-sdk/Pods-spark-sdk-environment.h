@@ -48,7 +48,7 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 5
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
-// spark-sdk
+// Spark-SDK
 #define COCOAPODS_POD_AVAILABLE_spark_sdk
 #define COCOAPODS_VERSION_MAJOR_spark_sdk 0
 #define COCOAPODS_VERSION_MINOR_spark_sdk 1
