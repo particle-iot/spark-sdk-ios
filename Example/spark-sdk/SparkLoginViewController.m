@@ -15,20 +15,21 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) LoginCompletion completion;
 @property (strong, nonatomic) UIViewController *senderViewController;
-@property (strong, nonatomic) SparkCloud *cloud;
+@property (weak, nonatomic) SparkCloud *cloud;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UILabel *validationMessageLabel;
+@property (strong, nonatomic) NSString *validationMessage;
 
 @end
 
 @implementation SparkLoginViewController
+@synthesize validationMessage = _validationMessage;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.cloud = [SparkCloud sharedInstance];
     
-    if (self.cloud.loggedInUsername);
-    
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,7 +38,24 @@
 }
 
 - (IBAction)loginButtonPressed:(id)sender {
-    [self.senderViewController dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"Attempting login: %@", self.usernameTextField.text);
+    [self.cloud loginWithUser:self.usernameTextField.text
+                     password:self.passwordTextField.text
+                   completion:^(NSError *error) {
+                       
+                       if (error) {
+                           NSLog(@"Login Fail: \n -> %@", error);
+                           self.validationMessage = @"Login Failed";
+                           return;
+                       }
+                       
+                       self.validationMessage = @"";
+                       self.completion(self, self.cloud.user);        
+    }];
+}
+
+- (IBAction)cancelButtonPressed:(id)sender {
+     self.completion(self, nil);
 }
 
 + (void)presentLoginViewControllerFromViewController:(UIViewController*)sender
@@ -51,14 +69,24 @@
     [sender presentViewController:slvc animated:YES completion:nil];
 }
 
-/*
-#pragma mark - Navigation
+-(void)setValidationMessage:(NSString *)validationMessage
+{
+    self.validationMessageLabel.text = validationMessage;
+    _validationMessage = validationMessage;
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    self.validationMessageLabel.hidden = YES;
+    if (validationMessage.length>0) {
+        self.validationMessageLabel.alpha = 0;
+        self.validationMessageLabel.hidden = NO;
+        [UIView animateWithDuration:0.5 animations:^{
+            self.validationMessageLabel.alpha = 1;
+        }];
+    }
 }
-*/
+
+- (NSString *)validationMessage
+{
+    return _validationMessage;
+}
 
 @end
