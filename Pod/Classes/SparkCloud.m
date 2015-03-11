@@ -98,6 +98,14 @@ NSString *const kSparkAPIBaseURL = @"https://ifttt-api.spark.io";
         return nil;
 }
 
+-(BOOL)isUserLoggedIn {
+    if ((self.user) && (self.token)) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 #pragma mark Delegate functions
 -(void)SparkAccessToken:(SparkAccessToken *)accessToken didExpireAt:(NSDate *)date
 {

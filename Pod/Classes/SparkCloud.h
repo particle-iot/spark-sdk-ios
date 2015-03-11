@@ -22,6 +22,10 @@ extern NSString *const kSparkAPIBaseURL;
  *  Current session access token string
  */
 @property (nonatomic, strong, readonly) NSString *accessToken;
+/**
+ *  Returns YES if theres a user logged in.
+ */
+@property (nonatomic, readonly) BOOL isUserLoggedIn;
 
 
 /**
