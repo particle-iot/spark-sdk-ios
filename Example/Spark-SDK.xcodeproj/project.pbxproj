@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		001DAA751AB04622003B11C9 /* SparkLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 001DAA741AB04622003B11C9 /* SparkLoginViewController.m */; };
 		35EC455787B3F1BE07C95E82 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80E18242CFBD279E9DD09C2A /* libPods-Tests.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		001DAA731AB04622003B11C9 /* SparkLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkLoginViewController.h; sourceTree = "<group>"; };
+		001DAA741AB04622003B11C9 /* SparkLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkLoginViewController.m; sourceTree = "<group>"; };
 		1FF97172813E30CADFC7C903 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		29D478DCC0F9177FF2243EB4 /* Pods-spark-sdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; lineEnding = 0; name = "Pods-spark-sdk.release.xcconfig"; path = "Pods/Target Support Files/Pods-spark-sdk/Pods-spark-sdk.release.xcconfig"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.xcconfig; };
 		33C99C6238D91716E59C86A5 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; lineEnding = 0; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.xcconfig; };
@@ -133,6 +136,8 @@
 				6003F59C195388D20070C39A /* SparkAppDelegate.h */,
 				6003F59D195388D20070C39A /* SparkAppDelegate.m */,
 				6003F59F195388D20070C39A /* Main.storyboard */,
+				001DAA731AB04622003B11C9 /* SparkLoginViewController.h */,
+				001DAA741AB04622003B11C9 /* SparkLoginViewController.m */,
 				6003F5A5195388D20070C39A /* SparkViewController.h */,
 				6003F5A6195388D20070C39A /* SparkViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -363,6 +368,7 @@
 			files = (
 				6003F59E195388D20070C39A /* SparkAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* SparkViewController.m in Sources */,
+				001DAA751AB04622003B11C9 /* SparkLoginViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
