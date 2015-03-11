@@ -72,6 +72,7 @@
 
 -(void)setName:(NSString *)name
 {
+    _name = name;
     // TODO: device renaming code
 }
 
