@@ -9,7 +9,6 @@
 #import "SparkCloud.h"
 #import "KeychainItemWrapper.h"
 #import "SparkAccessToken.h"
-#import "SparkUser.h"
 //#import "SparkSetupCustomization.h"
 
 #define GLOBAL_API_TIMEOUT_INTERVAL     7.0f
@@ -35,7 +34,6 @@ NSString *const kSparkAPIBaseURL = @"https://ifttt-api.spark.io";
 @interface SparkCloud () <SparkAccessTokenDelegate>
 @property (nonatomic, strong) NSURL* baseURL;
 @property (nonatomic, strong) SparkAccessToken* token;
-@property (nonatomic, strong) SparkUser* user;
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
 @end
 

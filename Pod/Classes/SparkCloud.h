@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
 #import "SparkDevice.h"
+#import "SparkUser.h"
 
 extern NSString *const kSparkAPIBaseURL;
 
@@ -26,7 +27,10 @@ extern NSString *const kSparkAPIBaseURL;
  *  Returns YES if theres a user logged in.
  */
 @property (nonatomic, readonly) BOOL isUserLoggedIn;
-
+/**
+ *  Returns the loggedin user or nil if none.
+ */
+@property (nonatomic, strong) SparkUser* user;
 
 /**
  *  Singleton instance of SparkCloud class
