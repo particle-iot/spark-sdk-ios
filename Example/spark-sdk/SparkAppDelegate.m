@@ -7,11 +7,14 @@
 //
 
 #import "SparkAppDelegate.h"
+#import <SVProgressHUD.h>
 
 @implementation SparkAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:0.875 green:0.875 blue:0.875 alpha:1]];
     // Override point for customization after application launch.
     return YES;
 }
