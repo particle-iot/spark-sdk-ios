@@ -8,6 +8,7 @@
 
 #import "SparkLoginViewController.h"
 #import <SparkCloud.h>
+#import <SVProgressHUD.h>
 
 @interface SparkLoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -38,11 +39,17 @@
 }
 
 - (IBAction)loginButtonPressed:(id)sender {
-    NSLog(@"Attempting login: %@", self.usernameTextField.text);
+    
+    if (self.usernameTextField.text.length<=0 || self.passwordTextField.text.length<=0) {
+        self.validationMessage = @"Missing data. Enter your credentials";
+        return;
+    }
+    
+    [SVProgressHUD show];
     [self.cloud loginWithUser:self.usernameTextField.text
                      password:self.passwordTextField.text
                    completion:^(NSError *error) {
-                       
+                       [SVProgressHUD dismiss];
                        if (error) {
                            NSLog(@"Login Fail: \n -> %@", error);
                            self.validationMessage = @"Login Failed";

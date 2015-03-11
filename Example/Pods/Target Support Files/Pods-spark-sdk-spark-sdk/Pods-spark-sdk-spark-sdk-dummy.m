@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-@interface PodsDummy_Pods_spark_sdk_spark_sdk : NSObject
+@interface PodsDummy_Pods_Spark_SDK_Spark_SDK : NSObject
 @end
-@implementation PodsDummy_Pods_spark_sdk_spark_sdk
+@implementation PodsDummy_Pods_Spark_SDK_Spark_SDK
 @end

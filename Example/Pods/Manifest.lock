@@ -20,18 +20,27 @@ PODS:
   - AFNetworking/UIKit (2.5.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - spark-sdk (0.1.0)
+  - Spark-SDK (0.1.2):
+    - Spark-SDK/Helpers (= 0.1.2)
+    - Spark-SDK/SDK (= 0.1.2)
+  - Spark-SDK/Helpers (0.1.2)
+  - Spark-SDK/SDK (0.1.2):
+    - AFNetworking
+    - Spark-SDK/Helpers
+  - SVProgressHUD (1.1.2)
 
 DEPENDENCIES:
   - AFNetworking
-  - spark-sdk (from `../`)
+  - Spark-SDK (from `../`)
+  - SVProgressHUD
 
 EXTERNAL SOURCES:
-  spark-sdk:
+  Spark-SDK:
     :path: ../
 
 SPEC CHECKSUMS:
   AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
-  spark-sdk: 172878caee06c10e46b8680d4aca1b9248ce1d07
+  Spark-SDK: 156460e022470431e3df35eaa279fd37ff92870c
+  SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438
 
 COCOAPODS: 0.35.0
