@@ -7,11 +7,15 @@
 //
 
 #import "SparkDeviceDetailsViewController.h"
+#import <SparkCloud.h>
+#import <SVProgressHUD.h>
 
 
 @interface SparkDeviceDetailsViewController ()
-@property (strong, nonatomic) NSArray *dataSource;
 
+@property (strong, nonatomic) NSArray *dataSource;
+@property (weak, nonatomic) SparkCloud *cloud;
+@property (strong, nonatomic) NSMutableDictionary *varValues;
 
 @end
 
@@ -19,6 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.cloud = [SparkCloud sharedInstance];
+    self.varValues = [[NSMutableDictionary alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -87,12 +93,39 @@
     } else if (indexPath.section==1) {
         NSDictionary *variables = self.dataSource[indexPath.section];
         NSString *keyOfVariable = [variables.allKeys objectAtIndex:indexPath.row];
-        NSString *valueOfVariable = variables[keyOfVariable];
-        cell.textLabel.text = keyOfVariable;
-        cell.detailTextLabel.text = valueOfVariable;
+//        NSString *valueOfVariable = variables[keyOfVariable];
+        if (self.varValues[indexPath]) {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", self.varValues[indexPath]];
+        } else {
+            cell.textLabel.text = @"tap here to read variable";
+        }
+        cell.detailTextLabel.text = keyOfVariable;;
     }
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section==0) return;
+
+    NSDictionary *variables = self.dataSource[indexPath.section];
+    NSString *variableName = [variables.allKeys objectAtIndex:indexPath.row];
+    
+    [SVProgressHUD show];
+    [self.selectedDevice getVariable:variableName
+                          completion:^(id result, NSError *error) {
+                              [SVProgressHUD dismiss];
+                              if (error) {
+                                  [SVProgressHUD showErrorWithStatus:@"Can't load Variable"];
+                                  return;
+                            }
+                              NSLog(@"%@", result);
+                              self.varValues[indexPath] = result;
+                              [self.tableView reloadData];        
+    }];
+    
+}
+
 
 @end
