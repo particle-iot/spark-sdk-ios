@@ -80,7 +80,9 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @param completion Completion block with the device instances array in case of success or with NSError object if failure
  */
--(void)getDevices:(void(^)(NSArray *devices, NSError *error))completion;
+-(void)getDevicesPartially:(BOOL)partial
+                completion:(void (^)(NSArray *devices, NSError *error))completion;
+
 
 /**
  *  Get a specific device instance by its deviceID

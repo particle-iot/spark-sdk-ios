@@ -39,6 +39,10 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 /**
  *  Device firmware version string
  */
+/**
+ *  Device ID string
+ */
+@property (nonatomic) BOOL partial;
 @property (strong, nonatomic, readonly) NSString *version;
 @property (nonatomic, readonly) BOOL requiresUpdate;
 @property (nonatomic, readonly) SparkDeviceType type;
