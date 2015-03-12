@@ -16,7 +16,7 @@ typedef void (^LoginCompletion)(SparkLoginViewController *loginViewController, S
 
 @interface SparkLoginViewController : UIViewController
 
-+ (void)presentLoginViewControllerFromViewController:(UIViewController*)sender
++ (void)presentLoginViewControllerFrom:(UIViewController*)sender
                                      withCompletion:(LoginCompletion)completion;
 
 

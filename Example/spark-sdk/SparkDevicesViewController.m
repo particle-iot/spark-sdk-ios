@@ -26,64 +26,57 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = NO;
     self.skipReloadOfDevices = NO;
     
     self.devices = @[].mutableCopy;
     self.cloud = [SparkCloud sharedInstance];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self loginCheck];
-}
 
 - (void)loginCheck
 {
     if (!self.cloud.isUserLoggedIn) {
-        
-        [SparkLoginViewController presentLoginViewControllerFromViewController:self
-                                                                withCompletion:^(SparkLoginViewController *loginViewController, SparkUser *user) {
-                                                                    
-                                                                    [self dismissViewControllerAnimated:YES completion:nil];
-                                                                }];
+        [SparkLoginViewController presentLoginViewControllerFrom:self
+                                                  withCompletion:^(SparkLoginViewController *loginViewController, SparkUser *user) {
+                                                      
+                                                      [loginViewController dismissViewControllerAnimated:YES completion:nil];
+                                                  }];
     } else {
-        
         self.title = self.cloud.loggedInUsername;
-        
     }
-
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!self.skipReloadOfDevices) {
+    
+    [self loginCheck];
+    
+    if (!self.skipReloadOfDevices && self.cloud.isUserLoggedIn) {
         [self loadData];
     }
 }
 
 - (void)loadData {
+    
+    if (!self.cloud.isUserLoggedIn) return;
     [SVProgressHUD show];
-
+    
     [self.cloud getDevices:^(NSArray *devices, NSError *error) {
-
+        
         if (error) {
             [SVProgressHUD showErrorWithStatus:@"Error: Can't load devices"];
             return;
         }
-
+        
         [SVProgressHUD dismiss];
         
         [devices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [self.devices addObject:obj];
             [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         }];
-        
-        NSLog(@"Got devices: %li", self.devices.count);
-
-
     }];
     
     
@@ -104,67 +97,62 @@
     cell.textLabel.text = device.name;
     cell.detailTextLabel.text = device.ID;
     
+    if ([self deviceHasFunctionsOrVariables:device]) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedDevice = self.devices[indexPath.row];
-    [self performSegueWithIdentifier:@"DeviceDetail" sender:self];
+    
+    if ([self deviceHasFunctionsOrVariables:self.selectedDevice]) {
+        [self performSegueWithIdentifier:@"DeviceDetail" sender:self];
+    }
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 #pragma mark - Button Actions
 - (IBAction)logoutButtonPressed:(id)sender {
-    [self.cloud logout];
-    self.devices = @[].mutableCopy;
-    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self loginCheck];
-    
+    [self performLogout];
 }
 
+
+#pragma mark - Helpers
+- (BOOL)deviceHasFunctionsOrVariables:(SparkDevice*)device
+{
+    if (device.functions.count <=0 && device.variables.allKeys.count <=0) return NO;
+    
+    return YES;
+}
+
+- (void)performLogout
+{
+    [self.cloud logout];
+    NSLog(@"User: %@", self.cloud.loggedInUsername);
+    self.devices = @[].mutableCopy;
+    self.title = @"";
+    [self.tableView reloadData];
+    self.skipReloadOfDevices = NO;
+    [self loginCheck];
+}
+
+
 #pragma mark - Navigation
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"DeviceDetail"]) {
         self.skipReloadOfDevices = YES;
         SparkDeviceDetailsViewController *ddvc = (SparkDeviceDetailsViewController *)segue.destinationViewController;
-        ddvc.selectedDevice = self.selectedDevice;        
+        ddvc.selectedDevice = self.selectedDevice;
     }
-
+    
 }
+
 
 @end

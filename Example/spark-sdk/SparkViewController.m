@@ -30,11 +30,11 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     if (!self.cloud.isUserLoggedIn) {
-        [SparkLoginViewController presentLoginViewControllerFromViewController:self
-                                                                withCompletion:^(SparkLoginViewController *loginViewController, SparkUser *user) {
-                                                                            [self dismissViewControllerAnimated:YES completion:nil];
-                                                                    NSLog(@"User: %@", user.user);
-                                                                }];
+        [SparkLoginViewController presentLoginViewControllerFrom:self
+                                                  withCompletion:^(SparkLoginViewController *loginViewController, SparkUser *user) {
+                                                      [self dismissViewControllerAnimated:YES completion:nil];
+                                                      NSLog(@"User: %@", user.user);
+                                                  }];
     } else {
         NSLog(@"User: %@ is logged in", self.cloud.loggedInUsername);
         self.logoutButton.enabled = YES;

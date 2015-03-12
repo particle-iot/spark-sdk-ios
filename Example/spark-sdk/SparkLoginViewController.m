@@ -65,16 +65,6 @@
      self.completion(self, nil);
 }
 
-+ (void)presentLoginViewControllerFromViewController:(UIViewController*)sender
-                                     withCompletion:(LoginCompletion)completion
-{
-
-    UIStoryboard *storyboard = sender.storyboard;
-    SparkLoginViewController *slvc = [storyboard instantiateViewControllerWithIdentifier:@"SparkLoginViewController"];
-    slvc.completion = [completion copy];
-    slvc.senderViewController = sender;
-    [sender presentViewController:slvc animated:YES completion:nil];
-}
 
 -(void)setValidationMessage:(NSString *)validationMessage
 {
@@ -94,6 +84,17 @@
 - (NSString *)validationMessage
 {
     return _validationMessage;
+}
+
++ (void)presentLoginViewControllerFrom:(UIViewController*)sender
+                        withCompletion:(LoginCompletion)completion
+{
+    
+    UIStoryboard *storyboard = sender.storyboard;
+    SparkLoginViewController *slvc = [storyboard instantiateViewControllerWithIdentifier:@"SparkLoginViewController"];
+    slvc.completion = [completion copy];
+    slvc.senderViewController = sender;
+    [sender presentViewController:slvc animated:YES completion:nil];
 }
 
 @end
