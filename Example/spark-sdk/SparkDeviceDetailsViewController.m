@@ -8,6 +8,7 @@
 
 #import "SparkDeviceDetailsViewController.h"
 #import <SparkCloud.h>
+#import "SparkDeviceDetailCell.h"
 #import <SVProgressHUD.h>
 
 
@@ -16,6 +17,10 @@
 @property (strong, nonatomic) NSArray *dataSource;
 @property (weak, nonatomic) SparkCloud *cloud;
 @property (strong, nonatomic) NSMutableDictionary *varValues;
+@property (strong, nonatomic) NSMutableArray *funcResponses;
+@property (strong, nonatomic) NSMutableArray *observedVariables;
+@property (strong, nonatomic) NSTimer *observeTimer;
+
 
 @end
 
@@ -24,15 +29,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cloud = [SparkCloud sharedInstance];
+    self.navigationController.toolbarHidden = NO;
+    
     self.varValues = [[NSMutableDictionary alloc] init];
+    self.observedVariables = [[NSMutableArray alloc] init];
+    self.funcResponses = [[NSMutableArray alloc] initWithCapacity:self.selectedDevice.functions.count];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.dataSource = @[self.selectedDevice.functions, self.selectedDevice.variables];
-    
     self.title = self.selectedDevice.name;
+    
+    [self.selectedDevice.functions enumerateObjectsUsingBlock:^(NSDictionary *funcDic, NSUInteger idx, BOOL *stop) {
+        [self.funcResponses insertObject:@"tap to call" atIndex:idx];
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,23 +96,30 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailsCell" forIndexPath:indexPath];
-
-    cell.detailTextLabel.text = @"";
+    SparkDeviceDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailsCell" forIndexPath:indexPath];
+    
+    cell.subtitleLabel.text = @"";
+    [cell.activityIndicator stopAnimating];
+    cell.statusImageView.hidden = YES;
+    
     if (indexPath.section==0) {
         NSArray *functions = self.dataSource[indexPath.section];
-        cell.textLabel.text = functions[indexPath.row];
-        
+        cell.titleLabel.text = functions[indexPath.row];
+        cell.subtitleLabel.text = [NSString stringWithFormat:@"%@", [self.funcResponses objectAtIndex:indexPath.row]];
     } else if (indexPath.section==1) {
         NSDictionary *variables = self.dataSource[indexPath.section];
         NSString *keyOfVariable = [variables.allKeys objectAtIndex:indexPath.row];
-//        NSString *valueOfVariable = variables[keyOfVariable];
         if (self.varValues[indexPath]) {
-            cell.textLabel.text = [NSString stringWithFormat:@"%@", self.varValues[indexPath]];
+            cell.subtitleLabel.text = [NSString stringWithFormat:@"%@", self.varValues[indexPath]];
         } else {
-            cell.textLabel.text = @"tap here to read variable";
+            cell.subtitleLabel.text = @"tap to read";
         }
-        cell.detailTextLabel.text = keyOfVariable;;
+        
+        cell.titleLabel.text = keyOfVariable;
+        
+        if ([self.observedVariables containsObject:indexPath]) {
+            cell.statusImageView.hidden = NO;
+        }
     }
     
     return cell;
@@ -107,24 +127,94 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==0) return;
+    SparkDeviceDetailCell *cell = (SparkDeviceDetailCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+    
+    if (indexPath.section==0) {
+        
+        NSArray *functions = self.dataSource[indexPath.section];
+        NSString *functionName = functions[indexPath.row];
+        [cell.activityIndicator startAnimating];
+        [self.selectedDevice callFunction:functionName
+                            withArguments:nil
+                               completion:^(NSNumber *number, NSError *error) {
+            [cell.activityIndicator stopAnimating];
+            if (error) {
+                [SVProgressHUD showErrorWithStatus:@"Can't call function!"];
+                return;
+            }
 
+            [self.funcResponses replaceObjectAtIndex:indexPath.row
+                                          withObject:number];
+                                   
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+            
+        }];
+        return;
+    }
+    
     NSDictionary *variables = self.dataSource[indexPath.section];
     NSString *variableName = [variables.allKeys objectAtIndex:indexPath.row];
     
-    [SVProgressHUD show];
+    [cell.activityIndicator startAnimating];
     [self.selectedDevice getVariable:variableName
                           completion:^(id result, NSError *error) {
-                              [SVProgressHUD dismiss];
+                              [cell.activityIndicator stopAnimating];
                               if (error) {
-                                  [SVProgressHUD showErrorWithStatus:@"Can't load Variable"];
+                                  [SVProgressHUD showErrorWithStatus:@"Can't get variable!"];
                                   return;
-                            }
-                              NSLog(@"%@", result);
+                              }
                               self.varValues[indexPath] = result;
-                              [self.tableView reloadData];        
-    }];
+                              [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                              [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+                          }];
     
+}
+
+- (IBAction)observeButtonPressed:(id)sender {
+    NSIndexPath *selIndexPath = self.tableView.indexPathForSelectedRow;
+    if (selIndexPath.section == 0) return;
+    
+    if (selIndexPath) {
+        if ([self.observedVariables containsObject:selIndexPath]) {
+            [self.observedVariables removeObject:selIndexPath];
+        } else {
+            [self.observedVariables addObject:selIndexPath];
+        }
+        
+        if (self.observedVariables.count>0) {
+            [self.observeTimer invalidate];
+            self.observeTimer = [NSTimer scheduledTimerWithTimeInterval:4.0
+                                                                 target:self
+                                                               selector:@selector(performVarObservations:)
+                                                               userInfo:nil
+                                                                repeats:YES];
+        } else {
+            [self.observeTimer invalidate];
+        }
+        
+        [self.tableView reloadRowsAtIndexPaths:@[selIndexPath]
+                              withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
+}
+
+- (IBAction)stopAllObservationsButtonPressed:(id)sender {
+    [self.observeTimer invalidate];
+    [self.observedVariables removeAllObjects];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1]
+                  withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)performVarObservations:(NSTimer *)timer {
+    if (self.observedVariables.count<=0) {
+        [timer invalidate];
+        return;
+    }
+    
+    [self.observedVariables enumerateObjectsUsingBlock:^(NSIndexPath *idxPathInTableView, NSUInteger idx, BOOL *stop) {
+        [self tableView:self.tableView didSelectRowAtIndexPath:idxPathInTableView];
+    }];
 }
 
 

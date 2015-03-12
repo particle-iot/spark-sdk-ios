@@ -12,6 +12,7 @@
 #import <SVProgressHUD.h>
 #import <SparkDevice.h>
 #import <SparkCloud.h>
+#import "SparkDeviceCell.h"
 
 @interface SparkDevicesViewController ()
 
@@ -64,8 +65,8 @@
     if (!self.cloud.isUserLoggedIn) return;
     [SVProgressHUD show];
     
-    [self.cloud getDevices:^(NSArray *devices, NSError *error) {
-        
+    [self.cloud getDevicesPartially:YES completion:^(NSArray *devices, NSError *error) {
+
         if (error) {
             [SVProgressHUD showErrorWithStatus:@"Error: Can't load devices"];
             return;
@@ -92,29 +93,57 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeviceCell" forIndexPath:indexPath];
+    SparkDeviceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeviceCell" forIndexPath:indexPath];
     SparkDevice *device = (SparkDevice*)[self.devices objectAtIndex:indexPath.row];
-    cell.textLabel.text = device.name;
-    cell.detailTextLabel.text = device.ID;
-    
-    if ([self deviceHasFunctionsOrVariables:device]) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+    [cell configureCellWithDevice:device];
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedDevice = self.devices[indexPath.row];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (self.selectedDevice.partial) {
+        [self loadFullDevice:self.selectedDevice];
+        return;
+    }
+    
     
     if ([self deviceHasFunctionsOrVariables:self.selectedDevice]) {
         [self performSegueWithIdentifier:@"DeviceDetail" sender:self];
     }
     
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)loadFullDevice:(SparkDevice*)partialDevice {
+
+        [SVProgressHUD show];
+        [self.cloud getDevice:partialDevice.ID completion:^(SparkDevice *fullDevice, NSError *error) {
+            [SVProgressHUD dismiss];
+            if (error) {
+                [SVProgressHUD showErrorWithStatus:@"Can't load full device"];
+                return;
+            }
+            
+            NSInteger idx = [self.devices indexOfObject:partialDevice];
+            [self.devices replaceObjectAtIndex:idx withObject:fullDevice];
+            self.selectedDevice = fullDevice;
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            if ([self deviceHasFunctionsOrVariables:self.selectedDevice]) {
+                [self performSegueWithIdentifier:@"DeviceDetail" sender:self];
+            }
+
+        }];
+
+
 }
 
 #pragma mark - Button Actions
