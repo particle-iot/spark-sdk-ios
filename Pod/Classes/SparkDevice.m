@@ -41,13 +41,13 @@
         
 
         if (params[@"functions"] == [NSNull null]) {
-            self.functions = nil;
+            self.functions = @[];
         } else {
             self.functions = params[@"functions"];
         }
         
         if (params[@"variables"] == [NSNull null]) {
-            self.variables = nil;
+            self.variables = @{};
         } else {
             self.variables = params[@"variables"];
         }
