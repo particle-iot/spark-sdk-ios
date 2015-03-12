@@ -39,8 +39,20 @@
         else
             self.connected = NO;
         
-        self.functions = params[@"functions"];
-        self.variables = params[@"variables"];
+
+        if (params[@"functions"] == [NSNull null]) {
+            self.functions = nil;
+        } else {
+            self.functions = params[@"functions"];
+        }
+        
+        if (params[@"variables"] == [NSNull null]) {
+            self.variables = nil;
+        } else {
+            self.variables = params[@"variables"];
+        }
+
+        
         
 //        self.variables =
         self.ID = params[@"id"];
