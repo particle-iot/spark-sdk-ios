@@ -19,12 +19,15 @@
 @property (strong, nonatomic) NSMutableArray *devices;
 @property (weak, nonatomic) SparkCloud *cloud;
 @property (weak, nonatomic) SparkDevice *selectedDevice;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (nonatomic) BOOL skipReloadOfDevices;
 
 @end
 
 @implementation SparkDevicesViewController
 
+
+#pragma mark - UIView LifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.clearsSelectionOnViewWillAppear = NO;
@@ -32,21 +35,10 @@
     
     self.devices = @[].mutableCopy;
     self.cloud = [SparkCloud sharedInstance];
-}
-
-
-- (void)loginCheck
-{
-    if (!self.cloud.isUserLoggedIn) {
-        [SparkLoginViewController presentLoginViewControllerFrom:self
-                                                  withCompletion:^(SparkLoginViewController *loginViewController, SparkUser *user) {
-                                                      
-                                                      [loginViewController dismissViewControllerAnimated:YES completion:nil];
-                                                  }];
-    } else {
-        self.title = self.cloud.loggedInUsername;
-    }
     
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    [self.tableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -60,10 +52,26 @@
     }
 }
 
+#pragma mark - Data Loaders
+- (void)reloadData {
+    NSArray *devicesCopy = self.devices.copy;
+    
+    [devicesCopy enumerateObjectsUsingBlock:^(SparkDevice *device, NSUInteger idx, BOOL *stop) {
+        NSIndexPath *idxPathOfObject = [NSIndexPath indexPathForRow:[self.devices indexOfObject:device] inSection:0];
+        [self.devices removeObject:device];
+        [self.tableView deleteRowsAtIndexPaths:@[idxPathOfObject] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+    
+    [self loadData];
+}
+
 - (void)loadData {
     
     if (!self.cloud.isUserLoggedIn) return;
-    [SVProgressHUD show];
+    
+    if (!self.refreshControl.isRefreshing) {
+        [SVProgressHUD show];
+    }
     
     [self.cloud getDevicesPartially:YES completion:^(NSArray *devices, NSError *error) {
 
@@ -72,6 +80,7 @@
             return;
         }
         
+        [self.refreshControl endRefreshing];
         [SVProgressHUD dismiss];
         
         [devices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -79,8 +88,6 @@
             [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         }];
     }];
-    
-    
 }
 
 #pragma mark - Table view data source
@@ -169,6 +176,21 @@
     [self.tableView reloadData];
     self.skipReloadOfDevices = NO;
     [self loginCheck];
+}
+
+
+- (void)loginCheck
+{
+    if (!self.cloud.isUserLoggedIn) {
+        [SparkLoginViewController presentLoginViewControllerFrom:self
+                                                  withCompletion:^(SparkLoginViewController *loginViewController, SparkUser *user) {
+                                                      
+                                                      [loginViewController dismissViewControllerAnimated:YES completion:nil];
+                                                  }];
+    } else {
+        self.title = self.cloud.loggedInUsername;
+    }
+    
 }
 
 

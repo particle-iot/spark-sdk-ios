@@ -21,11 +21,11 @@
 @property (strong, nonatomic) NSMutableArray *observedVariables;
 @property (strong, nonatomic) NSTimer *observeTimer;
 
-
 @end
 
 @implementation SparkDeviceDetailsViewController
 
+#pragma mark - UIView LifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cloud = [SparkCloud sharedInstance];
@@ -46,11 +46,6 @@
         [self.funcResponses insertObject:@"tap to call" atIndex:idx];
     }];
     
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -171,6 +166,12 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
+}
+
+
+#pragma mark - Button Methods
 - (IBAction)observeButtonPressed:(id)sender {
     NSIndexPath *selIndexPath = self.tableView.indexPathForSelectedRow;
     if (selIndexPath.section == 0) return;
@@ -206,6 +207,7 @@
                   withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+#pragma mark - Observation Methods (Timer Reload of Vars)
 - (void)performVarObservations:(NSTimer *)timer {
     if (self.observedVariables.count<=0) {
         [timer invalidate];

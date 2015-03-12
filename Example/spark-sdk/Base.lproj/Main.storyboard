@@ -35,7 +35,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="17" id="2ql-wa-OKu"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -114,7 +114,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="kHM-ZU-zst"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
