@@ -1,0 +1,1 @@
+PODS_TESTS_SPARK_SDK_OTHER_LDFLAGS = -framework "Security" -framework "SystemConfiguration"

@@ -1,0 +1,1 @@
+PODS_SPARK_SDK_SVPROGRESSHUD_OTHER_LDFLAGS = -framework "QuartzCore"

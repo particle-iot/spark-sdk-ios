@@ -1,11 +1,16 @@
 <p align="center" >
-<img src="https://s3.amazonaws.com/spark-website/spark.png" alt="Spark" title="Spark">
+<img src="https://s3.amazonaws.com/spark-website/spark.png" alt="Spark" title="Spark-Forked">
 </p>
+<br>NOTE: This is a forked release from the official spark SDK</br>
 
 <!---
 (Update link)
 [![Build Status](https://travis-ci.org/AFNetworking/AFNetworking.svg)](https://travis-ci.org/Spark-SDK/Spark-SDK)
 -->
+<p>
+This is a Fork of the official Spark-SDK. This code contains some fixes and improvements to the SDK code that helped created the demo app. The demo app now logs in to the cloud and get's devices. It can also poll variables and call functions. This is in no way intended to substitute the official release. Code still needs some cleanups to be ready for prime time. Feel free to contrinute.
+<br><br>---original readme---<br>
+
 Spark SDK is a library that will allow you to easily interact with internet connected hardware powered by Spark, that includes:
 - User session management for Spark cloud
 - Read/write data to/from Spark Core, Photon or Electron devices
@@ -27,11 +32,10 @@ Spark SDK is a library that will allow you to easily interact with internet conn
 
 ### Installation with CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries in your projects. 
+[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries in your projects.
 
 #### Podfile
 
 ```ruby
 pod 'Spark-SDK'
 ```
-

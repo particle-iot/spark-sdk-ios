@@ -3,10 +3,11 @@ source 'https://github.com/CocoaPods/Specs.git'
 target 'Spark-SDK', :exclusive => true do
   pod "Spark-SDK", :path => "../"
   pod 'AFNetworking'
+  pod 'SVProgressHUD'
 end
 
 target 'Tests', :exclusive => true do
   pod "Spark-SDK", :path => "../"
 
-  
+
 end

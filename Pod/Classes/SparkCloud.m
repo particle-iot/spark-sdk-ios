@@ -9,7 +9,6 @@
 #import "SparkCloud.h"
 #import "KeychainItemWrapper.h"
 #import "SparkAccessToken.h"
-#import "SparkUser.h"
 //#import "SparkSetupCustomization.h"
 
 #define GLOBAL_API_TIMEOUT_INTERVAL     7.0f
@@ -35,7 +34,6 @@ NSString *const kSparkAPIBaseURL = @"https://ifttt-api.spark.io";
 @interface SparkCloud () <SparkAccessTokenDelegate>
 @property (nonatomic, strong) NSURL* baseURL;
 @property (nonatomic, strong) SparkAccessToken* token;
-@property (nonatomic, strong) SparkUser* user;
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
 @end
 
@@ -96,6 +94,14 @@ NSString *const kSparkAPIBaseURL = @"https://ifttt-api.spark.io";
         return self.user.user;
     else
         return nil;
+}
+
+-(BOOL)isUserLoggedIn {
+    if ((self.user) && (self.token)) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 #pragma mark Delegate functions
@@ -259,6 +265,7 @@ NSString *const kSparkAPIBaseURL = @"https://ifttt-api.spark.io";
 {
     [SparkAccessToken removeSession];
     [SparkUser removeSession];
+    self.user = nil;
 }
 
 
@@ -314,7 +321,8 @@ NSString *const kSparkAPIBaseURL = @"https://ifttt-api.spark.io";
 
 
 
--(void)getDevices:(void (^)(NSArray *devices, NSError *error))completion
+-(void)getDevicesPartially:(BOOL)partial
+              completion:(void (^)(NSArray *devices, NSError *error))completion
 {
      [self.manager GET:@"/v1/devices" parameters:[self defaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
@@ -322,32 +330,34 @@ NSString *const kSparkAPIBaseURL = @"https://ifttt-api.spark.io";
          {
              
              NSArray *responseList = responseObject;
-             NSMutableArray *deviceIDList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
              __block NSMutableArray *deviceList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
              __block NSError *deviceError = nil;
-             // analyze
-             for (NSDictionary *deviceDict in responseList)
-             {
-                 [deviceIDList addObject:deviceDict[@"id"]];
-             }
 
              // iterate thru deviceList and create SparkDevice instances through query
              __block dispatch_group_t group = dispatch_group_create();
-             
-             for (NSString *deviceID in deviceIDList)
-             {
-                 dispatch_group_enter(group);
-                 [self getDevice:deviceID completion:^(SparkDevice *device, NSError *error) {
-                     if ((!error) && (device))
-                         [deviceList addObject:device];
-                     
-                     if ((error) && (!deviceError)) // if there wasn't an error before cache it
-                         deviceError = error;
-                     
-                     dispatch_group_leave(group);
-                 }];
-             }
-             
+             [responseList enumerateObjectsUsingBlock:^(NSDictionary *deviceDict, NSUInteger idx, BOOL *stop) {
+                 if (partial) {
+                     SparkDevice *device = [[SparkDevice alloc] initWithParams:deviceDict];
+                     device.partial = YES;
+                     [deviceList addObject:device];
+                 } else {
+                     dispatch_group_enter(group);
+                     [self getDevice:deviceDict[@"id"] completion:^(SparkDevice *device, NSError *error) {
+                         if ((!error) && (device)) {
+                             device.partial = NO;
+                             [deviceList addObject:device];
+                         }
+                         
+                         if ((error) && (!deviceError)) { // if there wasn't an error before cache it
+                             deviceError = error;
+                         }
+                         
+                         dispatch_group_leave(group);
+                     }];
+ 
+                 }
+             }];
+                             
              // call user's completion block on main thread after all concurrent GET requests finished and SparkDevice instances created
              dispatch_group_notify(group, dispatch_get_main_queue(), ^{
                  if (completion)

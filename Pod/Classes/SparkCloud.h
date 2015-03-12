@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
 #import "SparkDevice.h"
+#import "SparkUser.h"
 
 extern NSString *const kSparkAPIBaseURL;
 
@@ -22,7 +23,14 @@ extern NSString *const kSparkAPIBaseURL;
  *  Current session access token string
  */
 @property (nonatomic, strong, readonly) NSString *accessToken;
-
+/**
+ *  Returns YES if theres a user logged in.
+ */
+@property (nonatomic, readonly) BOOL isUserLoggedIn;
+/**
+ *  Returns the loggedin user or nil if none.
+ */
+@property (nonatomic, strong) SparkUser* user;
 
 /**
  *  Singleton instance of SparkCloud class
@@ -72,7 +80,9 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @param completion Completion block with the device instances array in case of success or with NSError object if failure
  */
--(void)getDevices:(void(^)(NSArray *devices, NSError *error))completion;
+-(void)getDevicesPartially:(BOOL)partial
+                completion:(void (^)(NSArray *devices, NSError *error))completion;
+
 
 /**
  *  Get a specific device instance by its deviceID

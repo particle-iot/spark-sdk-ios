@@ -39,8 +39,20 @@
         else
             self.connected = NO;
         
-        self.functions = params[@"functions"];
-        self.variables = params[@"variables"];
+
+        if (params[@"functions"] == [NSNull null]) {
+            self.functions = @[];
+        } else {
+            self.functions = params[@"functions"];
+        }
+        
+        if (params[@"variables"] == [NSNull null]) {
+            self.variables = @{};
+        } else {
+            self.variables = params[@"variables"];
+        }
+
+        
         
 //        self.variables =
         self.ID = params[@"id"];
@@ -72,6 +84,7 @@
 
 -(void)setName:(NSString *)name
 {
+    _name = name;
     // TODO: device renaming code
 }
 
