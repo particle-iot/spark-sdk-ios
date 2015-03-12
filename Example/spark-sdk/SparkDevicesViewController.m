@@ -8,6 +8,7 @@
 
 #import "SparkDevicesViewController.h"
 #import "SparkLoginViewController.h"
+#import "SparkDeviceDetailsViewController.h"
 #import <SVProgressHUD.h>
 #import <SparkDevice.h>
 #import <SparkCloud.h>
@@ -16,6 +17,8 @@
 
 @property (strong, nonatomic) NSMutableArray *devices;
 @property (weak, nonatomic) SparkCloud *cloud;
+@property (weak, nonatomic) SparkDevice *selectedDevice;
+@property (nonatomic) BOOL skipReloadOfDevices;
 
 @end
 
@@ -24,34 +27,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      self.clearsSelectionOnViewWillAppear = NO;
+    self.skipReloadOfDevices = NO;
     
-    self.devices = [[NSMutableArray alloc] init];
+    self.devices = @[].mutableCopy;
     self.cloud = [SparkCloud sharedInstance];
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self loginCheck];
+}
+
+- (void)loginCheck
+{
     if (!self.cloud.isUserLoggedIn) {
+        
         [SparkLoginViewController presentLoginViewControllerFromViewController:self
                                                                 withCompletion:^(SparkLoginViewController *loginViewController, SparkUser *user) {
+                                                                    
                                                                     [self dismissViewControllerAnimated:YES completion:nil];
-                                                                    NSLog(@"User: %@", user.user);
                                                                 }];
     } else {
-        NSLog(@"User: %@ is logged in", self.cloud.loggedInUsername);
+        
         self.title = self.cloud.loggedInUsername;
+        
     }
-    
+
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self loadData];
+    if (!self.skipReloadOfDevices) {
+        [self loadData];
+    }
 }
 
 - (void)loadData {
     [SVProgressHUD show];
+
     [self.cloud getDevices:^(NSArray *devices, NSError *error) {
 
         if (error) {
@@ -60,7 +75,6 @@
         }
 
         [SVProgressHUD dismiss];
-//        self.devices = devices.mutableCopy;
         
         [devices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [self.devices addObject:obj];
@@ -88,8 +102,15 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeviceCell" forIndexPath:indexPath];
     SparkDevice *device = (SparkDevice*)[self.devices objectAtIndex:indexPath.row];
     cell.textLabel.text = device.name;
+    cell.detailTextLabel.text = device.ID;
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.selectedDevice = self.devices[indexPath.row];
+    [self performSegueWithIdentifier:@"DeviceDetail" sender:self];
 }
 
 /*
@@ -125,15 +146,25 @@
     return YES;
 }
 */
+#pragma mark - Button Actions
+- (IBAction)logoutButtonPressed:(id)sender {
+    [self.cloud logout];
+    self.devices = @[].mutableCopy;
+    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self loginCheck];
+    
+}
 
-/*
 #pragma mark - Navigation
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"DeviceDetail"]) {
+        self.skipReloadOfDevices = YES;
+        SparkDeviceDetailsViewController *ddvc = (SparkDeviceDetailsViewController *)segue.destinationViewController;
+        ddvc.selectedDevice = self.selectedDevice;        
+    }
+
 }
-*/
 
 @end

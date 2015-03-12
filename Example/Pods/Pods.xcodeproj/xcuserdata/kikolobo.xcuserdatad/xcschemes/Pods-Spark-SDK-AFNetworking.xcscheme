@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0620"
+   LastUpgradeVersion = "0510"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BB77B4AD47AF7016EBA1F1EC"
+               BlueprintIdentifier = "4F3F1664FF7070CA31BD1217"
                BuildableName = "libPods-Spark-SDK-AFNetworking.a"
                BlueprintName = "Pods-Spark-SDK-AFNetworking"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -39,15 +39,6 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BB77B4AD47AF7016EBA1F1EC"
-            BuildableName = "libPods-Spark-SDK-AFNetworking.a"
-            BlueprintName = "Pods-Spark-SDK-AFNetworking"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
