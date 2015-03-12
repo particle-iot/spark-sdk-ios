@@ -265,6 +265,7 @@ NSString *const kSparkAPIBaseURL = @"https://ifttt-api.spark.io";
 {
     [SparkAccessToken removeSession];
     [SparkUser removeSession];
+    self.user = nil;
 }
 
 
