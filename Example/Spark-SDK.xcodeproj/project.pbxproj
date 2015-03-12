@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0015D3941AB17BE800D7E8F6 /* SparkDeviceDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0015D3931AB17BE800D7E8F6 /* SparkDeviceDetailCell.m */; };
 		001DAA751AB04622003B11C9 /* SparkLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 001DAA741AB04622003B11C9 /* SparkLoginViewController.m */; };
+		0041679C1AB1688200CD2D7A /* SparkDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041679B1AB1688200CD2D7A /* SparkDeviceCell.m */; };
 		35EC455787B3F1BE07C95E82 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80E18242CFBD279E9DD09C2A /* libPods-Tests.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -39,8 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0015D3921AB17BE800D7E8F6 /* SparkDeviceDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkDeviceDetailCell.h; sourceTree = "<group>"; };
+		0015D3931AB17BE800D7E8F6 /* SparkDeviceDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkDeviceDetailCell.m; sourceTree = "<group>"; };
 		001DAA731AB04622003B11C9 /* SparkLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkLoginViewController.h; sourceTree = "<group>"; };
 		001DAA741AB04622003B11C9 /* SparkLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkLoginViewController.m; sourceTree = "<group>"; };
+		0041679A1AB1688200CD2D7A /* SparkDeviceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkDeviceCell.h; sourceTree = "<group>"; };
+		0041679B1AB1688200CD2D7A /* SparkDeviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkDeviceCell.m; sourceTree = "<group>"; };
 		1FF97172813E30CADFC7C903 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		29D478DCC0F9177FF2243EB4 /* Pods-spark-sdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; lineEnding = 0; name = "Pods-spark-sdk.release.xcconfig"; path = "Pods/Target Support Files/Pods-spark-sdk/Pods-spark-sdk.release.xcconfig"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.xcconfig; };
 		33C99C6238D91716E59C86A5 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; lineEnding = 0; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.xcconfig; };
@@ -103,6 +109,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0015D3911AB172CB00D7E8F6 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				B8FC4D0C1AB109CD0027E035 /* SparkDeviceDetailsViewController.h */,
+				B8FC4D0D1AB109CD0027E035 /* SparkDeviceDetailsViewController.m */,
+				0015D3921AB17BE800D7E8F6 /* SparkDeviceDetailCell.h */,
+				0015D3931AB17BE800D7E8F6 /* SparkDeviceDetailCell.m */,
+			);
+			name = Device;
+			sourceTree = "<group>";
+		};
+		0041679D1AB1688700CD2D7A /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+				B800E9B01AB0FC4D00D7660A /* SparkDevicesViewController.h */,
+				B800E9B11AB0FC4D00D7660A /* SparkDevicesViewController.m */,
+				0041679A1AB1688200CD2D7A /* SparkDeviceCell.h */,
+				0041679B1AB1688200CD2D7A /* SparkDeviceCell.m */,
+			);
+			name = Devices;
+			sourceTree = "<group>";
+		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
@@ -144,10 +172,8 @@
 				6003F59C195388D20070C39A /* SparkAppDelegate.h */,
 				6003F59D195388D20070C39A /* SparkAppDelegate.m */,
 				6003F59F195388D20070C39A /* Main.storyboard */,
-				B800E9B01AB0FC4D00D7660A /* SparkDevicesViewController.h */,
-				B800E9B11AB0FC4D00D7660A /* SparkDevicesViewController.m */,
-				B8FC4D0C1AB109CD0027E035 /* SparkDeviceDetailsViewController.h */,
-				B8FC4D0D1AB109CD0027E035 /* SparkDeviceDetailsViewController.m */,
+				0041679D1AB1688700CD2D7A /* Devices */,
+				0015D3911AB172CB00D7E8F6 /* Device */,
 				001DAA731AB04622003B11C9 /* SparkLoginViewController.h */,
 				001DAA741AB04622003B11C9 /* SparkLoginViewController.m */,
 				6003F5A5195388D20070C39A /* SparkViewController.h */,
@@ -381,8 +407,10 @@
 				6003F59E195388D20070C39A /* SparkAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* SparkViewController.m in Sources */,
 				001DAA751AB04622003B11C9 /* SparkLoginViewController.m in Sources */,
+				0041679C1AB1688200CD2D7A /* SparkDeviceCell.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				B800E9B21AB0FC4D00D7660A /* SparkDevicesViewController.m in Sources */,
+				0015D3941AB17BE800D7E8F6 /* SparkDeviceDetailCell.m in Sources */,
 				B8FC4D0E1AB109CD0027E035 /* SparkDeviceDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
