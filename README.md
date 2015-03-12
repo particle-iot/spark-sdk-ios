@@ -1,7 +1,7 @@
 <p align="center" >
 <img src="https://s3.amazonaws.com/spark-website/spark.png" alt="Spark" title="Spark-Forked">
 </p>
-<br>Kiko Lobo Forked</br>
+<br>NOTE: This is a forked release from the official spark SDK</br>
 
 <!---
 (Update link)
