@@ -107,34 +107,21 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
                              @"password": password,
                              };
     
-    // auth header can contain any user:pass
-//  STAGING:
-//     "id": "keurig-ios-app-6378",
-//     "secret": "b5c943c329361994fcc4b7e64e53438bf78c44c0"
-//    PRODUCTION
-//    "id": "keurig-ios-app-1225",
-//    "secret": "e57d624245fbe11829c42efc946465c1b7740949"
-
+    NSDictionary *OAuthClientCredentialsDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OAuthClientCredentials" ofType:@"plist"]];
+    NSString *clientId = OAuthClientCredentialsDict[@"clientId"];
+    NSString *clientSecret = OAuthClientCredentialsDict[@"clientSecret"];
     
-    NSString *clientId, *clientSecret;
+    if (!clientId)
+        clientId = @"spark";
+    if (!clientSecret)
+        clientSecret = @"spark";
     
-
-#if defined(STAGING)
-    clientId = @"keurig-ios-app-6378";
-    clientSecret = @"b5c943c329361994fcc4b7e64e53438bf78c44c0";
-#else
-    clientId = @"keurig-ios-app-1225";
-    clientSecret = @"e57d624245fbe11829c42efc946465c1b7740949";
-#endif
-    
-//    [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:@"spark" password:@"spark"];
     
     [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:clientId password:clientSecret];
     // OAuth login
     [self.manager POST:@"oauth/token" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
     {
         NSDictionary *responseDict = responseObject;
-//        NSLog(@"Login with %@:%@ success, got new token %@",user,password,responseDict.description);
 
         self.token = [[SparkAccessToken alloc] initWithNewSession:responseDict];
         if (self.token) // login was successful

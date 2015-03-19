@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
 
 
     s.resource_bundles = {
-        'Spark-SDK' => ['Pod/Assets/*.png']
+        'Spark-SDK' => ['Pod/Assets/*.*']
     }
 
     # s.frameworks = 'SystemConfiguration', 'Security'
