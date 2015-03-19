@@ -10,27 +10,11 @@
 #import "KeychainItemWrapper.h"
 #import "SparkAccessToken.h"
 #import "SparkUser.h"
-//#import "SparkSetupCustomization.h"
 
 #define GLOBAL_API_TIMEOUT_INTERVAL     7.0f
 
 
-//#define PRODUCTION
-//#define STAGING
-#define IFTTT
-
-#ifdef STAGING
-NSString *const kSparkAPIBaseURL = @"https://staging-api.spark.io"; //@"https://api.spark.io";
-#endif
-
-#ifdef PRODUCTION
 NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
-#endif
-
-#ifdef IFTTT
-NSString *const kSparkAPIBaseURL = @"https://ifttt-api.spark.io";
-#endif
-
 
 @interface SparkCloud () <SparkAccessTokenDelegate>
 @property (nonatomic, strong) NSURL* baseURL;
