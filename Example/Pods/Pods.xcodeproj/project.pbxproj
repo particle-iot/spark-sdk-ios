@@ -45,8 +45,8 @@
 		506F39481ABA749E000E0F3B /* SparkUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39391ABA749E000E0F3B /* SparkUser.h */; };
 		506F39491ABA749E000E0F3B /* SparkUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F393A1ABA749E000E0F3B /* SparkUser.m */; };
 		506F394A1ABA749E000E0F3B /* SparkUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F393A1ABA749E000E0F3B /* SparkUser.m */; };
-		50EC223C1AA3F9270050CF03 /* Spark-SDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC222B1AA3F9270050CF03 /* Spark-SDK.h */; };
-		50EC223D1AA3F9270050CF03 /* Spark-SDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC222B1AA3F9270050CF03 /* Spark-SDK.h */; };
+		50EC223C1AA3F9270050CF03 /* Spark-SDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC222B1AA3F9270050CF03 /* Spark-SDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50EC223D1AA3F9270050CF03 /* Spark-SDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EC222B1AA3F9270050CF03 /* Spark-SDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54A239C3E674832950C605EB /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = B6FFE896E7DAE26E13FCEB31 /* UIAlertView+AFNetworking.m */; };
 		5915F9F21F1A6F4D15463A23 /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5250FE28C3553040906391B0 /* AFURLSessionManager.h */; };
 		5B36C535E426BC640989961B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8053CB40DA5E1D4D7467238 /* Foundation.framework */; };
