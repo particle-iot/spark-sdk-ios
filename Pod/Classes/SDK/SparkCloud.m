@@ -299,7 +299,11 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
              // analyze
              for (NSDictionary *deviceDict in responseList)
              {
-                 [deviceIDList addObject:deviceDict[@"id"]];
+                 if (deviceDict[@"id"]) // ignore <null> device listings that sometimes return from /v1/devices API call
+                 {
+                     if (![deviceDict[@"id"] isKindOfClass:[NSNull class]])
+                         [deviceIDList addObject:deviceDict[@"id"]];
+                 }
              }
 
              // iterate thru deviceList and create SparkDevice instances through query
@@ -323,7 +327,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
              dispatch_group_notify(group, dispatch_get_main_queue(), ^{
                  if (completion)
                  {
-                     if (deviceError)
+                     if (deviceError && (deviceList.count==0)) // if some devices reported error but some not, then return at least the ones that didn't report error
                          completion(nil, deviceError);
                      else if (deviceList.count > 0)
                          completion(deviceList, nil);
