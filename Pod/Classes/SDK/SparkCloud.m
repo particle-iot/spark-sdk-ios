@@ -350,11 +350,10 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 
 //-(void)generateClaimCode:(void (^)(NSString *, NSArray *, NSError *))completion
--(void)generateClaimCode:(NSString *)orgName completion:(void (^)(NSString *, NSArray *, NSError *))completion
+-(void)generateClaimCode:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
 {
 
-    NSString *urlPath = [NSString stringWithFormat:@"/v1/orgs/%@/device_claims",orgName]; // TODO: DEBUG - orgname should not be a part of this
-//    urlPath = @"/v1/orgs/keurig/device_claims"; // DEBUG
+    NSString *urlPath = [NSString stringWithFormat:@"/v1/device_claims"];
      [self.manager POST:urlPath parameters:[self defaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          if (completion)

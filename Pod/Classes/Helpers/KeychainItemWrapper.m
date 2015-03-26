@@ -193,10 +193,10 @@
     {
         NSMutableDictionary *tempDictionary = [self dictionaryToSecItemFormat:keychainItemData];
 #ifndef NS_BLOCK_ASSERTIONS
-        OSStatus junk =
+//        OSStatus junk =
 #endif
         SecItemDelete((__bridge CFDictionaryRef)tempDictionary);
-        NSAssert( junk == noErr || junk == errSecItemNotFound, @"Problem deleting current dictionary." );
+//        NSAssert( junk == noErr || junk == errSecItemNotFound, @"Problem deleting current dictionary." );
     }
     
     // Default attributes for keychain item.
