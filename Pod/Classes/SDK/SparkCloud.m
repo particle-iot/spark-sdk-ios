@@ -10,6 +10,7 @@
 #import "KeychainItemWrapper.h"
 #import "SparkAccessToken.h"
 #import "SparkUser.h"
+#import <AFNetworking/AFNetworking.h>
 
 #define GLOBAL_API_TIMEOUT_INTERVAL     7.0f
 

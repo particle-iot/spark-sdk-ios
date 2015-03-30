@@ -8,6 +8,7 @@
 
 #import "SparkDevice.h"
 #import "SparkCloud.h"
+#import <AFNetworking/AFNetworking.h>
 
 #define MAX_SPARK_FUNCTION_ARG_LENGTH 63
 
