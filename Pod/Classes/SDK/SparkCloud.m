@@ -236,7 +236,10 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 -(void)claimDevice:(NSString *)deviceID completion:(void (^)(NSError *))completion
 {
-    NSMutableDictionary *params = [self defaultParams];
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
+    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
+
+    NSMutableDictionary *params = [NSMutableDictionary new]; //[self defaultParams];
     params[@"id"] = deviceID;
     [self.manager POST:@"/v1/devices" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
@@ -261,8 +264,11 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 -(void)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion
 {
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
+    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
+
     NSString *urlPath = [NSString stringWithFormat:@"/v1/devices/%@",deviceID];
-    [self.manager GET:urlPath parameters:[self defaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject)
+    [self.manager GET:urlPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          if (completion)
          {
@@ -288,7 +294,10 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 -(void)getDevices:(void (^)(NSArray *devices, NSError *error))completion
 {
-     [self.manager GET:@"/v1/devices" parameters:[self defaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject)
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
+    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
+
+     [self.manager GET:@"/v1/devices" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          if (completion)
          {
