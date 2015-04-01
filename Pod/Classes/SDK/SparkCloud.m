@@ -350,12 +350,13 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 
 
-//-(void)generateClaimCode:(void (^)(NSString *, NSArray *, NSError *))completion
 -(void)generateClaimCode:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
 {
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
+    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
 
     NSString *urlPath = [NSString stringWithFormat:@"/v1/device_claims"];
-     [self.manager POST:urlPath parameters:[self defaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject)
+     [self.manager POST:urlPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          if (completion)
          {
@@ -383,8 +384,6 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
              completion(nil, nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
          NSLog(@"generateClaimCode %@ Error: %@", urlPath, error.localizedDescription);
      }];
-    
-//    [self.manager.requestSerializer clearAuthorizationHeader];
     
 }
 
@@ -438,6 +437,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 - (NSMutableDictionary *)defaultParams
 {
+    // Access token in HTTP body
     if (self.token)
         return [@{@"access_token": self.token.accessToken} mutableCopy];
     else
