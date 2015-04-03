@@ -10,8 +10,8 @@
 #ifndef Pods_Spark_SDK_h
 #define Pods_Spark_SDK_h
 
-#import <Spark-SDK/SparkCloud.h>
-#import <Spark-SDK/SparkDevice.h>
+#import "SparkCloud.h"
+#import "SparkDevice.h"
 
 #endif
 
