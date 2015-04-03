@@ -33,12 +33,12 @@
 		506F393C1ABA749E000E0F3B /* SparkAccessToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39331ABA749E000E0F3B /* SparkAccessToken.h */; };
 		506F393D1ABA749E000E0F3B /* SparkAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F39341ABA749E000E0F3B /* SparkAccessToken.m */; };
 		506F393E1ABA749E000E0F3B /* SparkAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F39341ABA749E000E0F3B /* SparkAccessToken.m */; };
-		506F393F1ABA749E000E0F3B /* SparkCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39351ABA749E000E0F3B /* SparkCloud.h */; };
-		506F39401ABA749E000E0F3B /* SparkCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39351ABA749E000E0F3B /* SparkCloud.h */; };
+		506F393F1ABA749E000E0F3B /* SparkCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39351ABA749E000E0F3B /* SparkCloud.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		506F39401ABA749E000E0F3B /* SparkCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39351ABA749E000E0F3B /* SparkCloud.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		506F39411ABA749E000E0F3B /* SparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F39361ABA749E000E0F3B /* SparkCloud.m */; };
 		506F39421ABA749E000E0F3B /* SparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F39361ABA749E000E0F3B /* SparkCloud.m */; };
-		506F39431ABA749E000E0F3B /* SparkDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39371ABA749E000E0F3B /* SparkDevice.h */; };
-		506F39441ABA749E000E0F3B /* SparkDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39371ABA749E000E0F3B /* SparkDevice.h */; };
+		506F39431ABA749E000E0F3B /* SparkDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39371ABA749E000E0F3B /* SparkDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		506F39441ABA749E000E0F3B /* SparkDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39371ABA749E000E0F3B /* SparkDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		506F39451ABA749E000E0F3B /* SparkDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F39381ABA749E000E0F3B /* SparkDevice.m */; };
 		506F39461ABA749E000E0F3B /* SparkDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F39381ABA749E000E0F3B /* SparkDevice.m */; };
 		506F39471ABA749E000E0F3B /* SparkUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39391ABA749E000E0F3B /* SparkUser.h */; };
