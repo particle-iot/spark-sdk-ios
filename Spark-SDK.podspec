@@ -12,8 +12,8 @@ Pod::Spec.new do |s|
     s.version          = "0.2.0"
     s.summary          = "Spark iOS SDK for interacting with Spark powered connected products via Spark Cloud"
     s.description      = <<-DESC
-                        Cocoapod library of Spark cloud SDK for iOS
-                        Spark SDK for iOS allows interacting with Spark-powered connected products via the Spark Cloud.
+                        Spark iOS SDK Cocoapod library
+                        The Spark iOS SDK enables iOS apps to interact with Spark-powered connected products via the Spark Cloud.
                         Library will allow you to easily manage active user sessions to Spark cloud, query for device info,
                         read and write data to/from Spark Core/Photon devices and (via exposed variables and functions)
                         publish and subscribe events to/from the cloud or to/from devices (coming soon).

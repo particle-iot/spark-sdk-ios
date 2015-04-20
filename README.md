@@ -7,8 +7,8 @@
 [![Build Status](https://travis-ci.org/AFNetworking/AFNetworking.svg)](https://travis-ci.org/Spark-SDK/Spark-SDK)
 -->
 # Spark SDK 
-Cocoapod library of Spark iOS SDK 
-Spark iOS SDK enables iOS apps to interact with Spark-powered connected products via the Spark Cloud.
+Spark iOS SDK Cocoapod library
+The Spark iOS SDK enables iOS apps to interact with Spark-powered connected products via the Spark Cloud.
 Library will allow you to easily manage active user sessions to Spark cloud, query for device info,
 read and write data to/from Spark Core/Photon devices and (via exposed variables and functions)
 publish and subscribe events to/from the cloud or to/from devices (coming soon).
