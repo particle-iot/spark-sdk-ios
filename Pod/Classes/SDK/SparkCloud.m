@@ -12,7 +12,7 @@
 #import "SparkUser.h"
 #import <AFNetworking/AFNetworking.h>
 
-#define GLOBAL_API_TIMEOUT_INTERVAL     7.0f
+#define GLOBAL_API_TIMEOUT_INTERVAL     31.0f
 
 
 NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
@@ -262,7 +262,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 }
 
--(void)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion
+-(void)getDeviceInstance:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
@@ -290,14 +290,44 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 }
 
 
+// return format:
+//{
+//    connected = 0;
+//    id = 54ff6b066667515140471567;
+//    "last_app" = "<null>";
+//    "last_heard" = "<null>";
+//    name = PhotonsSoldCounter;
+//},{...},{...}
 
-
--(void)getDevices:(void (^)(NSArray *devices, NSError *error))completion
+-(void)getDevicesInfo:(void (^)(NSArray *devicesInfo, NSError *error))completion
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
 
      [self.manager GET:@"/v1/devices" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         if (completion)
+         {
+             // just return the list to the user (document 
+             NSArray *devicesInfo = responseObject;
+             completion(devicesInfo, nil);
+         }
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         // check type of error?
+         if (completion)
+             completion(nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
+//         NSLog(@"Error: %@", error.localizedDescription);
+     }];
+}
+
+
+
+-(void)getDevicesInstances:(void (^)(NSArray *sparkDevices, NSError *error))completion
+{
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
+    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
+    
+    [self.manager GET:@"/v1/devices" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          if (completion)
          {
@@ -309,20 +339,21 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
              // analyze
              for (NSDictionary *deviceDict in responseList)
              {
-                 if (deviceDict[@"id"]) // ignore <null> device listings that sometimes return from /v1/devices API call
+                 if (deviceDict[@"id"])   // ignore <null> device listings that sometimes return from /v1/devices API call
                  {
                      if (![deviceDict[@"id"] isKindOfClass:[NSNull class]])
-                         [deviceIDList addObject:deviceDict[@"id"]];
+                         if ([deviceDict[@"connected"] boolValue]==YES) // do inquiry only for online devices (otherwise we waste time on request timeouts and get no new info)
+                             [deviceIDList addObject:deviceDict[@"id"]];
                  }
              }
-
+             
              // iterate thru deviceList and create SparkDevice instances through query
              __block dispatch_group_t group = dispatch_group_create();
              
              for (NSString *deviceID in deviceIDList)
              {
                  dispatch_group_enter(group);
-                 [self getDevice:deviceID completion:^(SparkDevice *device, NSError *error) {
+                 [self getDeviceInstance:deviceID completion:^(SparkDevice *device, NSError *error) {
                      if ((!error) && (device))
                          [deviceList addObject:device];
                      
@@ -353,7 +384,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
          // check type of error?
          if (completion)
              completion(nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
-//         NSLog(@"Error: %@", error.localizedDescription);
+         //         NSLog(@"Error: %@", error.localizedDescription);
      }];
 }
 

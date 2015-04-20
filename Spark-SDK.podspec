@@ -9,15 +9,14 @@
 
 Pod::Spec.new do |s|
     s.name             = "Spark-SDK"
-    s.version          = "0.1.10"
+    s.version          = "0.2.0"
     s.summary          = "Spark mobile SDK for interacting with connected products via Spark Cloud"
     s.description      = <<-DESC
                         Cocoapod library of Spark mobile SDK for iOS
-                        Spark mobile SDK for iOS devices interacting with connected products via Spark Cloud
-                        This library will allow you to easily perform the following:
-                        - User session management for Spark cloud
-                        - Read/write data to/from Spark Core, Photon or Electron (soon) devices
-                        - Publish and subscribe events to/from the cloud or to/from devices (soon)
+                        Spark cloud SDK for iOS devices interacting with connected products via Spark Cloud
+                        This library will allow you to easily manage active user sessions to Spark cloud,
+                        read and write data to/from Spark Core, Photon devices and
+                        publish and subscribe events to/from the cloud or to/from devices (coming soon)
                         DESC
     s.homepage         = "https://github.com/spark/spark-sdk-ios"
     # s.screenshots      = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
