@@ -15,13 +15,14 @@ publish and subscribe events to/from the cloud or to/from devices (coming soon).
 ## How To Get Started
 
 - [Download Spark-SDK](https://github.com/spark/spark-sdk-ios/archive/master.zip) and try out the included iOS example app
-- Or perform the installation step described under the *Installation* section below
+- Or perform the installation step described under the **Installation** section below
 
 ## Usage
 
-_Full documentation coming soon_
-meanahile you can look [here](http://cocoadocs.org/docsets/Spark-SDK/) or consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each publib method.
-If installation completed successfully - you should be able to press `Esc` to get an auto-complete hints from XCode for each cloud and device method.
+**Full documentation coming soon**
+
+Meanahile you can look [here](http://cocoadocs.org/docsets/Spark-SDK/) or consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each public method.
+If Spark-SDK installation completed successfully - you should be able to press `Esc` to get an auto-complete hints from XCode for each cloud and device method.
 
 
 ## Communication
@@ -39,7 +40,7 @@ Spark SDK for iOS is available through [CocoaPods](http://cocoapods.org). To ins
 pod "Spark-SDK"
 ```
 
-and then run `pod update`. A new `.xcworkspace` file will be created for you to open by Cocoapods, open that file workspace file and you can start interacting with Spark cloud and devices by
+and then run `pod update`. A new `.xcworkspace` file will be created for you to open by Cocoapods, open that file workspace file in XCode and you can start interacting with Spark cloud and devices by
 adding `#import "Spark-SDK.h"`. (that is not required for swift projects)
 
 
