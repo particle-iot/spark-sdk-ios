@@ -15,11 +15,14 @@ publish and subscribe events to/from the cloud or to/from devices (coming soon).
 ## How To Get Started
 
 - [Download Spark-SDK](https://github.com/spark/spark-sdk-ios/archive/master.zip) and try out the included iOS example app
-- Check out the [documentation](http://cocoadocs.org/docsets/Spark-SDK/) for a comprehensive look at all of the APIs available in Spark-SDK
+- Or perform the installation step described under the *Installation* section below
 
 ## Usage
 
-(full documentation coming soon)
+_Full documentation coming soon_
+meanahile you can look [here](http://cocoadocs.org/docsets/Spark-SDK/) or consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each publib method.
+If installation completed successfully - you should be able to press `Esc` to get an auto-complete hints from XCode for each cloud and device method.
+
 
 ## Communication
 
@@ -30,16 +33,20 @@ publish and subscribe events to/from the cloud or to/from devices (coming soon).
 
 ## Installation
 
-Spark-Setup is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Spark SDK for iOS is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile on main project folder:
 
 ```ruby
 pod "Spark-SDK"
 ```
 
+and then run `pod update`. A new `.xcworkspace` file will be created for you to open by Cocoapods, open that file workspace file and you can start interacting with Spark cloud and devices by
+adding `#import "Spark-SDK.h"`. (that is not required for swift projects)
+
+
 #### Support for Swift projects
 To use Spark-SDK from within Swift based projects [read here](http://swiftalicio.us/2014/11/using-cocoapods-from-swift/), 
 also be sure the check out [Apple documentation](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html) on this matter.
+_Notice_ that we've included the required bridging header file in the SDK, you just need to copy it to your project add it as the active bridging header file in the project settings as described in the link above.
 We also have an example app [here](https://github.com/spark/spark-setup-ios-example), this app also demonstrates the Spark DeviceSetup library usage
 
 ## Author
