@@ -7,11 +7,11 @@
 [![Build Status](https://travis-ci.org/AFNetworking/AFNetworking.svg)](https://travis-ci.org/Spark-SDK/Spark-SDK)
 -->
 # Spark SDK 
-Spark-SDK is a library that can enable your app to interact with internet connected hardware powered by Spark devices, that includes:
-- User session management for the Spark cloud
-- Read/write data to/from Spark Core, Photon or Electron (soon) devices
-- Invoke functions on Spark Core, Photon or Electron (soon) devices
-- Publish and subscribe events to/from the cloud or to/from devices (soon)
+Cocoapod library of Spark iOS SDK 
+Spark iOS SDK enables iOS apps to interact with Spark-powered connected products via the Spark Cloud.
+Library will allow you to easily manage active user sessions to Spark cloud, query for device info,
+read and write data to/from Spark Core/Photon devices and (via exposed variables and functions)
+publish and subscribe events to/from the cloud or to/from devices (coming soon).
 
 ## How To Get Started
 
@@ -41,6 +41,7 @@ pod "Spark-SDK"
 #### Support for Swift projects
 To use Spark-SDK from within Swift based projects [read here](http://swiftalicio.us/2014/11/using-cocoapods-from-swift/), 
 also be sure the check out [Apple documentation](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html) on this matter.
+We also have an example app [here](https://github.com/spark/spark-setup-ios-example), this app also demonstrates the Spark DeviceSetup library usage
 
 ## Author
 
