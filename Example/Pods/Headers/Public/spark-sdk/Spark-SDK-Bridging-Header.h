@@ -1,1 +1,0 @@
-../../../../../Pod/Classes/Spark-SDK-Bridging-Header.h

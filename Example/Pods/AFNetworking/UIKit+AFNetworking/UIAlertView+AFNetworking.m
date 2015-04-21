@@ -22,7 +22,7 @@
 
 #import "UIAlertView+AFNetworking.h"
 
-#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && !defined(AF_APP_EXTENSIONS)
+#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 
 #import "AFURLConnectionOperation.h"
 
@@ -62,32 +62,26 @@ static void AFGetAlertViewTitleAndMessageFromError(NSError *error, NSString * __
                                 cancelButtonTitle:(NSString *)cancelButtonTitle
                                 otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION
 {
-    NSMutableArray *mutableOtherTitles = [NSMutableArray array];
-    va_list otherButtonTitleList;
-    va_start(otherButtonTitleList, otherButtonTitles);
-    {
-        for (NSString *otherButtonTitle = otherButtonTitles; otherButtonTitle != nil; otherButtonTitle = va_arg(otherButtonTitleList, NSString *)) {
-            [mutableOtherTitles addObject:otherButtonTitle];
-        }
+    va_list otherTitleList;
+    va_start(otherTitleList, otherButtonTitles);
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:delegate cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil, nil];
+    for(NSString *otherTitle = otherButtonTitles; otherTitle != nil; otherTitle = va_arg(otherTitleList, NSString *)){
+        [alertView addButtonWithTitle:otherTitle];
     }
-    va_end(otherButtonTitleList);
+    va_end(otherTitleList);
+    __block id observer = [[NSNotificationCenter defaultCenter] addObserverForName:AFNetworkingTaskDidCompleteNotification object:task queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
 
-    __block __weak id<NSObject> observer = [[NSNotificationCenter defaultCenter] addObserverForName:AFNetworkingTaskDidCompleteNotification object:task queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
         NSError *error = notification.userInfo[AFNetworkingTaskDidCompleteErrorKey];
         if (error) {
             NSString *title, *message;
             AFGetAlertViewTitleAndMessageFromError(error, &title, &message);
 
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:delegate cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil, nil];
-            for (NSString *otherButtonTitle in mutableOtherTitles) {
-                [alertView addButtonWithTitle:otherButtonTitle];
-            }
             [alertView setTitle:title];
             [alertView setMessage:message];
             [alertView show];
         }
 
-        [[NSNotificationCenter defaultCenter] removeObserver:observer];
+        [[NSNotificationCenter defaultCenter] removeObserver:observer name:AFNetworkingTaskDidCompleteNotification object:notification.object];
     }];
 }
 #endif
@@ -105,17 +99,14 @@ static void AFGetAlertViewTitleAndMessageFromError(NSError *error, NSString * __
                                             cancelButtonTitle:(NSString *)cancelButtonTitle
                                             otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION
 {
-    NSMutableArray *mutableOtherTitles = [NSMutableArray array];
-    va_list otherButtonTitleList;
-    va_start(otherButtonTitleList, otherButtonTitles);
-    {
-        for (NSString *otherButtonTitle = otherButtonTitles; otherButtonTitle != nil; otherButtonTitle = va_arg(otherButtonTitleList, NSString *)) {
-            [mutableOtherTitles addObject:otherButtonTitle];
-        }
+    va_list otherTitleList;
+    va_start(otherTitleList, otherButtonTitles);
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:delegate cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil, nil];
+    for(NSString *otherTitle = otherButtonTitles; otherTitle != nil; otherTitle = va_arg(otherTitleList, NSString *)){
+        [alertView addButtonWithTitle:otherTitle];
     }
-    va_end(otherButtonTitleList);
-
-    __block __weak id<NSObject> observer = [[NSNotificationCenter defaultCenter] addObserverForName:AFNetworkingOperationDidFinishNotification object:operation queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
+    va_end(otherTitleList);
+    __block id observer = [[NSNotificationCenter defaultCenter] addObserverForName:AFNetworkingOperationDidFinishNotification object:operation queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
 
         if (notification.object && [notification.object isKindOfClass:[AFURLConnectionOperation class]]) {
             NSError *error = [(AFURLConnectionOperation *)notification.object error];
@@ -123,17 +114,13 @@ static void AFGetAlertViewTitleAndMessageFromError(NSError *error, NSString * __
                 NSString *title, *message;
                 AFGetAlertViewTitleAndMessageFromError(error, &title, &message);
 
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:delegate cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil, nil];
-                for (NSString *otherButtonTitle in mutableOtherTitles) {
-                    [alertView addButtonWithTitle:otherButtonTitle];
-                }
                 [alertView setTitle:title];
                 [alertView setMessage:message];
                 [alertView show];
             }
         }
 
-        [[NSNotificationCenter defaultCenter] removeObserver:observer];
+        [[NSNotificationCenter defaultCenter] removeObserver:observer name:AFNetworkingOperationDidFinishNotification object:notification.object];
     }];
 }
 

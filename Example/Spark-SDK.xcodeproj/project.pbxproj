@@ -11,7 +11,6 @@
 		50EB760A1AE5D24500C925A9 /* SparkCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EB76091AE5D24400C925A9 /* SparkCloud.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50EB760C1AE5D24F00C925A9 /* SparkDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EB760B1AE5D24F00C925A9 /* SparkDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50EB760E1AE5D25300C925A9 /* Spark-SDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EB760D1AE5D25300C925A9 /* Spark-SDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		56E63A83FF4BC246AD96D8D1 /* libPods-Spark-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3C4BC52080A12C0B0910E2 /* libPods-Spark-SDK.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -70,7 +69,6 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		80E18242CFBD279E9DD09C2A /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		88E832F99144B3F7AB122A9F /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; lineEnding = 0; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.xcconfig; };
-		9A3C4BC52080A12C0B0910E2 /* libPods-Spark-SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Spark-SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA9F0372E8B60818A221976 /* Pods-spark-sdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; lineEnding = 0; name = "Pods-spark-sdk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-spark-sdk/Pods-spark-sdk.debug.xcconfig"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.xcconfig; };
 		D33AAA9D17E2934335E0B44C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,7 +82,6 @@
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
 				ECD12C431215CB8CE7FE4548 /* libPods-spark-sdk.a in Frameworks */,
-				56E63A83FF4BC246AD96D8D1 /* libPods-Spark-SDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,7 +140,6 @@
 				6003F5AF195388D20070C39A /* XCTest.framework */,
 				80E18242CFBD279E9DD09C2A /* libPods-Tests.a */,
 				466E6561DBBFCFC65E9D57D0 /* libPods-spark-sdk.a */,
-				9A3C4BC52080A12C0B0910E2 /* libPods-Spark-SDK.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -372,7 +368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Spark-SDK/Pods-Spark-SDK-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-spark-sdk/Pods-spark-sdk-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E778F7A3C9B93FE2C271AD68 /* Check Pods Manifest.lock */ = {

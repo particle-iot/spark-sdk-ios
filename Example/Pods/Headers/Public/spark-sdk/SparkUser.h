@@ -1,1 +1,1 @@
-../../../../../Pod/Classes/SDK/SparkUser.h
+../../../../../Pod/Classes/SparkUser.h
