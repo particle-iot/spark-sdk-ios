@@ -17,9 +17,9 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 @interface SparkDevice : NSObject
 
 /**
- *  Device ID string
+ *  DeviceID string
  */
-@property (strong, nonatomic, readonly) NSString* ID;
+@property (strong, nonatomic, readonly) NSString* id;
 /**
  *  Device name. Device can be renamed in the cloud by setting this property. If renaming fails name will stay the same.
  */

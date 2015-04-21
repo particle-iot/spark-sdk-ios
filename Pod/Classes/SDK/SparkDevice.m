@@ -13,7 +13,7 @@
 #define MAX_SPARK_FUNCTION_ARG_LENGTH 63
 
 @interface SparkDevice()
-@property (strong, nonatomic) NSString* ID;
+@property (strong, nonatomic) NSString* id;
 @property (nonatomic) BOOL connected; // might be impossible
 @property (strong, nonatomic) NSArray *functions;
 @property (strong, nonatomic) NSDictionary *variables;
@@ -35,6 +35,10 @@
      
         self.requiresUpdate = NO;
         
+        if (![params[@"name"] isKindOfClass:[NSNull class]])
+            if (params[@"name"])
+                _name = params[@"name"];
+        
         if ([params[@"connected"] boolValue]==YES)
             self.connected = YES;
         else
@@ -46,7 +50,7 @@
         if (params[@"variables"])
             self.variables = params[@"variables"];
         
-        self.ID = params[@"id"];
+        _id = params[@"id"];
         
         if (![params[@"last_app"] isKindOfClass:[NSNull class]])
             if (params[@"last_app"])
@@ -107,7 +111,7 @@
 -(void)getVariable:(NSString *)variableName completion:(void(^)(id result, NSError* error))completion
 {
     // TODO: check variable name exists in list
-    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@/%@", self.ID, variableName]];
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@/%@", self.id, variableName]];
     // TODO: check response of calling a non existant function
     
     [self.manager GET:[url description] parameters:[self defaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -137,7 +141,7 @@
 -(void)callFunction:(NSString *)functionName withArguments:(NSArray *)args completion:(void (^)(NSNumber *, NSError *))completion
 {
     // TODO: check function name exists in list
-    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@/%@", self.ID, functionName]];
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@/%@", self.id, functionName]];
     
     NSMutableDictionary *params = [self defaultParams];
     // TODO: check response of calling a non existant function
@@ -191,10 +195,10 @@
 -(void)unclaim:(void (^)(NSError *))completion
 {
 
-    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.ID]];
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
 
     NSMutableDictionary *params = [self defaultParams];
-    params[@"id"] = self.ID;
+    params[@"id"] = self.id;
     
     [self.manager DELETE:[url description] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completion)
@@ -238,13 +242,16 @@
 
 -(NSString *)description
 {
-    NSString *desc = [NSString stringWithFormat:@"Spark Device\nType: %@\nID: %@\nName: %@\nConnected: %@\nVariables: %@\nFunctions: %@\nVersion: %@\nRequires update: %@\nLast app: %@\nLast heard: %@\n",
+    NSString *desc = [NSString stringWithFormat:@"<SparkDevice 0x%lx, type: %@, id: %@, name: %@, connected: %@, variables: %@, functions: %@, version: %@, requires update: %@, last app: %@, last heard: %@>",
+                      (unsigned long)self,
                       /*(self.type == SparkDeviceTypeCore) ? @"Spark Core" : @"Spark Photon",*/ @"Spark device",
-                      self.ID,
+                      self.id,
                       self.name,
-                      (self.connected) ? @"True" : @"False",
-                      [self.variables description], [self.functions description], self.version,
-                      (self.requiresUpdate) ? @"True" : @"False",
+                      (self.connected) ? @"true" : @"false",
+                      self.variables,
+                      self.functions,
+                      self.version,
+                      (self.requiresUpdate) ? @"true" : @"false",
                       self.lastApp,
                       self.lastHeard];
     

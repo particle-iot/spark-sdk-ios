@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
     s.name             = "Spark-SDK"
-    s.version          = "0.2.0"
+    s.version          = "0.2.1"
     s.summary          = "Spark iOS SDK for interacting with Spark powered connected products via Spark Cloud"
     s.description      = <<-DESC
                         Spark iOS SDK Cocoapod library
