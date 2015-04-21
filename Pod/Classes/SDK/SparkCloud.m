@@ -262,7 +262,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 }
 
--(void)getDeviceInstance:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion
+-(void)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
@@ -298,7 +298,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 //    "last_heard" = "<null>";
 //    name = PhotonsSoldCounter;
 //},{...},{...}
-
+/*
 -(void)getDevicesInfo:(void (^)(NSArray *devicesInfo, NSError *error))completion
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
@@ -319,10 +319,10 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 //         NSLog(@"Error: %@", error.localizedDescription);
      }];
 }
+*/
 
 
-
--(void)getDevicesInstances:(void (^)(NSArray *sparkDevices, NSError *error))completion
+-(void)getDevices:(void (^)(NSArray *sparkDevices, NSError *error))completion
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
@@ -333,7 +333,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
          {
              
              NSArray *responseList = responseObject;
-             NSMutableArray *deviceIDList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
+             NSMutableArray *queryDeviceIDList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
              __block NSMutableArray *deviceList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
              __block NSError *deviceError = nil;
              // analyze
@@ -342,18 +342,30 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
                  if (deviceDict[@"id"])   // ignore <null> device listings that sometimes return from /v1/devices API call
                  {
                      if (![deviceDict[@"id"] isKindOfClass:[NSNull class]])
+                     {
                          if ([deviceDict[@"connected"] boolValue]==YES) // do inquiry only for online devices (otherwise we waste time on request timeouts and get no new info)
-                             [deviceIDList addObject:deviceDict[@"id"]];
+                         {
+                             // if it's online then add it to the query list so we can get additional information about it
+                             [queryDeviceIDList addObject:deviceDict[@"id"]];
+                         }
+                         else
+                         {
+                             // if it's offline just make an instance for it with the limited data with have
+                             SparkDevice *device = [[SparkDevice alloc] initWithParams:deviceDict];
+                             [deviceList addObject:device];
+                         }
+                     }
+                     
                  }
              }
              
              // iterate thru deviceList and create SparkDevice instances through query
              __block dispatch_group_t group = dispatch_group_create();
              
-             for (NSString *deviceID in deviceIDList)
+             for (NSString *deviceID in queryDeviceIDList)
              {
                  dispatch_group_enter(group);
-                 [self getDeviceInstance:deviceID completion:^(SparkDevice *device, NSError *error) {
+                 [self getDevice:deviceID completion:^(SparkDevice *device, NSError *error) {
                      if ((!error) && (device))
                          [deviceList addObject:device];
                      
@@ -368,9 +380,9 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
              dispatch_group_notify(group, dispatch_get_main_queue(), ^{
                  if (completion)
                  {
-                     if (deviceError && (deviceList.count==0)) // if some devices reported error but some not, then return at least the ones that didn't report error
+                     if (deviceError && (deviceList.count==0)) // empty list? error? report it
                          completion(nil, deviceError);
-                     else if (deviceList.count > 0)
+                     else if (deviceList.count > 0)  // if some devices reported error but some not, then return at least the ones that didn't report error, ditch error
                          completion(deviceList, nil);
                      else
                          completion(nil, nil);

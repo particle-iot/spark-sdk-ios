@@ -68,36 +68,21 @@ extern NSString *const kSparkAPIBaseURL;
 
 
 /**
- *  Get an array of instances of all user's claimed _online_ devices, if user has got no online & claimed devices, result will be an empty array
+ *  Get an array of instances of all user's claimed devices
+ *  offline devices will contain only partial data (no info about functions/variables)
  *
  *  @param completion Completion block with the device instances array in case of success or with NSError object if failure
  */
--(void)getDevicesInstances:(void (^)(NSArray *sparkDevices, NSError *error))completion;
-
-
-/**
- *  Get an array of info dictionaries of all user's claimed devices
- *  Returned array has got the following format: 
- *  {  
- *    connected = 0;                    // 1 = online, 0 = offline device
- *    id = 84ff627666675151404a6bf7;    // device ID
- *    "last_app" = "<null>";            // last ran firmware image
- *    "last_heard" = "<null>";          // last time cloud has heard from this device
- *    name = my_cool_photon;            // device name
- *  },{...},{...} //                    // .. and so on
- *
- *  @param completion Completion block with the device instances array in case of success or with NSError object if failure
- */
-
--(void)getDevicesInfo:(void (^)(NSArray *devicesInfo, NSError *error))completion;
+-(void)getDevices:(void (^)(NSArray *sparkDevices, NSError *error))completion;
 
 /**
- *  Get a specific device instance by its deviceID
+ *  Get a specific device instance by its deviceID. If the device is offline the instance will contain only partial information the cloud has cached, 
+ *  notice that the the request might also take quite some time to complete for offline devices.
  *
  *  @param deviceID   required deviceID
  *  @param completion Completion block with first arguemnt as the device instance in case of success or with second argument NSError object if operation failed
  */
--(void)getDeviceInstance:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion;
+-(void)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion;
 
 // Not available yet
 //-(void)publishEvent:(NSString *)eventName data:(NSData *)data;

@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
     s.homepage         = "https://github.com/spark/spark-sdk-ios"
     # s.screenshots      = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
     s.license          = 'LGPL v3'
-    s.author           = { "Ido Kleinman" => "ido@spark.io" }
+    s.author           = { "Spark" => "ido@spark.io" }
     s.source           = { :git => "https://github.com/spark/Spark-SDK-ios.git", :tag => s.version.to_s }
     # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
