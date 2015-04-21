@@ -7,6 +7,7 @@
 //
 
 #import "SparkViewController.h"
+#import "Spark-SDK.h"
 
 @interface SparkViewController ()
 
@@ -24,6 +25,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)testButton:(id)sender {
+    [[SparkCloud sharedInstance] loginWithUser:@"ido@spark.io" password:@"<password>" completion:^(NSError *error) {
+        [[SparkCloud sharedInstance] getDevices:^(NSArray *sparkDevices, NSError *error) {
+            NSLog(@"%@",sparkDevices.description);
+        }];
+    }];
 }
 
 @end
