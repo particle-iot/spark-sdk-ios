@@ -6,35 +6,34 @@
 (Update link)
 [![Build Status](https://travis-ci.org/AFNetworking/AFNetworking.svg)](https://travis-ci.org/Spark-SDK/Spark-SDK)
 -->
-# Spark SDK 
-The Spark iOS SDK enables iOS apps to interact with Spark-powered connected products via the Spark Cloud.
+# Spark iOS Cloud SDK 
+The Spark iOS Cloud SDK enables iOS apps to interact with Spark-powered connected products via the Spark Cloud.
 Library will allow you to easily manage active user sessions to Spark cloud, query for device info,
 read and write data to/from Spark Core/Photon devices and (via exposed variables and functions)
 publish and subscribe events to/from the cloud or to/from devices (coming soon).
 
 ## How To Get Started
 
-- [Download Spark-SDK](https://github.com/spark/spark-sdk-ios/archive/master.zip) and try out the included iOS example app
+- [Download Spark iOS Cloud SDK](https://github.com/spark/spark-sdk-ios/archive/master.zip) and try out the included iOS example app
 - Or perform the installation step described under the **Installation** section below
 
-## Usage
+## Usage and documentation
 
-**Full documentation coming soon**
+_Full documentation coming soon_
 
 Meanahile you can look [here](http://cocoadocs.org/docsets/Spark-SDK/) or consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each public method.
-If Spark-SDK installation completed successfully - you should be able to press `Esc` to get an auto-complete hints from XCode for each cloud and device method.
-
+If Spark iOS Cloud SDK installation completed successfully - you should be able to press `Esc` to get an auto-complete hints from XCode for each cloud and device method.
 
 ## Communication
 
-- If you **need help**, use [Our community website](http://community.spark.io), use the `mobile` category for dicussion/troubleshooting iOS apps using the Spark-SDK.
+- If you **need help**, use [Our community website](http://community.spark.io), use the `mobile` category for dicussion/troubleshooting iOS apps using the Spark iOS Cloud SDK.
 - If you are certain you **found a bug**, _and can provide steps to reliably reproduce it_, open an issue, label it as `bug`.
 - If you **have a feature request**, open an issue with an `enhancement` label on it
 - If you **want to contribute**, submit a pull request, be sure to check out spark.github.io for our contribution guidelines, and please sign the [CLA](https://docs.google.com/a/spark.io/forms/d/1_2P-vRKGUFg5bmpcKLHO_qNZWGi5HKYnfrrkd-sbZoA/viewform). 
 
 ## Installation
 
-Spark SDK for iOS is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile on main project folder:
+Spark iOS Cloud SDK is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile on main project folder:
 
 ```ruby
 pod "Spark-SDK"
@@ -52,9 +51,9 @@ We also have an example app [here](https://github.com/spark/spark-setup-ios-exam
 
 ## Author
 
-Ido K, ido@spark.io
+Ido K, ido@spark.io  
 Spark
 
 ## License
 
-Spark-SDK is available under the LGPL v3 license. See the LICENSE file for more info.
+Spark iOS Cloud SDK is available under the LGPL v3 license. See the LICENSE file for more info.
