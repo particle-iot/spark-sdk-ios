@@ -49,10 +49,9 @@ also be sure the check out [Apple documentation](https://developer.apple.com/lib
 _Notice_ that we've included the required bridging header file in the SDK, you just need to copy it to your project add it as the active bridging header file in the project settings as described in the link above.
 We also have an example app [here](https://github.com/spark/spark-setup-ios-example), this app also demonstrates the Spark DeviceSetup library usage
 
-## Author
+## Maintainers
 
-Ido Kleinman, `ido@spark.io` 
-Spark
+- [Ido Kleinman](https:/www.github.com/idokleinman)
 
 ## License
 
