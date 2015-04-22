@@ -17,11 +17,11 @@ publish and subscribe events to/from the cloud or to/from devices (coming soon).
 - [Download Spark iOS Cloud SDK](https://github.com/spark/spark-sdk-ios/archive/master.zip) and try out the included iOS example app
 - Or perform the installation step described under the **Installation** section below
 
-## Usage and documentation
+## Usage
 
 _Full documentation coming soon_
 
-Meanahile you can look [here](http://cocoadocs.org/docsets/Spark-SDK/) or consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each public method.
+Meanahile you can check out the [Reference in Cocoadocs website](http://cocoadocs.org/docsets/Spark-SDK/) or consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each public method.
 If Spark iOS Cloud SDK installation completed successfully - you should be able to press `Esc` to get an auto-complete hints from XCode for each cloud and device method.
 
 ## Communication
@@ -51,7 +51,7 @@ We also have an example app [here](https://github.com/spark/spark-setup-ios-exam
 
 ## Author
 
-Ido K, ido@spark.io  
+Ido Kleinman, `ido@spark.io` 
 Spark
 
 ## License
