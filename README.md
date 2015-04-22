@@ -6,7 +6,7 @@
 (Update link)
 [![Build Status](https://travis-ci.org/AFNetworking/AFNetworking.svg)](https://travis-ci.org/Spark-SDK/Spark-SDK)
 -->
-# Spark iOS Cloud SDK 
+# Spark iOS Cloud SDK (beta)
 The Spark iOS Cloud SDK enables iOS apps to interact with Spark-powered connected products via the Spark Cloud.
 Library will allow you to easily manage active user sessions to Spark cloud, query for device info,
 read and write data to/from Spark Core/Photon devices and (via exposed variables and functions)
