@@ -41,6 +41,6 @@
 /**
  *  Remove user credentials session data from keychain
  */
-+(void)removeSession;
+-(void)removeSession;
 
 @end

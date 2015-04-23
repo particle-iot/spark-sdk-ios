@@ -229,8 +229,8 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 -(void)logout
 {
-    [SparkAccessToken removeSession];
-    [SparkUser removeSession];
+    [self.token removeSession];
+    [self.user removeSession];
 }
 
 

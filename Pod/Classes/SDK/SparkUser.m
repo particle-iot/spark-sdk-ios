@@ -58,11 +58,13 @@ NSString *const kSparkCredentialsKeychainEntry = @"io.spark.api.Keychain.Credent
 }
 
 
-+(void)removeSession
+-(void)removeSession
 {
     // remove user
     KeychainItemWrapper *keychainCredentialsItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkCredentialsKeychainEntry accessGroup:nil];
     [keychainCredentialsItem resetKeychainItem];
+    self.user = nil;
+    self.password = nil;
 }
 
 @end

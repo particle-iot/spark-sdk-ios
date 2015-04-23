@@ -86,7 +86,7 @@ NSString *const kSparkAccessTokenStringKey = @"kSparkAccessTokenStringKey";
             }
             @catch (NSException *exception) {
                 // so remove any invalid session data
-                [SparkAccessToken removeSession];
+                [self removeSession];
             }
             
         }
@@ -126,10 +126,11 @@ NSString *const kSparkAccessTokenStringKey = @"kSparkAccessTokenStringKey";
 }
 
 
-+(void)removeSession
+-(void)removeSession
 {
     KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkAccessTokenKeychainEntry accessGroup:nil];
     [keychainTokenItem resetKeychainItem];
+    self.accessToken = nil;
 }
 
 
