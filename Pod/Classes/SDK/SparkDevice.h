@@ -90,4 +90,14 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 -(void)flash:(NSData *)binary completion:(void(^)(NSError* error))completion;
 */
 
+/**
+ *  Rename device
+ *
+ *  @param newName      New device name
+ *  @param completion   Completion block to be called with optional error
+ */
+-(void)rename:(NSString *)newName completion:(void(^)(NSError* error))completion;
+
+
+
 @end

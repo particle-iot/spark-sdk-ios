@@ -105,7 +105,7 @@
 
 -(void)setName:(NSString *)name
 {
-    // TODO: device renaming code
+    [self rename:name completion:nil];
 }
 
 -(void)getVariable:(NSString *)variableName completion:(void(^)(id result, NSError* error))completion
@@ -218,10 +218,36 @@
 
 }
 
+-(void)rename:(NSString *)newName completion:(void(^)(NSError* error))completion
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
+
+    // TODO: check name validity before calling API
+    NSMutableDictionary *params = [self defaultParams];
+    params[@"name"] = newName;
+    
+    [self.manager PUT:[url description] parameters:[self defaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        self.name = newName;
+        if (completion)
+        {
+            completion(nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         if (completion) // TODO: better erroring handling
+             completion(error);
+     }];
+    
+
+    
+}
+
+
 
 #pragma mark Internal use methods
 - (NSMutableDictionary *)defaultParams
 {
+    // TODO: change access token to be passed in header not in body
     if ([SparkCloud sharedInstance].accessToken)
     {
         return [@{@"access_token" : [SparkCloud sharedInstance].accessToken} mutableCopy];

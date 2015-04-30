@@ -112,13 +112,5 @@ extern NSString *const kSparkAPIBaseURL;
  */
 -(void)requestPasswordReset:(NSString *)orgName email:(NSString *)email completion:(void(^)(NSError *))completion;
 
-/**
- *  Change password for user
- *
- *  @param user       user email
- *  @param password   new password
- *  @param completion Completion block with NSError object if failure, nil if success
- */
-
 
 @end
