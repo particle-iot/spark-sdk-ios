@@ -254,8 +254,8 @@
     [self setAuthHeaderWithAccessToken];
 
     
-    [self.manager PUT:[url description] parameters:[self defaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.name = newName;
+    [self.manager PUT:[url description] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        _name = newName;
         if (completion)
         {
             completion(nil);
