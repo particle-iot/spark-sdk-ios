@@ -264,10 +264,10 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 -(void)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion
 {
-    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
-    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
+//    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
+//    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
 
-    NSString *urlPath = [NSString stringWithFormat:@"/v1/devices/%@",deviceID];
+    NSString *urlPath = [NSString stringWithFormat:@"/v1/devices/%@?access_token=%@",deviceID,self.token.accessToken];
     [self.manager GET:urlPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          if (completion)

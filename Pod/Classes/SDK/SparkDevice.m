@@ -9,6 +9,7 @@
 #import "SparkDevice.h"
 #import "SparkCloud.h"
 #import <AFNetworking/AFNetworking.h>
+#import <objc/runtime.h>
 
 #define MAX_SPARK_FUNCTION_ARG_LENGTH 63
 
@@ -99,8 +100,30 @@
 
 -(void)refresh
 {
-    // TODO:
-    // do it!
+    [[SparkCloud sharedInstance] getDevice:self.id completion:^(SparkDevice *updatedDevice, NSError *error) {
+        if (!error)
+        {
+            if (updatedDevice)
+            {
+                // if we got an updated device from the cloud - overwrite ALL self's properies with the new device properties
+                NSMutableSet *propNames = [NSMutableSet set];
+                unsigned int outCount, i;
+                objc_property_t *properties = class_copyPropertyList([updatedDevice class], &outCount);
+                for (i = 0; i < outCount; i++) {
+                    objc_property_t property = properties[i];
+                    NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:NSStringEncodingConversionAllowLossy];
+                    [propNames addObject:propertyName];
+                }
+                free(properties);
+                
+                for (NSString *property in propNames)
+                {
+                    id value = [updatedDevice valueForKey:property];
+                    [self setValue:value forKey:property];
+                }
+            }
+        }
+    }];
 }
 
 -(void)setName:(NSString *)name
@@ -114,7 +137,9 @@
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@/%@", self.id, variableName]];
     // TODO: check response of calling a non existant function
     
-    [self.manager GET:[url description] parameters:[self defaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self setAuthHeaderWithAccessToken];
+    
+    [self.manager GET:[url description] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completion)
         {
             NSDictionary *responseDict = responseObject;
@@ -142,10 +167,9 @@
 {
     // TODO: check function name exists in list
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@/%@", self.id, functionName]];
-    
-    NSMutableDictionary *params = [self defaultParams];
+    NSMutableDictionary *params = [NSMutableDictionary new]; //[self defaultParams];
     // TODO: check response of calling a non existant function
-    
+
     if (args) {
         NSMutableArray *argsStr = [[NSMutableArray alloc] initWithCapacity:args.count];
         for (id arg in args)
@@ -165,6 +189,7 @@
         params[@"args"] = argsValue;
     }
     
+    [self setAuthHeaderWithAccessToken];
     
     [self.manager POST:[url description] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completion)
@@ -197,10 +222,11 @@
 
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
 
-    NSMutableDictionary *params = [self defaultParams];
-    params[@"id"] = self.id;
-    
-    [self.manager DELETE:[url description] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//    NSMutableDictionary *params = [self defaultParams];
+//    params[@"id"] = self.id;
+    [self setAuthHeaderWithAccessToken];
+
+    [self.manager DELETE:[url description] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completion)
         {
             NSDictionary *responseDict = responseObject;
@@ -223,8 +249,10 @@
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
 
     // TODO: check name validity before calling API
-    NSMutableDictionary *params = [self defaultParams];
+    NSMutableDictionary *params = [NSMutableDictionary new];// [self defaultParams];
     params[@"name"] = newName;
+    [self setAuthHeaderWithAccessToken];
+
     
     [self.manager PUT:[url description] parameters:[self defaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.name = newName;
@@ -253,6 +281,12 @@
         return [@{@"access_token" : [SparkCloud sharedInstance].accessToken} mutableCopy];
     }
     else return nil;
+}
+
+-(void)setAuthHeaderWithAccessToken
+{
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",[SparkCloud sharedInstance].accessToken];
+    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
 }
 
 
