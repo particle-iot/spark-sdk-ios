@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
     s.name             = "Spark-SDK"
-    s.version          = "0.2.3"
+    s.version          = "0.2.4"
     s.summary          = "Spark iOS Cloud SDK for interacting with Spark powered connected products via Spark Cloud"
     s.description      = <<-DESC
                         Spark iOS Cloud SDK Cocoapod library
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
     s.license          = 'LGPL v3'
     s.author           = { "Spark" => "ido@spark.io" }
     s.source           = { :git => "https://github.com/spark/Spark-SDK-ios.git", :tag => s.version.to_s }
-    # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+    s.social_media_url = 'https://twitter.com/spark_io'
 
     s.platform     = :ios, '7.1'
     s.requires_arc = true
