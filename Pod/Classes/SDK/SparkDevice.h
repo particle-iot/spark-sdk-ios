@@ -10,8 +10,8 @@
 //#import <AFNetworking/AFNetworking.h>
 
 typedef NS_ENUM(NSInteger, SparkDeviceType) {
-    SparkDeviceTypeCore=1,
-    SparkDeviceTypePhoton,
+    SparkDeviceTypeCore=0,
+    SparkDeviceTypePhoton=6,
 };
 
 @interface SparkDevice : NSObject
@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  */
 @property (strong, nonatomic, readonly) NSString *version;
 @property (nonatomic, readonly) BOOL requiresUpdate;
-//@property (nonatomic, readonly) SparkDeviceType type; // inactive for now
+@property (nonatomic, readonly) SparkDeviceType type; // inactive for now
 
 -(instancetype)initWithParams:(NSDictionary *)params NS_DESIGNATED_INITIALIZER;
 -(instancetype)init __attribute__((unavailable("Must use initWithParams:")));
@@ -56,7 +56,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  *  Retrieve a variable value from the device
  *
  *  @param variableName Variable name
- *  @param completion   Completion block to be called with the result value or error
+ *  @param completion   Completion block to be called when function completes with the variable value retrieved (as id/AnyObject) or NSError object in case on an error
  */
 -(void)getVariable:(NSString *)variableName completion:(void(^)(id result, NSError* error))completion;
 
@@ -65,7 +65,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  *
  *  @param functionName Function name
  *  @param args         Array of arguments to pass to the function on the device. Arguments will be converted to string maximum length 63 chars.
- *  @param completion   Completion block will be called when function finished running on device. First argument of block is the integer return value of the function, second is NSError object in case of an error invoking the function
+ *  @param completion   Completion block will be called when function was invoked on device. First argument of block is the integer return value of the function, second is NSError object in case of an error invoking the function
  */
 -(void)callFunction:(NSString *)functionName withArguments:(NSArray *)args completion:(void (^)(NSNumber *, NSError *))completion;
 
@@ -75,13 +75,19 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  */
 
 
-// Request device refresh from cloud - update online status/function/variables/name etc
--(void)refresh;
+/**
+ *  Request device refresh from cloud
+ *  update online status/functions/variables/device name, etc
+ *
+ *  @param completion Completion block called when function completes with NSError object in case of an error or nil if success.
+ *
+ */
+-(void)refresh:(void(^)(NSError* error))completion;
 
 /**
  *  Remove device from current logged in user account
  *
- *  @param completion Completion with NSError object in case of an error. 
+ *  @param completion Completion block called when function completes with NSError object in case of an error or nil if success.
  */
 -(void)unclaim:(void(^)(NSError* error))completion;
 
@@ -94,7 +100,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  *  Rename device
  *
  *  @param newName      New device name
- *  @param completion   Completion block to be called with optional error
+ *  @param completion   Completion block called when function completes with NSError object in case of an error or nil if success.
  */
 -(void)rename:(NSString *)newName completion:(void(^)(NSError* error))completion;
 

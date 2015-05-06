@@ -460,7 +460,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
              // TODO: for all
              completion([NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
          }
-         NSLog(@"Error %ld: %@", (long)operation.response.statusCode, error.localizedDescription);
+         NSLog(@"requestPasswordReset Error %ld: %@", (long)operation.response.statusCode, error.localizedDescription);
      }];
     
 }
@@ -480,13 +480,13 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         //
-        NSLog(@"%@",[error localizedDescription]);
+        NSLog(@"listTokens %@",[error localizedDescription]);
     }];
     [self.manager.requestSerializer clearAuthorizationHeader];
     
 }
 
-
+/*
 - (NSMutableDictionary *)defaultParams
 {
     // Access token in HTTP body
@@ -495,7 +495,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
     else
         return nil;
 }
-
+*/
 
 -(NSError *)makeErrorWithDescription:(NSString *)desc code:(NSInteger)errorCode
 {

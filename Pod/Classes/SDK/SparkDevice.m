@@ -39,6 +39,8 @@
         if (![params[@"name"] isKindOfClass:[NSNull class]])
             if (params[@"name"])
                 _name = params[@"name"];
+            else _name = nil;
+        else _name = nil;
         
         if ([params[@"connected"] boolValue]==YES)
             self.connected = YES;
@@ -52,6 +54,18 @@
             self.variables = params[@"variables"];
         
         _id = params[@"id"];
+
+        _type = SparkDeviceTypePhoton;
+        if (![params[@"product_id"] isKindOfClass:[NSNull class]])
+        {
+            if (params[@"product_id"])
+            {
+                if ([params[@"product_id"] intValue]==SparkDeviceTypeCore)
+                    _type = SparkDeviceTypeCore;
+            }
+        }
+
+
         
         if (![params[@"last_app"] isKindOfClass:[NSNull class]])
             if (params[@"last_app"])
@@ -67,7 +81,6 @@
                 NSLocale *posix = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
                 [formatter setLocale:posix];
                 _lastHeard = [formatter dateFromString:dateString];
-                NSLog(@"last heard date = %@", _lastHeard); // debug
             }
         }
         
@@ -83,8 +96,9 @@
         if (params[@"device_needs_update"])
         {
             self.requiresUpdate = YES;
-
         }
+        
+        
         
         self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:self.baseURL];
         self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -98,7 +112,7 @@
 }
 
 
--(void)refresh
+-(void)refresh:(void(^)(NSError* error))completion;
 {
     [[SparkCloud sharedInstance] getDevice:self.id completion:^(SparkDevice *updatedDevice, NSError *error) {
         if (!error)
@@ -122,6 +136,13 @@
                     [self setValue:value forKey:property];
                 }
             }
+            if (completion)
+                completion(nil);
+        }
+        else
+        {
+            if (completion)
+                completion(error);
         }
     }];
 }
