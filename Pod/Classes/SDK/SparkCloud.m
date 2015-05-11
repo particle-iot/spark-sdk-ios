@@ -264,10 +264,10 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 -(void)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion
 {
-//    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
-//    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
+    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
 
-    NSString *urlPath = [NSString stringWithFormat:@"/v1/devices/%@?access_token=%@",deviceID,self.token.accessToken];
+    NSString *urlPath = [NSString stringWithFormat:@"/v1/devices/%@",deviceID];
     [self.manager GET:urlPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          if (completion)
@@ -288,38 +288,6 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
      }];
   
 }
-
-
-// return format:
-//{
-//    connected = 0;
-//    id = 54ff6b066667515140471567;
-//    "last_app" = "<null>";
-//    "last_heard" = "<null>";
-//    name = PhotonsSoldCounter;
-//},{...},{...}
-/*
--(void)getDevicesInfo:(void (^)(NSArray *devicesInfo, NSError *error))completion
-{
-    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
-    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
-
-     [self.manager GET:@"/v1/devices" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         if (completion)
-         {
-             // just return the list to the user (document 
-             NSArray *devicesInfo = responseObject;
-             completion(devicesInfo, nil);
-         }
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         // check type of error?
-         if (completion)
-             completion(nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
-//         NSLog(@"Error: %@", error.localizedDescription);
-     }];
-}
-*/
 
 
 -(void)getDevices:(void (^)(NSArray *sparkDevices, NSError *error))completion
