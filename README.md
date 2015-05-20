@@ -99,7 +99,7 @@ Assuming here that `myPhoton` is an active instance of `SparkDevice` class which
 }];
 ```
 **Swift**
-```
+```swift
 myPhoton!.getVariable("temprature", completion: { (result:AnyObject!, error:NSError!) -> Void in
     if let e=error {
         println("Failed reading temprature from device")
@@ -162,7 +162,7 @@ println("MyDevice first function is called \(myDeviceFunction!.first)")
     }];
 ```
 **Swift**
-```
+```swift
 var myOtherDevice : SparkDevice? = nil
     SparkCloud.sharedInstance().getDevice("53fa73265066544b16208184", completion: { (device:SparkDevice!, error:NSError!) -> Void in
         if let d = device {
@@ -178,7 +178,7 @@ myPhoton.name = @"myNewDeviceName";
 ```
 
 _or_
-```obj
+```objc
 [myPhoton rename:@"myNewDeviecName" completion:^(NSError *error) {
     if (!error)
         NSLog(@"Device renamed successfully");
