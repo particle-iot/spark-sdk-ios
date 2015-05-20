@@ -88,25 +88,25 @@ Assuming here that `myPhoton` is an active instance of `SparkDevice` class which
 
 **Objective-C**
 ```objc
-[myPhoton getVariable:@"temprature" completion:^(id result, NSError *error) {
+[myPhoton getVariable:@"temperature" completion:^(id result, NSError *error) {
     if (!error) {
-        NSNumber *tempratureReading = (NSNumber *)result;
-        NSLog(@"Room temprature is %f degrees",tempratureReading.floatValue);
+        NSNumber *temperatureReading = (NSNumber *)result;
+        NSLog(@"Room temperature is %f degrees",temperatureReading.floatValue);
     }
     else {
-        NSLog(@"Failed reading temprature from Photon device");
+        NSLog(@"Failed reading temperature from Photon device");
     }
 }];
 ```
 **Swift**
 ```swift
-myPhoton!.getVariable("temprature", completion: { (result:AnyObject!, error:NSError!) -> Void in
+myPhoton!.getVariable("temperature", completion: { (result:AnyObject!, error:NSError!) -> Void in
     if let e=error {
-        println("Failed reading temprature from device")
+        println("Failed reading temperature from device")
     }
     else {
         if let res = result as? Float {
-            println("Room temprature is \(res) degrees")
+            println("Room temperature is \(res) degrees")
         }
     }
 })
