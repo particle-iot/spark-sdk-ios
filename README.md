@@ -47,10 +47,12 @@ SparkCloud.sharedInstance().loginWithUser("ido@particle.io", password: "userpass
 }
 ```
 
-#### Get a list of all current user devices and search for a specific device by name:
+#### Get a list of all devices:
+List the devices that belong to currently logged in user and find a specific device by name:
 **Objective-C**
 
 ```objc
+__block SparkDevice *myPhoton;
 [[SparkCloud sharedInstance] getDevices:^(NSArray *sparkDevices, NSError *error) {
     NSLog(@"%@",sparkDevices.description); // print all devices claimed to user
 
@@ -135,10 +137,10 @@ myPhoton!.callFunction("digitalwrite", withArguments: funcArgs) { (resultCode : 
 #### Get a list of a specific device exposed functions and variables:
 **Objective-C**
 ```objc
-NSDictionary *myDeviceVariables = myPhoton!.variables;
+NSDictionary *myDeviceVariables = myPhoton.variables;
 NSLog(@"MyDevice first Variable is called %@ and is from type %@", myDeviceVariables.allKeys[0], myDeviceVariables.allValues[0]);
 
-NSArray *myDeviceFunctions = myPhoton!.functions;
+NSArray *myDeviceFunctions = myPhoton.functions;
 NSLog(@"MyDevice first Function is called %@", myDeviceFunctions[0]);
 ```
 **Swift**
@@ -154,12 +156,12 @@ println("MyDevice first function is called \(myDeviceFunction!.first)")
 #### Get an instance of specific device by its ID:
 **Objective-C**
 ```objc
-    __block SparkDevice *myOtherDevice;
-    NSString *deviceID = @"53fa73265066544b16208184";
-    [[SparkCloud sharedInstance] getDevice:deviceID completion:^(SparkDevice *device, NSError *error) {
-        if (!error)
-            myOtherDevice = device;
-    }];
+__block SparkDevice *myOtherDevice;
+NSString *deviceID = @"53fa73265066544b16208184";
+[[SparkCloud sharedInstance] getDevice:deviceID completion:^(SparkDevice *device, NSError *error) {
+    if (!error)
+        myOtherDevice = device;
+}];
 ```
 **Swift**
 ```swift
