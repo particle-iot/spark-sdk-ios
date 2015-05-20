@@ -9,21 +9,22 @@
 
 Pod::Spec.new do |s|
     s.name             = "Spark-SDK"
-    s.version          = "0.2.7"
-    s.summary          = "Spark iOS Cloud SDK for interacting with Spark powered connected products via Spark Cloud"
+    s.version          = "0.2.8"
+    s.summary          = "Particle iOS Cloud SDK for interacting with products/project powered by Cores/Photons via Particle Cloud"
     s.description      = <<-DESC
-                        Spark iOS Cloud SDK Cocoapod library
-                        The Spark iOS Cloud SDK enables iOS apps to interact with Spark-powered connected products via the Spark Cloud.
-                        Library will allow you to easily manage active user sessions to Spark cloud, query for device info,
+                        Particle iOS Cloud SDK Cocoapod library
+                        The Particle iOS Cloud SDK enables iOS apps to interact with Particle-powered connected products via the Particle Cloud.
+                        Library will allow you to easily manage active user sessions to Particle cloud, query for device info,
                         read and write data to/from Spark Core/Photon devices and (via exposed variables and functions)
                         publish and subscribe events to/from the cloud or to/from devices (coming soon).
+                        notice: Spark has been rebranded as Particle
                         DESC
     s.homepage         = "https://github.com/spark/spark-sdk-ios"
-    # s.screenshots      = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+    s.screenshots      = "http://i59.tinypic.com/mrthqc.jpg"
     s.license          = 'LGPL v3'
-    s.author           = { "Spark" => "ido@spark.io" }
+    s.author           = { "Particle" => "ido@particle.io" }
     s.source           = { :git => "https://github.com/spark/Spark-SDK-ios.git", :tag => s.version.to_s }
-    s.social_media_url = 'https://twitter.com/spark_io'
+    s.social_media_url = 'https://twitter.com/particle'
 
     s.platform     = :ios, '7.1'
     s.requires_arc = true
