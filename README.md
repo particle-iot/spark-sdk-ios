@@ -264,4 +264,4 @@ We also have an example app [here](https://github.com/spark/spark-setup-ios-exam
 
 ## License
 
-Particle iOS Cloud SDK is available under the LGPL v3 license. See the LICENSE file for more info.
+Particle iOS Cloud SDK is available under the Apache License 2.0. See the LICENSE file for more info.
