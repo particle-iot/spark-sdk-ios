@@ -26,7 +26,7 @@ This should not bother or affect your code for now.
 
 #### Logging in to Particle cloud:
 
-Objective-C:
+**Objective-C**
 ```objc
 [[SparkCloud sharedInstance] loginWithUser:@"ido@particle.io" password:@"userpass" completion:^(NSError *error) {
     if (!error) 
@@ -35,7 +35,7 @@ Objective-C:
         NSLog(@"Wrong credentials or no internet connectivity, please try again");
 }];
 ```
-Swift:
+**Swift**
 ```swift
 SparkCloud.sharedInstance().loginWithUser("ido@particle.io", password: "userpass") { (error:NSError!) -> Void in
     if let e=error {
@@ -48,7 +48,7 @@ SparkCloud.sharedInstance().loginWithUser("ido@particle.io", password: "userpass
 ```
 
 #### Get a list of all current user devices and search for a specific device by name:
-Objective-C:
+**Objective-C**
 
 ```objc
 [[SparkCloud sharedInstance] getDevices:^(NSArray *sparkDevices, NSError *error) {
@@ -62,7 +62,7 @@ Objective-C:
 }];
 ```
 
-Swift:
+**Swift**
 
 ```swift
 var myPhoton : SparkDevice?
@@ -86,7 +86,7 @@ SparkCloud.sharedInstance().getDevices { (sparkDevices:[AnyObject]!, error:NSErr
 #### Read a variable from a Particle device (Core/Photon)
 Assuming here that `myPhoton` is an active instance of `SparkDevice` class which represents a device claimed to current user:
 
-Objective-C:
+**Objective-C**
 ```objc
 [myPhoton getVariable:@"temprature" completion:^(id result, NSError *error) {
     if (!error) {
@@ -98,7 +98,7 @@ Objective-C:
     }
 }];
 ```
-Swift:
+**Swift**
 ```
 myPhoton!.getVariable("temprature", completion: { (result:AnyObject!, error:NSError!) -> Void in
     if let e=error {
@@ -113,7 +113,7 @@ myPhoton!.getVariable("temprature", completion: { (result:AnyObject!, error:NSEr
 ```
 
 #### Call a function on a Particle device (Core/Photon)
-Objective-C:
+**Objective-C**
 ```objc
 [myPhoton callFunction:@"digitalwrite" withArguments:@[@"D7",@1] completion:^(NSNumber *resultCode, NSError *error) {
     if (!error)
@@ -122,7 +122,7 @@ Objective-C:
     }
 }];
 ```
-Swift:
+**Swift**
 ```swift
 let funcArgs = ["D7",1]
 myPhoton!.callFunction("digitalwrite", withArguments: funcArgs) { (resultCode : NSNumber!, error : NSError!) -> Void in
@@ -133,7 +133,7 @@ myPhoton!.callFunction("digitalwrite", withArguments: funcArgs) { (resultCode : 
 ```
 
 #### Get a list of a specific device exposed functions and variables:
-Objective-C:
+**Objective-C**
 ```objc
 NSDictionary *myDeviceVariables = myPhoton!.variables;
 NSLog(@"MyDevice first Variable is called %@ and is from type %@", myDeviceVariables.allKeys[0], myDeviceVariables.allValues[0]);
@@ -141,7 +141,7 @@ NSLog(@"MyDevice first Variable is called %@ and is from type %@", myDeviceVaria
 NSArray *myDeviceFunctions = myPhoton!.functions;
 NSLog(@"MyDevice first Function is called %@", myDeviceFunctions[0]);
 ```
-Swift:
+**Swift**
 ```swift
 let myDeviceVariables : Dictionary? = myPhoton.variables as? Dictionary<String,String>
 println("MyDevice first Variable is called \(myDeviceVariables!.keys.first) and is from type \(myDeviceVariables?.values.first)")
@@ -152,7 +152,7 @@ println("MyDevice first function is called \(myDeviceFunction!.first)")
 
 
 #### Get an instance of specific device by its ID:
-Objective-C:
+**Objective-C**
 ```objc
     __block SparkDevice *myOtherDevice;
     NSString *deviceID = @"53fa73265066544b16208184";
@@ -161,7 +161,7 @@ Objective-C:
             myOtherDevice = device;
     }];
 ```
-Swift:
+**Swift**
 ```
 var myOtherDevice : SparkDevice? = nil
     SparkCloud.sharedInstance().getDevice("53fa73265066544b16208184", completion: { (device:SparkDevice!, error:NSError!) -> Void in
@@ -172,7 +172,7 @@ var myOtherDevice : SparkDevice? = nil
 ```
 
 #### Rename a device:
-Objective-C:
+**Objective-C**
 ```objc
 myPhoton.name = @"myNewDeviceName";
 ```
@@ -184,7 +184,7 @@ _or_
         NSLog(@"Device renamed successfully");
 }];
 ```
-Swift:
+**Swift**
 ```swift
 myPhoton!.name = "myNewDeviceName"
 ```
@@ -198,11 +198,11 @@ myPhoton!.rename("myNewDeviceName", completion: { (error:NSError!) -> Void in
 ```
 
 #### Logout and clear user session:
-Objective-C:
+**Objective-C**
 ```objc
 [[SparkCloud sharedInstance] logout];
 ```
-Swift:
+**Swift**
 ```swift
 SparkCloud.sharedInstance().logout()
 ```
