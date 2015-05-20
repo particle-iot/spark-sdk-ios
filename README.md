@@ -24,8 +24,8 @@ This should not bother or affect your code for now.
 
 ## Usage
 
-#### Logging in to Particle cloud:
-
+#### Logging in to Particle cloud
+You don't need to worry about access tokens, SDK takes care of that for you
 **Objective-C**
 ```objc
 [[SparkCloud sharedInstance] loginWithUser:@"ido@particle.io" password:@"userpass" completion:^(NSError *error) {
@@ -47,7 +47,7 @@ SparkCloud.sharedInstance().loginWithUser("ido@particle.io", password: "userpass
 }
 ```
 
-#### Get a list of all devices:
+#### Get a list of all devices
 List the devices that belong to currently logged in user and find a specific device by name:
 **Objective-C**
 
@@ -107,14 +107,15 @@ myPhoton!.getVariable("temperature", completion: { (result:AnyObject!, error:NSE
         println("Failed reading temperature from device")
     }
     else {
-        if let res = result as? Float {
-            println("Room temperature is \(res) degrees")
+        if let temp = result as? Float {
+            println("Room temperature is \(temp) degrees")
         }
     }
 })
 ```
 
 #### Call a function on a Particle device (Core/Photon)
+Invoke a function on the device and pass a list of parameters to it, `resultCode` on the completion block will represent the returned result code of the function on the device
 **Objective-C**
 ```objc
 [myPhoton callFunction:@"digitalwrite" withArguments:@[@"D7",@1] completion:^(NSNumber *resultCode, NSError *error) {
@@ -134,7 +135,8 @@ myPhoton!.callFunction("digitalwrite", withArguments: funcArgs) { (resultCode : 
 }
 ```
 
-#### Get a list of a specific device exposed functions and variables:
+#### List device exposed functions and variables
+Functions is just a list of names, variables is a dictionary in which keys are variable names and values are variable types:
 **Objective-C**
 ```objc
 NSDictionary *myDeviceVariables = myPhoton.variables;
@@ -152,8 +154,8 @@ let myDeviceFunction = myPhoton.functions
 println("MyDevice first function is called \(myDeviceFunction!.first)")
 ```
 
-
-#### Get an instance of specific device by its ID:
+#### Get an instance of a device
+Get a device instance by its ID
 **Objective-C**
 ```objc
 __block SparkDevice *myOtherDevice;
@@ -173,7 +175,8 @@ var myOtherDevice : SparkDevice? = nil
     })
 ```
 
-#### Rename a device:
+#### Rename a device
+you can simply alter the `.name` property or use -rename() method if you need a completion block (for example updating a UI after renaming was done)
 **Objective-C**
 ```objc
 myPhoton.name = @"myNewDeviceName";
@@ -199,7 +202,8 @@ myPhoton!.rename("myNewDeviceName", completion: { (error:NSError!) -> Void in
 })
 ```
 
-#### Logout and clear user session:
+#### Logout 
+Also clears user session and access token
 **Objective-C**
 ```objc
 [[SparkCloud sharedInstance] logout];
