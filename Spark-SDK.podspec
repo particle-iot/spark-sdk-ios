@@ -9,10 +9,10 @@
 
 Pod::Spec.new do |s|
     s.name             = "Spark-SDK"
-    s.version          = "0.2.8"
+    s.version          = "0.2.9"
     s.summary          = "Particle iOS Cloud SDK for interacting with products/project powered by Cores/Photons via Particle Cloud"
     s.description      = <<-DESC
-                        Particle iOS Cloud SDK Cocoapod library
+                        Particle (formerly Spark) iOS Cloud SDK Cocoapod library
                         The Particle iOS Cloud SDK enables iOS apps to interact with Particle-powered connected products via the Particle Cloud.
                         Library will allow you to easily manage active user sessions to Particle cloud, query for device info,
                         read and write data to/from Spark Core/Photon devices and (via exposed variables and functions)
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
                         DESC
     s.homepage         = "https://github.com/spark/spark-sdk-ios"
     s.screenshots      = "http://i59.tinypic.com/mrthqc.jpg"
-    s.license          = 'LGPL v3'
+    s.license          = 'Apache 2.0'
     s.author           = { "Particle" => "ido@particle.io" }
     s.source           = { :git => "https://github.com/spark/Spark-SDK-ios.git", :tag => s.version.to_s }
     s.social_media_url = 'https://twitter.com/particle'

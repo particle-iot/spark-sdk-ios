@@ -260,7 +260,7 @@ We also have an example app [here](https://github.com/spark/spark-setup-ios-exam
 
 ## Maintainers
 
-- [Ido Kleinman](https:/www.github.com/idokleinman)
+- Ido Kleinman [Github](https:/www.github.com/idokleinman) | [Twitter](https:/www.twitter.com/idokleinman)
 
 ## License
 
