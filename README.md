@@ -6,21 +6,25 @@
 (Update link)
 [![Build Status](https://travis-ci.org/AFNetworking/AFNetworking.svg)](https://travis-ci.org/Spark-SDK/Spark-SDK)
 -->
-# Particle (_formerly Spark_) iOS Cloud SDK _beta_
+# Particle (_formerly Spark_) iOS Cloud SDK
 The Particle iOS Cloud SDK enables iOS apps to interact with Particle-powered connected products via the Particle Cloud.
 Library will allow you to easily manage active user sessions to Particle cloud, query for device info,
 read and write data to/from Spark Core/Photon devices and (via exposed variables and functions)
 publish and subscribe events to/from the cloud or to/from devices (coming soon).
 
-#### Rebranding notice
+**Rebranding notice**
 As you probably know Spark has been rebranded as Particle. 
 Code currently refers to `SparkCloud` and `SparkDevice`, this will soon be replaced with `ParticleCloud` and `ParticleDevice`. A new Cocoapod library will be published and current one will point to the new one. 
 This should not bother or affect your code for now.
 
+**Beta notice**
+This SDK is still under development and is currently released as Beta, although tested, bugs and issues may be present, some code might require cleanups. 
+
 ## Getting Started
 
-- [Download Particle iOS Cloud SDK](https://github.com/spark/spark-sdk-ios/archive/master.zip) and try out the included iOS example app
-- Or perform the installation step described under the **Installation** section below
+- Perform the installation step described under the **Installation** section below for integrating in your own project
+- You can also [Download Particle iOS Cloud SDK](https://github.com/spark/spark-sdk-ios/archive/master.zip) and try out the included iOS example app
+- Be sure to check **Usage** before you begin for some code examples
 
 ## Usage
 
@@ -220,7 +224,7 @@ Also clears user session and access token
 SparkCloud.sharedInstance().logout()
 ```
 
-This should definitely get you started. _Full usage documentation is coming soon._
+This should get you started. _Full usage documentation is coming soon._
 
 Be sure to check out the [Reference in Cocoadocs website](http://cocoadocs.org/docsets/Spark-SDK/) for full coverage of `SparkDevice` and `SparkCloud` usage. In addition you can consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each public method.
 If Particle iOS Cloud SDK is integrated in your XCode project you should be able to press `Esc` to get an auto-complete hints for each cloud and device method.
