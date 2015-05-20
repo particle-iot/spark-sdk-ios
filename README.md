@@ -13,11 +13,13 @@ read and write data to/from Spark Core/Photon devices and (via exposed variables
 publish and subscribe events to/from the cloud or to/from devices (coming soon).
 
 **Rebranding notice**
+
 As you probably know Spark has been rebranded as Particle. 
 Code currently refers to `SparkCloud` and `SparkDevice`, this will soon be replaced with `ParticleCloud` and `ParticleDevice`. A new Cocoapod library will be published and current one will point to the new one. 
 This should not bother or affect your code for now.
 
 **Beta notice**
+
 This SDK is still under development and is currently released as Beta, although tested, bugs and issues may be present, some code might require cleanups. 
 
 ## Getting Started
