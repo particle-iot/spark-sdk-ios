@@ -341,30 +341,46 @@
 }
 
 
+-(void)flashKnownApp:(NSString *)knownAppName completion:(void (^)(NSError *))completion
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
+    
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    params[@"app"] = knownAppName;
+    [self setAuthHeaderWithAccessToken];
+    
+    [self.manager PUT:[url description] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (completion)
+        {
+            completion(nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         if (completion) // TODO: better erroring handling
+             completion(error);
+     }];
+    
+    
+}
+
+
 -(void)flashFiles:(NSDictionary *)filesDict completion:(void (^)(NSError *))completion
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
     
     [self setAuthHeaderWithAccessToken];
     
-//    - (NSMutableURLRequest *)multipartFormRequestWithMethod:(NSString *)method
-//URLString:(NSString *)URLString
-//parameters:(NSDictionary *)parameters
-//constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
-//error:(NSError * __autoreleasing *)error;
-//    
-    
-    
-    NSError **error;
+    NSError *reqError;
     NSMutableURLRequest *request = [self.manager.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:url.description parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         // check this:
         for (NSString *key in filesDict.allKeys)
         {
             [formData appendPartWithFormData:filesDict[key] name:key];
         }
-    } error:(NSError *__autoreleasing *)error];
+    } error:&reqError];
     
-    if (!error)
+    
+    if (!reqError)
     {
         [self.manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (completion)
@@ -376,7 +392,16 @@
                 completion(error);
         }];
     }
+    else
+    {
+        if (completion)
+            completion(reqError);
+    }
+        
+        
     
+    
+    // app=tinker (json / form) - for known app
 }
 
 @end
