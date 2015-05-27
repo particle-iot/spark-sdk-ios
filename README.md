@@ -7,16 +7,22 @@
 [![Build Status](https://travis-ci.org/AFNetworking/AFNetworking.svg)](https://travis-ci.org/Spark-SDK/Spark-SDK)
 -->
 # Particle (_formerly Spark_) iOS Cloud SDK
-The Particle iOS Cloud SDK enables iOS apps to interact with Particle-powered connected products via the Particle Cloud.
-Library will allow you to easily manage active user sessions to Particle cloud, query for device info,
-read and write data to/from Spark Core/Photon devices and (via exposed variables and functions)
-publish and subscribe events to/from the cloud or to/from devices (coming soon).
+Particle iOS Cloud SDK enables iOS apps to interact with Particle-powered connected products via the Particle Cloud. It’s an easy-to-use wrapper for Particle REST API. The Cloud SDK will allow you to:
+
+- Manage user sessions for the Particle Cloud (access tokens, encrypted session management)
+- Claim/Unclaim devices for a user account
+- Get a list of instances of user's Particle devices
+- Read variables from devices
+- Invoke functions on devices
+- Publish events from the mobile app and subscribe to events coming from devices *(Coming Soon)* 
+
+All cloud operations take place asynchronously and use the well-known completion blocks (closures for swift) design pattern for reporting results allowing you to build beautiful responsive apps for your Particle products and projects. 
+iOS Cloud SDK is implemented as an open-source Cocoapod library. See [Installation](#installation) section for more details. It works well for both Objective-C and [Swift](#support-for-swift-projects) projects.
 
 **Rebranding notice**
 
-As you probably know Spark has been rebranded as Particle. 
-Code currently refers to `SparkCloud` and `SparkDevice`, this will soon be replaced with `ParticleCloud` and `ParticleDevice`. A new Cocoapod library will be published and current one will point to the new one. 
-This should not bother or affect your code for now.
+Spark has been recently rebranded as Particle. 
+Code currently refers to `SparkCloud` and `SparkDevice`, this will soon be replaced with `ParticleCloud` and `ParticleDevice`. A new Cocoapod library will be published and current one will be depracated and point to the new one. This should not bother or affect your code.
 
 **Beta notice**
 
@@ -26,9 +32,13 @@ This SDK is still under development and is currently released as Beta, although 
 
 - Perform the installation step described under the **Installation** section below for integrating in your own project
 - You can also [Download Particle iOS Cloud SDK](https://github.com/spark/spark-sdk-ios/archive/master.zip) and try out the included iOS example app
-- Be sure to check **Usage** before you begin for some code examples
+- Be sure to check [Usage](#usage) before you begin for some code examples
 
 ## Usage
+
+Cloud SDK usage involves two basic classes: first is `SparkCloud` which is a singleton object that enables all basic cloud operations such as user authentication, device listing, claiming etc. Second class is `SparkDevice` which is an instance represnting a claimed device in the current user session. Each object enables device-specific operation such as: getting its info, invoking functions and reading variables from it. 
+
+Here are few examples for the most common use cases to get your started:
 
 #### Logging in to Particle cloud
 You don't need to worry about access tokens, SDK takes care of that for you
@@ -226,17 +236,8 @@ Also clears user session and access token
 SparkCloud.sharedInstance().logout()
 ```
 
-This should get you started. _Full usage documentation is coming soon._
-
-Be sure to check out the [Reference in Cocoadocs website](http://cocoadocs.org/docsets/Spark-SDK/) for full coverage of `SparkDevice` and `SparkCloud` usage. In addition you can consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each public method.
-If Particle iOS Cloud SDK is integrated in your XCode project you should be able to press `Esc` to get an auto-complete hints for each cloud and device method.
-
-## Communication
-
-- If you **need help**, use [Our community website](http://community.particle.io), use the `Mobile` category for dicussion/troubleshooting iOS apps using the Particle iOS Cloud SDK.
-- If you are certain you **found a bug**, _and can provide steps to reliably reproduce it_, open an issue, label it as `bug`.
-- If you **have a feature request**, open an issue with an `enhancement` label on it
-- If you **want to contribute**, submit a pull request, be sure to check out spark.github.io for our contribution guidelines, and please sign the [CLA](https://docs.google.com/a/spark.io/forms/d/1_2P-vRKGUFg5bmpcKLHO_qNZWGi5HKYnfrrkd-sbZoA/viewform). 
+### Additional reference
+For additional reference check out the [Reference in Cocoadocs website](http://cocoadocs.org/docsets/Spark-SDK/) for full coverage of `SparkDevice` and `SparkCloud` functions and member variables. In addition you can consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each public method. If Particle iOS Cloud SDK is integrated in your XCode project you should be able to press `Esc` to get an auto-complete hints for each cloud and device method.
 
 ## Installation
 
@@ -251,16 +252,26 @@ pod "Spark-SDK"
 and then run `pod update`. A new `.xcworkspace` file will be created for you to open by Cocoapods, open that file workspace file in XCode and you can start interacting with Particle cloud and devices by
 adding `#import "Spark-SDK.h"`. (that is not required for swift projects)
 
+## Communication
+
+- If you **need help**, use [Our community website](http://community.particle.io), use the `Mobile` category for dicussion/troubleshooting iOS apps using the Particle iOS Cloud SDK.
+- If you are certain you **found a bug**, _and can provide steps to reliably reproduce it_, open an issue, label it as `bug`.
+- If you **have a feature request**, open an issue with an `enhancement` label on it
+- If you **want to contribute**, submit a pull request, be sure to check out spark.github.io for our contribution guidelines, and please sign the [CLA](https://docs.google.com/a/particle.io/forms/d/1_2P-vRKGUFg5bmpcKLHO_qNZWGi5HKYnfrrkd-sbZoA/viewform). 
+
 
 #### Support for Swift projects
-To use iOS Cloud SDK from within Swift based projects [read here](http://swiftalicio.us/2014/11/using-cocoapods-from-swift/), 
-also be sure the check out [Apple documentation](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html) on this matter.
-_Notice_ that we've included the required bridging header file in the SDK, you just need to copy it to your project add it as the active bridging header file in the project settings as described in the link above.
-We also have an example app [here](https://github.com/spark/spark-setup-ios-example), this app also demonstrates the Particle DeviceSetup library usage
+To use iOS Cloud SDK from within Swift based projects [read here](http://swiftalicio.us/2014/11/using-cocoapods-from-swift/).
+For a detailed step-by-step help on integrating the Cloud SDK within a Swift project check out this [Particle community posting](https://community.particle.io/t/mobile-sdk-building-the-bridge-from-swift-to-objective-c/12020/1).
+
+The [Apple documentation](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html) is an important resource on mixing Objective-C and Swift code, be sure to read through that as well.
+
+_Notice_ that we've included the required bridging header file in the SDK, you just need to copy it to your project add it as the active bridging header file in the project settings as described in the links above.
+There's also an [example app](https://github.com/spark/spark-setup-ios-example), this app also demonstrates the Particle DeviceSetup library usage, as well as several Cloud SDK calls.
 
 ## Maintainers
 
-- Ido Kleinman [Github](https:/www.github.com/idokleinman) | [Twitter](https:/www.twitter.com/idokleinman)
+- Ido Kleinman [Github](https://www.github.com/idokleinman) | [Twitter](https://www.twitter.com/idokleinman)
 
 ## License
 
