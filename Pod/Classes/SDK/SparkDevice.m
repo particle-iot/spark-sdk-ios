@@ -350,10 +350,14 @@
     [self setAuthHeaderWithAccessToken];
     
     [self.manager PUT:[url description] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (completion)
+        NSDictionary *responseDict = responseObject;
+        if (responseDict[@"errors"])
         {
-            completion(nil);
+            if (completion) completion([self makeErrorWithDescription:responseDict[@"errors"][@"error"] code:1005]);
         }
+        else
+            if (completion) completion(nil);
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          if (completion) // TODO: better erroring handling
@@ -364,26 +368,37 @@
 }
 
 
--(void)flashFiles:(NSDictionary *)filesDict completion:(void (^)(NSError *))completion
+-(void)flashFiles:(NSDictionary *)filesDict completion:(void (^)(NSError *))completion // binary
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
     
     [self setAuthHeaderWithAccessToken];
     
     NSError *reqError;
-    NSMutableURLRequest *request = [self.manager.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:url.description parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    NSMutableURLRequest *request = [self.manager.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:url.description parameters:@{@"file_type" : @"binary"} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         // check this:
         for (NSString *key in filesDict.allKeys)
         {
-            [formData appendPartWithFormData:filesDict[key] name:key];
+//            [formData appendPartWithFormData:filesDict[key] name:key];
+            [formData appendPartWithFileData:filesDict[key] name:@"file" fileName:key mimeType:@"application/octet-stream"];
         }
     } error:&reqError];
     
     
+    
     if (!reqError)
     {
-        [self.manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if (completion)
+        AFHTTPRequestOperation *operation = [self.manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *responseDict = responseObject;
+//            NSLog(@"flashFiles: %@",responseDict.description);
+            if (responseDict[@"error"])
+            {
+                if (completion)
+                {
+                    completion([self makeErrorWithDescription:responseDict[@"error"] code:1004]);
+                }
+            }
+            else if (completion)
             {
                 completion(nil);
             }
@@ -391,17 +406,17 @@
             if (completion) // TODO: better erroring handling
                 completion(error);
         }];
+        
+        [self.manager.operationQueue addOperation:operation];
+
     }
     else
     {
         if (completion)
             completion(reqError);
     }
-        
-        
     
     
-    // app=tinker (json / form) - for known app
 }
 
 @end
