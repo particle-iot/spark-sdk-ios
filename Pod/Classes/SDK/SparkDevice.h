@@ -117,8 +117,20 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  */
 -(void)rename:(NSString *)newName completion:(void(^)(NSError* error))completion;
 
-
+/**
+ *  Flash files to device
+ *
+ *  @param filesDict    files dictionary in the following format: @{@"filename.bin" : <NSData>, ...} - that is a NSString filename as key and NSData blob as value. More than one file can be flashed. Data is alway binary.
+ *  @param completion   Completion block called when function completes with NSError object in case of an error or nil if success. NSError.localized descripion will contain a detailed error report in case of a
+ */
 -(void)flashFiles:(NSDictionary *)filesDict completion:(void(^)(NSError* error))completion; //@{@"<filename>" : NSData, ...}
+
+/**
+ *  Flash known firmware images to device
+ *
+ *  @param knownAppName    NSString of known app name. Currently @"tinker" is supported. 
+ *  @param completion      Completion block called when function completes with NSError object in case of an error or nil if success. NSError.localized descripion will contain a detailed error report in case of a
+ */
 -(void)flashKnownApp:(NSString *)knownAppName completion:(void (^)(NSError *))completion; // knownAppName = @"tinker", @"blinky", ... see http://docs.
 
 //-(void)compileAndFlashFiles:(NSDictionary *)filesDict completion:(void(^)(NSError* error))completion; //@{@"<filename>" : @"<file contents>"}
