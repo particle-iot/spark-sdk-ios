@@ -52,6 +52,8 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 
 @property (strong, nonatomic, readonly) NSDate *lastHeard;
 
+@property (nonatomic) BOOL isFlashing;
+
 
 /**
  *  Device firmware version string

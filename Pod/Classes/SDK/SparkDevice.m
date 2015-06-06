@@ -22,7 +22,8 @@
 //@property (nonatomic) SparkDeviceType type;
 @property (nonatomic) BOOL requiresUpdate;
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
-
+@property (atomic) NSInteger flashingTimeLeft;
+@property (nonatomic, strong) NSTimer *flashingTimer;
 @property (nonatomic, strong) NSURL *baseURL;
 @end
 
@@ -418,5 +419,41 @@
     
     
 }
+
+
+
+-(void)flashingTimeLeftTimerFunc:(NSTimer *)timer
+{
+    if (self.flashingTimeLeft > 0)
+    {
+        self.flashingTimeLeft -= 1;
+//        NSLog(@"flashingTimeLeft (0x%lx): %ld",self,(long)self.flashingTimeLeft);
+    }
+    else
+    {
+        [timer invalidate];
+    }
+}
+
+-(BOOL)isFlashing
+{
+//    NSLog(@"isFlashing (0x%lx): %ld",self,(long)self.flashingTimeLeft);
+    return (self.flashingTimeLeft > 0);
+}
+
+-(void)setIsFlashing:(BOOL)isFlashing
+{
+    // TODO: convert this to be working with a subscribe to start flash/end flash event instead of a dumb timer
+    if (isFlashing)
+    {
+        self.flashingTimeLeft = (self.type == SparkDeviceTypePhoton) ? 15 : 30;
+        self.flashingTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(flashingTimeLeftTimerFunc:) userInfo:nil repeats:YES];
+    }
+    else
+    {
+        self.flashingTimeLeft = 0;
+    }
+}
+
 
 @end
