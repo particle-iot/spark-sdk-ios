@@ -301,8 +301,8 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
          {
              
              NSArray *responseList = responseObject;
-             NSMutableArray *queryDeviceIDList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
-             __block NSMutableArray *deviceList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
+             NSMutableArray *queryDeviceIDList = [[NSMutableArray alloc] init];
+             __block NSMutableArray *deviceList = [[NSMutableArray alloc] init];
              __block NSError *deviceError = nil;
              // analyze
              for (NSDictionary *deviceDict in responseList)
