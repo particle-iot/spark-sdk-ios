@@ -30,7 +30,7 @@ This SDK is still under development and is currently released as Beta, although 
 
 ## Getting Started
 
-- Perform the installation step described under the **Installation** section below for integrating in your own project
+- Perform the installation step described under the **[Installation](#installation)** section below for integrating in your own project
 - You can also [Download Particle iOS Cloud SDK](https://github.com/spark/spark-sdk-ios/archive/master.zip) and try out the included iOS example app
 - Be sure to check [Usage](#usage) before you begin for some code examples
 
