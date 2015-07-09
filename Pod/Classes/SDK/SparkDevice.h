@@ -135,4 +135,19 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 
 //-(void)compileAndFlashFiles:(NSDictionary *)filesDict completion:(void(^)(NSError* error))completion; //@{@"<filename>" : @"<file contents>"}
 //-(void)complileFiles:(NSDictionary *)filesDict completion:(void(^)(NSData *resultBinary, NSError* error))completion; //@{@"<filename>" : @"<file contents>"}
+
+
+/**
+ *  Subscribe to events from this specific SparkDevice.
+ *
+ *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
+ *  @param eventHandler <#eventHandler description#>
+ *
+ *  @discussion         This method is similar to <tt>[[SparkCloud sharedInstance] subscribeToDeviceEventsWithName]</tt> except that using this method user need not pass the deviceID parameter and since the user has the SparkDevice instance that implies that it is claimed so private events will be received from this device as well as public ones.
+ */
+//-(void)subscribeToEventsWithName:(NSString *)eventName handler:(EventSourceEventHandler)eventHandler;
+
+
+
+
 @end

@@ -122,5 +122,44 @@ extern NSString *const kSparkAPIBaseURL;
  */
 -(void)requestPasswordReset:(NSString *)orgName email:(NSString *)email completion:(void(^)(NSError *))completion;
 
+// ----
+// Events subsystem:
+// ----
+#pragma mark Events subsystem functions
+/**
+ *  Spark event handler function which receives two arguements
+ *
+ *  @param eventDict NSDictionary argument which contains the event payload keys: event (name), data (payload), ttl (time to live), published_at (date/time published), coreid (publishiing device ID).
+ *  @param error     NSError object in case an error occured in parsing the event payload or receiving it
+ */
+typedef void (^SparkEventHandler)(NSDictionary *eventDict, NSError *error);
+
+/**
+ *  Subscribe to the firehose of public events, plus private events published by devices one owns
+ *
+ *  @param eventHandler SparkEventHandler event handler method - receiving NSDictionary argument which contains keys: event (name), data (payload), ttl (time to live), published_at (date/time emitted), coreid (device ID). Second argument is NSError object in case error occured in parsing the event payload.
+ *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
+ */
+-(void)subscribeToAllEventsWithName:(NSString *)eventName handler:(SparkEventHandler)eventHandler;
+/**
+ *  Subscribe to all events, public and private, published by devices one owns
+ *
+ *  @param eventHandler <#eventHandler description#>
+ *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
+ */
+-(void)subscribeToAllDevicesEventsWithName:(NSString *)eventName handler:(SparkEventHandler)eventHandler;
+
+/**
+ *  Subscribe to events from one specific device. If the API user owns the device, then she will receive all events, public and private, published by that device. If the API user does not own the device she will only receive public events.
+ *
+ *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
+ *  @param deviceID     Specific device ID. If user has claimed the device private & public events will be received, otherwise public events only are received.
+ *  @param eventHandler <#eventHandler description#>
+ */
+-(void)subscribeToDeviceEventsWithName:(NSString *)eventName deviceID:(NSString *)deviceID handler:(SparkEventHandler)eventHandler;
+
+// TODO: add unsubscribe
+// not ready
+-(void)publishEvent:(NSString *)eventName data:(NSData *)data;
 
 @end

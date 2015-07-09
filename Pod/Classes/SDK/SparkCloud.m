@@ -11,6 +11,7 @@
 #import "SparkAccessToken.h"
 #import "SparkUser.h"
 #import <AFNetworking/AFNetworking.h>
+#import <EventSource.h>
 
 #define GLOBAL_API_TIMEOUT_INTERVAL     31.0f
 
@@ -473,6 +474,59 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
     return [NSError errorWithDomain:@"SparkAPIError" code:errorCode userInfo:errorDetail];
 }
 
+
+
+#pragma mark Events subsystem implementation
+-(void)subscribeToAllEventsWithName:(NSString *)eventName handler:(SparkEventHandler)eventHandler
+{
+    if (!self.accessToken)
+        return;
+    
+    NSString *endpoint;
+    if (eventName)
+    {
+        endpoint = [NSString stringWithFormat:@"%@/v1/events/%@", self.baseURL, eventName];
+    }
+    else
+    {
+        endpoint = [NSString stringWithFormat:@"%@/v1/events", self.baseURL]; //last slash to not remove auth header
+    }
+    
+    EventSource *source = [EventSource eventSourceWithURL:[NSURL URLWithString:endpoint] timeoutInterval:30.0f queue:dispatch_get_main_queue() accessToken:self.accessToken];
+    if (eventName == nil)
+        eventName = @"no_name";
+    
+    // - event example -
+    // event: Temp
+    // data: {"data":"Temp1 is 41.900002 F, Temp2 is $f F","ttl":"60","published_at":"2015-01-13T01:23:12.269Z","coreid":"53ff6e066667574824151267"}
+    
+    [source addEventListener:eventName handler:^(Event *event) {
+        if (eventHandler)
+        {
+            if (event.error)
+                eventHandler(nil, event.error);
+            else
+            {
+                // deserialize event payload into dictionary
+                NSError *error;
+                NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:event.data options:0 error:&error];
+                NSMutableDictionary *eventDict = [jsonDict mutableCopy];
+                
+                if ((eventDict) && (!error))
+                {
+                    eventDict[@"event"] = event.event; // append event name to dict
+                    eventHandler([eventDict copy], nil); // callback with parsed data
+                }
+                else if (error)
+                {
+                    eventHandler(nil, error);
+                }
+            }
+        }
+        
+    }];
+    
+}
 
 
 
