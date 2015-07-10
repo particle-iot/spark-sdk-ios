@@ -41,6 +41,11 @@ extern NSString *const kSparkAPIBaseURL;
  */
 + (instancetype)sharedInstance;
 
+#pragma mark User onboarding functions
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
+// User onboarding functions
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
  *  Login with existing account credentials to Spark cloud
  *
@@ -76,6 +81,20 @@ extern NSString *const kSparkAPIBaseURL;
  */
 -(void)logout;
 
+/**
+ *  Request password reset for user
+ *  command generates confirmation token and sends email to customer using org SMTP settings
+ *
+ *  @param email      user email
+ *  @param completion Completion block with NSError object if failure, nil if success
+ */
+-(void)requestPasswordReset:(NSString *)orgName email:(NSString *)email completion:(void(^)(NSError *))completion;
+
+
+#pragma mark Device management functions
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
+// Device management functions
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
  *  Get an array of instances of all user's claimed devices
@@ -113,19 +132,12 @@ extern NSString *const kSparkAPIBaseURL;
 
 -(void)generateClaimCode:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
 
-/**
- *  Request password reset for user 
- *  command generates confirmation token and sends email to customer using org SMTP settings
- *
- *  @param email      user email
- *  @param completion Completion block with NSError object if failure, nil if success
- */
--(void)requestPasswordReset:(NSString *)orgName email:(NSString *)email completion:(void(^)(NSError *))completion;
 
-// ----
-// Events subsystem:
-// ----
 #pragma mark Events subsystem functions
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
+// Events subsystem:
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
  *  Spark event handler function which receives two arguements
  *
@@ -140,27 +152,37 @@ typedef void (^SparkEventHandler)(NSDictionary *eventDict, NSError *error);
  *  @param eventHandler SparkEventHandler event handler method - receiving NSDictionary argument which contains keys: event (name), data (payload), ttl (time to live), published_at (date/time emitted), coreid (device ID). Second argument is NSError object in case error occured in parsing the event payload.
  *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
  */
--(void)subscribeToAllEventsWithName:(NSString *)eventName handler:(SparkEventHandler)eventHandler;
+-(void)subscribeToAllEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
 /**
  *  Subscribe to all events, public and private, published by devices one owns
  *
- *  @param eventHandler <#eventHandler description#>
- *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
+ *  @param eventHandler     Event handler function that accepts the event payload dictionary and an NSError object in case of an error
+ *  @param eventNamePrefix  Filter only events that match name eventNamePrefix, for exact match pass whole string, if nil/empty string is passed any event will trigger eventHandler
  */
--(void)subscribeToAllDevicesEventsWithName:(NSString *)eventName handler:(SparkEventHandler)eventHandler;
+-(void)subscribeToAllDevicesEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
 
 /**
  *  Subscribe to events from one specific device. If the API user has the device claimed, then she will receive all events, public and private, published by that device. 
  *  If the API user does not own the device she will only receive public events.
  *
- *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
- *  @param deviceID     Specific device ID. If user has claimed the device private & public events will be received, otherwise public events only are received.
- *  @param eventHandler <#eventHandler description#>
+ *  @param eventNamePrefix  Filter only events that match name eventNamePrefix, for exact match pass whole string, if nil/empty string is passed any event will trigger eventHandler
+ *  @param deviceID         Specific device ID. If user has this device claimed the private & public events will be received, otherwise public events only are received.
+ *  @param eventHandler     Event handler function that accepts the event payload dictionary and an NSError object in case of an error
  */
--(void)subscribeToDeviceEventsWithName:(NSString *)eventName deviceID:(NSString *)deviceID handler:(SparkEventHandler)eventHandler;
+-(void)subscribeToDeviceEventsWithPrefix:(NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(SparkEventHandler)eventHandler;
 
 // TODO: add unsubscribe
-// not ready
--(void)publishEvent:(NSString *)eventName data:(NSData *)data;
+
+/**
+ *  Subscribe to events from one specific device. If the API user has the device claimed, then she will receive all events, public and private, published by that device.
+ *  If the API user does not own the device she will only receive public events.
+ *
+ *  @param eventName    Publish event named eventName
+ *  @param data         A string representing event data payload, you can serialize any data you need to represent into this string and events listeners will get it
+ *  @param private      A boolean flag determining if this event is private or not (only users's claimed devices will be able to listen to it)
+ *  @param ttl          Time To Live number
+ */
+-(void)publishEventWithName:(NSString *)eventName data:(NSString *)data private:(BOOL)isPrivate ttl:(NSUInteger)ttl completion:(void (^)(NSError *))completion;
+
 
 @end

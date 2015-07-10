@@ -16,7 +16,7 @@
 #define GLOBAL_API_TIMEOUT_INTERVAL     31.0f
 
 
-NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
+NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
 
 @interface SparkCloud () <SparkAccessTokenDelegate>
 @property (nonatomic, strong) NSURL* baseURL;
@@ -477,32 +477,25 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 
 #pragma mark Events subsystem implementation
--(void)subscribeToAllEventsWithName:(NSString *)eventName handler:(SparkEventHandler)eventHandler
+-(void)subscribeToEventWithURL:(NSURL *)url handler:(SparkEventHandler)eventHandler
 {
     if (!self.accessToken)
+    {
+        eventHandler(nil, [self makeErrorWithDescription:@"No active access token" code:1008]);
         return;
-    
-    NSString *endpoint;
-    if (eventName)
-    {
-        endpoint = [NSString stringWithFormat:@"%@/v1/events/%@", self.baseURL, eventName];
     }
-    else
-    {
-        endpoint = [NSString stringWithFormat:@"%@/v1/events", self.baseURL]; //last slash to not remove auth header
-    }
-    
-    // TODO: NOT main queue for sure!
-    EventSource *source = [EventSource eventSourceWithURL:[NSURL URLWithString:endpoint] timeoutInterval:30.0f queue:dispatch_get_main_queue() accessToken:self.accessToken];
 
-//    if (eventName == nil)
-//        eventName = @"no_name";
+    // TODO: add eventHandler + source to an internal dictionary so it will be removeable later by calling removeEventListener on saved Source
+    EventSource *source = [EventSource eventSourceWithURL:url timeoutInterval:30.0f queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0) accessToken:self.accessToken];
+    
+    //    if (eventName == nil)
+    //        eventName = @"no_name";
     
     // - event example -
     // event: Temp
     // data: {"data":"Temp1 is 41.900002 F, Temp2 is $f F","ttl":"60","published_at":"2015-01-13T01:23:12.269Z","coreid":"53ff6e066667574824151267"}
     
-//    [source addEventListener:@"" handler:^(Event *event) { //event name
+    //    [source addEventListener:@"" handler:^(Event *event) { //event name
     [source onMessage:^(Event *event) {
         if (eventHandler)
         {
@@ -510,7 +503,6 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
                 eventHandler(nil, event.error);
             else
             {
-    
                 // deserialize event payload into dictionary
                 NSError *error;
                 NSDictionary *jsonDict;
@@ -539,5 +531,103 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 
 
+-(void)subscribeToAllEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
+{
+    // GET /v1/events[/:event_name]
+    NSString *endpoint;
+    if ((!eventNamePrefix) || [eventNamePrefix isEqualToString:@""])
+    {
+        // TODO: still a bug here in socket code EventSource
+        endpoint = [NSString stringWithFormat:@"%@/v1/events", self.baseURL]; //last slash to not remove auth header
+    }
+    else
+    {
+        endpoint = [NSString stringWithFormat:@"%@/v1/events/%@", self.baseURL, eventNamePrefix];
+    }
+    
+    [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
+}
+
+
+-(void)subscribeToAllDevicesEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
+{
+    // GET /v1/devices/events[/:event_name]
+    NSString *endpoint;
+    if ((!eventNamePrefix) || [eventNamePrefix isEqualToString:@""])
+    {
+        // TODO: check
+        endpoint = [NSString stringWithFormat:@"%@/v1/devices/events", self.baseURL];
+    }
+    else
+    {
+        endpoint = [NSString stringWithFormat:@"%@/v1/devices/events/%@", self.baseURL, eventNamePrefix];
+    }
+    
+    [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
+    
+}
+
+-(void)subscribeToDeviceEventsWithPrefix:(NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(SparkEventHandler)eventHandler
+{
+    // GET /v1/devices/:device_id/events[/:event_name]
+    NSString *endpoint;
+    if ((!eventNamePrefix) || [eventNamePrefix isEqualToString:@""])
+    {
+        // TODO: check
+        endpoint = [NSString stringWithFormat:@"%@/v1/devices/%@/events", self.baseURL,deviceID];
+    }
+    else
+    {
+        endpoint = [NSString stringWithFormat:@"%@/v1/devices/%@/events/%@", self.baseURL, deviceID, eventNamePrefix];
+    }
+    
+    [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
+}
+
+
+
+-(void)publishEventWithName:(NSString *)eventName data:(NSString *)data private:(BOOL)isPrivate ttl:(NSUInteger)ttl completion:(void (^)(NSError *))completion
+{
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
+    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
+    
+    params[@"name"]=eventName;
+    params[@"data"]=data;
+    if (isPrivate)
+        params[@"private"]=@"true";
+    else
+        params[@"private"]=@"false";
+    
+    params[@"ttl"] = [NSString stringWithFormat:@"%lu", (unsigned long)ttl];
+    
+    [self.manager POST:@"/v1/devices/events" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (completion)
+        {
+            // TODO: check server response for that
+            NSDictionary *responseDict = responseObject;
+            NSLog(@"publishEventWithName:\n%@",responseDict);
+            
+            if ([responseDict[@"connected"] boolValue]==NO)
+            {
+                NSError *err = [self makeErrorWithDescription:@"TODO - TODO - TODO" code:1009];
+                completion(err);
+            }
+            else
+            {
+                //
+                //                NSNumber *result = responseDict[@"return_value"];
+                completion(nil);
+            }
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         if (completion)
+             completion(error);
+     }];
+    
+    
+    
+}
 
 @end

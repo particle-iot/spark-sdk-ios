@@ -124,7 +124,7 @@
 
 - (IBAction)subscribeButton:(id)sender
 {
-    [[SparkCloud sharedInstance] subscribeToAllEventsWithName:@"test" handler:^(NSDictionary *eventDict, NSError *error) {
+    [[SparkCloud sharedInstance] subscribeToAllEventsWithName:@"" handler:^(NSDictionary *eventDict, NSError *error) {
         if (!error)
         {
             NSLog(@"%@",eventDict.description);

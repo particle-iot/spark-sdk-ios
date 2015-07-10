@@ -3,7 +3,8 @@
 //  EventSource
 //
 //  Created by Neil on 25/07/2013.
-//  Copyright (c) 2013 Neil Cowburn. All rights reserved, Modified by Ido Kleinman, 2015
+//  Copyright (c) 2013 Neil Cowburn. All rights reserved,
+//  Modified to match Spark events by Ido Kleinman, 2015
 //  Original codebase:
 //  https://github.com/neilco/EventSource
 
