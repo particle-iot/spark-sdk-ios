@@ -10,6 +10,7 @@
 #import "Spark-SDK.h"
 
 @interface SparkViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *loggedInLabel;
 
 @end
 
@@ -104,5 +105,37 @@
     [[SparkCloud sharedInstance] logout];
     
 }
+
+
+- (IBAction)loginButton:(id)sender
+{
+    // logging in
+    [[SparkCloud sharedInstance] loginWithUser:@"ido@spark.io" password:@"test123" completion:^(NSError *error) {
+        if (!error)
+        {
+            NSLog(@"Logged in to cloud");
+            self.loggedInLabel.text = @"Logged In";
+        }
+        else
+            NSLog(@"Wrong credentials or no internet connectivity, please try again");
+    }];
+    
+}
+
+- (IBAction)subscribeButton:(id)sender
+{
+    [[SparkCloud sharedInstance] subscribeToAllEventsWithName:@"test" handler:^(NSDictionary *eventDict, NSError *error) {
+        if (!error)
+        {
+            NSLog(@"%@",eventDict.description);
+        }
+        else
+        {
+            NSLog(@"Error occured: %@",error.localizedDescription);
+        }
+
+    }];
+}
+
 
 @end

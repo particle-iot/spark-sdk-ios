@@ -9,10 +9,9 @@
 
 
 #import "EventSource.h"
-#import <CoreGraphics/CGBase.h>
 
 static CGFloat const ES_RETRY_INTERVAL = 1.0;
-static CGFloat const ES_DEFAULT_TIMEOUT = 300.0;
+//static CGFloat const ES_DEFAULT_TIMEOUT = 300.0;
 
 static NSString *const ESKeyValueDelimiter = @": ";
 static NSString *const ESEventSeparatorLFLF = @"\n\n";
@@ -150,7 +149,7 @@ static NSString *const ESEventRetryKey = @"retry";
     }
     else
     {
-        NSLog(@"Error opening event stream, code %ld",httpResponse.statusCode);
+        NSLog(@"Error opening event stream, code %ld",(long)httpResponse.statusCode);
     }
 }
 
@@ -213,7 +212,6 @@ static NSString *const ESEventRetryKey = @"retry";
                 }
             }
             
-            // TODO: remove this?
             NSArray *messageHandlers = self.listeners[MessageEvent];
             for (EventSourceEventHandler handler in messageHandlers) {
                 dispatch_async(self.queue, ^{
@@ -229,14 +227,7 @@ static NSString *const ESEventRetryKey = @"retry";
                     });
                 }
                 
-                // IDO added (
-                NSArray *unnamedEventhandlers = self.listeners[@"no_name"]; // TODO: set a const for unnamed event handlers
-                for (EventSourceEventHandler handler in unnamedEventhandlers) {
-                    dispatch_async(self.queue, ^{
-                        handler(e);
-                    });
-                }
-
+               
             }
             
         

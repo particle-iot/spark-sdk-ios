@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Spark View Controller-->
@@ -17,9 +18,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGO-XF-hTg">
+                                <rect key="frame" x="16" y="28" width="38" height="30"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="oWz-R9-VW3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not logged in" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caE-VU-YH0">
+                                <rect key="frame" x="62" y="32" width="104" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTk-MJ-Bad">
+                                <rect key="frame" x="16" y="99" width="70" height="30"/>
+                                <state key="normal" title="Subscribe">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="subscribeButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="zFF-p8-yiC"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Pp-IQ-Nty">
-                                <rect key="frame" x="285" y="285" width="30" height="30"/>
-                                <state key="normal" title="Test">
+                                <rect key="frame" x="16" y="61" width="99" height="30"/>
+                                <state key="normal" title="Test sequence">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -29,10 +54,27 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="caE-VU-YH0" firstAttribute="top" secondItem="xFk-Rb-ubT" secondAttribute="bottom" constant="12" id="2aR-Do-aBD"/>
+                            <constraint firstItem="FGO-XF-hTg" firstAttribute="top" secondItem="xFk-Rb-ubT" secondAttribute="bottom" constant="8" id="2ip-oY-EaH"/>
+                            <constraint firstItem="2Pp-IQ-Nty" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="A9n-AN-lHT"/>
+                            <constraint firstItem="jTk-MJ-Bad" firstAttribute="top" secondItem="2Pp-IQ-Nty" secondAttribute="bottom" constant="8" id="RHe-rN-tYu"/>
+                            <constraint firstItem="2Pp-IQ-Nty" firstAttribute="top" secondItem="FGO-XF-hTg" secondAttribute="bottom" constant="3" id="UIV-iI-WLe"/>
+                            <constraint firstItem="jTk-MJ-Bad" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="jHF-NE-hh9"/>
+                            <constraint firstItem="FGO-XF-hTg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="k7z-is-l1F"/>
                             <constraint firstAttribute="centerX" secondItem="2Pp-IQ-Nty" secondAttribute="centerX" id="lww-2o-Jig"/>
+                            <constraint firstItem="caE-VU-YH0" firstAttribute="leading" secondItem="FGO-XF-hTg" secondAttribute="trailing" constant="8" id="tat-wu-uFO"/>
                             <constraint firstAttribute="centerY" secondItem="2Pp-IQ-Nty" secondAttribute="centerY" id="uoF-Q0-WcR"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="lww-2o-Jig"/>
+                                <exclude reference="uoF-Q0-WcR"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="loggedInLabel" destination="caE-VU-YH0" id="xX9-jy-TwG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

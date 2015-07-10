@@ -492,25 +492,34 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
         endpoint = [NSString stringWithFormat:@"%@/v1/events", self.baseURL]; //last slash to not remove auth header
     }
     
+    // TODO: NOT main queue for sure!
     EventSource *source = [EventSource eventSourceWithURL:[NSURL URLWithString:endpoint] timeoutInterval:30.0f queue:dispatch_get_main_queue() accessToken:self.accessToken];
-    if (eventName == nil)
-        eventName = @"no_name";
+
+//    if (eventName == nil)
+//        eventName = @"no_name";
     
     // - event example -
     // event: Temp
     // data: {"data":"Temp1 is 41.900002 F, Temp2 is $f F","ttl":"60","published_at":"2015-01-13T01:23:12.269Z","coreid":"53ff6e066667574824151267"}
     
-    [source addEventListener:eventName handler:^(Event *event) {
+//    [source addEventListener:@"" handler:^(Event *event) { //event name
+    [source onMessage:^(Event *event) {
         if (eventHandler)
         {
             if (event.error)
                 eventHandler(nil, event.error);
             else
             {
+    
                 // deserialize event payload into dictionary
                 NSError *error;
-                NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:event.data options:0 error:&error];
-                NSMutableDictionary *eventDict = [jsonDict mutableCopy];
+                NSDictionary *jsonDict;
+                NSMutableDictionary *eventDict;
+                if (event.data)
+                {
+                    jsonDict = [NSJSONSerialization JSONObjectWithData:event.data options:0 error:&error];
+                    eventDict = [jsonDict mutableCopy];
+                }
                 
                 if ((eventDict) && (!error))
                 {

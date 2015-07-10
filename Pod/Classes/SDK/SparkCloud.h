@@ -150,7 +150,8 @@ typedef void (^SparkEventHandler)(NSDictionary *eventDict, NSError *error);
 -(void)subscribeToAllDevicesEventsWithName:(NSString *)eventName handler:(SparkEventHandler)eventHandler;
 
 /**
- *  Subscribe to events from one specific device. If the API user owns the device, then she will receive all events, public and private, published by that device. If the API user does not own the device she will only receive public events.
+ *  Subscribe to events from one specific device. If the API user has the device claimed, then she will receive all events, public and private, published by that device. 
+ *  If the API user does not own the device she will only receive public events.
  *
  *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
  *  @param deviceID     Specific device ID. If user has claimed the device private & public events will be received, otherwise public events only are received.
