@@ -515,6 +515,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
                 
                 if ((eventDict) && (!error))
                 {
+                    NSLog(@"event: %@",event.description);
                     eventDict[@"event"] = event.event; // append event name to dict
                     eventHandler([eventDict copy], nil); // callback with parsed data
                 }
@@ -597,7 +598,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
     if (isPrivate)
         params[@"private"]=@"true";
     else
-        params[@"private"]=@"false";
+        params[@"private"]=@"false"; // TODO: check if needed
     
     params[@"ttl"] = [NSString stringWithFormat:@"%lu", (unsigned long)ttl];
     
@@ -610,7 +611,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
             
             if ([responseDict[@"connected"] boolValue]==NO)
             {
-                NSError *err = [self makeErrorWithDescription:@"TODO - TODO - TODO" code:1009];
+                NSError *err = [self makeErrorWithDescription:@"TODO - TODO - TODO" code:1009]; // TODO: make sensible error?
                 completion(err);
             }
             else

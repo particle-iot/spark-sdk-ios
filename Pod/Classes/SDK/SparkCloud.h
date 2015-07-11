@@ -180,7 +180,8 @@ typedef void (^SparkEventHandler)(NSDictionary *eventDict, NSError *error);
  *  @param eventName    Publish event named eventName
  *  @param data         A string representing event data payload, you can serialize any data you need to represent into this string and events listeners will get it
  *  @param private      A boolean flag determining if this event is private or not (only users's claimed devices will be able to listen to it)
- *  @param ttl          Time To Live number
+ *  @param ttl          TTL stands for Time To Live. It it the number of seconds that the event data is relevant and meaningful. For example, an outdoor temperature reading with a precision of integer degrees Celsius might have a TTL of somewhere between 600 (10 minutes) and 1800 (30 minutes).
+ *                      The geolocation of a large piece of farm equipment that remains stationary most of the time but may be moved to a different field once in a while might have a TTL of 86400 (24 hours). After the TTL has passed, the information can be considered stale or out of date.
  */
 -(void)publishEventWithName:(NSString *)eventName data:(NSString *)data private:(BOOL)isPrivate ttl:(NSUInteger)ttl completion:(void (^)(NSError *))completion;
 

@@ -124,10 +124,10 @@
 
 - (IBAction)subscribeButton:(id)sender
 {
-    [[SparkCloud sharedInstance] subscribeToAllEventsWithName:@"" handler:^(NSDictionary *eventDict, NSError *error) {
+    [[SparkCloud sharedInstance] subscribeToAllDevicesEventsWithPrefix:@"test" handler:^(NSDictionary *eventDict, NSError *error) {
         if (!error)
         {
-            NSLog(@"%@",eventDict.description);
+//            NSLog(@"%@",eventDict.description);
         }
         else
         {
