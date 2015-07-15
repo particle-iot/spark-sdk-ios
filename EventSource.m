@@ -204,12 +204,15 @@ static NSString *const ESEventRetryKey = @"retry";
                 if ([key isEqualToString:ESEventIDKey]) {
                     e.id = value;
                     self.lastEventID = e.id;
+                    NSLog(@"didReceiveData block --> id %@",value);
                 } else if ([key isEqualToString:ESEventEventKey]) {
                     e.event = value;
                 } else if ([key isEqualToString:ESEventDataKey]) {
                     e.data = [value dataUsingEncoding:NSUTF8StringEncoding]; //IDO added
                 } else if ([key isEqualToString:ESEventRetryKey]) {
                     self.retryInterval = [value doubleValue];
+                    NSLog(@"didReceiveData block --> retry %f",[value doubleValue]);
+
                 }
             }
             

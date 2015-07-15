@@ -136,18 +136,25 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 //-(void)compileAndFlashFiles:(NSDictionary *)filesDict completion:(void(^)(NSError* error))completion; //@{@"<filename>" : @"<file contents>"}
 //-(void)complileFiles:(NSDictionary *)filesDict completion:(void(^)(NSData *resultBinary, NSError* error))completion; //@{@"<filename>" : @"<file contents>"}
 
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
+// Events subsystem:
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- *  Subscribe to events from this specific SparkDevice.
+ *  Spark event handler function which receives two arguements
  *
- *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
- *  @param eventHandler <#eventHandler description#>
- *
- *  @discussion         This method is similar to <tt>[[SparkCloud sharedInstance] subscribeToDeviceEventsWithName]</tt> except that using this method user need not pass the deviceID parameter and since the user has the SparkDevice instance that implies that it is claimed so private events will be received from this device as well as public ones.
+ *  @param eventDict NSDictionary argument which contains the event payload keys: event (name), data (payload), ttl (time to live), published_at (date/time published), coreid (publishiing device ID).
+ *  @param error     NSError object in case an error occured in parsing the event payload or receiving it
  */
-//-(void)subscribeToEventsWithName:(NSString *)eventName handler:(EventSourceEventHandler)eventHandler;
+// TODO: unify with typedef in SparkCloud.h (without creating include chain errors)
+typedef void (^SparkEventHandler)(NSDictionary *eventDict, NSError *error);
 
-
-
+/**
+ *  Subscribe to events from this specific (claimed) device - both public and private.
+*
+ *  @param eventNamePrefix  Filter only events that match name eventNamePrefix, for exact match pass whole string, if nil/empty string is passed any event will trigger eventHandler
+ *  @param eventHandler     Event handler function that accepts the event payload dictionary and an NSError object in case of an error
+ */
+-(void)subscribeToEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
 
 @end

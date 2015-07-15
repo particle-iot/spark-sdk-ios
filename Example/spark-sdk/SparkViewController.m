@@ -113,8 +113,9 @@
     [[SparkCloud sharedInstance] loginWithUser:@"ido@spark.io" password:@"test123" completion:^(NSError *error) {
         if (!error)
         {
-            NSLog(@"Logged in to cloud");
+            NSLog(@"Logged in to cloud\nAccess Token: %@",[SparkCloud sharedInstance].accessToken);
             self.loggedInLabel.text = @"Logged In";
+
         }
         else
             NSLog(@"Wrong credentials or no internet connectivity, please try again");
@@ -124,10 +125,16 @@
 
 - (IBAction)subscribeButton:(id)sender
 {
-    [[SparkCloud sharedInstance] subscribeToAllDevicesEventsWithPrefix:@"test" handler:^(NSDictionary *eventDict, NSError *error) {
+    [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:@"A" handler:^(NSDictionary *eventDict, NSError *error) {
         if (!error)
         {
-//            NSLog(@"%@",eventDict.description);
+            NSLog(@"got event: %@",eventDict.description);
+//            [[SparkCloud sharedInstance] publishEventWithName:@"test-test" data:@"payload" private:NO ttl:60 completion:^(NSError *error) {
+//                if (error)
+//                {
+//                    NSLog(@"Publish event error occured: %@",error.localizedDescription);
+//                }
+//            }];
         }
         else
         {

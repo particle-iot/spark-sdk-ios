@@ -159,7 +159,7 @@ typedef void (^SparkEventHandler)(NSDictionary *eventDict, NSError *error);
  *  @param eventHandler     Event handler function that accepts the event payload dictionary and an NSError object in case of an error
  *  @param eventNamePrefix  Filter only events that match name eventNamePrefix, for exact match pass whole string, if nil/empty string is passed any event will trigger eventHandler
  */
--(void)subscribeToAllDevicesEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
+-(void)subscribeToMyDevicesEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
 
 /**
  *  Subscribe to events from one specific device. If the API user has the device claimed, then she will receive all events, public and private, published by that device. 

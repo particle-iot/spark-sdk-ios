@@ -456,4 +456,10 @@
 }
 
 
+-(void)subscribeToEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
+{
+    [[SparkCloud sharedInstance] subscribeToDeviceEventsWithPrefix:eventNamePrefix deviceID:self.id handler:eventHandler];
+}
+
+
 @end

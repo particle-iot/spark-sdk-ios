@@ -515,8 +515,14 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
                 
                 if ((eventDict) && (!error))
                 {
-                    NSLog(@"event: %@",event.description);
-                    eventDict[@"event"] = event.event; // append event name to dict
+                    if (event.event) // disregarding unnamed events
+                    {
+                        eventDict[@"event"] = event.event; // append event name to dict
+                    }
+                    else
+                    {
+                        eventDict[@"event"] = @"";
+                    }
                     eventHandler([eventDict copy], nil); // callback with parsed data
                 }
                 else if (error)
@@ -550,7 +556,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
 }
 
 
--(void)subscribeToAllDevicesEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
+-(void)subscribeToMyDevicesEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
 {
     // GET /v1/devices/events[/:event_name]
     NSString *endpoint;
@@ -607,17 +613,13 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
         {
             // TODO: check server response for that
             NSDictionary *responseDict = responseObject;
-            NSLog(@"publishEventWithName:\n%@",responseDict);
-            
-            if ([responseDict[@"connected"] boolValue]==NO)
+           if ([responseDict[@"ok"] boolValue]==NO)
             {
-                NSError *err = [self makeErrorWithDescription:@"TODO - TODO - TODO" code:1009]; // TODO: make sensible error?
+                NSError *err = [self makeErrorWithDescription:@"Server reported error publishing event" code:1009]; 
                 completion(err);
             }
             else
             {
-                //
-                //                NSNumber *result = responseDict[@"return_value"];
                 completion(nil);
             }
         }
