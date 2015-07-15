@@ -19,6 +19,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SparkDevice.h"
+#import "SparkEvent.h"
 
 extern NSString *const kSparkAPIBaseURL;
 
@@ -137,14 +138,6 @@ extern NSString *const kSparkAPIBaseURL;
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
 // Events subsystem:
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- *  Spark event handler function which receives two arguements
- *
- *  @param eventDict NSDictionary argument which contains the event payload keys: event (name), data (payload), ttl (time to live), published_at (date/time published), coreid (publishiing device ID).
- *  @param error     NSError object in case an error occured in parsing the event payload or receiving it
- */
-typedef void (^SparkEventHandler)(NSDictionary *eventDict, NSError *error);
 
 /**
  *  Subscribe to the firehose of public events, plus private events published by devices one owns

@@ -76,6 +76,7 @@
         {
             if (params[@"last_heard"])
             {
+                // TODO: add to utils class as POSIX time to NSDate
                 NSString *dateString = params[@"last_heard"];// "2015-04-18T08:42:22.127Z"
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];

@@ -12,6 +12,8 @@
 #import "SparkUser.h"
 #import <AFNetworking/AFNetworking.h>
 #import <EventSource.h>
+#import "SparkEvent.h"
+
 
 #define GLOBAL_API_TIMEOUT_INTERVAL     31.0f
 
@@ -519,22 +521,22 @@ NSString *const kEventListenersDictIDKey = @"id";
                 NSMutableDictionary *eventDict;
                 if (event.data)
                 {
-                    // TODO: make it a class, deserialize date, make `coreid` into something named more sensible
                     jsonDict = [NSJSONSerialization JSONObjectWithData:event.data options:0 error:&error];
                     eventDict = [jsonDict mutableCopy];
                 }
                 
                 if ((eventDict) && (!error))
                 {
-                    if (event.event) // disregarding unnamed events
+                    if (event.event) // disregarding unnamed events TODO: fix this
                     {
-                        eventDict[@"event"] = event.event; // append event name to dict
+                        eventDict[@"event"] = event.event; // add event name to dict
                     }
                     else
                     {
                         eventDict[@"event"] = @"";
                     }
-                    eventHandler([eventDict copy], nil); // callback with parsed data
+                    SparkEvent *sparkEvent = [[SparkEvent alloc] initWithEventDict:eventDict];
+                    eventHandler(sparkEvent ,nil); // callback with parsed data
                 }
                 else if (error)
                 {

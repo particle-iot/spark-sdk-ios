@@ -127,10 +127,10 @@
 
 - (IBAction)subscribeButton:(id)sender
 {
-    SparkEventHandler handler = ^(NSDictionary *eventDict, NSError *error) {
+    SparkEventHandler handler = ^(SparkEvent *event, NSError *error) {
         if (!error)
         {
-            NSLog(@"got event: %@",eventDict.description);
+            NSLog(@"%@",event.description);
             //            [[SparkCloud sharedInstance] publishEventWithName:@"test-test" data:@"payload" private:NO ttl:60 completion:^(NSError *error) {
             //                if (error)
             //                {

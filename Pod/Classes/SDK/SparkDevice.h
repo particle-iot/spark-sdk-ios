@@ -18,7 +18,7 @@
 //  limitations under the License.
 
 #import <Foundation/Foundation.h>
-//#import <AFNetworking/AFNetworking.h>
+#import "SparkEvent.h"
 
 typedef NS_ENUM(NSInteger, SparkDeviceType) {
     SparkDeviceTypeCore=0,
@@ -141,22 +141,18 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- *  Spark event handler function which receives two arguements
- *
- *  @param eventDict NSDictionary argument which contains the event payload keys: event (name), data (payload), ttl (time to live), published_at (date/time published), coreid (publishiing device ID).
- *  @param error     NSError object in case an error occured in parsing the event payload or receiving it
- */
-// TODO: unify with typedef in SparkCloud.h (without creating include chain errors)
-typedef void (^SparkEventHandler)(NSDictionary *eventDict, NSError *error);
-
-/**
  *  Subscribe to events from this specific (claimed) device - both public and private.
-*
+ *
  *  @param eventNamePrefix  Filter only events that match name eventNamePrefix, for exact match pass whole string, if nil/empty string is passed any event will trigger eventHandler
  *  @param eventHandler     Event handler function that accepts the event payload dictionary and an NSError object in case of an error
  */
 -(id)subscribeToEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
 
-
+/**
+ *  Unsubscribe from event/events.
+ *
+ *  @param eventListenerID The eventListener registration unique ID returned by the subscribe method which you want to cancel
+ */
 -(void)unsubscribeFromEventWithID:(id)eventListenerID;
+
 @end
