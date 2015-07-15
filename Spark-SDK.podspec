@@ -33,7 +33,7 @@ Pod::Spec.new do |s|
     s.source_files = 'Pod/Classes/Spark-SDK.h'
 
     s.subspec 'Helpers' do |ss|
-        ss.source_files = 'Pod/Classes/Helpers/KeychainItemWrapper.{h,m}', 'Pod/Classes/Reachability.{h,m}'
+        ss.source_files = 'Pod/Classes/Helpers/*.{h,m}'
         ss.ios.frameworks = 'SystemConfiguration', 'Security'
     end
 
