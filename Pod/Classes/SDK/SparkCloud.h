@@ -151,15 +151,17 @@ typedef void (^SparkEventHandler)(NSDictionary *eventDict, NSError *error);
  *
  *  @param eventHandler SparkEventHandler event handler method - receiving NSDictionary argument which contains keys: event (name), data (payload), ttl (time to live), published_at (date/time emitted), coreid (device ID). Second argument is NSError object in case error occured in parsing the event payload.
  *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
+ *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
--(void)subscribeToAllEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
+-(id)subscribeToAllEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
 /**
  *  Subscribe to all events, public and private, published by devices one owns
  *
  *  @param eventHandler     Event handler function that accepts the event payload dictionary and an NSError object in case of an error
  *  @param eventNamePrefix  Filter only events that match name eventNamePrefix, for exact match pass whole string, if nil/empty string is passed any event will trigger eventHandler
+ *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
--(void)subscribeToMyDevicesEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
+-(id)subscribeToMyDevicesEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
 
 /**
  *  Subscribe to events from one specific device. If the API user has the device claimed, then she will receive all events, public and private, published by that device. 
@@ -168,10 +170,16 @@ typedef void (^SparkEventHandler)(NSDictionary *eventDict, NSError *error);
  *  @param eventNamePrefix  Filter only events that match name eventNamePrefix, for exact match pass whole string, if nil/empty string is passed any event will trigger eventHandler
  *  @param deviceID         Specific device ID. If user has this device claimed the private & public events will be received, otherwise public events only are received.
  *  @param eventHandler     Event handler function that accepts the event payload dictionary and an NSError object in case of an error
+ *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
--(void)subscribeToDeviceEventsWithPrefix:(NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(SparkEventHandler)eventHandler;
+-(id)subscribeToDeviceEventsWithPrefix:(NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(SparkEventHandler)eventHandler;
 
-// TODO: add unsubscribe
+/**
+ *  Unsubscribe from event/events.
+ *
+ *  @param eventListenerID The eventListener registration unique ID returned by the subscribe method which you want to cancel
+ */
+-(void)unsubscribeFromEventWithID:(id)eventListenerID;
 
 /**
  *  Subscribe to events from one specific device. If the API user has the device claimed, then she will receive all events, public and private, published by that device.

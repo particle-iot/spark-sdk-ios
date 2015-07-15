@@ -155,6 +155,8 @@ typedef void (^SparkEventHandler)(NSDictionary *eventDict, NSError *error);
  *  @param eventNamePrefix  Filter only events that match name eventNamePrefix, for exact match pass whole string, if nil/empty string is passed any event will trigger eventHandler
  *  @param eventHandler     Event handler function that accepts the event payload dictionary and an NSError object in case of an error
  */
--(void)subscribeToEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
+-(id)subscribeToEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
 
+
+-(void)unsubscribeFromEventWithID:(id)eventListenerID;
 @end

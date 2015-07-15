@@ -456,9 +456,14 @@
 }
 
 
--(void)subscribeToEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
+-(id)subscribeToEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
 {
-    [[SparkCloud sharedInstance] subscribeToDeviceEventsWithPrefix:eventNamePrefix deviceID:self.id handler:eventHandler];
+    return [[SparkCloud sharedInstance] subscribeToDeviceEventsWithPrefix:eventNamePrefix deviceID:self.id handler:eventHandler];
+}
+
+-(void)unsubscribeFromEventWithID:(id)eventListenerID
+{
+    [[SparkCloud sharedInstance] unsubscribeFromEventWithID:eventListenerID];
 }
 
 

@@ -11,6 +11,8 @@
 
 @interface SparkViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *loggedInLabel;
+@property (nonatomic, strong) id eventListenerID_A;
+@property (nonatomic, strong) id eventListenerID_B;
 
 @end
 
@@ -125,24 +127,32 @@
 
 - (IBAction)subscribeButton:(id)sender
 {
-    [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:@"A" handler:^(NSDictionary *eventDict, NSError *error) {
+    SparkEventHandler handler = ^(NSDictionary *eventDict, NSError *error) {
         if (!error)
         {
             NSLog(@"got event: %@",eventDict.description);
-//            [[SparkCloud sharedInstance] publishEventWithName:@"test-test" data:@"payload" private:NO ttl:60 completion:^(NSError *error) {
-//                if (error)
-//                {
-//                    NSLog(@"Publish event error occured: %@",error.localizedDescription);
-//                }
-//            }];
+            //            [[SparkCloud sharedInstance] publishEventWithName:@"test-test" data:@"payload" private:NO ttl:60 completion:^(NSError *error) {
+            //                if (error)
+            //                {
+            //                    NSLog(@"Publish event error occured: %@",error.localizedDescription);
+            //                }
+            //            }];
         }
         else
         {
             NSLog(@"Error occured: %@",error.localizedDescription);
         }
-
-    }];
+        
+    };
+    
+    
+    self.eventListenerID_A = [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:@"A" handler:handler];
+    self.eventListenerID_B = [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:@"t" handler:handler];
+                              
 }
 
+- (IBAction)unsubscribeButton:(id)sender {
+    [[SparkCloud sharedInstance] unsubscribeFromEventWithID:self.eventListenerID_A];
+}
 
 @end

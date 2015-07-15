@@ -51,6 +51,15 @@
                                     <action selector="testButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Mhh-vq-Wai"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Kd-Cf-K0l">
+                                <rect key="frame" x="131" y="99" width="87" height="30"/>
+                                <state key="normal" title="Unsubscribe">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="unsubscribeButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="klS-27-CsF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -59,11 +68,13 @@
                             <constraint firstItem="2Pp-IQ-Nty" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="A9n-AN-lHT"/>
                             <constraint firstItem="jTk-MJ-Bad" firstAttribute="top" secondItem="2Pp-IQ-Nty" secondAttribute="bottom" constant="8" id="RHe-rN-tYu"/>
                             <constraint firstItem="2Pp-IQ-Nty" firstAttribute="top" secondItem="FGO-XF-hTg" secondAttribute="bottom" constant="3" id="UIV-iI-WLe"/>
+                            <constraint firstItem="6Kd-Cf-K0l" firstAttribute="centerY" secondItem="jTk-MJ-Bad" secondAttribute="centerY" id="gbx-3J-0PN"/>
                             <constraint firstItem="jTk-MJ-Bad" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="jHF-NE-hh9"/>
                             <constraint firstItem="FGO-XF-hTg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="k7z-is-l1F"/>
                             <constraint firstAttribute="centerX" secondItem="2Pp-IQ-Nty" secondAttribute="centerX" id="lww-2o-Jig"/>
                             <constraint firstItem="caE-VU-YH0" firstAttribute="leading" secondItem="FGO-XF-hTg" secondAttribute="trailing" constant="8" id="tat-wu-uFO"/>
                             <constraint firstAttribute="centerY" secondItem="2Pp-IQ-Nty" secondAttribute="centerY" id="uoF-Q0-WcR"/>
+                            <constraint firstItem="6Kd-Cf-K0l" firstAttribute="leading" secondItem="jTk-MJ-Bad" secondAttribute="trailing" constant="45" id="vyo-70-qiI"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">

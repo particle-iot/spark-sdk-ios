@@ -18,11 +18,17 @@
 
 NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
 
+NSString *const kEventListenersDictEventSourceKey = @"eventSource";
+NSString *const kEventListenersDictHandlerKey = @"eventHandler";
+NSString *const kEventListenersDictIDKey = @"id";
+
 @interface SparkCloud () <SparkAccessTokenDelegate>
 @property (nonatomic, strong) NSURL* baseURL;
 @property (nonatomic, strong) SparkAccessToken* token;
 @property (nonatomic, strong) SparkUser* user;
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
+
+@property (nonatomic, strong) NSMutableDictionary *eventListenersDict;
 @end
 
 
@@ -59,6 +65,8 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
         self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
         [self.manager.requestSerializer setTimeoutInterval:GLOBAL_API_TIMEOUT_INTERVAL];
         
+        // init event listeners internal dictionary
+        self.eventListenersDict = [NSMutableDictionary new];
         if (!self.manager)
             return nil;
     }
@@ -477,12 +485,12 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
 
 
 #pragma mark Events subsystem implementation
--(void)subscribeToEventWithURL:(NSURL *)url handler:(SparkEventHandler)eventHandler
+-(id)subscribeToEventWithURL:(NSURL *)url handler:(SparkEventHandler)eventHandler
 {
     if (!self.accessToken)
     {
         eventHandler(nil, [self makeErrorWithDescription:@"No active access token" code:1008]);
-        return;
+        return nil;
     }
 
     // TODO: add eventHandler + source to an internal dictionary so it will be removeable later by calling removeEventListener on saved Source
@@ -496,7 +504,9 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
     // data: {"data":"Temp1 is 41.900002 F, Temp2 is $f F","ttl":"60","published_at":"2015-01-13T01:23:12.269Z","coreid":"53ff6e066667574824151267"}
     
     //    [source addEventListener:@"" handler:^(Event *event) { //event name
-    [source onMessage:^(Event *event) {
+//    [source onMessage:
+    
+     EventSourceEventHandler handler = ^void(Event *event) {
         if (eventHandler)
         {
             if (event.error)
@@ -509,6 +519,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
                 NSMutableDictionary *eventDict;
                 if (event.data)
                 {
+                    // TODO: make it a class, deserialize date, make `coreid` into something named more sensible
                     jsonDict = [NSJSONSerialization JSONObjectWithData:event.data options:0 error:&error];
                     eventDict = [jsonDict mutableCopy];
                 }
@@ -532,31 +543,50 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
             }
         }
         
-    }];
+    };
+    
+    [source onMessage:handler]; // bind the handler
+    
+    id eventListenerID = [NSUUID UUID]; // create the eventListenerID
+    self.eventListenersDict[eventListenerID] = @{kEventListenersDictHandlerKey : handler,
+                                                 kEventListenersDictEventSourceKey : source}; // save it in the internal dictionary for future unsubscribing
+    
+    return eventListenerID;
     
 }
 
 
+-(void)unsubscribeFromEventWithID:(id)eventListenerID
+{
+    NSDictionary *eventListenerDict = [self.eventListenersDict objectForKey:eventListenerID];
+    if (eventListenerDict)
+    {
+        EventSource *source = [eventListenerDict objectForKey:kEventListenersDictEventSourceKey];
+        EventSourceEventHandler handler = [eventListenerDict objectForKey:kEventListenersDictHandlerKey];
+        [source removeEventListener:MessageEvent handler:handler];
+        [self.eventListenersDict removeObjectForKey:eventListenerID];
+    }
+}
 
--(void)subscribeToAllEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
+
+-(id)subscribeToAllEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
 {
     // GET /v1/events[/:event_name]
     NSString *endpoint;
     if ((!eventNamePrefix) || [eventNamePrefix isEqualToString:@""])
     {
-        // TODO: still a bug here in socket code EventSource
-        endpoint = [NSString stringWithFormat:@"%@/v1/events", self.baseURL]; //last slash to not remove auth header
+        endpoint = [NSString stringWithFormat:@"%@/v1/events", self.baseURL];
     }
     else
     {
         endpoint = [NSString stringWithFormat:@"%@/v1/events/%@", self.baseURL, eventNamePrefix];
     }
     
-    [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
+    return [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
 }
 
 
--(void)subscribeToMyDevicesEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
+-(id)subscribeToMyDevicesEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
 {
     // GET /v1/devices/events[/:event_name]
     NSString *endpoint;
@@ -570,11 +600,11 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
         endpoint = [NSString stringWithFormat:@"%@/v1/devices/events/%@", self.baseURL, eventNamePrefix];
     }
     
-    [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
+    return [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
     
 }
 
--(void)subscribeToDeviceEventsWithPrefix:(NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(SparkEventHandler)eventHandler
+-(id)subscribeToDeviceEventsWithPrefix:(NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(SparkEventHandler)eventHandler
 {
     // GET /v1/devices/:device_id/events[/:event_name]
     NSString *endpoint;
@@ -588,7 +618,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
         endpoint = [NSString stringWithFormat:@"%@/v1/devices/%@/events/%@", self.baseURL, deviceID, eventNamePrefix];
     }
     
-    [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
+    return [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
 }
 
 

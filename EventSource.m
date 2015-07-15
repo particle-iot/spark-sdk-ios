@@ -140,7 +140,7 @@ static NSString *const ESEventRetryKey = @"retry";
         Event *e = [Event new];
         e.readyState = kEventStateOpen;
         
-        // TODO: remove this? (open/close/etc) - consult with David
+        // TODO: remove this? (open/close/etc)
         NSArray *openHandlers = self.listeners[OpenEvent];
         for (EventSourceEventHandler handler in openHandlers) {
             dispatch_async(self.queue, ^{
@@ -203,15 +203,13 @@ static NSString *const ESEventRetryKey = @"retry";
                 
                 if ([key isEqualToString:ESEventIDKey]) {
                     e.id = value;
-                    self.lastEventID = e.id;
-                    NSLog(@"didReceiveData block --> id %@",value);
+                    self.lastEventID = e.id; // never happens
                 } else if ([key isEqualToString:ESEventEventKey]) {
                     e.event = value;
                 } else if ([key isEqualToString:ESEventDataKey]) {
                     e.data = [value dataUsingEncoding:NSUTF8StringEncoding]; //IDO added
                 } else if ([key isEqualToString:ESEventRetryKey]) {
-                    self.retryInterval = [value doubleValue];
-                    NSLog(@"didReceiveData block --> retry %f",[value doubleValue]);
+                    self.retryInterval = [value doubleValue]; // never happens
 
                 }
             }
