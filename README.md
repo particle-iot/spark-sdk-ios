@@ -2,10 +2,8 @@
 <img src="http://oi60.tinypic.com/116jd51.jpg" alt="Particle" title="Particle">
 </p>
 
-<!---
-(Update link)
-[![Build Status](https://travis-ci.org/AFNetworking/AFNetworking.svg)](https://travis-ci.org/Spark-SDK/Spark-SDK)
--->
+[![Build Status](https://api.travis-ci.org/spark/spark-sdk-ios.svg)]
+
 # Particle (_formerly Spark_) iOS Cloud SDK
 Particle iOS Cloud SDK enables iOS apps to interact with Particle-powered connected products via the Particle Cloud. It’s an easy-to-use wrapper for Particle REST API. The Cloud SDK will allow you to:
 
