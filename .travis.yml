@@ -9,5 +9,5 @@ language: objective-c
 # - gem install cocoapods # Since Travis is not always on latest version
 # - pod install --project-directory=Example
 script:
-- xctool -workspace Spark-SDK.xcworkspace -sdk iphonesimulator -arch i386 -scheme Spark-SDK test
+- xctool -workspace ./Example/Spark-SDK.xcworkspace -sdk iphonesimulator -arch i386 -scheme Spark-SDK test
 - pod lib lint --quick
