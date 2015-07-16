@@ -21,6 +21,7 @@
 		2A67177305D5B868230503CE /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A6873690CBB776E4BC7022 /* UIImageView+AFNetworking.m */; };
 		2BFC1A66B3091588FF44E166 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8053CB40DA5E1D4D7467238 /* Foundation.framework */; };
 		3A1FF27F42E7460E216169F3 /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 29E17D5B85D69B0DC2861B81 /* UIWebView+AFNetworking.h */; };
+		505D18AB1B572B14002CF2B7 /* Spark-SDK-Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 505D18A81B57296B002CF2B7 /* Spark-SDK-Tests.m */; };
 		506F392B1ABA7473000E0F3B /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39271ABA7473000E0F3B /* KeychainItemWrapper.h */; };
 		506F392C1ABA7473000E0F3B /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F39271ABA7473000E0F3B /* KeychainItemWrapper.h */; };
 		506F392D1ABA7473000E0F3B /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F39281ABA7473000E0F3B /* KeychainItemWrapper.m */; };
@@ -149,6 +150,7 @@
 		4334909993276AA8DE3838A8 /* libPods-spark-sdk-AFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-spark-sdk-AFNetworking.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		495843C5D5C2D4CF600AFBF5 /* Pods-spark-sdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; lineEnding = 0; path = "Pods-spark-sdk.debug.xcconfig"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.xcconfig; };
 		4A3604E6B9A3D293AD1D1A35 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AFNetworking.m"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		505D18A81B57296B002CF2B7 /* Spark-SDK-Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Spark-SDK-Tests.m"; path = "Example/Pods/Spark-SDK-Tests.m"; sourceTree = "<group>"; };
 		506F390A1ABA6CE4000E0F3B /* OAuthClientCredentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = OAuthClientCredentials.plist; path = Pod/Assets/OAuthClientCredentials.plist; sourceTree = "<group>"; };
 		506F39271ABA7473000E0F3B /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainItemWrapper.h; path = Pod/Classes/Helpers/KeychainItemWrapper.h; sourceTree = "<group>"; };
 		506F39281ABA7473000E0F3B /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainItemWrapper.m; path = Pod/Classes/Helpers/KeychainItemWrapper.m; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 		B5A14F206B67D297E9D21217 /* Spark-SDK */ = {
 			isa = PBXGroup;
 			children = (
+				505D18A81B57296B002CF2B7 /* Spark-SDK-Tests.m */,
 				50EC22011AA297E90050CF03 /* Assets */,
 				50EC22001AA297CE0050CF03 /* Classes */,
 				1985CB56725F82D95BFDDCB0 /* Support Files */,
@@ -808,6 +811,7 @@
 				506F392D1ABA7473000E0F3B /* KeychainItemWrapper.m in Sources */,
 				506F39451ABA749E000E0F3B /* SparkDevice.m in Sources */,
 				506F39491ABA749E000E0F3B /* SparkUser.m in Sources */,
+				505D18AB1B572B14002CF2B7 /* Spark-SDK-Tests.m in Sources */,
 				506F39311ABA7473000E0F3B /* Reachability.m in Sources */,
 				2881F9F3EE8C1C92A4128951 /* Pods-Tests-spark-sdk-dummy.m in Sources */,
 				506F39411ABA749E000E0F3B /* SparkCloud.m in Sources */,
@@ -912,6 +916,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/xcodeproj.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-Tests-spark-sdk/Pods-Tests-spark-sdk-prefix.pch";
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
@@ -1150,6 +1155,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/xcodeproj.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
