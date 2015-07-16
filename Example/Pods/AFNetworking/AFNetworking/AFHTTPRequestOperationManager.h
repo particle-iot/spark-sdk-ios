@@ -1,6 +1,5 @@
 // AFHTTPRequestOperationManager.h
-//
-// Copyright (c) 2013-2015 AFNetworking (http://afnetworking.com)
+// Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -159,12 +158,20 @@
 /**
  The dispatch queue for the `completionBlock` of request operations. If `NULL` (default), the main queue is used.
  */
+#if OS_OBJECT_HAVE_OBJC_SUPPORT
 @property (nonatomic, strong) dispatch_queue_t completionQueue;
+#else
+@property (nonatomic, assign) dispatch_queue_t completionQueue;
+#endif
 
 /**
  The dispatch group for the `completionBlock` of request operations. If `NULL` (default), a private dispatch group is used.
  */
+#if OS_OBJECT_HAVE_OBJC_SUPPORT
 @property (nonatomic, strong) dispatch_group_t completionGroup;
+#else
+@property (nonatomic, assign) dispatch_group_t completionGroup;
+#endif
 
 ///---------------------------------------------
 /// @name Creating and Initializing HTTP Clients

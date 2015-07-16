@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-@interface PodsDummy_Pods_spark_sdk_AFNetworking : NSObject
+@interface PodsDummy_Pods_Spark_SDK_AFNetworking : NSObject
 @end
-@implementation PodsDummy_Pods_spark_sdk_AFNetworking
+@implementation PodsDummy_Pods_Spark_SDK_AFNetworking
 @end
