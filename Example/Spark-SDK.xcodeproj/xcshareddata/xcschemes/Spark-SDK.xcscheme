@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F5AD195388D20070C39A"
+               BlueprintIdentifier = "505D19011B58330F002CF2B7"
                BuildableName = "Tests.xctest"
                BlueprintName = "Tests"
                ReferencedContainer = "container:Spark-SDK.xcodeproj">
@@ -46,7 +46,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F5AD195388D20070C39A"
+               BlueprintIdentifier = "505D19011B58330F002CF2B7"
                BuildableName = "Tests.xctest"
                BlueprintName = "Tests"
                ReferencedContainer = "container:Spark-SDK.xcodeproj">
