@@ -10,6 +10,10 @@
 #import <XCTest/XCTest.h>
 #import "Spark-SDK.h"
 
+#define TEST_USER   @"testuser@particle.io"
+#define TEST_PASS   @"testpass"
+
+
 @interface Tests : XCTestCase
 
 @end
@@ -34,13 +38,39 @@
     XCTAssert(YES, @"Pass");
 }
 
-- (void)testLogin {
+- (void)testLoginLogout {
     XCTestExpectation *completionExpectation = [self expectationWithDescription:@"Login test"];
-    [[SparkCloud sharedInstance] loginWithUser:@"ido@spark.io" password:@"test123" completion:^(NSError *error) {
+    [[SparkCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
         XCTAssertEqualObjects(error, nil, @"Login failed!");
+        XCTAssertEqualObjects([SparkCloud sharedInstance].loggedInUsername, TEST_USER, @"Login user mismatch");
+        XCTAssertNotEqualObjects([SparkCloud sharedInstance].accessToken, nil, @"Session access token missing");
+        [[SparkCloud sharedInstance] logout];
+        XCTAssertEqualObjects([SparkCloud sharedInstance].accessToken, nil, @"Session Access token was not cleared on logout");
         [completionExpectation fulfill];
     }];
 
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+}
+
+
+-(void)testGetDevices
+{
+    XCTestExpectation *completionExpectation = [self expectationWithDescription:@"Login test"];
+    [[SparkCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
+        XCTAssertEqualObjects(error, nil, @"Login failed!");
+        XCTAssertEqualObjects([SparkCloud sharedInstance].loggedInUsername, TEST_USER, @"Login user mismatch");
+        [[SparkCloud sharedInstance] getDevices:^(NSArray *sparkDevices, NSError *error) {
+            XCTAssertEqualObjects(error, nil, @"GetDevices call failed");
+            XCTAssertNotEqualObjects(sparkDevices, nil, @"GetDevices returned emply list");
+            NSLog(@"%@",sparkDevices.description);
+            // do something with test devices
+            [completionExpectation fulfill];
+            
+        }];
+        
+        
+    }];
+    
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
