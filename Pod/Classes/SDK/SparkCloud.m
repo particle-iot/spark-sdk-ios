@@ -625,7 +625,7 @@ NSString *const kEventListenersDictIDKey = @"id";
 
 
 
--(void)publishEventWithName:(NSString *)eventName data:(NSString *)data private:(BOOL)isPrivate ttl:(NSUInteger)ttl completion:(void (^)(NSError *))completion
+-(void)publishEventWithName:(NSString *)eventName data:(NSString *)data isPrivate:(BOOL)isPrivate ttl:(NSUInteger)ttl completion:(void (^)(NSError *))completion
 {
     NSMutableDictionary *params = [NSMutableDictionary new];
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
