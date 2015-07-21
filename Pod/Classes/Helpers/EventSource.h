@@ -20,10 +20,10 @@ typedef enum {
 // ---------------------------------------------------------------------------------------------------------------------
 
 /// Describes an Event received from an EventSource
-@interface Event : NSObject
+@interface Event : NSObject <NSCopying>
 
 /// The Event ID
-@property (nonatomic, strong) id id;
+//@property (nonatomic, strong) id id;
 /// The name of the Event
 @property (nonatomic, strong) NSString *event;
 /// The data received from the EventSource
