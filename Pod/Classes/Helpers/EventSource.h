@@ -22,17 +22,15 @@ typedef enum {
 /// Describes an Event received from an EventSource
 @interface Event : NSObject <NSCopying>
 
-/// The Event ID
-//@property (nonatomic, strong) id id;
 /// The name of the Event
 @property (nonatomic, strong) NSString *event;
 /// The data received from the EventSource
-@property (nonatomic, strong) NSData *data; //IDO changed
+@property (nonatomic, strong) NSData *data;
 
 /// The current state of the connection to the EventSource
 @property (nonatomic, assign) EventState readyState;
 /// Provides details of any errors with the connection to the EventSource
-@property (nonatomic, strong) NSError *error;
+@property (nonatomic, strong) NSError *error; // unused
 
 @end
 
@@ -80,7 +78,7 @@ typedef void (^EventSourceEventHandler)(Event *event);
 /// @param eventName The name of the event you registered.
 /// @param handler The handler for the Message event.
 - (void)addEventListener:(NSString *)eventName handler:(EventSourceEventHandler)handler;
-- (void)removeEventListener:(NSString *)eventName handler:(EventSourceEventHandler)handler; // IDO added // TODO: test
+- (void)removeEventListener:(NSString *)eventName handler:(EventSourceEventHandler)handler;
 
 /// Closes the connection to the EventSource.
 - (void)close;

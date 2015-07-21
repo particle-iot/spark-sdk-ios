@@ -12,18 +12,14 @@
 #import "EventSource.h"
 
 static CGFloat const ES_RETRY_INTERVAL = 1.0;
-//static CGFloat const ES_DEFAULT_TIMEOUT = 300.0;
 
 static NSString *const ESKeyValueDelimiter = @": ";
 static NSString *const ESEventSeparatorLFLF = @"\n\n";
 static NSString *const ESEventSeparatorCRCR = @"\r\r";
 static NSString *const ESEventSeparatorCRLFCRLF = @"\r\n\r\n";
 static NSString *const ESEventKeyValuePairSeparator = @"\n";
-
 static NSString *const ESEventDataKey = @"data";
-//static NSString *const ESEventIDKey = @"id";
 static NSString *const ESEventEventKey = @"event";
-//static NSString *const ESEventRetryKey = @"retry";
 
 @interface EventSource () <NSURLConnectionDelegate, NSURLConnectionDataDelegate> {
     BOOL wasClosed;
@@ -179,7 +175,6 @@ static NSString *const ESEventEventKey = @"event";
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     __block NSString *eventString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"raw event string: %@\n",eventString);
     
     if ([eventString hasPrefix:ESEventEventKey] ||
         [eventString hasSuffix:ESEventSeparatorLFLF] ||
@@ -189,9 +184,7 @@ static NSString *const ESEventEventKey = @"event";
             eventString = [eventString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
             NSMutableArray *components = [[eventString componentsSeparatedByString:ESEventKeyValuePairSeparator] mutableCopy];
             
-//            Event *e = [Event new];
-//            self.e.readyState = kEventStateOpen;
-            NSLog(@"components: %@",components);
+            self.e.readyState = kEventStateOpen;
             
             for (NSString *component in components) {
                 if (component.length == 0) {
@@ -210,12 +203,9 @@ static NSString *const ESEventEventKey = @"event";
                 if ([key isEqualToString:ESEventEventKey])
                 {
                     self.e.event = value;
-                    NSLog(@"set event name as %@",value);
                 } else if ([key isEqualToString:ESEventDataKey])
                 {
                     self.e.data = [value dataUsingEncoding:NSUTF8StringEncoding];
-                    NSLog(@"set event data as %@",value);
-
                 }
                 
                 if ((self.e.event) && (self.e.data))
@@ -228,10 +218,6 @@ static NSString *const ESEventEventKey = @"event";
                         });
                         self.e = [Event new];
                     }
-                }
-                else
-                {
-                    NSLog(@"event fields incomplete: %@",self.e);
                 }
             }
             

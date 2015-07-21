@@ -146,9 +146,9 @@
     };
     
     
-    self.eventListenerID_A = [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:@"A" handler:handler];
-    self.eventListenerID_B = [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:@"t" handler:handler];
-                              
+    self.eventListenerID_A = [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:nil handler:handler];
+//    self.eventListenerID_B = [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:@"t" handler:handler];
+    
 }
 
 - (IBAction)unsubscribeButton:(id)sender {
