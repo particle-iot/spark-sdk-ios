@@ -176,7 +176,12 @@ NSString *const kEventListenersDictIDKey = @"id";
              }
              else
              {
-                 completion([self makeErrorWithDescription:@"Could not sign up" code:1004]);
+                 NSString *errorString;
+                 if (responseDict[@"errors"][0])
+                     errorString = [NSString stringWithFormat:@"Could not sign up: %@",responseDict[@"errors"][0]];
+                 else
+                     errorString = @"Error signing up";
+                 completion([self makeErrorWithDescription:errorString code:1004]);
              }
          }
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

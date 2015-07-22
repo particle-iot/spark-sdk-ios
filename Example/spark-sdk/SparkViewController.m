@@ -135,7 +135,7 @@
         if (!error)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"Event: %@",event.description);
+                NSLog(@"Got Event: %@",event.description);
             });
         }
         else
@@ -145,9 +145,7 @@
         
     };
     
-    
     self.eventListenerID_A = [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:nil handler:handler];
-//    self.eventListenerID_B = [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:@"t" handler:handler];
     
 }
 
