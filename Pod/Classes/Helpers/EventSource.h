@@ -23,7 +23,7 @@ typedef enum {
 @interface Event : NSObject <NSCopying>
 
 /// The name of the Event
-@property (nonatomic, strong) NSString *event;
+@property (nonatomic, strong) NSString *name;
 /// The data received from the EventSource
 @property (nonatomic, strong) NSData *data;
 

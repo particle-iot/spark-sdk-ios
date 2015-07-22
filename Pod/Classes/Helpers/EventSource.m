@@ -33,7 +33,8 @@ static NSString *const ESEventEventKey = @"event";
 @property (nonatomic, strong) id lastEventID;
 @property (nonatomic, strong) dispatch_queue_t queue;
 @property (nonatomic, strong) NSString* accessToken;
-@property (nonatomic, strong) Event *e;
+@property (atomic, strong) Event *event;
+
 
 - (void)open;
 
@@ -64,7 +65,7 @@ static NSString *const ESEventEventKey = @"event";
             [self open];
         });
         
-        self.e = [Event new];
+        self.event = [Event new];
     }
     return self;
 }
@@ -107,10 +108,10 @@ static NSString *const ESEventEventKey = @"event";
     // TODO: add the authorization headers/parameters here
     wasClosed = NO;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.eventURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:self.timeoutInterval];
-    if (self.lastEventID)
-    {
-        [request setValue:self.lastEventID forHTTPHeaderField:@"Last-Event-ID"];
-    }
+//    if (self.lastEventID)
+//    {
+//        [request setValue:self.lastEventID forHTTPHeaderField:@"Last-Event-ID"];
+//    }
     
     [request addValue:[NSString stringWithFormat:@"Bearer %@",self.accessToken] forHTTPHeaderField:@"Authorization"];
     [request setHTTPMethod:@"GET"];
@@ -174,58 +175,48 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    __block NSString *eventString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    if ([eventString hasPrefix:ESEventEventKey] ||
-        [eventString hasSuffix:ESEventSeparatorLFLF] ||
-        [eventString hasSuffix:ESEventSeparatorCRCR] ||
-        [eventString hasSuffix:ESEventSeparatorCRLFCRLF]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            eventString = [eventString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-            NSMutableArray *components = [[eventString componentsSeparatedByString:ESEventKeyValuePairSeparator] mutableCopy];
-            
-            self.e.readyState = kEventStateOpen;
-            
-            for (NSString *component in components) {
-                if (component.length == 0) {
-                    continue;
-                }
-                
-                NSInteger index = [component rangeOfString:ESKeyValueDelimiter].location;
-                if (index == NSNotFound || index == (component.length - 2)) {
-                    continue;
-                }
-                
-                NSString *key = [component substringToIndex:index];
-                NSString *value = [component substringFromIndex:index + ESKeyValueDelimiter.length];
+    NSString *eventString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    eventString = [eventString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSArray *components = [eventString componentsSeparatedByString:ESEventKeyValuePairSeparator];
 
-                
-                if ([key isEqualToString:ESEventEventKey])
-                {
-                    self.e.event = value;
-                } else if ([key isEqualToString:ESEventDataKey])
-                {
-                    self.e.data = [value dataUsingEncoding:NSUTF8StringEncoding];
-                }
-                
-                if ((self.e.event) && (self.e.data))
-                {
-                    NSArray *messageHandlers = self.listeners[MessageEvent];
-                    for (EventSourceEventHandler handler in messageHandlers) {
-                        __block Event *sendEvent = [self.e copy]; // to prevent race conditions where loop continues iterating sending duplicate events to handler callback
-                        dispatch_async(self.queue, ^{
-                            handler(sendEvent);
-                        });
-                        self.e = [Event new];
-                    }
-                }
-            }
-            
+    self.event.readyState = kEventStateOpen;
+    
+    for (NSString *component in components) {
+        if (component.length == 0) {
+            continue;
+        }
         
-            
-        });
-    }
+        NSInteger index = [component rangeOfString:ESKeyValueDelimiter].location;
+        if (index == NSNotFound || index == (component.length - 2)) {
+            continue;
+        }
+        
+        NSString *key = [component substringToIndex:index];
+        NSString *value = [component substringFromIndex:index + ESKeyValueDelimiter.length];
+        
+        
+        if ([key isEqualToString:ESEventEventKey])
+        {
+            self.event.name = value;
+        } else if ([key isEqualToString:ESEventDataKey])
+        {
+            self.event.data = [value dataUsingEncoding:NSUTF8StringEncoding];
+        }
+        
+        if ((self.event.name) && (self.event.data))
+        {
+            NSArray *messageHandlers = self.listeners[MessageEvent];
+            __block Event *sendEvent = [self.event copy]; // to prevent race conditions where loop continues iterating sending duplicate events to handler callback
+            for (EventSourceEventHandler handler in messageHandlers) {
+                dispatch_async(self.queue, ^{
+                    handler(sendEvent);
+                });
+            }
+            self.event = [Event new];
+        }
+     }
 }
+
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
@@ -274,7 +265,7 @@ static NSString *const ESEventEventKey = @"event";
             [self class],
             state,
 //            self.id,
-            self.event,
+            self.name,
             self.data];
 
 }
@@ -283,7 +274,7 @@ static NSString *const ESEventEventKey = @"event";
 {
     Event *copy = [[Event allocWithZone:zone] init];
     
-    copy.event = self.event;
+    copy.name = self.name;
     copy.data = self.data;
     copy.readyState = self.readyState;
     copy.error = self.error;

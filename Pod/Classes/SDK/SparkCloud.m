@@ -527,13 +527,9 @@ NSString *const kEventListenersDictIDKey = @"id";
                 
                 if ((eventDict) && (!error))
                 {
-                    if (event.event) // disregarding unnamed events TODO: fix this
+                    if (event.name)
                     {
-                        eventDict[@"event"] = event.event; // add event name to dict
-                    }
-                    else
-                    {
-                        eventDict[@"event"] = @"";
+                        eventDict[@"event"] = event.name; // add event name to dict
                     }
                     SparkEvent *sparkEvent = [[SparkEvent alloc] initWithEventDict:eventDict];
                     eventHandler(sparkEvent ,nil); // callback with parsed data

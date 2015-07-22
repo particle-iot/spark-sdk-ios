@@ -130,13 +130,9 @@
     SparkEventHandler handler = ^(SparkEvent *event, NSError *error) {
         if (!error)
         {
-            NSLog(@"%@",event.description);
-            //            [[SparkCloud sharedInstance] publishEventWithName:@"test-test" data:@"payload" private:NO ttl:60 completion:^(NSError *error) {
-            //                if (error)
-            //                {
-            //                    NSLog(@"Publish event error occured: %@",error.localizedDescription);
-            //                }
-            //            }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"💛 %@",event.description);
+            });
         }
         else
         {
