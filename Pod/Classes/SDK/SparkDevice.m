@@ -327,7 +327,7 @@
 {
     NSString *desc = [NSString stringWithFormat:@"<SparkDevice 0x%lx, type: %@, id: %@, name: %@, connected: %@, variables: %@, functions: %@, version: %@, requires update: %@, last app: %@, last heard: %@>",
                       (unsigned long)self,
-                      /*(self.type == SparkDeviceTypeCore) ? @"Spark Core" : @"Spark Photon",*/ @"Spark device",
+                      (self.type == SparkDeviceTypeCore) ? @"Core" : @"Photon",
                       self.id,
                       self.name,
                       (self.connected) ? @"true" : @"false",

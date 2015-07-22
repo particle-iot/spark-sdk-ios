@@ -9,6 +9,10 @@
 #import "SparkViewController.h"
 #import "Spark-SDK.h"
 
+#define TEST_USER   @"testuser@particle.io"
+#define TEST_PASS   @"testpass"
+
+
 @interface SparkViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *loggedInLabel;
 @property (nonatomic, strong) id eventListenerID_A;
@@ -32,7 +36,7 @@
 
 - (IBAction)testButton:(id)sender {
     // logging in
-    [[SparkCloud sharedInstance] loginWithUser:@"ido@particle.io" password:@"<password>" completion:^(NSError *error) {
+    [[SparkCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
         if (!error)
             NSLog(@"Logged in to cloud");
         else
@@ -112,7 +116,7 @@
 - (IBAction)loginButton:(id)sender
 {
     // logging in
-    [[SparkCloud sharedInstance] loginWithUser:@"ido@spark.io" password:@"test123" completion:^(NSError *error) {
+    [[SparkCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
         if (!error)
         {
             NSLog(@"Logged in to cloud\nAccess Token: %@",[SparkCloud sharedInstance].accessToken);
@@ -131,7 +135,7 @@
         if (!error)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"💛 %@",event.description);
+                NSLog(@"Event: %@",event.description);
             });
         }
         else
