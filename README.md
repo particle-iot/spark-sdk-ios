@@ -1,10 +1,9 @@
 <p align="center" >
 <img src="http://oi60.tinypic.com/116jd51.jpg" alt="Particle" title="Particle">
 </p>
+# Particle iOS Cloud SDK
+[![Build Status](https://api.travis-ci.org/spark/spark-sdk-ios.svg)]() [![license](https://img.shields.io/hexpm/l/plug.svg)]() [![version](https://img.shields.io/badge/cocoapods-0.3.0-green.svg)]()
 
-[![Build Status](https://api.travis-ci.org/spark/spark-sdk-ios.svg)]
-
-# Particle (_formerly Spark_) iOS Cloud SDK
 Particle iOS Cloud SDK enables iOS apps to interact with Particle-powered connected products via the Particle Cloud. It’s an easy-to-use wrapper for Particle REST API. The Cloud SDK will allow you to:
 
 - Manage user sessions for the Particle Cloud (access tokens, encrypted session management)
@@ -12,7 +11,7 @@ Particle iOS Cloud SDK enables iOS apps to interact with Particle-powered connec
 - Get a list of instances of user's Particle devices
 - Read variables from devices
 - Invoke functions on devices
-- Publish events from the mobile app and subscribe to events coming from devices 
+- Publish events from the mobile app and subscribe to events coming from devices *(New!)*
 
 All cloud operations take place asynchronously and use the well-known completion blocks (closures for swift) design pattern for reporting results allowing you to build beautiful responsive apps for your Particle products and projects. 
 iOS Cloud SDK is implemented as an open-source Cocoapod library. See [Installation](#installation) section for more details. It works well for both Objective-C and [Swift](#support-for-swift-projects) projects.
