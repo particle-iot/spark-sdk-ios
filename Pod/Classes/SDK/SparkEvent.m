@@ -34,6 +34,6 @@
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"<Event: %@, DeviceID: %@, Data: %@, Time: %@, TTL: %ld>",self.event,self.deviceID,self.data,self.time,self.ttl];
+    return [NSString stringWithFormat:@"<Event: %@, DeviceID: %@, Data: %@, Time: %@, TTL: %ld>",self.event,self.deviceID,self.data,self.time,(long)self.ttl];
 }
 @end
