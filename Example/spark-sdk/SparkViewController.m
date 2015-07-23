@@ -135,7 +135,7 @@
         if (!error)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"Got Event: %@",event.description);
+                NSLog(@"got event with name %@ and data %@",event.event,event.data);
             });
         }
         else
