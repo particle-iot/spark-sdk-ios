@@ -23,7 +23,7 @@ Code currently refers to `SparkCloud` and `SparkDevice`, this will soon be repla
 
 **Beta notice**
 
-This SDK is still under development and is currently released as Beta, although tested, bugs and issues may be present, some code might require cleanups. 
+This SDK is still under development and is currently released as Beta, although tested, bugs and issues may be present, some code might require cleanups. In addition, as long as version 1.0 was not released, we cannot gurantee that API calls will not break from one SDK version to the next. Be sure to consult the [Change Log](https://github.com/spark/spark-sdk-ios/blob/master/CHANGELOG.md) for any breaking changes / additions to the SDK.
 
 ## Getting Started
 
