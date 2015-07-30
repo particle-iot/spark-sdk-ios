@@ -34,7 +34,8 @@ extern NSString *const kSparkAPIBaseURL;
  */
 @property (nonatomic, strong, readonly) NSString *accessToken;
 
-
+@property (nonatomic, strong) NSString *OAuthClientId;
+@property (nonatomic, strong) NSString *OAuthClientSecret;
 /**
  *  Singleton instance of SparkCloud class
  *
@@ -90,7 +91,6 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param completion Completion block with NSError object if failure, nil if success
  */
 -(void)requestPasswordReset:(NSString *)orgName email:(NSString *)email completion:(void(^)(NSError *))completion;
-
 
 #pragma mark Device management functions
 // --------------------------------------------------------------------------------------------------------------------------------------------------------

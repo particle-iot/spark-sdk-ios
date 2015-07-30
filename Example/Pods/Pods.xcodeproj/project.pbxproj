@@ -36,7 +36,6 @@
 		6CB6CE5637E30F7E0F147B14 /* SparkAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B547F8D746CECDAF8A508EB2 /* SparkAccessToken.m */; };
 		6E7CFD3F2CD8CAD0E3E61B3E /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D20AE1576F6889406CDBA56E /* AFURLSessionManager.h */; };
 		77999F51E4522458F3C1924C /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 402DD5E6D268DB938C4C24B7 /* AFSecurityPolicy.m */; };
-		81F9E0FBB35904278B9293FF /* OAuthClientCredentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42A3A55B0CF629C88E7814B7 /* OAuthClientCredentials.plist */; };
 		84E2AB6D616B979805521A0C /* UIButton+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 03619EA019B1FE84BA6D0657 /* UIButton+AFNetworking.m */; };
 		85DF89BB00EFFBADC23B612F /* AFURLRequestSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 325A1489C1D27DCADD8127F4 /* AFURLRequestSerialization.h */; };
 		87E892358D651DEAAB6981D3 /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 301E983D432E851F97B73D0C /* AFNetworking.h */; };
@@ -703,7 +702,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81F9E0FBB35904278B9293FF /* OAuthClientCredentials.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

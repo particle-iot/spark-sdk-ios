@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
     s.name             = "Spark-SDK"
-    s.version          = "0.3.0"
+    s.version          = "0.3.1"
     s.summary          = "Particle iOS Cloud SDK for interacting with products/project powered by Cores/Photons via Particle Cloud"
     s.description      = <<-DESC
                         Particle (formerly Spark) iOS Cloud SDK Cocoapod library
@@ -42,11 +42,6 @@ Pod::Spec.new do |s|
         ss.dependency 'AFNetworking'
         ss.dependency 'Spark-SDK/Helpers'
     end
-
-
-    s.resource_bundles = {
-        'Spark-SDK' => ['Pod/Assets/*.*']
-    }
 
     # s.frameworks = 'SystemConfiguration', 'Security'
 

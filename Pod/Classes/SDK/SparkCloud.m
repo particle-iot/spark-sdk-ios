@@ -119,17 +119,17 @@ NSString *const kEventListenersDictIDKey = @"id";
                              @"password": password,
                              };
     
-    NSDictionary *OAuthClientCredentialsDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OAuthClientCredentials" ofType:@"plist"]];
-    NSString *clientId = OAuthClientCredentialsDict[@"clientId"];
-    NSString *clientSecret = OAuthClientCredentialsDict[@"clientSecret"];
+//    NSDictionary *OAuthClientCredentialsDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OAuthClientCredentials" ofType:@"plist"]];
+//    NSString *clientId = OAuthClientCredentialsDict[@"clientId"];
+//    NSString *clientSecret = OAuthClientCredentialsDict[@"clientSecret"];
     
-    if (!clientId)
-        clientId = @"spark";
-    if (!clientSecret)
-        clientSecret = @"spark";
+    if (!self.OAuthClientId)
+        self.OAuthClientId = @"particle";
+    if (!self.OAuthClientSecret)
+        self.OAuthClientSecret = @"particle";
     
     
-    [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:clientId password:clientSecret];
+    [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.OAuthClientId password:self.OAuthClientSecret];
     // OAuth login
     [self.manager POST:@"oauth/token" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
     {
