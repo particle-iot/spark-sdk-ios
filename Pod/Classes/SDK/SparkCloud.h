@@ -73,11 +73,10 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @param email      Required user name, must be a valid email address
  *  @param password   Required password
- *  @param inviteCode Optional invite code for opening an account
- *  @param orgName    Organization name to include in cloud API endpoint URL
+ *  @param orgSlug    Organization string to include in cloud API endpoint URL
  *  @param completion Completion block will be called when sign-up finished, NSError object will be passed in case of an error, nil if success
  */
--(void)signupWithOrganizationalUser:(NSString *)email password:(NSString *)password inviteCode:(NSString *)inviteCode orgName:(NSString *)orgName completion:(void (^)(NSError *))completion;
+-(void)signupWithCustomer:(NSString *)email password:(NSString *)password orgSlug:(NSString *)orgSlug completion:(void (^)(NSError *))completion;
 
 /**
  *  Logout user, remove session data
@@ -131,8 +130,8 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @param completion Completion block with claimCode string returned (48 random bytes base64 encoded to 64 ASCII characters), second argument is a list of the devices currently claimed by current session user and third is NSError object for failure, nil if success
  */
-
 -(void)generateClaimCode:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+-(void)generateClaimCodeForOrganization:(NSString *)orgSlug andProduct:(NSString *)productSlug withActivationCode:(NSString *)activationCode completion:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
 
 
 #pragma mark Events subsystem functions

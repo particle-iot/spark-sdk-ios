@@ -200,13 +200,10 @@ NSString *const kEventListenersDictIDKey = @"id";
 }
 
 
-// TODO: fix according to spec
-// spec: https://github.com/spark/rfcs/blob/feature/product-users/services/product-users.md
-// and: https://github.com/spark/rfcs/issues/15
--(void)signupWithOrganizationalUser:(NSString *)email password:(NSString *)password inviteCode:(NSString *)inviteCode orgName:(NSString *)orgName completion:(void (^)(NSError *))completion
+-(void)signupWithCustomer:(NSString *)email password:(NSString *)password orgSlug:(NSString *)orgSlug completion:(void (^)(NSError *))completion
 {
-    if (!orgName)
-        completion([self makeErrorWithDescription:@"Organization not specified" code:1006]);
+    if (!orgSlug)
+        completion([self makeErrorWithDescription:@"Organization slug not specified" code:1006]);
 
     // non default params
     NSMutableDictionary *params = [@{
@@ -214,10 +211,10 @@ NSString *const kEventListenersDictIDKey = @"id";
                              @"password": password,
                              } mutableCopy];
     
-    if (inviteCode)
-        params[@"activation_code"] = inviteCode;
-                    
-    NSString *url = [NSString stringWithFormat:@"/v1/orgs/%@/customers",orgName];
+//    if (inviteCode)
+//        params[@"activation_code"] = inviteCode;
+    
+    NSString *url = [NSString stringWithFormat:@"/v1/orgs/%@/customers",orgSlug];
     
     [self.manager POST:url parameters:[params copy] success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
@@ -427,6 +424,53 @@ NSString *const kEventListenersDictIDKey = @"id";
      }];
     
 }
+
+
+
+-(void)generateClaimCodeForOrganization:(NSString *)orgSlug andProduct:(NSString *)productSlug withActivationCode:(NSString *)activationCode completion:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+{
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
+    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
+
+    
+    NSDictionary *params;
+    if (activationCode)
+        params = @{@"activation_code" : activationCode};
+
+    
+    NSString *urlPath = [NSString stringWithFormat:@"/v1/orgs/%@/products/%@/device_claims",orgSlug,productSlug];
+    [self.manager POST:urlPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         if (completion)
+         {
+             NSDictionary *responseDict = responseObject;
+             if (responseDict[@"claim_code"])
+             {
+                 NSArray *claimedDeviceIDs = responseDict[@"device_ids"];
+                 if ((claimedDeviceIDs) && (claimedDeviceIDs.count > 0))
+                 {
+                     completion(responseDict[@"claim_code"], responseDict[@"device_ids"], nil);
+                 }
+                 else
+                 {
+                     completion(responseDict[@"claim_code"], nil, nil);
+                 }
+             }
+             else
+             {
+                 completion(nil, nil, [self makeErrorWithDescription:@"Could not generate a claim code" code:1007]);
+             }
+         }
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         if (completion)
+             completion(nil, nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
+         NSLog(@"generateClaimCodeOrganization %@ Error: %@", urlPath, error.localizedDescription);
+     }];
+    
+}
+
+
 
 
 //-(void)requestPasswordReset:(NSString *)email completion:(void (^)(NSError *))completion
