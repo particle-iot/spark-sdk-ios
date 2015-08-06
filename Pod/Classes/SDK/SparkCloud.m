@@ -94,6 +94,11 @@ NSString *const kEventListenersDictIDKey = @"id";
         return nil;
 }
 
+-(BOOL)isLoggedIn
+{
+    return (self.loggedInUsername != nil);
+}
+
 #pragma mark Delegate functions
 -(void)SparkAccessToken:(SparkAccessToken *)accessToken didExpireAt:(NSDate *)date
 {

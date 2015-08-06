@@ -29,6 +29,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  Currently loggeed in user name, nil if no session exists
  */
 @property (nonatomic, strong, readonly) NSString* loggedInUsername;
+@property (nonatomic, readonly) BOOL isLoggedIn;
 /**
  *  Current session access token string
  */
