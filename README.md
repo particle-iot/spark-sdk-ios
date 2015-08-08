@@ -326,6 +326,51 @@ SparkCloud.sharedInstance().publishEventWithName("event_from_app", data: "event_
 })
 ```
 
+### OAuth client configuration
+
+If you're creating an app you're required to provide the `SparkCloud` class with OAuth clientId and secret. 
+Those are used to identify users coming from your specific app to the Particle Cloud.
+Please follow the procedure decribed [in our guide](https://docs.particle.io/guide/how-to-build-a-product/web-app/#creating-an-oauth-client) to create those strings, 
+then in your `AppDelegate` class you can supply those credentials by setting the following properties in `SparkCloud` singleton:
+
+```objc
+@property (nonatomic, strong) NSString *OAuthClientId;
+@property (nonatomic, strong) NSString *OAuthClientSecret;
+```
+
+**Important**
+Those credentials should be kept as secret. We recommend the use of [Cocoapods-keys plugin](https://github.com/orta/cocoapods-keys) for cocoapods 
+(which you have to use anyways to install the SDK). It is essentially a key value store for enviroment and application keys.
+It's a good security practice to keep production keys out of developer hands. CocoaPods-keys makes it easy to have per-user config settings stored securely in the developer's keychain, 
+and not in the application source. It is a plugin that once installed will run on every pod install or pod update.
+
+After adding the following additional lines your project `Podfile`:
+```ruby
+plugin 'cocoapods-keys', {
+    :project => "YourAppName",
+    :keys => [
+        "OAuthClientId",
+        "OAuthSecret"
+    ]}
+```
+
+go to your project folder in shell and run `pod install` - it will now ask you for "OAuthClientId", "OAuthSecret" - you can copy/paste the generated keys there
+and from that point on you can feed those keys into `SparkCloud` by adding this code to your AppDelegate `didFinishLaunchingWithOptions` function which gets called
+when your app starts:
+
+*Swift example code*
+
+```swift
+func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    var keys = YourappnameKeys()
+    SparkCloud.sharedInstance().OAuthClientId = keys.oAuthClientId()
+    SparkCloud.sharedInstance().OAuthClientSecret = keys.oAuthSecret()
+
+    return true
+}
+```
+
+Be sure to replace `YourAppName` with your project name.
 
 ### Additional reference
 For additional reference check out the [Reference in Cocoadocs website](http://cocoadocs.org/docsets/Spark-SDK/) for full coverage of `SparkDevice` and `SparkCloud` functions and member variables. In addition you can consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each public method. If Particle iOS Cloud SDK is integrated in your XCode project you should be able to press `Esc` to get an auto-complete hints for each cloud and device method.
