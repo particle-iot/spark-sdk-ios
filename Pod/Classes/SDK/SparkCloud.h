@@ -84,13 +84,14 @@ extern NSString *const kSparkAPIBaseURL;
 -(void)logout;
 
 /**
- *  Request password reset for user
+ *  Request password reset for user or customer (organization mode)
  *  command generates confirmation token and sends email to customer using org SMTP settings
  *
  *  @param email      user email
  *  @param completion Completion block with NSError object if failure, nil if success
  */
--(void)requestPasswordReset:(NSString *)orgName email:(NSString *)email completion:(void(^)(NSError *))completion;
+-(void)requestPasswordResetForCustomer:(NSString *)orgSlug email:(NSString *)email completion:(void(^)(NSError *))completion;
+-(void)requestPasswordResetForUser:(NSString *)email completion:(void(^)(NSError *))completion;
 
 #pragma mark Device management functions
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
