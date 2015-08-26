@@ -16,7 +16,7 @@
 
 
 #define GLOBAL_API_TIMEOUT_INTERVAL     31.0f
-#define STAGING
+//#define STAGING
 
 #ifdef STAGING
 NSString *const kSparkAPIBaseURL = @"https://api.staging.particle.io";
