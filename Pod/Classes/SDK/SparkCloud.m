@@ -162,8 +162,12 @@ NSString *const kEventListenersDictIDKey = @"id";
             completion([NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
 
         NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-        NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-        NSLog(@"! loginWithUser %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+        if (errorData)
+        {
+
+            NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+            NSLog(@"! loginWithUser %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+        }
     }];
     
     [self.manager.requestSerializer clearAuthorizationHeader];
@@ -204,8 +208,11 @@ NSString *const kEventListenersDictIDKey = @"id";
              completion([NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
 
          NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-         NSLog(@"! signupWithUser %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         if (errorData)
+         {
+             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+             NSLog(@"! signupWithUser %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         }
      }];
     
     [self.manager.requestSerializer clearAuthorizationHeader];
@@ -238,7 +245,7 @@ NSString *const kEventListenersDictIDKey = @"id";
     [self.manager POST:url parameters:[params copy] success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          NSDictionary *responseDict = responseObject;
-         NSLog(@"Got status code %d, and response: %@",operation.response.statusCode,responseDict);
+         NSLog(@"Got status code %ld, and response: %@",operation.response.statusCode,responseDict);
          
          self.token = [[SparkAccessToken alloc] initWithNewSession:responseDict];
          if (self.token) // customer login was successful
@@ -264,8 +271,12 @@ NSString *const kEventListenersDictIDKey = @"id";
              completion([NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
          
          NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-         NSLog(@"! signupWithCustomer %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         if (errorData)
+         {
+
+             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+             NSLog(@"! signupWithCustomer %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         }
      }];
     
     [self.manager.requestSerializer clearAuthorizationHeader];
@@ -307,8 +318,12 @@ NSString *const kEventListenersDictIDKey = @"id";
              completion([NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
          
          NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-         NSLog(@"! claimDevice %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         if (errorData)
+         {
+
+             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+             NSLog(@"! claimDevice %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         }
 
      }];
     
@@ -339,8 +354,12 @@ NSString *const kEventListenersDictIDKey = @"id";
              completion(nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
 
          NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-         NSLog(@"! getDevice %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         if (errorData)
+         {
+
+             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+             NSLog(@"! getDevice %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         }
 
      }];
   
@@ -423,8 +442,12 @@ NSString *const kEventListenersDictIDKey = @"id";
              completion(nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
 
          NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-         NSLog(@"! getDevices %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         if (errorData)
+         {
+
+             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+             NSLog(@"! getDevices %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         }
      }];
 }
 
@@ -463,8 +486,11 @@ NSString *const kEventListenersDictIDKey = @"id";
          if (completion)
              completion(nil, nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
          NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-         NSLog(@"! generateClaimCode %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         if (errorData)
+         {
+             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+             NSLog(@"! generateClaimCode %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         }
      }];
     
 }
@@ -508,8 +534,12 @@ NSString *const kEventListenersDictIDKey = @"id";
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-         NSLog(@"! generateClaimCodeForOrganization %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         if (errorData)
+         {
+
+             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+             NSLog(@"! generateClaimCodeForOrganization %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         }
          
          if (completion)
              completion(nil, nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
@@ -542,8 +572,12 @@ NSString *const kEventListenersDictIDKey = @"id";
          }
          
          NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-         NSLog(@"! requestPasswordReset %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         if (errorData)
+         {
+
+             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+             NSLog(@"! requestPasswordReset %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         }
      }];
     
 }
@@ -570,8 +604,12 @@ NSString *const kEventListenersDictIDKey = @"id";
          }
          
          NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-         NSLog(@"! requestPasswordResetForUser %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         if (errorData)
+         {
+
+             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+             NSLog(@"! requestPasswordResetForUser %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+         }
      }];
     
 }
