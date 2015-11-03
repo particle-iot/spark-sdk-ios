@@ -4,6 +4,30 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.3.3](https://github.com/spark/spark-sdk-ios/releases/tag/0.3.0) (2015-07-22)
+
+* Fix crash in case error object is nil across cloud SDK functions failure blocks
+
+* Get rid of compiler warnings
+
+## [0.3.2](https://github.com/spark/spark-sdk-ios/releases/tag/0.3.0) (2015-07-22)
+
+* README documentation for OAuth credentials 
+
+* Signup customers/password reset for user
+
+* Detailed error logging from cloud SDK functions
+
+## [0.3.1](https://github.com/spark/spark-sdk-ios/releases/tag/0.3.0) (2015-07-22)
+
+* document generateClaimCodeForOrganization func
+
+* isLoggedin flag
+
+* remove OAuth credentials plist file in favor of new class variables (used to 'feed' client/secret to SparkCloud class)
+
+* README fixes, CHANGELOG added
+
 ## [0.3.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.3.0) (2015-07-22)
 
 * Events pub/sub system added to the Cloud SDK - see [here](https://github.com/spark/spark-sdk-ios/blob/master/README.md#events-sub-system)
