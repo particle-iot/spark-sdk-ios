@@ -248,6 +248,7 @@
 				6003F588195388D20070C39A /* Resources */,
 				C013C05222161F5B609B113D /* Copy Pods Resources */,
 				50EB76081AE5D1F300C925A9 /* Headers */,
+				84CC30CAD975A0DC9EE3C150 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -317,6 +318,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		84CC30CAD975A0DC9EE3C150 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Spark-SDK/Pods-Spark-SDK-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B650CC2663E487BE37755777 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

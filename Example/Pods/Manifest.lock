@@ -1,30 +1,30 @@
 PODS:
-  - AFNetworking (2.5.4):
-    - AFNetworking/NSURLConnection (= 2.5.4)
-    - AFNetworking/NSURLSession (= 2.5.4)
-    - AFNetworking/Reachability (= 2.5.4)
-    - AFNetworking/Security (= 2.5.4)
-    - AFNetworking/Serialization (= 2.5.4)
-    - AFNetworking/UIKit (= 2.5.4)
-  - AFNetworking/NSURLConnection (2.5.4):
+  - AFNetworking (2.6.1):
+    - AFNetworking/NSURLConnection (= 2.6.1)
+    - AFNetworking/NSURLSession (= 2.6.1)
+    - AFNetworking/Reachability (= 2.6.1)
+    - AFNetworking/Security (= 2.6.1)
+    - AFNetworking/Serialization (= 2.6.1)
+    - AFNetworking/UIKit (= 2.6.1)
+  - AFNetworking/NSURLConnection (2.6.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.4):
+  - AFNetworking/NSURLSession (2.6.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.4)
-  - AFNetworking/Security (2.5.4)
-  - AFNetworking/Serialization (2.5.4)
-  - AFNetworking/UIKit (2.5.4):
+  - AFNetworking/Reachability (2.6.1)
+  - AFNetworking/Security (2.6.1)
+  - AFNetworking/Serialization (2.6.1)
+  - AFNetworking/UIKit (2.6.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Spark-SDK (0.2.10):
-    - Spark-SDK/Helpers (= 0.2.10)
-    - Spark-SDK/SDK (= 0.2.10)
-  - Spark-SDK/Helpers (0.2.10)
-  - Spark-SDK/SDK (0.2.10):
+  - Spark-SDK (0.3.3):
+    - Spark-SDK/Helpers (= 0.3.3)
+    - Spark-SDK/SDK (= 0.3.3)
+  - Spark-SDK/Helpers (0.3.3)
+  - Spark-SDK/SDK (0.3.3):
     - AFNetworking
     - Spark-SDK/Helpers
 
@@ -37,7 +37,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
-  Spark-SDK: 072dcc04e99eeb602320e13116266d75d2ac5e2a
+  AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
+  Spark-SDK: 525b27ecd6219959f281da149809842a318ae873
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.39.0
