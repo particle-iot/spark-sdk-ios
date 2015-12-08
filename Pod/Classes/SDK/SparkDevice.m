@@ -63,6 +63,9 @@
             {
                 if ([params[@"product_id"] intValue]==SparkDeviceTypeCore)
                     _type = SparkDeviceTypeCore;
+                if ([params[@"product_id"] intValue]==SparkDeviceTypeElectron)
+                    _type = SparkDeviceTypeElectron;
+
             }
         }
 

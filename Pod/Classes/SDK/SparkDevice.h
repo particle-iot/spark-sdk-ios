@@ -23,6 +23,7 @@
 typedef NS_ENUM(NSInteger, SparkDeviceType) {
     SparkDeviceTypeCore=0,
     SparkDeviceTypePhoton=6,
+    SparkDeviceTypeElectron=10,
 };
 
 @interface SparkDevice : NSObject

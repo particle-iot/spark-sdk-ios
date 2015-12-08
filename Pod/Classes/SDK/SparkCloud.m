@@ -166,7 +166,7 @@ NSString *const kEventListenersDictIDKey = @"id";
         {
 
             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-            NSLog(@"! loginWithUser %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+            NSLog(@"! loginWithUser %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
         }
     }];
     
@@ -211,7 +211,7 @@ NSString *const kEventListenersDictIDKey = @"id";
          if (errorData)
          {
              NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! signupWithUser %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+             NSLog(@"! signupWithUser %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
          }
      }];
     
@@ -245,7 +245,7 @@ NSString *const kEventListenersDictIDKey = @"id";
     [self.manager POST:url parameters:[params copy] success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          NSDictionary *responseDict = responseObject;
-         NSLog(@"Got status code %ld, and response: %@",operation.response.statusCode,responseDict);
+         NSLog(@"Got status code %d, and response: %@",(int)operation.response.statusCode,responseDict);
          
          self.token = [[SparkAccessToken alloc] initWithNewSession:responseDict];
          if (self.token) // customer login was successful
@@ -275,7 +275,7 @@ NSString *const kEventListenersDictIDKey = @"id";
          {
 
              NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! signupWithCustomer %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+             NSLog(@"! signupWithCustomer %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
          }
      }];
     
@@ -322,7 +322,7 @@ NSString *const kEventListenersDictIDKey = @"id";
          {
 
              NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! claimDevice %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+             NSLog(@"! claimDevice %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
          }
 
      }];
@@ -358,7 +358,7 @@ NSString *const kEventListenersDictIDKey = @"id";
          {
 
              NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! getDevice %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+             NSLog(@"! getDevice %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
          }
 
      }];
@@ -446,7 +446,7 @@ NSString *const kEventListenersDictIDKey = @"id";
          {
 
              NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! getDevices %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+             NSLog(@"! getDevices %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
          }
      }];
 }
@@ -489,7 +489,7 @@ NSString *const kEventListenersDictIDKey = @"id";
          if (errorData)
          {
              NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! generateClaimCode %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+             NSLog(@"! generateClaimCode %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
          }
      }];
     
@@ -538,7 +538,7 @@ NSString *const kEventListenersDictIDKey = @"id";
          {
 
              NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! generateClaimCodeForOrganization %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+             NSLog(@"! generateClaimCodeForOrganization %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
          }
          
          if (completion)
@@ -576,7 +576,7 @@ NSString *const kEventListenersDictIDKey = @"id";
          {
 
              NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! requestPasswordReset %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+             NSLog(@"! requestPasswordReset %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
          }
      }];
     
@@ -608,7 +608,7 @@ NSString *const kEventListenersDictIDKey = @"id";
          {
 
              NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! requestPasswordResetForUser %@ Failed (status code %ld): %@",operation.request.URL,operation.response.statusCode,serializedFailedBody);
+             NSLog(@"! requestPasswordResetForUser %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
          }
      }];
     
