@@ -20,11 +20,11 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Spark-SDK (0.3.3):
-    - Spark-SDK/Helpers (= 0.3.3)
-    - Spark-SDK/SDK (= 0.3.3)
-  - Spark-SDK/Helpers (0.3.3)
-  - Spark-SDK/SDK (0.3.3):
+  - Spark-SDK (0.3.4):
+    - Spark-SDK/Helpers (= 0.3.4)
+    - Spark-SDK/SDK (= 0.3.4)
+  - Spark-SDK/Helpers (0.3.4)
+  - Spark-SDK/SDK (0.3.4):
     - AFNetworking
     - Spark-SDK/Helpers
 
@@ -38,6 +38,6 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  Spark-SDK: 00d9f8e4f7f111d9f042e4134a422a6f55d05fd1
+  Spark-SDK: 6f3be5e33f82858ac42e3112fe3d0753e27f571e
 
 COCOAPODS: 0.39.0
