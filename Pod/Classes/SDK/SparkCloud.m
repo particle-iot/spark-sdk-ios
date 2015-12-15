@@ -16,14 +16,8 @@
 
 
 #define GLOBAL_API_TIMEOUT_INTERVAL     31.0f
-//#define STAGING
 
-#ifdef STAGING
-NSString *const kSparkAPIBaseURL = @"https://api.staging.particle.io";
-#else
 NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
-#endif
-
 NSString *const kEventListenersDictEventSourceKey = @"eventSource";
 NSString *const kEventListenersDictHandlerKey = @"eventHandler";
 NSString *const kEventListenersDictIDKey = @"id";
