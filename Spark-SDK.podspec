@@ -38,7 +38,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'SDK' do |ss|
         ss.source_files = 'Pod/Classes/SDK/Spark*.{h,m}'
-        ss.dependency 'AFNetworking'
+        ss.dependency 'AFNetworking', '< 3.0.0'
         ss.dependency 'Spark-SDK/Helpers'
     end
 
