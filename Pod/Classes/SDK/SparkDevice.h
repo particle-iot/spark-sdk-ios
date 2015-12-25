@@ -72,7 +72,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  *  @param variableName Variable name
  *  @param completion   Completion block to be called when function completes with the variable value retrieved (as id/AnyObject) or NSError object in case on an error
  */
--(void)getVariable:(NSString *)variableName completion:(void(^)(id result, NSError* error))completion;
+-(NSURLSessionDataTask *)getVariable:(NSString *)variableName completion:(void(^)(id result, NSError* error))completion;
 
 /**
  *  Call a function on the device
@@ -81,7 +81,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  *  @param args         Array of arguments to pass to the function on the device. Arguments will be converted to string maximum length 63 chars.
  *  @param completion   Completion block will be called when function was invoked on device. First argument of block is the integer return value of the function, second is NSError object in case of an error invoking the function
  */
--(void)callFunction:(NSString *)functionName withArguments:(NSArray *)args completion:(void (^)(NSNumber *, NSError *))completion;
+-(NSURLSessionDataTask *)callFunction:(NSString *)functionName withArguments:(NSArray *)args completion:(void (^)(NSNumber *, NSError *))completion;
 
 /*
 -(void)addEventHandler:(NSString *)eventName handler:(void(^)(void))handler;
@@ -96,14 +96,14 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  *  @param completion Completion block called when function completes with NSError object in case of an error or nil if success.
  *
  */
--(void)refresh:(void(^)(NSError* error))completion;
+-(NSURLSessionDataTask *)refresh:(void(^)(NSError* error))completion;
 
 /**
  *  Remove device from current logged in user account
  *
  *  @param completion Completion block called when function completes with NSError object in case of an error or nil if success.
  */
--(void)unclaim:(void(^)(NSError* error))completion;
+-(NSURLSessionDataTask *)unclaim:(void(^)(NSError* error))completion;
 
 /*
 -(void)compileAndFlash:(NSString *)sourceCode completion:(void(^)(NSError* error))completion;
@@ -116,7 +116,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  *  @param newName      New device name
  *  @param completion   Completion block called when function completes with NSError object in case of an error or nil if success.
  */
--(void)rename:(NSString *)newName completion:(void(^)(NSError* error))completion;
+-(NSURLSessionDataTask *)rename:(NSString *)newName completion:(void(^)(NSError* error))completion;
 
 /**
  *  Flash files to device
@@ -124,7 +124,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  *  @param filesDict    files dictionary in the following format: @{@"filename.bin" : <NSData>, ...} - that is a NSString filename as key and NSData blob as value. More than one file can be flashed. Data is alway binary.
  *  @param completion   Completion block called when function completes with NSError object in case of an error or nil if success. NSError.localized descripion will contain a detailed error report in case of a
  */
--(void)flashFiles:(NSDictionary *)filesDict completion:(void(^)(NSError* error))completion; //@{@"<filename>" : NSData, ...}
+-(NSURLSessionDataTask *)flashFiles:(NSDictionary *)filesDict completion:(void(^)(NSError* error))completion; //@{@"<filename>" : NSData, ...}
 
 /**
  *  Flash known firmware images to device
@@ -132,7 +132,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  *  @param knownAppName    NSString of known app name. Currently @"tinker" is supported. 
  *  @param completion      Completion block called when function completes with NSError object in case of an error or nil if success. NSError.localized descripion will contain a detailed error report in case of a
  */
--(void)flashKnownApp:(NSString *)knownAppName completion:(void (^)(NSError *))completion; // knownAppName = @"tinker", @"blinky", ... see http://docs.
+-(NSURLSessionDataTask *)flashKnownApp:(NSString *)knownAppName completion:(void (^)(NSError *))completion; // knownAppName = @"tinker", @"blinky", ... see http://docs.
 
 //-(void)compileAndFlashFiles:(NSDictionary *)filesDict completion:(void(^)(NSError* error))completion; //@{@"<filename>" : @"<file contents>"}
 //-(void)complileFiles:(NSDictionary *)filesDict completion:(void(^)(NSData *resultBinary, NSError* error))completion; //@{@"<filename>" : @"<file contents>"}
