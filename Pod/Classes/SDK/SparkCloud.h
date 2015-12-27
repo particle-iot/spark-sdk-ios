@@ -56,7 +56,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param password   Password
  *  @param completion Completion block will be called when login finished, NSError object will be passed in case of an error, nil if success
  */
--(void)loginWithUser:(NSString *)user password:(NSString *)password completion:(void (^)(NSError *error))completion;
+-(NSURLSessionDataTask *)loginWithUser:(NSString *)user password:(NSString *)password completion:(void (^)(NSError *error))completion;
 
 /**
  *  Sign up with new account credentials to Spark cloud
@@ -65,7 +65,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param password   Required password
  *  @param completion Completion block will be called when sign-up finished, NSError object will be passed in case of an error, nil if success
  */
--(void)signupWithUser:(NSString *)user password:(NSString *)password completion:(void (^)(NSError *error))completion;
+-(NSURLSessionDataTask *)signupWithUser:(NSString *)user password:(NSString *)password completion:(void (^)(NSError *error))completion;
 
 
 /**
@@ -76,7 +76,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param orgSlug    Organization string to include in cloud API endpoint URL
  *  @param completion Completion block will be called when sign-up finished, NSError object will be passed in case of an error, nil if success
  */
--(void)signupWithCustomer:(NSString *)email password:(NSString *)password orgSlug:(NSString *)orgSlug completion:(void (^)(NSError *))completion;
+-(NSURLSessionDataTask *)signupWithCustomer:(NSString *)email password:(NSString *)password orgSlug:(NSString *)orgSlug completion:(void (^)(NSError *))completion;
 
 /**
  *  Logout user, remove session data
@@ -90,8 +90,8 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param email      user email
  *  @param completion Completion block with NSError object if failure, nil if success
  */
--(void)requestPasswordResetForCustomer:(NSString *)orgSlug email:(NSString *)email completion:(void(^)(NSError *))completion;
--(void)requestPasswordResetForUser:(NSString *)email completion:(void(^)(NSError *))completion;
+-(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)orgSlug email:(NSString *)email completion:(void(^)(NSError *))completion;
+-(NSURLSessionDataTask *)requestPasswordResetForUser:(NSString *)email completion:(void(^)(NSError *))completion;
 
 #pragma mark Device management functions
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @param completion Completion block with the device instances array in case of success or with NSError object if failure
  */
--(void)getDevices:(void (^)(NSArray *sparkDevices, NSError *error))completion;
+-(NSURLSessionDataTask *)getDevices:(void (^)(NSArray<SparkDevice *> *sparkDevices, NSError *error))completion;
 
 /**
  *  Get a specific device instance by its deviceID. If the device is offline the instance will contain only partial information the cloud has cached, 
@@ -113,7 +113,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param deviceID   required deviceID
  *  @param completion Completion block with first arguemnt as the device instance in case of success or with second argument NSError object if operation failed
  */
--(void)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion;
+-(NSURLSessionDataTask *)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion;
 
 // Not available yet
 //-(void)publishEvent:(NSString *)eventName data:(NSData *)data;
@@ -124,14 +124,14 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param deviceID   required deviceID
  *  @param completion Completion block with NSError object if failure, nil if success
  */
--(void)claimDevice:(NSString *)deviceID completion:(void(^)(NSError *))completion;
+-(NSURLSessionDataTask *)claimDevice:(NSString *)deviceID completion:(void(^)(NSError *))completion;
 
 /**
  *  Get a short-lived claiming token for transmitting to soon-to-be-claimed device in soft AP setup process
  *
  *  @param completion Completion block with claimCode string returned (48 random bytes base64 encoded to 64 ASCII characters), second argument is a list of the devices currently claimed by current session user and third is NSError object for failure, nil if success
  */
--(void)generateClaimCode:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+-(NSURLSessionDataTask *)generateClaimCode:(void(^)(NSString *claimCode, NSArray<NSString *> *userClaimedDeviceIDs, NSError *error))completion;
 
 
 /**
@@ -142,7 +142,7 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @param completion Completion block with claimCode string returned (48 random bytes base64 encoded to 64 ASCII characters), second argument is a list of the devices currently claimed by current session user and third is NSError object for failure, nil if success
  */
--(void)generateClaimCodeForOrganization:(NSString *)orgSlug andProduct:(NSString *)productSlug withActivationCode:(NSString *)activationCode completion:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+-(NSURLSessionDataTask *)generateClaimCodeForOrganization:(NSString *)orgSlug andProduct:(NSString *)productSlug withActivationCode:(NSString *)activationCode completion:(void(^)(NSString *claimCode, NSArray<NSString *> *userClaimedDeviceIDs, NSError *error))completion;
 
 
 #pragma mark Events subsystem functions
@@ -195,7 +195,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param ttl          TTL stands for Time To Live. It it the number of seconds that the event data is relevant and meaningful. For example, an outdoor temperature reading with a precision of integer degrees Celsius might have a TTL of somewhere between 600 (10 minutes) and 1800 (30 minutes).
  *                      The geolocation of a large piece of farm equipment that remains stationary most of the time but may be moved to a different field once in a while might have a TTL of 86400 (24 hours). After the TTL has passed, the information can be considered stale or out of date.
  */
--(void)publishEventWithName:(NSString *)eventName data:(NSString *)data isPrivate:(BOOL)isPrivate ttl:(NSUInteger)ttl completion:(void (^)(NSError *))completion;
+-(NSURLSessionDataTask *)publishEventWithName:(NSString *)eventName data:(NSString *)data isPrivate:(BOOL)isPrivate ttl:(NSUInteger)ttl completion:(void (^)(NSError *))completion;
 
 
 @end

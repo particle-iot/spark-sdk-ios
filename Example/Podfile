@@ -2,5 +2,5 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'Spark-SDK', :exclusive => true do
   pod "Spark-SDK", :path => "../"
-  pod 'AFNetworking', '< 3.0.0' # force AFNetworking to 2.x.x till I migrate Spark-SDK to 3.x.x changes
+  pod 'AFNetworking', '~> 3.0'
 end

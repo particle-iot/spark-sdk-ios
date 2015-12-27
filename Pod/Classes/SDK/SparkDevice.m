@@ -21,7 +21,7 @@
 @property (strong, nonatomic) NSString *version;
 //@property (nonatomic) SparkDeviceType type;
 @property (nonatomic) BOOL requiresUpdate;
-@property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
+@property (nonatomic, strong) AFHTTPSessionManager *manager;
 @property (atomic) NSInteger flashingTimeLeft;
 @property (nonatomic, strong) NSTimer *flashingTimer;
 @property (nonatomic, strong) NSURL *baseURL;
@@ -37,22 +37,23 @@
      
         self.requiresUpdate = NO;
         
-        if (![params[@"name"] isKindOfClass:[NSNull class]])
-            if (params[@"name"])
-                _name = params[@"name"];
-            else _name = nil;
-        else _name = nil;
+        _name = nil;
+        if (![params[@"name"] isKindOfClass:[NSNull class]] && params[@"name"])
+        {
+            _name = params[@"name"];
+        }
         
-        if ([params[@"connected"] boolValue]==YES)
-            self.connected = YES;
-        else
-            self.connected = NO;
+        self.connected = [params[@"connected"] boolValue] == YES;
         
         if (params[@"functions"])
+        {
             self.functions = params[@"functions"];
+        }
         
         if (params[@"variables"])
+        {
             self.variables = params[@"variables"];
+        }
         
         _id = params[@"id"];
 
@@ -62,18 +63,24 @@
             if (params[@"product_id"])
             {
                 if ([params[@"product_id"] intValue]==SparkDeviceTypeCore)
+                {
                     _type = SparkDeviceTypeCore;
+                }
                 if ([params[@"product_id"] intValue]==SparkDeviceTypeElectron)
+                {
                     _type = SparkDeviceTypeElectron;
-
+                }
             }
         }
 
-
         
         if (![params[@"last_app"] isKindOfClass:[NSNull class]])
+        {
             if (params[@"last_app"])
+            {
                 _lastApp = params[@"last_app"];
+            }
+        }
 
         if (![params[@"last_heard"] isKindOfClass:[NSNull class]])
         {
@@ -103,9 +110,7 @@
             self.requiresUpdate = YES;
         }
         
-        
-        
-        self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:self.baseURL];
+        self.manager = [[AFHTTPSessionManager alloc] initWithBaseURL:self.baseURL];
         self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
 
         if (!self.manager) return nil;
@@ -117,9 +122,9 @@
 }
 
 
--(void)refresh:(void(^)(NSError* error))completion;
+-(NSURLSessionDataTask *)refresh:(void(^)(NSError* error))completion;
 {
-    [[SparkCloud sharedInstance] getDevice:self.id completion:^(SparkDevice *updatedDevice, NSError *error) {
+    return [[SparkCloud sharedInstance] getDevice:self.id completion:^(SparkDevice *updatedDevice, NSError *error) {
         if (!error)
         {
             if (updatedDevice)
@@ -142,12 +147,16 @@
                 }
             }
             if (completion)
+            {
                 completion(nil);
+            }
         }
         else
         {
             if (completion)
+            {
                 completion(error);
+            }
         }
     }];
 }
@@ -157,15 +166,17 @@
     [self rename:name completion:nil];
 }
 
--(void)getVariable:(NSString *)variableName completion:(void(^)(id result, NSError* error))completion
+-(NSURLSessionDataTask *)getVariable:(NSString *)variableName completion:(void(^)(id result, NSError* error))completion
 {
     // TODO: check variable name exists in list
-    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@/%@", self.id, variableName]];
     // TODO: check response of calling a non existant function
+    
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@/%@", self.id, variableName]];
     
     [self setAuthHeaderWithAccessToken];
     
-    [self.manager GET:[url description] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSURLSessionDataTask *task = [self.manager GET:[url description] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
         if (completion)
         {
             NSDictionary *responseDict = responseObject;
@@ -180,21 +191,23 @@
                 completion(responseDict[@"result"],nil);
             }
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         if (completion)
-             completion(nil,error);
-     }];
-
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
+        if (completion)
+        {
+            completion(nil,error);
+        }
+    }];
     
+    return task;
 }
 
--(void)callFunction:(NSString *)functionName withArguments:(NSArray *)args completion:(void (^)(NSNumber *, NSError *))completion
+-(NSURLSessionDataTask *)callFunction:(NSString *)functionName withArguments:(NSArray *)args completion:(void (^)(NSNumber *, NSError *))completion
 {
     // TODO: check function name exists in list
+    // TODO: check response of calling a non existant function
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@/%@", self.id, functionName]];
     NSMutableDictionary *params = [NSMutableDictionary new]; //[self defaultParams];
-    // TODO: check response of calling a non existant function
 
     if (args) {
         NSMutableArray *argsStr = [[NSMutableArray alloc] initWithCapacity:args.count];
@@ -209,7 +222,7 @@
             NSError *err = [self makeErrorWithDescription:[NSString stringWithFormat:@"Maximum argument length cannot exceed %d",MAX_SPARK_FUNCTION_ARG_LENGTH] code:1000];
             if (completion)
                 completion(nil,err);
-            return;
+            return nil;
         }
             
         params[@"args"] = argsValue;
@@ -217,7 +230,8 @@
     
     [self setAuthHeaderWithAccessToken];
     
-    [self.manager POST:[url description] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSURLSessionDataTask *task = [self.manager POST:[url description] parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
         if (completion)
         {
             NSDictionary *responseDict = responseObject;
@@ -233,17 +247,20 @@
                 completion(result,nil);
             }
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
     {
         if (completion)
+        {
             completion(nil,error);
+        }
     }];
     
+    return task;
 }
 
 
 
--(void)unclaim:(void (^)(NSError *))completion
+-(NSURLSessionDataTask *)unclaim:(void (^)(NSError *))completion
 {
 
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
@@ -252,7 +269,8 @@
 //    params[@"id"] = self.id;
     [self setAuthHeaderWithAccessToken];
 
-    [self.manager DELETE:[url description] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSURLSessionDataTask *task = [self.manager DELETE:[url description] parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
         if (completion)
         {
             NSDictionary *responseDict = responseObject;
@@ -261,16 +279,18 @@
             else
                 completion([self makeErrorWithDescription:@"Could not unclaim device" code:1003]);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
          if (completion)
+         {
              completion(error);
-     }];
+         }
+    }];
     
-
+    return task;
 }
 
--(void)rename:(NSString *)newName completion:(void(^)(NSError* error))completion
+-(NSURLSessionDataTask *)rename:(NSString *)newName completion:(void(^)(NSError* error))completion
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
 
@@ -280,20 +300,20 @@
     [self setAuthHeaderWithAccessToken];
 
     
-    [self.manager PUT:[url description] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSURLSessionDataTask *task = [self.manager PUT:[url description] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         _name = newName;
         if (completion)
         {
             completion(nil);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
          if (completion) // TODO: better erroring handling
+         {
              completion(error);
-     }];
+         }
+    }];
     
-
-    
+    return task;
 }
 
 
@@ -346,7 +366,7 @@
 }
 
 
--(void)flashKnownApp:(NSString *)knownAppName completion:(void (^)(NSError *))completion
+-(NSURLSessionDataTask *)flashKnownApp:(NSString *)knownAppName completion:(void (^)(NSError *))completion
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
     
@@ -354,26 +374,35 @@
     params[@"app"] = knownAppName;
     [self setAuthHeaderWithAccessToken];
     
-    [self.manager PUT:[url description] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSURLSessionDataTask *task = [self.manager PUT:[url description] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
         NSDictionary *responseDict = responseObject;
         if (responseDict[@"errors"])
         {
-            if (completion) completion([self makeErrorWithDescription:responseDict[@"errors"][@"error"] code:1005]);
+            if (completion) {
+                completion([self makeErrorWithDescription:responseDict[@"errors"][@"error"] code:1005]);
+            }
         }
         else
-            if (completion) completion(nil);
+        {
+            if (completion) {
+                completion(nil);
+            }
+        }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
          if (completion) // TODO: better erroring handling
+         {
              completion(error);
-     }];
+         }
+    }];
     
-    
+    return task;
 }
 
 
--(void)flashFiles:(NSDictionary *)filesDict completion:(void (^)(NSError *))completion // binary
+-(NSURLSessionDataTask *)flashFiles:(NSDictionary *)filesDict completion:(void (^)(NSError *))completion // binary
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
     
@@ -384,44 +413,51 @@
         // check this:
         for (NSString *key in filesDict.allKeys)
         {
-//            [formData appendPartWithFormData:filesDict[key] name:key];
             [formData appendPartWithFileData:filesDict[key] name:@"file" fileName:key mimeType:@"application/octet-stream"];
         }
     } error:&reqError];
     
-    
-    
     if (!reqError)
     {
-        AFHTTPRequestOperation *operation = [self.manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *responseDict = responseObject;
-//            NSLog(@"flashFiles: %@",responseDict.description);
-            if (responseDict[@"error"])
+        NSURLSessionDataTask *task = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error)
+        {
+            if (error == nil)
             {
-                if (completion)
+                NSDictionary *responseDict = responseObject;
+    //            NSLog(@"flashFiles: %@",responseDict.description);
+                if (responseDict[@"error"])
                 {
-                    completion([self makeErrorWithDescription:responseDict[@"error"] code:1004]);
+                    if (completion)
+                    {
+                        completion([self makeErrorWithDescription:responseDict[@"error"] code:1004]);
+                    }
+                }
+                else if (completion)
+                {
+                    completion(nil);
                 }
             }
-            else if (completion)
+            else
             {
-                completion(nil);
+                // TODO: better erroring handlin
+                if (completion)
+                {
+                    completion(error);
+                }
             }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if (completion) // TODO: better erroring handling
-                completion(error);
         }];
         
-        [self.manager.operationQueue addOperation:operation];
-
+        return task;
     }
     else
     {
         if (completion)
+        {
             completion(reqError);
+        }
     }
     
-    
+    return nil;
 }
 
 
@@ -431,7 +467,6 @@
     if (self.flashingTimeLeft > 0)
     {
         self.flashingTimeLeft -= 1;
-//        NSLog(@"flashingTimeLeft (0x%lx): %ld",self,(long)self.flashingTimeLeft);
     }
     else
     {
@@ -441,7 +476,6 @@
 
 -(BOOL)isFlashing
 {
-//    NSLog(@"isFlashing (0x%lx): %ld",self,(long)self.flashingTimeLeft);
     return (self.flashingTimeLeft > 0);
 }
 
@@ -469,6 +503,5 @@
 {
     [[SparkCloud sharedInstance] unsubscribeFromEventWithID:eventListenerID];
 }
-
 
 @end
