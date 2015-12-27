@@ -104,7 +104,7 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @param completion Completion block with the device instances array in case of success or with NSError object if failure
  */
--(NSURLSessionDataTask *)getDevices:(void (^)(NSArray *sparkDevices, NSError *error))completion;
+-(NSURLSessionDataTask *)getDevices:(void (^)(NSArray<SparkDevice *> *sparkDevices, NSError *error))completion;
 
 /**
  *  Get a specific device instance by its deviceID. If the device is offline the instance will contain only partial information the cloud has cached, 
@@ -131,7 +131,7 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @param completion Completion block with claimCode string returned (48 random bytes base64 encoded to 64 ASCII characters), second argument is a list of the devices currently claimed by current session user and third is NSError object for failure, nil if success
  */
--(NSURLSessionDataTask *)generateClaimCode:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+-(NSURLSessionDataTask *)generateClaimCode:(void(^)(NSString *claimCode, NSArray<NSString *> *userClaimedDeviceIDs, NSError *error))completion;
 
 
 /**
@@ -142,7 +142,7 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @param completion Completion block with claimCode string returned (48 random bytes base64 encoded to 64 ASCII characters), second argument is a list of the devices currently claimed by current session user and third is NSError object for failure, nil if success
  */
--(NSURLSessionDataTask *)generateClaimCodeForOrganization:(NSString *)orgSlug andProduct:(NSString *)productSlug withActivationCode:(NSString *)activationCode completion:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+-(NSURLSessionDataTask *)generateClaimCodeForOrganization:(NSString *)orgSlug andProduct:(NSString *)productSlug withActivationCode:(NSString *)activationCode completion:(void(^)(NSString *claimCode, NSArray<NSString *> *userClaimedDeviceIDs, NSError *error))completion;
 
 
 #pragma mark Events subsystem functions

@@ -401,7 +401,7 @@ NSString *const kEventListenersDictIDKey = @"id";
 }
 
 
--(NSURLSessionDataTask *)getDevices:(void (^)(NSArray *sparkDevices, NSError *error))completion
+-(NSURLSessionDataTask *)getDevices:(void (^)(NSArray<SparkDevice *> *sparkDevices, NSError *error))completion
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
@@ -500,7 +500,7 @@ NSString *const kEventListenersDictIDKey = @"id";
 
 
 
--(NSURLSessionDataTask *)generateClaimCode:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+-(NSURLSessionDataTask *)generateClaimCode:(void(^)(NSString *claimCode, NSArray<NSString *> *userClaimedDeviceIDs, NSError *error))completion;
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
@@ -550,7 +550,7 @@ NSString *const kEventListenersDictIDKey = @"id";
 
 
 
--(NSURLSessionDataTask *)generateClaimCodeForOrganization:(NSString *)orgSlug andProduct:(NSString *)productSlug withActivationCode:(NSString *)activationCode completion:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+-(NSURLSessionDataTask *)generateClaimCodeForOrganization:(NSString *)orgSlug andProduct:(NSString *)productSlug withActivationCode:(NSString *)activationCode completion:(void(^)(NSString *claimCode, NSArray<NSString *> *userClaimedDeviceIDs, NSError *error))completion;
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
