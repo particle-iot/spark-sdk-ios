@@ -300,7 +300,7 @@
     [self setAuthHeaderWithAccessToken];
 
     
-    NSURLSessionDataTask *task = [self.manager PUT:[url description] parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionDataTask *task = [self.manager PUT:[url description] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         _name = newName;
         if (completion)
         {
