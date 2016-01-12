@@ -26,7 +26,7 @@ NSString *const kEventListenersDictIDKey = @"id";
 @property (nonatomic, strong) NSURL* baseURL;
 @property (nonatomic, strong) SparkAccessToken* token;
 @property (nonatomic, strong) SparkUser* user;
-@property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
+@property (nonatomic, strong) AFHTTPSessionManager *manager;
 
 @property (nonatomic, strong) NSMutableDictionary *eventListenersDict;
 @end
@@ -42,7 +42,9 @@ NSString *const kEventListenersDictIDKey = @"id";
     static SparkCloud *sharedInstance = nil;
     @synchronized(self) {
         if (sharedInstance == nil)
+        {
             sharedInstance = [[self alloc] init];
+        }
     }
     return sharedInstance;
 }
@@ -58,10 +60,12 @@ NSString *const kEventListenersDictIDKey = @"id";
         self.user = [[SparkUser alloc] initWithSavedSession];
         self.token = [[SparkAccessToken alloc] initWithSavedSession];
         if (self.token)
+        {
             self.token.delegate = self;
+        }
         
         // Init HTTP manager
-        self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:self.baseURL];
+        self.manager = [[AFHTTPSessionManager alloc] initWithBaseURL:self.baseURL];
         self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
         [self.manager.requestSerializer setTimeoutInterval:GLOBAL_API_TIMEOUT_INTERVAL];
         
@@ -78,18 +82,26 @@ NSString *const kEventListenersDictIDKey = @"id";
 -(NSString *)accessToken
 {
     if (self.token)
+    {
         return self.token.accessToken;
+    }
     else
+    {
         return nil;
+    }
 }
 
 
 -(NSString *)loggedInUsername
 {
     if ((self.user) && (self.token))
+    {
         return self.user.user;
+    }
     else
+    {
         return nil;
+    }
 }
 
 -(BOOL)isLoggedIn
@@ -114,7 +126,7 @@ NSString *const kEventListenersDictIDKey = @"id";
 
 
 #pragma mark SDK public functions
--(void)loginWithUser:(NSString *)user password:(NSString *)password completion:(void (^)(NSError *error))completion
+-(NSURLSessionDataTask *)loginWithUser:(NSString *)user password:(NSString *)password completion:(void (^)(NSError *error))completion
 {
     // non default params
     NSDictionary *params = @{
@@ -128,15 +140,19 @@ NSString *const kEventListenersDictIDKey = @"id";
 //    NSString *clientSecret = OAuthClientCredentialsDict[@"clientSecret"];
     
     if (!self.OAuthClientId)
+    {
         self.OAuthClientId = @"particle";
+    }
     if (!self.OAuthClientSecret)
+    {
         self.OAuthClientSecret = @"particle";
+    }
     
     
     [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.OAuthClientId password:self.OAuthClientSecret];
     // OAuth login
-    [self.manager POST:@"oauth/token" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
-    {
+    NSURLSessionDataTask *task = [self.manager POST:@"oauth/token" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
         NSDictionary *responseDict = responseObject;
 
         self.token = [[SparkAccessToken alloc] initWithNewSession:responseDict];
@@ -150,26 +166,29 @@ NSString *const kEventListenersDictIDKey = @"id";
         {
             completion(nil);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+        
         // check type of error?
         if (completion)
-            completion([NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
+        {
+            completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+        }
 
         NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
         if (errorData)
         {
-
             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-            NSLog(@"! loginWithUser %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
+            NSLog(@"! loginWithUser %@ Failed (status code %d): %@", task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
         }
     }];
     
     [self.manager.requestSerializer clearAuthorizationHeader];
+    
+    return task;
 }
 
-
-
--(void)signupWithUser:(NSString *)user password:(NSString *)password completion:(void (^)(NSError *))completion
+-(NSURLSessionDataTask *)signupWithUser:(NSString *)user password:(NSString *)password completion:(void (^)(NSError *))completion
 {
     
     // non default params
@@ -178,8 +197,8 @@ NSString *const kEventListenersDictIDKey = @"id";
                              @"password": password,
                              };
     
-    [self.manager POST:@"/v1/users" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
+    NSURLSessionDataTask *task = [self.manager POST:@"/v1/users/" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
          NSDictionary *responseDict = responseObject;
          if (completion) {
              if ([responseDict[@"ok"] boolValue])
@@ -196,30 +215,40 @@ NSString *const kEventListenersDictIDKey = @"id";
                  completion([self makeErrorWithDescription:errorString code:1004]);
              }
          }
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
+        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
          // check type of error?
          if (completion)
-             completion([NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
+         {
+             completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+         }
 
          NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
          if (errorData)
          {
              NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! signupWithUser %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
+             NSLog(@"! signupWithUser %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
          }
-     }];
+    }];
     
     [self.manager.requestSerializer clearAuthorizationHeader];
+    
+    return task;
 }
 
 
--(void)signupWithCustomer:(NSString *)email password:(NSString *)password orgSlug:(NSString *)orgSlug completion:(void (^)(NSError *))completion
+-(NSURLSessionDataTask *)signupWithCustomer:(NSString *)email password:(NSString *)password orgSlug:(NSString *)orgSlug completion:(void (^)(NSError *))completion
 {
     if ((!orgSlug) || ([orgSlug isEqualToString:@""]))
+    {
         completion([self makeErrorWithDescription:@"Organization slug must be specified" code:1006]);
+    }
 
     if ((!self.OAuthClientId) || (!self.OAuthClientSecret))
+    {
         completion([self makeErrorWithDescription:@"Client OAuth credentials must be set to create a new customer" code:1010]);
+    }
     
     [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.OAuthClientId password:self.OAuthClientSecret];
 
@@ -236,10 +265,11 @@ NSString *const kEventListenersDictIDKey = @"id";
     NSString *url = [NSString stringWithFormat:@"/v1/orgs/%@/customers",orgSlug];
     NSLog(@"Signing up customer...");
     
-    [self.manager POST:url parameters:[params copy] success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
+    NSURLSessionDataTask *task = [self.manager POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+         NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
          NSDictionary *responseDict = responseObject;
-         NSLog(@"Got status code %d, and response: %@",(int)operation.response.statusCode,responseDict);
+         NSLog(@"Got status code %d, and response: %@",(int)serverResponse.statusCode,responseDict);
          
          self.token = [[SparkAccessToken alloc] initWithNewSession:responseDict];
          if (self.token) // customer login was successful
@@ -248,8 +278,9 @@ NSString *const kEventListenersDictIDKey = @"id";
              self.user = [[SparkUser alloc] initWithUser:email andPassword:password]; // TODO: fix that to refresh token behaviour
          }
          
-         if (completion) {
-             if (operation.response.statusCode == 201)
+         if (completion)
+         {
+             if (serverResponse.statusCode == 201)
              {
                  completion(nil);
              }
@@ -259,26 +290,27 @@ NSString *const kEventListenersDictIDKey = @"id";
                  completion([self makeErrorWithDescription:errorDesc code:1004]);
              }
          }
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
+         NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
          // check type of error?
          if (completion)
-             completion([NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
-         
+         {
+             completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+         }
+        
          NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
          if (errorData)
          {
-
              NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! signupWithCustomer %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
+             NSLog(@"! signupWithCustomer %@ Failed (status code %d): %@", url, (int)serverResponse.statusCode,serializedFailedBody);
          }
-     }];
+    }];
     
     [self.manager.requestSerializer clearAuthorizationHeader];
+    
+    return task;
 }
-
-
-
-
 
 -(void)logout
 {
@@ -286,87 +318,97 @@ NSString *const kEventListenersDictIDKey = @"id";
     [self.user removeSession];
 }
 
-
--(void)claimDevice:(NSString *)deviceID completion:(void (^)(NSError *))completion
+-(NSURLSessionDataTask *)claimDevice:(NSString *)deviceID completion:(void (^)(NSError *))completion
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
 
     NSMutableDictionary *params = [NSMutableDictionary new]; //[self defaultParams];
     params[@"id"] = deviceID;
-    [self.manager POST:@"/v1/devices" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         if (completion)
-         {
-             NSMutableDictionary *responseDict = responseObject;
-
-             if ([responseDict[@"ok"] boolValue])
-                 completion(nil);
-             else
-                 completion([self makeErrorWithDescription:@"Could not claim device" code:1002]);
-                 
-         }
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         // check type of error?
-         if (completion)
-             completion([NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
-         
-         NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         if (errorData)
-         {
-
-             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! claimDevice %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
-         }
-
-     }];
     
-
+    NSURLSessionDataTask *task = [self.manager POST:@"/v1/devices" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        if (completion)
+        {
+            NSMutableDictionary *responseDict = responseObject;
+            
+            if ([responseDict[@"ok"] boolValue])
+            {
+                completion(nil);
+            } else
+            {
+                completion([self makeErrorWithDescription:@"Could not claim device" code:1002]);
+            }
+            
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+        // check type of error?
+        if (completion)
+        {
+            completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+        }
+        
+        NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+        if (errorData)
+        {
+            NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+            NSLog(@"! claimDevice %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
+        }
+    }];
+    
+    return task;
 }
 
--(void)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion
+-(NSURLSessionDataTask *)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
 
     NSString *urlPath = [NSString stringWithFormat:@"/v1/devices/%@",deviceID];
-    [self.manager GET:urlPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
+    
+    NSURLSessionDataTask *task = [self.manager GET:urlPath parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
          if (completion)
          {
              NSMutableDictionary *responseDict = responseObject;
-//             responseDict[@"access_token"] = self.accessToken; // add access token 
-             
              SparkDevice *device = [[SparkDevice alloc] initWithParams:responseDict];
              if (completion)
+             {
                 completion(device, nil);
+             }
              
          }
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
          // check type of error?
-         if (completion)
-             completion(nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
-
-         NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         if (errorData)
-         {
-
-             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! getDevice %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
-         }
-
-     }];
-  
+        
+        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+        if (completion)
+        {
+            completion(nil, [NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+        }
+        
+        NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+        if (errorData)
+        {
+            NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+            NSLog(@"! getDevice %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
+        }
+    }];
+    
+    return task;
 }
 
 
--(void)getDevices:(void (^)(NSArray *sparkDevices, NSError *error))completion
+-(NSURLSessionDataTask *)getDevices:(void (^)(NSArray *sparkDevices, NSError *error))completion
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
     
-    [self.manager GET:@"/v1/devices" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
+    NSURLSessionDataTask *task = [self.manager GET:@"/v1/devices" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        
          if (completion)
          {
              
@@ -419,79 +461,96 @@ NSString *const kEventListenersDictIDKey = @"id";
                  if (completion)
                  {
                      if (deviceError && (deviceList.count==0)) // empty list? error? report it
+                     {
                          completion(nil, deviceError);
+                     }
                      else if (deviceList.count > 0)  // if some devices reported error but some not, then return at least the ones that didn't report error, ditch error
+                     {
                          completion(deviceList, nil);
+                     }
                      else
+                     {
                          completion(nil, nil);
+                     }
                  }
              });
              
              
              
          }
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         // check type of error?
-         if (completion)
-             completion(nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
-
-         NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         if (errorData)
-         {
-
-             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! getDevices %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
-         }
-     }];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
+        // check type of error?
+        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+        if (completion)
+        {
+            completion(nil, [NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+        }
+        
+        NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+        if (errorData)
+        {
+            NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+            NSLog(@"! getDevices %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
+        }
+    }];
+    
+    return task;
 }
 
 
 
--(void)generateClaimCode:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+-(NSURLSessionDataTask *)generateClaimCode:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
 
     NSString *urlPath = [NSString stringWithFormat:@"/v1/device_claims"];
-     [self.manager POST:urlPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         if (completion)
-         {
-             NSDictionary *responseDict = responseObject;
-             if (responseDict[@"claim_code"])
-             {
-                 NSArray *claimedDeviceIDs = responseDict[@"device_ids"];
-                 if ((claimedDeviceIDs) && (claimedDeviceIDs.count > 0))
-                 {
-                     completion(responseDict[@"claim_code"], responseDict[@"device_ids"], nil);
-                 }
-                 else
-                 {
-                     completion(responseDict[@"claim_code"], nil, nil);
-                 }
-             }
-             else
-             {
-                 completion(nil, nil, [self makeErrorWithDescription:@"Could not generate a claim code" code:1005]); //TODO: collect all codes to a table
-             }
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         if (completion)
-             completion(nil, nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
-         NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         if (errorData)
-         {
-             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! generateClaimCode %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
-         }
-     }];
+    NSURLSessionDataTask *task = [self.manager POST:urlPath parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        if (completion)
+        {
+            NSDictionary *responseDict = responseObject;
+            if (responseDict[@"claim_code"])
+            {
+                NSArray *claimedDeviceIDs = responseDict[@"device_ids"];
+                if ((claimedDeviceIDs) && (claimedDeviceIDs.count > 0))
+                {
+                    completion(responseDict[@"claim_code"], responseDict[@"device_ids"], nil);
+                }
+                else
+                {
+                    completion(responseDict[@"claim_code"], nil, nil);
+                }
+            }
+            else
+            {
+                completion(nil, nil, [self makeErrorWithDescription:@"Could not generate a claim code" code:1005]); //TODO: collect all codes to a table
+            }
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
+        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+        if (completion)
+        {
+            completion(nil, nil, [NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+        }
+        
+        NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+        if (errorData)
+        {
+            NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+            NSLog(@"! generateClaimCode %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
+        }
+    }];
     
+    return task;
 }
 
 
 
--(void)generateClaimCodeForOrganization:(NSString *)orgSlug andProduct:(NSString *)productSlug withActivationCode:(NSString *)activationCode completion:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+-(NSURLSessionDataTask *)generateClaimCodeForOrganization:(NSString *)orgSlug andProduct:(NSString *)productSlug withActivationCode:(NSString *)activationCode completion:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
 {
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
@@ -503,152 +562,138 @@ NSString *const kEventListenersDictIDKey = @"id";
 
     
     NSString *urlPath = [NSString stringWithFormat:@"/v1/orgs/%@/products/%@/device_claims",orgSlug,productSlug];
-    [self.manager POST:urlPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         if (completion)
-         {
-             NSDictionary *responseDict = responseObject;
-             if (responseDict[@"claim_code"])
-             {
-                 NSArray *claimedDeviceIDs = responseDict[@"device_ids"];
-                 if ((claimedDeviceIDs) && (claimedDeviceIDs.count > 0))
-                 {
-                     completion(responseDict[@"claim_code"], responseDict[@"device_ids"], nil);
-                 }
-                 else
-                 {
-                     completion(responseDict[@"claim_code"], nil, nil);
-                 }
-             }
-             else
-             {
-                 completion(nil, nil, [self makeErrorWithDescription:@"Could not generate a claim code" code:1007]);
-             }
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         if (errorData)
-         {
-
-             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! generateClaimCodeForOrganization %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
-         }
-         
-         if (completion)
-             completion(nil, nil, [NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
-     }];
+    NSURLSessionDataTask *task = [self.manager POST:urlPath parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        if (completion)
+        {
+            NSDictionary *responseDict = responseObject;
+            if (responseDict[@"claim_code"])
+            {
+                NSArray *claimedDeviceIDs = responseDict[@"device_ids"];
+                if ((claimedDeviceIDs) && (claimedDeviceIDs.count > 0))
+                {
+                    completion(responseDict[@"claim_code"], responseDict[@"device_ids"], nil);
+                }
+                else
+                {
+                    completion(responseDict[@"claim_code"], nil, nil);
+                }
+            }
+            else
+            {
+                completion(nil, nil, [self makeErrorWithDescription:@"Could not generate a claim code" code:1007]);
+            }
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
+        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+        NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+        if (errorData)
+        {
+            NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+            NSLog(@"! generateClaimCodeForOrganization %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
+        }
+        
+        if (completion) {
+            completion(nil, nil, [NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+        }
+    }];
     
+    return task;
 }
 
-
-
-
-//-(void)requestPasswordReset:(NSString *)email completion:(void (^)(NSError *))completion
--(void)requestPasswordResetForCustomer:(NSString *)orgSlug email:(NSString *)email completion:(void (^)(NSError *))completion
+-(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)orgSlug email:(NSString *)email completion:(void (^)(NSError *))completion
 {
     NSDictionary *params = @{@"email": email};
     NSString *urlPath = [NSString stringWithFormat:@"/v1/orgs/%@/customers/reset_password",orgSlug];
-
-    [self.manager POST:urlPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         if (completion) // TODO: check responses
-         {
-             completion(nil);
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         if (completion)
-         {
-            // make error have the HTTP response status code
-             // TODO: for all
-             completion([NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
-         }
-         
-         NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         if (errorData)
-         {
-
-             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! requestPasswordReset %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
-         }
-     }];
     
+    
+    NSURLSessionDataTask *task = [self.manager POST:urlPath parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        if (completion) // TODO: check responses
+        {
+            completion(nil);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
+        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+        if (completion)
+        {
+            // make error have the HTTP response status code
+            // TODO: for all
+            completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+        }
+        
+        NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+        if (errorData)
+        {
+            NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+            NSLog(@"! requestPasswordReset %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
+        }
+    }];
+    
+    return task;
 }
 
 
--(void)requestPasswordResetForUser:(NSString *)email completion:(void (^)(NSError *))completion
+- (NSURLSessionDataTask *)requestPasswordResetForUser:(NSString *)email completion:(void (^)(NSError *))completion
 {
     NSDictionary *params = @{@"email": email};
     NSString *urlPath = [NSString stringWithFormat:@"/v1/user/password-reset"];
     
-    [self.manager POST:urlPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         if (completion) // TODO: check responses
-         {
-             completion(nil);
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         if (completion)
-         {
-             // make error have the HTTP response status code
-             // TODO: for all
-             completion([NSError errorWithDomain:error.domain code:operation.response.statusCode userInfo:error.userInfo]);
-         }
-         
-         NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         if (errorData)
-         {
-
-             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! requestPasswordResetForUser %@ Failed (status code %d): %@",operation.request.URL,(int)operation.response.statusCode,serializedFailedBody);
-         }
-     }];
+    NSURLSessionDataTask *task = [self.manager POST:urlPath parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        if (completion) // TODO: check responses
+        {
+            completion(nil);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+        if (completion)
+        {
+            // make error have the HTTP response status code
+            // TODO: for all
+            completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+        }
+        
+        NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+        if (errorData)
+        {
+            
+            NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+            NSLog(@"! requestPasswordResetForUser %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
+        }
+    }];
     
+    return task;
 }
 
-
-
-
-
-
 #pragma mark Internal use methods
--(void)listTokens:(NSString *)user password:(NSString *)password
+-(NSURLSessionDataTask *)listTokens:(NSString *)user password:(NSString *)password
 {
     [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:user password:password];
     
-    [self.manager GET:@"/v1/access_tokens" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSURLSessionDataTask *task = [self.manager GET:@"/v1/access_tokens" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
         NSArray *responseArr = responseObject;
-                NSLog(@"(debug) listTokens:\n%@",[responseArr description]);
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        //
+        NSLog(@"(debug) listTokens:\n%@",[responseArr description]);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
         NSLog(@"listTokens %@",[error localizedDescription]);
     }];
+    
     [self.manager.requestSerializer clearAuthorizationHeader];
     
+    return task;
 }
-
-/*
-- (NSMutableDictionary *)defaultParams
-{
-    // Access token in HTTP body
-    if (self.token)
-        return [@{@"access_token": self.token.accessToken} mutableCopy];
-    else
-        return nil;
-}
-*/
 
 -(NSError *)makeErrorWithDescription:(NSString *)desc code:(NSInteger)errorCode
 {
-    
     NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
     [errorDetail setValue:desc forKey:NSLocalizedDescriptionKey];
     return [NSError errorWithDomain:@"SparkAPIError" code:errorCode userInfo:errorDetail];
 }
-
 
 
 #pragma mark Events subsystem implementation
@@ -786,7 +831,7 @@ NSString *const kEventListenersDictIDKey = @"id";
 
 
 
--(void)publishEventWithName:(NSString *)eventName data:(NSString *)data isPrivate:(BOOL)isPrivate ttl:(NSUInteger)ttl completion:(void (^)(NSError *))completion
+-(NSURLSessionDataTask *)publishEventWithName:(NSString *)eventName data:(NSString *)data isPrivate:(BOOL)isPrivate ttl:(NSUInteger)ttl completion:(void (^)(NSError *))completion
 {
     NSMutableDictionary *params = [NSMutableDictionary new];
     NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
@@ -801,14 +846,15 @@ NSString *const kEventListenersDictIDKey = @"id";
     
     params[@"ttl"] = [NSString stringWithFormat:@"%lu", (unsigned long)ttl];
     
-    [self.manager POST:@"/v1/devices/events" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSURLSessionDataTask *task = [self.manager POST:@"/v1/devices/events" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
         if (completion)
         {
             // TODO: check server response for that
             NSDictionary *responseDict = responseObject;
-           if ([responseDict[@"ok"] boolValue]==NO)
+            if ([responseDict[@"ok"] boolValue]==NO)
             {
-                NSError *err = [self makeErrorWithDescription:@"Server reported error publishing event" code:1009]; 
+                NSError *err = [self makeErrorWithDescription:@"Server reported error publishing event" code:1009];
                 completion(err);
             }
             else
@@ -816,14 +862,15 @@ NSString *const kEventListenersDictIDKey = @"id";
                 completion(nil);
             }
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
          if (completion)
+         {
              completion(error);
-     }];
+         }
+    }];
     
-    
-    
+    return task;
 }
 
 @end

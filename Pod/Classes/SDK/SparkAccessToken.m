@@ -8,7 +8,7 @@
 
 #import "SparkAccessToken.h"
 #import "KeychainItemWrapper.h"
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import <AFNetworking/AFHTTPSessionManager.h>
 #import "SparkCloud.h"
 
 NSString *const kSparkAccessTokenKeychainEntry = @"io.spark.api.Keychain.AccessToken";
