@@ -13,7 +13,10 @@
 
 #define MAX_SPARK_FUNCTION_ARG_LENGTH 63
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SparkDevice()
+
 @property (strong, nonatomic) NSString* id;
 @property (nonatomic) BOOL connected; // might be impossible
 @property (strong, nonatomic) NSArray *functions;
@@ -25,77 +28,65 @@
 @property (atomic) NSInteger flashingTimeLeft;
 @property (nonatomic, strong) NSTimer *flashingTimer;
 @property (nonatomic, strong) NSURL *baseURL;
+
 @end
 
 @implementation SparkDevice
 
--(instancetype)initWithParams:(NSDictionary *)params
+-(nullable instancetype)initWithParams:(NSDictionary *)params
 {
     if (self = [super init])
     {
-        self.baseURL = [NSURL URLWithString:kSparkAPIBaseURL];
+        _baseURL = [NSURL URLWithString:kSparkAPIBaseURL];
+        if (!_baseURL) {
+            return nil;
+        }
      
         self.requiresUpdate = NO;
         
         _name = nil;
-        if (![params[@"name"] isKindOfClass:[NSNull class]] && params[@"name"])
+        if ([params[@"name"] isKindOfClass:[NSString class]])
         {
             _name = params[@"name"];
         }
         
         self.connected = [params[@"connected"] boolValue] == YES;
         
-        if (params[@"functions"])
-        {
-            self.functions = params[@"functions"];
-        }
-        
-        if (params[@"variables"])
-        {
-            self.variables = params[@"variables"];
-        }
+        self.functions = params[@"functions"] ?: @[];
+        self.variables = params[@"variables"] ?: @{};
         
         _id = params[@"id"];
 
         _type = SparkDeviceTypePhoton;
-        if (![params[@"product_id"] isKindOfClass:[NSNull class]])
+        if ([params[@"product_id"] isKindOfClass:[NSNumber class]])
         {
-            if (params[@"product_id"])
+            if ([params[@"product_id"] intValue] == SparkDeviceTypeCore)
             {
-                if ([params[@"product_id"] intValue]==SparkDeviceTypeCore)
-                {
-                    _type = SparkDeviceTypeCore;
-                }
-                if ([params[@"product_id"] intValue]==SparkDeviceTypeElectron)
-                {
-                    _type = SparkDeviceTypeElectron;
-                }
+                _type = SparkDeviceTypeCore;
+            }
+            if ([params[@"product_id"] intValue] == SparkDeviceTypeElectron)
+            {
+                _type = SparkDeviceTypeElectron;
             }
         }
 
         
-        if (![params[@"last_app"] isKindOfClass:[NSNull class]])
+        if ([params[@"last_app"] isKindOfClass:[NSString class]])
         {
-            if (params[@"last_app"])
-            {
-                _lastApp = params[@"last_app"];
-            }
+            _lastApp = params[@"last_app"];
         }
 
-        if (![params[@"last_heard"] isKindOfClass:[NSNull class]])
+        if ([params[@"last_heard"] isKindOfClass:[NSString class]])
         {
-            if (params[@"last_heard"])
-            {
-                // TODO: add to utils class as POSIX time to NSDate
-                NSString *dateString = params[@"last_heard"];// "2015-04-18T08:42:22.127Z"
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-                NSLocale *posix = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-                [formatter setLocale:posix];
-                _lastHeard = [formatter dateFromString:dateString];
-            }
+            // TODO: add to utils class as POSIX time to NSDate
+            NSString *dateString = params[@"last_heard"];// "2015-04-18T08:42:22.127Z"
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+            NSLocale *posix = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+            [formatter setLocale:posix];
+            _lastHeard = [formatter dateFromString:dateString];
         }
-        
+
         /*
          // Inactive for now // TODO: re-enable when we can distinguish devices in the cloud
         if (params[@"cc3000_patch_version"]) // check for other version indication strings - ask doc
@@ -122,9 +113,9 @@
 }
 
 
--(NSURLSessionDataTask *)refresh:(void(^)(NSError* error))completion;
+-(NSURLSessionDataTask *)refresh:(nullable SparkCompletionBlock)completion;
 {
-    return [[SparkCloud sharedInstance] getDevice:self.id completion:^(SparkDevice *updatedDevice, NSError *error) {
+    return [[SparkCloud sharedInstance] getDevice:self.id completion:^(SparkDevice * _Nullable updatedDevice, NSError * _Nullable error) {
         if (!error)
         {
             if (updatedDevice)
@@ -161,12 +152,14 @@
     }];
 }
 
--(void)setName:(NSString *)name
+-(void)setName:(nullable NSString *)name
 {
-    [self rename:name completion:nil];
+    if (name != nil) {
+        [self rename:name completion:nil];
+    }
 }
 
--(NSURLSessionDataTask *)getVariable:(NSString *)variableName completion:(void(^)(id result, NSError* error))completion
+-(NSURLSessionDataTask *)getVariable:(NSString *)variableName completion:(nullable void(^)(id _Nullable result, NSError* _Nullable error))completion
 {
     // TODO: check variable name exists in list
     // TODO: check response of calling a non existant function
@@ -180,7 +173,7 @@
         if (completion)
         {
             NSDictionary *responseDict = responseObject;
-            if ([responseDict[@"coreInfo"][@"connected"] boolValue]==NO) // check response
+            if (![responseDict[@"coreInfo"][@"connected"] boolValue]) // check response
             {
                 NSError *err = [self makeErrorWithDescription:@"Device is not connected" code:1001];
                 completion(nil,err);
@@ -188,21 +181,23 @@
             else
             {
                 // check
-                completion(responseDict[@"result"],nil);
+                completion(responseDict[@"result"], nil);
             }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
     {
         if (completion)
         {
-            completion(nil,error);
+            completion(nil, error);
         }
     }];
     
     return task;
 }
 
--(NSURLSessionDataTask *)callFunction:(NSString *)functionName withArguments:(NSArray *)args completion:(void (^)(NSNumber *, NSError *))completion
+-(NSURLSessionDataTask *)callFunction:(NSString *)functionName
+                        withArguments:(nullable NSArray *)args
+                           completion:(nullable void (^)(NSNumber * _Nullable result, NSError * _Nullable error))completion
 {
     // TODO: check function name exists in list
     // TODO: check response of calling a non existant function
@@ -260,7 +255,7 @@
 
 
 
--(NSURLSessionDataTask *)unclaim:(void (^)(NSError *))completion
+-(NSURLSessionDataTask *)unclaim:(nullable SparkCompletionBlock)completion
 {
 
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
@@ -290,15 +285,15 @@
     return task;
 }
 
--(NSURLSessionDataTask *)rename:(NSString *)newName completion:(void(^)(NSError* error))completion
+-(NSURLSessionDataTask *)rename:(NSString *)newName completion:(nullable SparkCompletionBlock)completion
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
 
     // TODO: check name validity before calling API
-    NSMutableDictionary *params = [NSMutableDictionary new];// [self defaultParams];
+    NSMutableDictionary *params = [NSMutableDictionary new];
     params[@"name"] = newName;
-    [self setAuthHeaderWithAccessToken];
 
+    [self setAuthHeaderWithAccessToken];
     
     NSURLSessionDataTask *task = [self.manager PUT:[url description] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         _name = newName;
@@ -331,8 +326,10 @@
 
 -(void)setAuthHeaderWithAccessToken
 {
-    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",[SparkCloud sharedInstance].accessToken];
-    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
+    if ([SparkCloud sharedInstance].accessToken) {
+        NSString *authorization = [NSString stringWithFormat:@"Bearer %@",[SparkCloud sharedInstance].accessToken];
+        [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
+    }
 }
 
 
@@ -366,7 +363,7 @@
 }
 
 
--(NSURLSessionDataTask *)flashKnownApp:(NSString *)knownAppName completion:(void (^)(NSError *))completion
+-(NSURLSessionDataTask *)flashKnownApp:(NSString *)knownAppName completion:(nullable SparkCompletionBlock)completion
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
     
@@ -402,7 +399,7 @@
 }
 
 
--(NSURLSessionDataTask *)flashFiles:(NSDictionary *)filesDict completion:(void (^)(NSError *))completion // binary
+-(nullable NSURLSessionDataTask *)flashFiles:(NSDictionary *)filesDict completion:(nullable SparkCompletionBlock)completion // binary
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
     
@@ -455,9 +452,9 @@
         {
             completion(reqError);
         }
+
+        return nil;
     }
-    
-    return nil;
 }
 
 
@@ -494,7 +491,7 @@
 }
 
 
--(id)subscribeToEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler
+-(nullable id)subscribeToEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler
 {
     return [[SparkCloud sharedInstance] subscribeToDeviceEventsWithPrefix:eventNamePrefix deviceID:self.id handler:eventHandler];
 }
@@ -505,3 +502,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -21,22 +21,25 @@
 #import "SparkDevice.h"
 #import "SparkEvent.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString *const kSparkAPIBaseURL;
 
 @interface SparkCloud : NSObject
 
 /**
- *  Currently loggeed in user name, nil if no session exists
+ *  Currently logged in user name, nil if no valid session
  */
-@property (nonatomic, strong, readonly) NSString* loggedInUsername;
+@property (nonatomic, strong, nullable, readonly) NSString* loggedInUsername;
 @property (nonatomic, readonly) BOOL isLoggedIn;
 /**
- *  Current session access token string
+ *  Current session access token string, nil if not logged in
  */
-@property (nonatomic, strong, readonly) NSString *accessToken;
+@property (nonatomic, strong, nullable, readonly) NSString *accessToken;
 
-@property (nonatomic, strong) NSString *OAuthClientId;
-@property (nonatomic, strong) NSString *OAuthClientSecret;
+@property (nonatomic, null_resettable, strong) NSString *OAuthClientId;
+@property (nonatomic, null_resettable, strong) NSString *OAuthClientSecret;
+
 /**
  *  Singleton instance of SparkCloud class
  *
@@ -56,7 +59,9 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param password   Password
  *  @param completion Completion block will be called when login finished, NSError object will be passed in case of an error, nil if success
  */
--(NSURLSessionDataTask *)loginWithUser:(NSString *)user password:(NSString *)password completion:(void (^)(NSError *error))completion;
+-(NSURLSessionDataTask *)loginWithUser:(NSString *)user
+                              password:(NSString *)password
+                            completion:(nullable SparkCompletionBlock)completion;
 
 /**
  *  Sign up with new account credentials to Spark cloud
@@ -65,7 +70,9 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param password   Required password
  *  @param completion Completion block will be called when sign-up finished, NSError object will be passed in case of an error, nil if success
  */
--(NSURLSessionDataTask *)signupWithUser:(NSString *)user password:(NSString *)password completion:(void (^)(NSError *error))completion;
+-(NSURLSessionDataTask *)signupWithUser:(NSString *)user
+                               password:(NSString *)password
+                             completion:(nullable SparkCompletionBlock)completion;
 
 
 /**
@@ -76,7 +83,10 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param orgSlug    Organization string to include in cloud API endpoint URL
  *  @param completion Completion block will be called when sign-up finished, NSError object will be passed in case of an error, nil if success
  */
--(NSURLSessionDataTask *)signupWithCustomer:(NSString *)email password:(NSString *)password orgSlug:(NSString *)orgSlug completion:(void (^)(NSError *))completion;
+-(nullable NSURLSessionDataTask *)signupWithCustomer:(NSString *)email
+                                            password:(NSString *)password
+                                             orgSlug:(NSString *)orgSlug
+                                          completion:(nullable SparkCompletionBlock)completion;
 
 /**
  *  Logout user, remove session data
@@ -90,8 +100,11 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param email      user email
  *  @param completion Completion block with NSError object if failure, nil if success
  */
--(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)orgSlug email:(NSString *)email completion:(void(^)(NSError *))completion;
--(NSURLSessionDataTask *)requestPasswordResetForUser:(NSString *)email completion:(void(^)(NSError *))completion;
+-(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)orgSlug
+                                                   email:(NSString *)email
+                                              completion:(nullable SparkCompletionBlock)completion;
+-(NSURLSessionDataTask *)requestPasswordResetForUser:(NSString *)email
+                                          completion:(nullable SparkCompletionBlock)completion;
 
 #pragma mark Device management functions
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -104,7 +117,7 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @param completion Completion block with the device instances array in case of success or with NSError object if failure
  */
--(NSURLSessionDataTask *)getDevices:(void (^)(NSArray *sparkDevices, NSError *error))completion;
+-(NSURLSessionDataTask *)getDevices:(nullable void (^)(NSArray * _Nullable sparkDevices, NSError * _Nullable error))completion;
 
 /**
  *  Get a specific device instance by its deviceID. If the device is offline the instance will contain only partial information the cloud has cached, 
@@ -113,7 +126,8 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param deviceID   required deviceID
  *  @param completion Completion block with first arguemnt as the device instance in case of success or with second argument NSError object if operation failed
  */
--(NSURLSessionDataTask *)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion;
+-(NSURLSessionDataTask *)getDevice:(NSString *)deviceID
+                        completion:(nullable void (^)(SparkDevice * _Nullable device, NSError * _Nullable error))completion;
 
 // Not available yet
 //-(void)publishEvent:(NSString *)eventName data:(NSData *)data;
@@ -124,14 +138,15 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param deviceID   required deviceID
  *  @param completion Completion block with NSError object if failure, nil if success
  */
--(NSURLSessionDataTask *)claimDevice:(NSString *)deviceID completion:(void(^)(NSError *))completion;
+-(NSURLSessionDataTask *)claimDevice:(NSString *)deviceID
+                          completion:(nullable SparkCompletionBlock)completion;
 
 /**
  *  Get a short-lived claiming token for transmitting to soon-to-be-claimed device in soft AP setup process
  *
  *  @param completion Completion block with claimCode string returned (48 random bytes base64 encoded to 64 ASCII characters), second argument is a list of the devices currently claimed by current session user and third is NSError object for failure, nil if success
  */
--(NSURLSessionDataTask *)generateClaimCode:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+-(NSURLSessionDataTask *)generateClaimCode:(nullable void(^)(NSString * _Nullable claimCode, NSArray * _Nullable userClaimedDeviceIDs, NSError * _Nullable error))completion;
 
 
 /**
@@ -142,7 +157,10 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @param completion Completion block with claimCode string returned (48 random bytes base64 encoded to 64 ASCII characters), second argument is a list of the devices currently claimed by current session user and third is NSError object for failure, nil if success
  */
--(NSURLSessionDataTask *)generateClaimCodeForOrganization:(NSString *)orgSlug andProduct:(NSString *)productSlug withActivationCode:(NSString *)activationCode completion:(void(^)(NSString *claimCode, NSArray *userClaimedDeviceIDs, NSError *error))completion;
+-(NSURLSessionDataTask *)generateClaimCodeForOrganization:(NSString *)orgSlug
+                                               andProduct:(NSString *)productSlug
+                                       withActivationCode:(NSString *)activationCode
+                                               completion:(nullable void(^)(NSString *_Nullable claimCode, NSArray * _Nullable userClaimedDeviceIDs, NSError * _Nullable error))completion;
 
 
 #pragma mark Events subsystem functions
@@ -157,7 +175,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
  *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
--(id)subscribeToAllEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
+-(nullable id)subscribeToAllEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler;
 /**
  *  Subscribe to all events, public and private, published by devices one owns
  *
@@ -165,7 +183,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param eventNamePrefix  Filter only events that match name eventNamePrefix, for exact match pass whole string, if nil/empty string is passed any event will trigger eventHandler
  *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
--(id)subscribeToMyDevicesEventsWithPrefix:(NSString *)eventNamePrefix handler:(SparkEventHandler)eventHandler;
+-(nullable id)subscribeToMyDevicesEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler;
 
 /**
  *  Subscribe to events from one specific device. If the API user has the device claimed, then she will receive all events, public and private, published by that device. 
@@ -176,7 +194,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param eventHandler     Event handler function that accepts the event payload dictionary and an NSError object in case of an error
  *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
--(id)subscribeToDeviceEventsWithPrefix:(NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(SparkEventHandler)eventHandler;
+-(nullable id)subscribeToDeviceEventsWithPrefix:(nullable NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(nullable SparkEventHandler)eventHandler;
 
 /**
  *  Unsubscribe from event/events.
@@ -195,7 +213,13 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param ttl          TTL stands for Time To Live. It it the number of seconds that the event data is relevant and meaningful. For example, an outdoor temperature reading with a precision of integer degrees Celsius might have a TTL of somewhere between 600 (10 minutes) and 1800 (30 minutes).
  *                      The geolocation of a large piece of farm equipment that remains stationary most of the time but may be moved to a different field once in a while might have a TTL of 86400 (24 hours). After the TTL has passed, the information can be considered stale or out of date.
  */
--(NSURLSessionDataTask *)publishEventWithName:(NSString *)eventName data:(NSString *)data isPrivate:(BOOL)isPrivate ttl:(NSUInteger)ttl completion:(void (^)(NSError *))completion;
+-(NSURLSessionDataTask *)publishEventWithName:(NSString *)eventName
+                                         data:(NSString *)data
+                                    isPrivate:(BOOL)isPrivate
+                                          ttl:(NSUInteger)ttl
+                                   completion:(nullable SparkCompletionBlock)completion;
 
 
 @end
+
+NS_ASSUME_NONNULL_END
