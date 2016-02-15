@@ -136,7 +136,7 @@ Invoke a function on the device and pass a list of parameters to it, `resultCode
 
 **Objective-C**
 ```objc
-[myPhoton callFunction:@"digitalwrite" withArguments:@[@"D7",@1] completion:^(NSNumber *resultCode, NSError *error) {
+[myPhoton callFunction:@"digitalWrite" withArguments:@[@"D7",@1] completion:^(NSNumber *resultCode, NSError *error) {
     if (!error)
     {
         NSLog(@"LED on D7 successfully turned on");
@@ -146,7 +146,7 @@ Invoke a function on the device and pass a list of parameters to it, `resultCode
 **Swift**
 ```swift
 let funcArgs = ["D7",1]
-myPhoton!.callFunction("digitalwrite", withArguments: funcArgs) { (resultCode : NSNumber!, error : NSError!) -> Void in
+myPhoton!.callFunction("digitalWrite", withArguments: funcArgs) { (resultCode : NSNumber!, error : NSError!) -> Void in
     if (error == nil) {
         println("LED on D7 successfully turned on")
     }
