@@ -373,7 +373,7 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 Be sure to replace `YourAppName` with your project name.
 
 ### Additional reference
-For additional reference check out the [Reference in Cocoadocs website](http://cocoadocs.org/docsets/Spark-SDK/) for full coverage of `SparkDevice` and `SparkCloud` functions and member variables. In addition you can consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each public method. If Particle iOS Cloud SDK is integrated in your XCode project you should be able to press `Esc` to get an auto-complete hints for each cloud and device method.
+For additional reference check out the [Reference in Cocoadocs website](http://cocoadocs.org/docsets/Spark-SDK/) for full coverage of `SparkDevice` and `SparkCloud` functions and member variables. In addition you can consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each public method. If Particle iOS Cloud SDK is integrated in your Xcode project you should be able to press `Esc` to get an auto-complete hints for each cloud and device method.
 
 ## Installation
 
@@ -385,7 +385,7 @@ To install the iOS Cloud SDK, simply add the following line to your Podfile on m
 pod "Spark-SDK"
 ```
 
-and then run `pod update`. A new `.xcworkspace` file will be created for you to open by Cocoapods, open that file workspace file in XCode and you can start interacting with Particle cloud and devices by
+and then run `pod update`. A new `.xcworkspace` file will be created for you to open by Cocoapods, open that file workspace file in Xcode and you can start interacting with Particle cloud and devices by
 adding `#import "Spark-SDK.h"`. (that is not required for swift projects)
 
 ## Communication
