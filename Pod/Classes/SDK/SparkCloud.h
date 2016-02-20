@@ -159,7 +159,7 @@ extern NSString *const kSparkAPIBaseURL;
  */
 -(NSURLSessionDataTask *)generateClaimCodeForOrganization:(NSString *)orgSlug
                                                andProduct:(NSString *)productSlug
-                                       withActivationCode:(NSString *)activationCode
+                                       withActivationCode:(nullable NSString *)activationCode
                                                completion:(nullable void(^)(NSString *_Nullable claimCode, NSArray * _Nullable userClaimedDeviceIDs, NSError * _Nullable error))completion;
 
 
