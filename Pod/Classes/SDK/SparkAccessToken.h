@@ -19,21 +19,28 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SparkAccessToken;
 
 @protocol SparkAccessTokenDelegate <NSObject>
--(void)SparkAccessToken:(SparkAccessToken *)accessToken didExpireAt:(NSDate *)date;
+
+@required
+-(void)sparkAccessToken:(SparkAccessToken *)accessToken didExpireAt:(NSDate *)date;
+
 @end
 
 @interface SparkAccessToken : NSObject
+
 /**
  *  Access token string to be used when calling cloud API
  */
-@property (nonatomic, strong, readonly) NSString *accessToken;
+@property (nonatomic, strong, nullable, readonly) NSString *accessToken;
+
 /**
  *  Delegate to receive didExpireAt method call whenever a token is detected as expired
  */
-@property (nonatomic, weak) id<SparkAccessTokenDelegate> delegate;
+@property (nonatomic, nullable, weak) id<SparkAccessTokenDelegate> delegate;
 
 /**
  *  Initialze SparkAccessToken class with new session
@@ -42,14 +49,14 @@
  *
  *  @return New SparkAccessToken instance
  */
--(instancetype)initWithNewSession:(NSDictionary *)loginResponseDict;
+-(nullable instancetype)initWithNewSession:(NSDictionary *)loginResponseDict;
 
 /**
  *  Initialize SparkAccessToken from existing session stored in keychain
  *
  *  @return A SparkAccessToken instance in case session is stored in keychain and token has not expired, nil if not
  */
--(instancetype)initWithSavedSession;
+-(nullable instancetype)initWithSavedSession;
 
 -(instancetype)init __attribute__((unavailable("Must use initWithNewSession: or initWithSavedSession:")));
 
@@ -59,3 +66,5 @@
 -(void)removeSession;
 
 @end
+
+NS_ASSUME_NONNULL_END

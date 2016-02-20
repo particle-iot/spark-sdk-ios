@@ -11,10 +11,13 @@
 
 NSString *const kSparkCredentialsKeychainEntry = @"io.spark.api.Keychain.Credentials";
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface SparkUser()
-@property (nonatomic, strong) NSString *user;
-@property (nonatomic, strong) NSString *password;
+
+@property (nonatomic, nullable, strong, readwrite) NSString *user;
+@property (nonatomic, nullable, strong, readwrite) NSString *password;
+
 @end
 
 @implementation SparkUser
@@ -68,3 +71,5 @@ NSString *const kSparkCredentialsKeychainEntry = @"io.spark.api.Keychain.Credent
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
