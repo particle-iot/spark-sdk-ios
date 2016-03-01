@@ -16,6 +16,21 @@
 		50F64F931C85342E0065F02F /* ParticleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F64F891C85342E0065F02F /* ParticleSDK.framework */; };
 		50F64F981C85342E0065F02F /* ParticleSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F64F971C85342E0065F02F /* ParticleSDKTests.m */; };
 		50F64FCF1C8534E80065F02F /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F64FC21C8534C50065F02F /* AFNetworking.framework */; };
+		50F64FDB1C8537C10065F02F /* SparkAccessToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F64FD01C8537C10065F02F /* SparkAccessToken.h */; };
+		50F64FDC1C8537C10065F02F /* SparkAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F64FD11C8537C10065F02F /* SparkAccessToken.m */; };
+		50F64FDD1C8537C10065F02F /* SparkCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F64FD21C8537C10065F02F /* SparkCloud.h */; };
+		50F64FDE1C8537C10065F02F /* SparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F64FD31C8537C10065F02F /* SparkCloud.m */; };
+		50F64FDF1C8537C10065F02F /* SparkDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F64FD41C8537C10065F02F /* SparkDevice.h */; };
+		50F64FE01C8537C10065F02F /* SparkDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F64FD51C8537C10065F02F /* SparkDevice.m */; };
+		50F64FE11C8537C10065F02F /* SparkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F64FD61C8537C10065F02F /* SparkEvent.h */; };
+		50F64FE21C8537C10065F02F /* SparkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F64FD71C8537C10065F02F /* SparkEvent.m */; };
+		50F64FE31C8537C10065F02F /* SparkUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F64FD81C8537C10065F02F /* SparkUser.h */; };
+		50F64FE41C8537C10065F02F /* SparkUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F64FD91C8537C10065F02F /* SparkUser.m */; };
+		50F64FEA1C8537DE0065F02F /* EventSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F64FE51C8537DE0065F02F /* EventSource.h */; };
+		50F64FEB1C8537DE0065F02F /* EventSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F64FE61C8537DE0065F02F /* EventSource.m */; };
+		50F64FEC1C8537DE0065F02F /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F64FE71C8537DE0065F02F /* KeychainItemWrapper.h */; };
+		50F64FED1C8537DE0065F02F /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F64FE81C8537DE0065F02F /* KeychainItemWrapper.m */; };
+		50F64FEF1C8537E80065F02F /* Spark-SDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F64FEE1C8537E80065F02F /* Spark-SDK.h */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -113,6 +128,21 @@
 		50F64F971C85342E0065F02F /* ParticleSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParticleSDKTests.m; sourceTree = "<group>"; };
 		50F64F991C85342E0065F02F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AFNetworking.xcodeproj; path = ../Carthage/Checkouts/AFNetworking/AFNetworking.xcodeproj; sourceTree = "<group>"; };
+		50F64FD01C8537C10065F02F /* SparkAccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkAccessToken.h; sourceTree = "<group>"; };
+		50F64FD11C8537C10065F02F /* SparkAccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkAccessToken.m; sourceTree = "<group>"; };
+		50F64FD21C8537C10065F02F /* SparkCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkCloud.h; sourceTree = "<group>"; };
+		50F64FD31C8537C10065F02F /* SparkCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkCloud.m; sourceTree = "<group>"; };
+		50F64FD41C8537C10065F02F /* SparkDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkDevice.h; sourceTree = "<group>"; };
+		50F64FD51C8537C10065F02F /* SparkDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkDevice.m; sourceTree = "<group>"; };
+		50F64FD61C8537C10065F02F /* SparkEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkEvent.h; sourceTree = "<group>"; };
+		50F64FD71C8537C10065F02F /* SparkEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkEvent.m; sourceTree = "<group>"; };
+		50F64FD81C8537C10065F02F /* SparkUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkUser.h; sourceTree = "<group>"; };
+		50F64FD91C8537C10065F02F /* SparkUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkUser.m; sourceTree = "<group>"; };
+		50F64FE51C8537DE0065F02F /* EventSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSource.h; sourceTree = "<group>"; };
+		50F64FE61C8537DE0065F02F /* EventSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSource.m; sourceTree = "<group>"; };
+		50F64FE71C8537DE0065F02F /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		50F64FE81C8537DE0065F02F /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		50F64FEE1C8537E80065F02F /* Spark-SDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Spark-SDK.h"; path = "../../Pod/Classes/Spark-SDK.h"; sourceTree = "<group>"; };
 		519C303CE50B53831352BC8B /* Spark-SDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lineEnding = 0; name = "Spark-SDK.podspec"; path = "../Spark-SDK.podspec"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
 		6003F58A195388D20070C39A /* Spark-SDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spark-SDK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -207,6 +237,9 @@
 		50F64F8A1C85342E0065F02F /* ParticleSDK */ = {
 			isa = PBXGroup;
 			children = (
+				50F64FEE1C8537E80065F02F /* Spark-SDK.h */,
+				50F64FE91C8537DE0065F02F /* Helpers */,
+				50F64FDA1C8537C10065F02F /* SDK */,
 				50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */,
 				50F64F8B1C85342E0065F02F /* ParticleSDK.h */,
 				50F64F8D1C85342E0065F02F /* Info.plist */,
@@ -235,6 +268,36 @@
 				50F64FCE1C8534C50065F02F /* AFNetworking tvOS Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		50F64FDA1C8537C10065F02F /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				50F64FD01C8537C10065F02F /* SparkAccessToken.h */,
+				50F64FD11C8537C10065F02F /* SparkAccessToken.m */,
+				50F64FD21C8537C10065F02F /* SparkCloud.h */,
+				50F64FD31C8537C10065F02F /* SparkCloud.m */,
+				50F64FD41C8537C10065F02F /* SparkDevice.h */,
+				50F64FD51C8537C10065F02F /* SparkDevice.m */,
+				50F64FD61C8537C10065F02F /* SparkEvent.h */,
+				50F64FD71C8537C10065F02F /* SparkEvent.m */,
+				50F64FD81C8537C10065F02F /* SparkUser.h */,
+				50F64FD91C8537C10065F02F /* SparkUser.m */,
+			);
+			name = SDK;
+			path = ../../Pod/Classes/SDK;
+			sourceTree = "<group>";
+		};
+		50F64FE91C8537DE0065F02F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				50F64FE51C8537DE0065F02F /* EventSource.h */,
+				50F64FE61C8537DE0065F02F /* EventSource.m */,
+				50F64FE71C8537DE0065F02F /* KeychainItemWrapper.h */,
+				50F64FE81C8537DE0065F02F /* KeychainItemWrapper.m */,
+			);
+			name = Helpers;
+			path = ../../Pod/Classes/Helpers;
 			sourceTree = "<group>";
 		};
 		6003F581195388D10070C39A = {
@@ -344,7 +407,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50F64FEF1C8537E80065F02F /* Spark-SDK.h in Headers */,
+				50F64FDF1C8537C10065F02F /* SparkDevice.h in Headers */,
+				50F64FE11C8537C10065F02F /* SparkEvent.h in Headers */,
+				50F64FDB1C8537C10065F02F /* SparkAccessToken.h in Headers */,
+				50F64FEA1C8537DE0065F02F /* EventSource.h in Headers */,
+				50F64FE31C8537C10065F02F /* SparkUser.h in Headers */,
+				50F64FDD1C8537C10065F02F /* SparkCloud.h in Headers */,
 				50F64F8C1C85342E0065F02F /* ParticleSDK.h in Headers */,
+				50F64FEC1C8537DE0065F02F /* KeychainItemWrapper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,6 +697,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50F64FE01C8537C10065F02F /* SparkDevice.m in Sources */,
+				50F64FDC1C8537C10065F02F /* SparkAccessToken.m in Sources */,
+				50F64FE21C8537C10065F02F /* SparkEvent.m in Sources */,
+				50F64FE41C8537C10065F02F /* SparkUser.m in Sources */,
+				50F64FDE1C8537C10065F02F /* SparkCloud.m in Sources */,
+				50F64FEB1C8537DE0065F02F /* EventSource.m in Sources */,
+				50F64FED1C8537DE0065F02F /* KeychainItemWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

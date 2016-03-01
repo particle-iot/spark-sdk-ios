@@ -11,7 +11,7 @@
 
 #import "EventSource.h"
 
-static CGFloat const ES_RETRY_INTERVAL = 1.0;
+static float const ES_RETRY_INTERVAL = 1.0;
 
 static NSString *const ESKeyValueDelimiter = @": ";
 static NSString *const ESEventSeparatorLFLF = @"\n\n";
