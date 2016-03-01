@@ -3,7 +3,7 @@
 //  ParticleSDKTests
 //
 //  Created by Ido Kleinman on 2/29/16.
-//  Copyright © 2016 Ido Kleinman. All rights reserved.
+//  Copyright © 2016 Particle. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>

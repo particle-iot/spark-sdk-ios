@@ -3,7 +3,7 @@
 //  ParticleSDK
 //
 //  Created by Ido Kleinman on 2/29/16.
-//  Copyright © 2016 Ido Kleinman. All rights reserved.
+//  Copyright © 2016 Particle. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -15,4 +15,5 @@ FOUNDATION_EXPORT double ParticleSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char ParticleSDKVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ParticleSDK/PublicHeader.h>
-#import <ParticleSDK/Spark-SDK.h>
+#import <ParticleSDK/SparkCloud.h>
+#import <ParticleSDK/SparkDevice.h>
