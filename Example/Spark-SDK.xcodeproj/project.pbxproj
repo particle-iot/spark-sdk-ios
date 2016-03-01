@@ -12,6 +12,10 @@
 		506976E01B0BF96C0057355B /* Spark-SDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 506976DF1B0BF96C0057355B /* Spark-SDK.h */; };
 		506976E31B0BF97C0057355B /* SparkCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 506976E11B0BF97C0057355B /* SparkCloud.h */; };
 		506976E41B0BF97C0057355B /* SparkDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 506976E21B0BF97C0057355B /* SparkDevice.h */; };
+		50F64F8C1C85342E0065F02F /* ParticleSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F64F8B1C85342E0065F02F /* ParticleSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50F64F931C85342E0065F02F /* ParticleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F64F891C85342E0065F02F /* ParticleSDK.framework */; };
+		50F64F981C85342E0065F02F /* ParticleSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F64F971C85342E0065F02F /* ParticleSDKTests.m */; };
+		50F64FCF1C8534E80065F02F /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F64FC21C8534C50065F02F /* AFNetworking.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -32,6 +36,62 @@
 			remoteGlobalIDString = 6003F589195388D20070C39A;
 			remoteInfo = "Spark-SDK";
 		};
+		50F64F941C85342E0065F02F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6003F582195388D10070C39A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50F64F881C85342E0065F02F;
+			remoteInfo = ParticleSDK;
+		};
+		50F64FC11C8534C50065F02F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 299522391BBF104D00859F49;
+			remoteInfo = "AFNetworking iOS";
+		};
+		50F64FC31C8534C50065F02F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 299522651BBF129200859F49;
+			remoteInfo = "AFNetworking watchOS";
+		};
+		50F64FC51C8534C50065F02F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 299522771BBF136400859F49;
+			remoteInfo = "AFNetworking OS X";
+		};
+		50F64FC71C8534C50065F02F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2987B0A51BC408A200179A4C;
+			remoteInfo = "AFNetworking tvOS";
+		};
+		50F64FC91C8534C50065F02F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 298D7C3B1BC2C79500FD3B3E;
+			remoteInfo = "AFNetworking iOS Tests";
+		};
+		50F64FCB1C8534C50065F02F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 298D7C4A1BC2C7B200FD3B3E;
+			remoteInfo = "AFNetworking Mac OS X Tests";
+		};
+		50F64FCD1C8534C50065F02F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2987B0AE1BC408A200179A4C;
+			remoteInfo = "AFNetworking tvOS Tests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +106,13 @@
 		506976DF1B0BF96C0057355B /* Spark-SDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Spark-SDK.h"; path = "../Pod/Classes/Spark-SDK.h"; sourceTree = "<group>"; };
 		506976E11B0BF97C0057355B /* SparkCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SparkCloud.h; path = ../Pod/Classes/SDK/SparkCloud.h; sourceTree = "<group>"; };
 		506976E21B0BF97C0057355B /* SparkDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SparkDevice.h; path = ../Pod/Classes/SDK/SparkDevice.h; sourceTree = "<group>"; };
+		50F64F891C85342E0065F02F /* ParticleSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ParticleSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50F64F8B1C85342E0065F02F /* ParticleSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleSDK.h; sourceTree = "<group>"; };
+		50F64F8D1C85342E0065F02F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50F64F921C85342E0065F02F /* ParticleSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ParticleSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		50F64F971C85342E0065F02F /* ParticleSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParticleSDKTests.m; sourceTree = "<group>"; };
+		50F64F991C85342E0065F02F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AFNetworking.xcodeproj; path = ../Carthage/Checkouts/AFNetworking/AFNetworking.xcodeproj; sourceTree = "<group>"; };
 		519C303CE50B53831352BC8B /* Spark-SDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lineEnding = 0; name = "Spark-SDK.podspec"; path = "../Spark-SDK.podspec"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
 		6003F58A195388D20070C39A /* Spark-SDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spark-SDK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -76,6 +143,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50F64F851C85342E0065F02F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50F64FCF1C8534E80065F02F /* AFNetworking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50F64F8F1C85342E0065F02F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50F64F931C85342E0065F02F /* ParticleSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,12 +204,47 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		50F64F8A1C85342E0065F02F /* ParticleSDK */ = {
+			isa = PBXGroup;
+			children = (
+				50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */,
+				50F64F8B1C85342E0065F02F /* ParticleSDK.h */,
+				50F64F8D1C85342E0065F02F /* Info.plist */,
+			);
+			path = ParticleSDK;
+			sourceTree = "<group>";
+		};
+		50F64F961C85342E0065F02F /* ParticleSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				50F64F971C85342E0065F02F /* ParticleSDKTests.m */,
+				50F64F991C85342E0065F02F /* Info.plist */,
+			);
+			path = ParticleSDKTests;
+			sourceTree = "<group>";
+		};
+		50F64FB81C8534C50065F02F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				50F64FC21C8534C50065F02F /* AFNetworking.framework */,
+				50F64FC41C8534C50065F02F /* AFNetworking.framework */,
+				50F64FC61C8534C50065F02F /* AFNetworking.framework */,
+				50F64FC81C8534C50065F02F /* AFNetworking.framework */,
+				50F64FCA1C8534C50065F02F /* AFNetworking iOS Tests.xctest */,
+				50F64FCC1C8534C50065F02F /* AFNetworking Mac OS X Tests.xctest */,
+				50F64FCE1C8534C50065F02F /* AFNetworking tvOS Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example App */,
 				505D19031B58330F002CF2B7 /* Tests */,
+				50F64F8A1C85342E0065F02F /* ParticleSDK */,
+				50F64F961C85342E0065F02F /* ParticleSDKTests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				71056F73210C70B2B4DF8C0D /* Pods */,
@@ -138,6 +256,8 @@
 			children = (
 				6003F58A195388D20070C39A /* Spark-SDK.app */,
 				505D19021B58330F002CF2B7 /* Tests.xctest */,
+				50F64F891C85342E0065F02F /* ParticleSDK.framework */,
+				50F64F921C85342E0065F02F /* ParticleSDKTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,6 +340,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50F64F861C85342E0065F02F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50F64F8C1C85342E0065F02F /* ParticleSDK.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -239,6 +367,42 @@
 			name = Tests;
 			productName = Tests;
 			productReference = 505D19021B58330F002CF2B7 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		50F64F881C85342E0065F02F /* ParticleSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50F64F9E1C85342E0065F02F /* Build configuration list for PBXNativeTarget "ParticleSDK" */;
+			buildPhases = (
+				50F64F841C85342E0065F02F /* Sources */,
+				50F64F851C85342E0065F02F /* Frameworks */,
+				50F64F861C85342E0065F02F /* Headers */,
+				50F64F871C85342E0065F02F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ParticleSDK;
+			productName = ParticleSDK;
+			productReference = 50F64F891C85342E0065F02F /* ParticleSDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		50F64F911C85342E0065F02F /* ParticleSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50F64F9F1C85342E0065F02F /* Build configuration list for PBXNativeTarget "ParticleSDKTests" */;
+			buildPhases = (
+				50F64F8E1C85342E0065F02F /* Sources */,
+				50F64F8F1C85342E0065F02F /* Frameworks */,
+				50F64F901C85342E0065F02F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				50F64F951C85342E0065F02F /* PBXTargetDependency */,
+			);
+			name = ParticleSDKTests;
+			productName = ParticleSDKTests;
+			productReference = 50F64F921C85342E0065F02F /* ParticleSDKTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		6003F589195388D20070C39A /* Spark-SDK */ = {
@@ -276,6 +440,13 @@
 						CreatedOnToolsVersion = 6.4;
 						TestTargetID = 6003F589195388D20070C39A;
 					};
+					50F64F881C85342E0065F02F = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = TNJ67X9MQD;
+					};
+					50F64F911C85342E0065F02F = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
 					6003F589195388D20070C39A = {
 						DevelopmentTeam = TNJ67X9MQD;
 					};
@@ -292,16 +463,90 @@
 			mainGroup = 6003F581195388D10070C39A;
 			productRefGroup = 6003F58B195388D20070C39A /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 50F64FB81C8534C50065F02F /* Products */;
+					ProjectRef = 50F64FA01C8534BF0065F02F /* AFNetworking.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6003F589195388D20070C39A /* Spark-SDK */,
 				505D19011B58330F002CF2B7 /* Tests */,
+				50F64F881C85342E0065F02F /* ParticleSDK */,
+				50F64F911C85342E0065F02F /* ParticleSDKTests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		50F64FC21C8534C50065F02F /* AFNetworking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AFNetworking.framework;
+			remoteRef = 50F64FC11C8534C50065F02F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		50F64FC41C8534C50065F02F /* AFNetworking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AFNetworking.framework;
+			remoteRef = 50F64FC31C8534C50065F02F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		50F64FC61C8534C50065F02F /* AFNetworking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AFNetworking.framework;
+			remoteRef = 50F64FC51C8534C50065F02F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		50F64FC81C8534C50065F02F /* AFNetworking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AFNetworking.framework;
+			remoteRef = 50F64FC71C8534C50065F02F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		50F64FCA1C8534C50065F02F /* AFNetworking iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "AFNetworking iOS Tests.xctest";
+			remoteRef = 50F64FC91C8534C50065F02F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		50F64FCC1C8534C50065F02F /* AFNetworking Mac OS X Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "AFNetworking Mac OS X Tests.xctest";
+			remoteRef = 50F64FCB1C8534C50065F02F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		50F64FCE1C8534C50065F02F /* AFNetworking tvOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "AFNetworking tvOS Tests.xctest";
+			remoteRef = 50F64FCD1C8534C50065F02F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		505D19001B58330F002CF2B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50F64F871C85342E0065F02F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50F64F901C85342E0065F02F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -377,6 +622,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50F64F841C85342E0065F02F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50F64F8E1C85342E0065F02F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50F64F981C85342E0065F02F /* ParticleSDKTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F586195388D20070C39A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -395,6 +655,11 @@
 			isa = PBXTargetDependency;
 			target = 6003F589195388D20070C39A /* Spark-SDK */;
 			targetProxy = 505D19081B58330F002CF2B7 /* PBXContainerItemProxy */;
+		};
+		50F64F951C85342E0065F02F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50F64F881C85342E0065F02F /* ParticleSDK */;
+			targetProxy = 50F64F941C85342E0065F02F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -464,6 +729,92 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.particle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spark-SDK.app/Spark-SDK";
+			};
+			name = Release;
+		};
+		50F64F9A1C85342E0065F02F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ParticleSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.particle.ParticleSDK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		50F64F9B1C85342E0065F02F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ParticleSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = io.particle.ParticleSDK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		50F64F9C1C85342E0065F02F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ParticleSDKTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.particle.ParticleSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		50F64F9D1C85342E0065F02F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ParticleSDKTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = io.particle.ParticleSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -583,6 +934,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		50F64F9E1C85342E0065F02F /* Build configuration list for PBXNativeTarget "ParticleSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50F64F9A1C85342E0065F02F /* Debug */,
+				50F64F9B1C85342E0065F02F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		50F64F9F1C85342E0065F02F /* Build configuration list for PBXNativeTarget "ParticleSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50F64F9C1C85342E0065F02F /* Debug */,
+				50F64F9D1C85342E0065F02F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		6003F585195388D10070C39A /* Build configuration list for PBXProject "Spark-SDK" */ = {
 			isa = XCConfigurationList;
