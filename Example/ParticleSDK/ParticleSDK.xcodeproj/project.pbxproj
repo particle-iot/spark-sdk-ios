@@ -10,20 +10,19 @@
 		50F6507F1C85423D0065F02F /* ParticleSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6507E1C85423D0065F02F /* ParticleSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50F650861C85423D0065F02F /* ParticleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F6507B1C85423D0065F02F /* ParticleSDK.framework */; };
 		50F6508B1C85423D0065F02F /* ParticleSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F6508A1C85423D0065F02F /* ParticleSDKTests.m */; };
-		50F650A61C8542B30065F02F /* Spark-SDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650951C8542B30065F02F /* Spark-SDK.h */; };
 		50F650A71C8542B30065F02F /* EventSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650961C8542B30065F02F /* EventSource.h */; };
 		50F650A81C8542B30065F02F /* EventSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F650971C8542B30065F02F /* EventSource.m */; };
 		50F650A91C8542B30065F02F /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650981C8542B30065F02F /* KeychainItemWrapper.h */; };
 		50F650AA1C8542B30065F02F /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F650991C8542B30065F02F /* KeychainItemWrapper.m */; };
-		50F650AB1C8542B30065F02F /* SparkAccessToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6509B1C8542B30065F02F /* SparkAccessToken.h */; };
+		50F650AB1C8542B30065F02F /* SparkAccessToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6509B1C8542B30065F02F /* SparkAccessToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50F650AC1C8542B30065F02F /* SparkAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F6509C1C8542B30065F02F /* SparkAccessToken.m */; };
 		50F650AD1C8542B30065F02F /* SparkCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6509D1C8542B30065F02F /* SparkCloud.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50F650AE1C8542B30065F02F /* SparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F6509E1C8542B30065F02F /* SparkCloud.m */; };
 		50F650AF1C8542B30065F02F /* SparkDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6509F1C8542B30065F02F /* SparkDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50F650B01C8542B30065F02F /* SparkDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F650A01C8542B30065F02F /* SparkDevice.m */; };
-		50F650B11C8542B30065F02F /* SparkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650A11C8542B30065F02F /* SparkEvent.h */; };
+		50F650B11C8542B30065F02F /* SparkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650A11C8542B30065F02F /* SparkEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50F650B21C8542B30065F02F /* SparkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F650A21C8542B30065F02F /* SparkEvent.m */; };
-		50F650B31C8542B30065F02F /* SparkUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650A31C8542B30065F02F /* SparkUser.h */; };
+		50F650B31C8542B30065F02F /* SparkUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650A31C8542B30065F02F /* SparkUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50F650B41C8542B30065F02F /* SparkUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F650A41C8542B30065F02F /* SparkUser.m */; };
 		50F650CD1C8544D00065F02F /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F650C01C8544C10065F02F /* AFNetworking.framework */; };
 /* End PBXBuildFile section */
@@ -94,7 +93,6 @@
 		50F650851C85423D0065F02F /* ParticleSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ParticleSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F6508A1C85423D0065F02F /* ParticleSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParticleSDKTests.m; sourceTree = "<group>"; };
 		50F6508C1C85423D0065F02F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		50F650951C8542B30065F02F /* Spark-SDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Spark-SDK.h"; path = "../../Pod/Classes/Spark-SDK.h"; sourceTree = SOURCE_ROOT; };
 		50F650961C8542B30065F02F /* EventSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSource.h; sourceTree = "<group>"; };
 		50F650971C8542B30065F02F /* EventSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSource.m; sourceTree = "<group>"; };
 		50F650981C8542B30065F02F /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 		50F6507D1C85423D0065F02F /* ParticleSDK */ = {
 			isa = PBXGroup;
 			children = (
-				50F650951C8542B30065F02F /* Spark-SDK.h */,
 				50F6509A1C8542B30065F02F /* Helpers */,
 				50F650A51C8542B30065F02F /* SDK */,
 				50F6507E1C85423D0065F02F /* ParticleSDK.h */,
@@ -224,7 +221,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				50F6507F1C85423D0065F02F /* ParticleSDK.h in Headers */,
-				50F650A61C8542B30065F02F /* Spark-SDK.h in Headers */,
 				50F650A71C8542B30065F02F /* EventSource.h in Headers */,
 				50F650AB1C8542B30065F02F /* SparkAccessToken.h in Headers */,
 				50F650AD1C8542B30065F02F /* SparkCloud.h in Headers */,
@@ -510,6 +506,7 @@
 		50F650901C85423D0065F02F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -522,12 +519,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.ParticleSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Debug;
 		};
 		50F650911C85423D0065F02F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -540,6 +539,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.ParticleSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Release;
 		};
@@ -582,6 +582,7 @@
 				50F650911C85423D0065F02F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		50F650921C85423D0065F02F /* Build configuration list for PBXNativeTarget "ParticleSDKTests" */ = {
 			isa = XCConfigurationList;
@@ -590,6 +591,7 @@
 				50F650941C85423D0065F02F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
