@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ---
+## [0.4.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.4.0) (2016-03-02)
+
+* Nullability support for even better Swift interoperability. No more implicitly unwrapped arguments in Swift from SDK callbacks!
+
+* Carthage dependency manager support! SDK can now be added as a dynamic framework to ease pain when integrating with Swift dependencies.
+
+* AFNetworking 3.0 support - SDK now returns NSURLSessionDataTask object from every network operation function.
 
 ## [0.3.4](https://github.com/spark/spark-sdk-ios/releases/tag/0.3.4) (2015-12-15)
 
@@ -18,7 +25,7 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.3.2](https://github.com/spark/spark-sdk-ios/releases/tag/0.3.2) (2015-07-22)
 
-* README documentation for OAuth credentials 
+* README documentation for OAuth credentials
 
 * Signup customers/password reset for user
 
@@ -48,7 +55,7 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 * Add flash known firmware images to device API call (flashKnownApp:)
 
-* Internal isFlashing timer 
+* Internal isFlashing timer
 
 ## [0.2.9](https://github.com/spark/spark-sdk-ios/releases/tag/0.2.9) (2015-05-20)
 

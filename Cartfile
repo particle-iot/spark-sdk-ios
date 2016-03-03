@@ -1,1 +1,1 @@
-github "AFNetworking/AFNetworking"
+github "AFNetworking/AFNetworking" ~> 3.0.0

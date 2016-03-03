@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5005A3DC1C87AF50007D7015 /* Spark-SDK-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 5005A3DB1C87AF18007D7015 /* Spark-SDK-Bridging-Header.h */; };
 		50F6507F1C85423D0065F02F /* ParticleSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6507E1C85423D0065F02F /* ParticleSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50F650861C85423D0065F02F /* ParticleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F6507B1C85423D0065F02F /* ParticleSDK.framework */; };
 		50F6508B1C85423D0065F02F /* ParticleSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F6508A1C85423D0065F02F /* ParticleSDKTests.m */; };
@@ -87,6 +88,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5005A3DB1C87AF18007D7015 /* Spark-SDK-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Spark-SDK-Bridging-Header.h"; path = "../Spark-SDK-Bridging-Header.h"; sourceTree = "<group>"; };
 		50F6507B1C85423D0065F02F /* ParticleSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ParticleSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F6507E1C85423D0065F02F /* ParticleSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleSDK.h; sourceTree = "<group>"; };
 		50F650801C85423D0065F02F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				50F6509A1C8542B30065F02F /* Helpers */,
 				50F650A51C8542B30065F02F /* SDK */,
 				50F6507E1C85423D0065F02F /* ParticleSDK.h */,
+				5005A3DB1C87AF18007D7015 /* Spark-SDK-Bridging-Header.h */,
 				50F650801C85423D0065F02F /* Info.plist */,
 			);
 			path = ParticleSDK;
@@ -227,6 +230,7 @@
 				50F650B11C8542B30065F02F /* SparkEvent.h in Headers */,
 				50F650B31C8542B30065F02F /* SparkUser.h in Headers */,
 				50F650AF1C8542B30065F02F /* SparkDevice.h in Headers */,
+				5005A3DC1C87AF50007D7015 /* Spark-SDK-Bridging-Header.h in Headers */,
 				50F650A91C8542B30065F02F /* KeychainItemWrapper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
