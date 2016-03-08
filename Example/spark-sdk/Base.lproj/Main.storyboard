@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Spark View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="SparkViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xFk-Rb-ubT"/>
+                        <viewControllerLayoutGuide type="bottom" id="go9-Os-fVo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGO-XF-hTg">
+                                <rect key="frame" x="16" y="28" width="38" height="30"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="oWz-R9-VW3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Not logged in" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caE-VU-YH0">
+                                <rect key="frame" x="62" y="32" width="104" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTk-MJ-Bad">
+                                <rect key="frame" x="16" y="99" width="70" height="30"/>
+                                <state key="normal" title="Subscribe">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="subscribeButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="zFF-p8-yiC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Pp-IQ-Nty">
+                                <rect key="frame" x="16" y="61" width="99" height="30"/>
+                                <state key="normal" title="Test sequence">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="testButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Mhh-vq-Wai"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Kd-Cf-K0l">
+                                <rect key="frame" x="131" y="99" width="87" height="30"/>
+                                <state key="normal" title="Unsubscribe">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="unsubscribeButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="klS-27-CsF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="caE-VU-YH0" firstAttribute="top" secondItem="xFk-Rb-ubT" secondAttribute="bottom" constant="12" id="2aR-Do-aBD"/>
+                            <constraint firstItem="FGO-XF-hTg" firstAttribute="top" secondItem="xFk-Rb-ubT" secondAttribute="bottom" constant="8" id="2ip-oY-EaH"/>
+                            <constraint firstItem="2Pp-IQ-Nty" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="A9n-AN-lHT"/>
+                            <constraint firstItem="jTk-MJ-Bad" firstAttribute="top" secondItem="2Pp-IQ-Nty" secondAttribute="bottom" constant="8" id="RHe-rN-tYu"/>
+                            <constraint firstItem="2Pp-IQ-Nty" firstAttribute="top" secondItem="FGO-XF-hTg" secondAttribute="bottom" constant="3" id="UIV-iI-WLe"/>
+                            <constraint firstItem="6Kd-Cf-K0l" firstAttribute="centerY" secondItem="jTk-MJ-Bad" secondAttribute="centerY" id="gbx-3J-0PN"/>
+                            <constraint firstItem="jTk-MJ-Bad" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="jHF-NE-hh9"/>
+                            <constraint firstItem="FGO-XF-hTg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="k7z-is-l1F"/>
+                            <constraint firstAttribute="centerX" secondItem="2Pp-IQ-Nty" secondAttribute="centerX" id="lww-2o-Jig"/>
+                            <constraint firstItem="caE-VU-YH0" firstAttribute="leading" secondItem="FGO-XF-hTg" secondAttribute="trailing" constant="8" id="tat-wu-uFO"/>
+                            <constraint firstAttribute="centerY" secondItem="2Pp-IQ-Nty" secondAttribute="centerY" id="uoF-Q0-WcR"/>
+                            <constraint firstItem="6Kd-Cf-K0l" firstAttribute="leading" secondItem="jTk-MJ-Bad" secondAttribute="trailing" constant="45" id="vyo-70-qiI"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="lww-2o-Jig"/>
+                                <exclude reference="uoF-Q0-WcR"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="loggedInLabel" destination="caE-VU-YH0" id="xX9-jy-TwG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="555" y="453.16901408450701"/>
+        </scene>
+    </scenes>
+</document>
