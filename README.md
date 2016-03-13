@@ -104,8 +104,9 @@ __block SparkDevice *myPhoton;
     NSLog(@"%@",sparkDevices.description); // print all devices claimed to user
     
     for (SparkDevice *device in sparkDevices) {
-        if ([device.name isEqualToString:@"myNewPhotonName"])
+        if ([device.name isEqualToString:@"myNewPhotonName"]) {
             myPhoton = device;
+        }
     }
 }];
 ```
