@@ -74,10 +74,11 @@ You don't need to worry about access tokens, SDK takes care of that for you
 **Objective-C**
 ```objc
 [[SparkCloud sharedInstance] loginWithUser:@"username@email.com" password:@"userpass" completion:^(NSError *error) {
-    if (!error)
+    if (!error) {
         NSLog(@"Logged in to cloud");
-    else
+    } else {
         NSLog(@"Wrong credentials or no internet connectivity, please try again");
+    }
 }];
 ```
 **Swift**
@@ -101,9 +102,8 @@ List the devices that belong to currently logged in user and find a specific dev
 __block SparkDevice *myPhoton;
 [[SparkCloud sharedInstance] getDevices:^(NSArray *sparkDevices, NSError *error) {
     NSLog(@"%@",sparkDevices.description); // print all devices claimed to user
-
-    for (SparkDevice *device in sparkDevices)
-    {
+    
+    for (SparkDevice *device in sparkDevices) {
         if ([device.name isEqualToString:@"myNewPhotonName"])
             myPhoton = device;
     }
@@ -167,8 +167,7 @@ This example also demonstrates usage of the new `NSURLSessionDataTask` object re
 **Objective-C**
 ```objc
 NSURLSessionDataTask *task = [myPhoton callFunction:@"digitalWrite" withArguments:@[@"D7",@1] completion:^(NSNumber *resultCode, NSError *error) {
-    if (!error)
-    {
+    if (!error) {
         NSLog(@"LED on D7 successfully turned on");
     }
 }];
@@ -215,8 +214,9 @@ Get a device instance by its ID:
 __block SparkDevice *myOtherDevice;
 NSString *deviceID = @"53fa73265066544b16208184";
 [[SparkCloud sharedInstance] getDevice:deviceID completion:^(SparkDevice *device, NSError *error) {
-    if (!error)
+    if (!error) {
         myOtherDevice = device;
+    }
 }];
 ```
 **Swift**
@@ -240,8 +240,9 @@ myPhoton.name = @"myNewDeviceName";
 _or_
 ```objc
 [myPhoton rename:@"myNewDeviecName" completion:^(NSError *error) {
-    if (!error)
+    if (!error) {
         NSLog(@"Device renamed successfully");
+    }
 }];
 ```
 **Swift**
@@ -280,17 +281,13 @@ Subscribe to the firehose of public events, plus private events published by dev
 ```objc
 // The event handler:
 SparkEventHandler handler = ^(SparkEvent *event, NSError *error) {
-        if (!error)
-        {
+        if (!error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"Got Event %@ with data: %@",event.event,event.data);
             });
-        }
-        else
-        {
+        } else {
             NSLog(@"Error occured: %@",error.localizedDescription);
         }
-
     };
 
 // This line actually subscribes to the event stream:
@@ -342,8 +339,7 @@ You can also publish an event from your app to the Particle Cloud:
 
 ```objc
 [[SparkCloud sharedInstance] publishEventWithName:@"event_from_app" data:@"event_payload" isPrivate:NO ttl:60 completion:^(NSError *error) {
-    if (error)
-    {
+    if (error) {
         NSLog(@"Error publishing event: %@",error.localizedDescription);
     }
 }];
@@ -353,8 +349,7 @@ You can also publish an event from your app to the Particle Cloud:
 
 ```swift
 SparkCloud.sharedInstance().publishEventWithName("event_from_app", data: "event_payload", isPrivate: false, ttl: 60, completion: { (error:NSError?) -> Void in
-    if let e = error
-    {
+    if let e = error {
         println("Error publishing event" + e.localizedDescription)
     }
 })
