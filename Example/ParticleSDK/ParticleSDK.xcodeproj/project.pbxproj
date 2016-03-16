@@ -28,6 +28,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		50DCB93B1C9A1AB000B95FBB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50F650B51C8544C10065F02F /* AFNetworking.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 299522381BBF104D00859F49;
+			remoteInfo = "AFNetworking iOS";
+		};
 		50F650871C85423D0065F02F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 50F650721C85423D0065F02F /* Project object */;
@@ -246,6 +253,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				50DCB93C1C9A1AB000B95FBB /* PBXTargetDependency */,
 			);
 			name = ParticleSDK;
 			productName = ParticleSDK;
@@ -407,6 +415,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		50DCB93C1C9A1AB000B95FBB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "AFNetworking iOS";
+			targetProxy = 50DCB93B1C9A1AB000B95FBB /* PBXContainerItemProxy */;
+		};
 		50F650881C85423D0065F02F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 50F6507A1C85423D0065F02F /* ParticleSDK */;
