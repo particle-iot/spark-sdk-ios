@@ -101,6 +101,11 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     return [self.token accessToken];
 }
 
+-(void)injectAccessTokenFromTwoLeggedAuth:(NSString * _Nullable)accessToken
+{
+    [self logout];
+    self.token = [[SparkAccessToken alloc] initWithToken:accessToken];
+}
 
 -(nullable NSString *)loggedInUsername
 {
@@ -116,7 +121,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 
 -(BOOL)isLoggedIn
 {
-    return (self.loggedInUsername != nil);
+    return (self.token.accessToken != nil);
 }
 
 #pragma mark Setter functions

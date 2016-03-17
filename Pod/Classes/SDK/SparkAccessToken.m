@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 NSString *const kSparkAccessTokenKeychainEntry = @"io.spark.api.Keychain.AccessToken";
 NSString *const kSparkAccessTokenExpiryDateKey = @"kSparkAccessTokenExpiryDateKey";
 NSString *const kSparkAccessTokenStringKey = @"kSparkAccessTokenStringKey";
+NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
+
 
 // how many seconds before expiry date will a token be considered expired (0 = expire on expiry date, 24*60*60 = expire a day before)
 #define ACCESS_TOKEN_EXPIRY_MARGIN  0
@@ -25,6 +27,7 @@ NSString *const kSparkAccessTokenStringKey = @"kSparkAccessTokenStringKey";
 @property (nonatomic, strong) NSDate *expiryDate;
 @property (nonatomic, strong) NSTimer *expiryTimer;
 @property (nonatomic, strong, readwrite) NSString *accessToken;
+@property (nonatomic, nullable, strong, readwrite) NSString *refreshToken;
 
 @end
 
@@ -39,32 +42,118 @@ NSString *const kSparkAccessTokenStringKey = @"kSparkAccessTokenStringKey";
         NSNumber *nti = loginResponseDict[@"expires_in"];
         if (!nti) return nil;
         
-        self.expiryDate = [[NSDate alloc] initWithTimeIntervalSinceNow:nti.doubleValue];
-//        NSLog(@"(debug)access token expiry: %@",self.expiryDate.description);
+        if ([nti integerValue]==0)
+            self.expiryDate = [NSDate distantFuture];
+        else
+            self.expiryDate = [[NSDate alloc] initWithTimeIntervalSinceNow:nti.doubleValue];
+
         self.accessToken = loginResponseDict[@"access_token"];
         if (!self.accessToken)
+            return nil;
+        
+        self.refreshToken = loginResponseDict[@"refresh_token"];
+        if (!self.refreshToken)
             return nil;
         
         // verify response object type
         if (![loginResponseDict[@"token_type"] isEqualToString:@"bearer"])
             return nil;
 
-        self.expiryTimer = [[NSTimer alloc] initWithFireDate:self.expiryDate interval:0 target:self selector:@selector(accessTokenExpired:) userInfo:nil repeats:NO];
-        [[NSRunLoop currentRunLoop] addTimer:self.expiryTimer forMode:NSDefaultRunLoopMode];
-
-        NSMutableDictionary *accessTokenDict = [NSMutableDictionary new];
-        accessTokenDict[kSparkAccessTokenStringKey] = self.accessToken;
-        accessTokenDict[kSparkAccessTokenExpiryDateKey] = self.expiryDate;
-
-        NSData *keychainData = [NSKeyedArchiver archivedDataWithRootObject:accessTokenDict];
-        KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkAccessTokenKeychainEntry accessGroup:nil];
-        [keychainTokenItem setObject:keychainData forKey:(__bridge id)(kSecValueData)];
+        [self storeSessionInKeychainAndSetExpiryTimer];
         
         return self;
     }
     
     return nil;
 }
+
+
+-(nullable instancetype)initWithToken:(NSString *)token
+{
+    self = [super init];
+    if (self)
+    {
+        if (!token)
+            return nil;
+        
+        self.accessToken = token;
+        self.expiryDate = [NSDate distantFuture];
+
+        [self storeSessionInKeychainAndSetExpiryTimer];
+        
+        return self;
+    }
+    
+    return nil;
+}
+
+-(void)storeSessionInKeychainAndSetExpiryTimer
+{
+    if (![self.expiryDate isEqualToDate:[NSDate distantFuture]]) {
+        self.expiryTimer = [[NSTimer alloc] initWithFireDate:self.expiryDate interval:0 target:self selector:@selector(accessTokenExpired:) userInfo:nil repeats:NO];
+        [[NSRunLoop currentRunLoop] addTimer:self.expiryTimer forMode:NSDefaultRunLoopMode];
+    }
+    
+    NSMutableDictionary *accessTokenDict = [NSMutableDictionary new];
+    accessTokenDict[kSparkAccessTokenStringKey] = self.accessToken;
+    accessTokenDict[kSparkAccessTokenExpiryDateKey] = self.expiryDate;
+    if (self.refreshToken)
+        accessTokenDict[kSparkRefreshTokenStringKey] = self.refreshToken;
+    
+    NSData *keychainData = [NSKeyedArchiver archivedDataWithRootObject:accessTokenDict];
+    KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkAccessTokenKeychainEntry accessGroup:nil];
+    [keychainTokenItem setObject:keychainData forKey:(__bridge id)(kSecValueData)];
+
+}
+
+
+
+-(nullable instancetype)initWithToken:(NSString *)token andExpiryDate:(NSDate *)expiryDate
+{
+    self = [super init];
+    if (self)
+    {
+        if (!expiryDate)
+            return nil;
+        
+        if (!token)
+            return nil;
+        
+        self.expiryDate = expiryDate;
+        self.accessToken = token;
+        
+        [self storeSessionInKeychainAndSetExpiryTimer];
+        return self;
+    }
+    
+    return nil;
+}
+
+-(nullable instancetype)initWithToken:(NSString *)token withExpiryDate:(NSDate *)expiryDate withRefreshToken:(NSString *)refreshToken
+{
+    self = [super init];
+    if (self)
+    {
+        if (!expiryDate)
+            return nil;
+        
+        if (!token)
+            return nil;
+        
+        if (!refreshToken)
+            return nil;
+        
+        self.expiryDate = expiryDate;
+        self.accessToken = token;
+        self.refreshToken = refreshToken;
+        
+        [self storeSessionInKeychainAndSetExpiryTimer];
+        return self;
+    }
+    
+    return nil;
+}
+
 
 -(nullable instancetype)initWithSavedSession
 {
@@ -93,6 +182,11 @@ NSString *const kSparkAccessTokenStringKey = @"kSparkAccessTokenStringKey";
         {
             self.accessToken = accessTokenDict[kSparkAccessTokenStringKey];
             self.expiryDate = accessTokenDict[kSparkAccessTokenExpiryDateKey];
+            if ([accessTokenDict objectForKey:kSparkRefreshTokenStringKey]) {
+                self.refreshToken = accessTokenDict[kSparkRefreshTokenStringKey];
+            } else {
+                self.refreshToken = nil;
+            }
         }
         else
             return nil;
@@ -101,8 +195,10 @@ NSString *const kSparkAccessTokenStringKey = @"kSparkAccessTokenStringKey";
         if (!((self.accessToken) && (self.expiryDate)))
             return nil;
         
-        self.expiryTimer = [[NSTimer alloc] initWithFireDate:self.expiryDate interval:0 target:self selector:@selector(accessTokenExpired:) userInfo:nil repeats:NO];
-        [[NSRunLoop currentRunLoop] addTimer:self.expiryTimer forMode:NSDefaultRunLoopMode];
+        if (![self.expiryDate isEqualToDate:[NSDate distantFuture]]) {
+            self.expiryTimer = [[NSTimer alloc] initWithFireDate:self.expiryDate interval:0 target:self selector:@selector(accessTokenExpired:) userInfo:nil repeats:NO];
+            [[NSRunLoop currentRunLoop] addTimer:self.expiryTimer forMode:NSDefaultRunLoopMode];
+        }
         
         return self;
     }

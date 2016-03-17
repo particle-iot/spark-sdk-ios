@@ -51,6 +51,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(nullable instancetype)initWithNewSession:(NSDictionary *)loginResponseDict;
 
+// For two Legged Auth you can init SparkAccessToken with access token only/with exact expiry date/with refresh token:
+-(nullable instancetype)initWithToken:(NSString *)token;
+-(nullable instancetype)initWithToken:(NSString *)token andExpiryDate:(NSDate *)expiryDate;
+-(nullable instancetype)initWithToken:(NSString *)token withExpiryDate:(NSDate *)expiryDate withRefreshToken:(NSString *)refreshToken;
+
 /**
  *  Initialize SparkAccessToken from existing session stored in keychain
  *
