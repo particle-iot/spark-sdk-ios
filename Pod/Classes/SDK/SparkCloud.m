@@ -101,10 +101,26 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     return [self.token accessToken];
 }
 
--(void)injectAccessTokenFromTwoLeggedAuth:(NSString * _Nullable)accessToken
+-(BOOL)injectSessionAccessToken:(NSString * _Nonnull)accessToken
 {
     [self logout];
     self.token = [[SparkAccessToken alloc] initWithToken:accessToken];
+    return (self.token) ? YES : NO;
+}
+
+-(BOOL)injectSessionAccessToken:(NSString *)accessToken withExpiryDate:(NSDate *)expiryDate
+{
+    [self logout];
+    self.token = [[SparkAccessToken alloc] initWithToken:accessToken andExpiryDate:expiryDate];
+    return (self.token) ? YES : NO;
+}
+
+-(BOOL)injectSessionAccessToken:(NSString *)accessToken withExpiryDate:(NSDate *)expiryDate andRefreshToken:(nonnull NSString *)refreshToken
+{
+    [self logout];
+    self.token = [[SparkAccessToken alloc] initWithToken:accessToken withExpiryDate:expiryDate withRefreshToken:refreshToken];
+    return (self.token) ? YES : NO;
+
 }
 
 -(nullable NSString *)loggedInUsername
@@ -120,6 +136,11 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 }
 
 -(BOOL)isLoggedIn
+{
+    return (self.user.user != nil);
+}
+
+-(BOOL)isAuthenticated
 {
     return (self.token.accessToken != nil);
 }

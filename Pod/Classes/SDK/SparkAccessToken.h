@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(nullable instancetype)initWithSavedSession;
 
--(instancetype)init __attribute__((unavailable("Must use initWithNewSession: or initWithSavedSession:")));
+-(instancetype)init __attribute__((unavailable("Must use initWithNewSession: / initWithSavedSession: or one of the initWithToken initializers")));
 
 /**
  *  Remove access token session data from keychain
