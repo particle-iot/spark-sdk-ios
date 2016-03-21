@@ -78,6 +78,7 @@ NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
         
         self.accessToken = token;
         self.expiryDate = [NSDate distantFuture];
+        self.refreshToken = nil;
 
         [self storeSessionInKeychainAndSetExpiryTimer];
         
@@ -121,6 +122,8 @@ NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
         
         self.expiryDate = expiryDate;
         self.accessToken = token;
+        self.refreshToken = nil;
+
         
         [self storeSessionInKeychainAndSetExpiryTimer];
         return self;
@@ -181,7 +184,9 @@ NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
         if (accessTokenDict)
         {
             self.accessToken = accessTokenDict[kSparkAccessTokenStringKey];
-            self.expiryDate = accessTokenDict[kSparkAccessTokenExpiryDateKey];
+            if ([accessTokenDict objectForKey:kSparkAccessTokenExpiryDateKey]) {
+                self.expiryDate = accessTokenDict[kSparkAccessTokenExpiryDateKey];
+            }
             if ([accessTokenDict objectForKey:kSparkRefreshTokenStringKey]) {
                 self.refreshToken = accessTokenDict[kSparkRefreshTokenStringKey];
             } else {
@@ -210,6 +215,9 @@ NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
 -(nullable NSString *)accessToken
 {
     // always return only a non-expired access token
+    if (!self.expiryDate)
+        return _accessToken;
+    
     NSTimeInterval ti = [self.expiryDate timeIntervalSinceNow];
     if (ti < ACCESS_TOKEN_EXPIRY_MARGIN)
         return nil;

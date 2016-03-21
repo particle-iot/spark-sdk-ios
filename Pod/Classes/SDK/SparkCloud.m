@@ -105,21 +105,30 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 {
     [self logout];
     self.token = [[SparkAccessToken alloc] initWithToken:accessToken];
-    return (self.token) ? YES : NO;
+    if (self.token) {
+        self.token.delegate = self;
+        return YES;
+    } else return NO;
 }
 
 -(BOOL)injectSessionAccessToken:(NSString *)accessToken withExpiryDate:(NSDate *)expiryDate
 {
     [self logout];
     self.token = [[SparkAccessToken alloc] initWithToken:accessToken andExpiryDate:expiryDate];
-    return (self.token) ? YES : NO;
+    if (self.token) {
+        self.token.delegate = self;
+        return YES;
+    } else return NO;
 }
 
 -(BOOL)injectSessionAccessToken:(NSString *)accessToken withExpiryDate:(NSDate *)expiryDate andRefreshToken:(nonnull NSString *)refreshToken
 {
     [self logout];
     self.token = [[SparkAccessToken alloc] initWithToken:accessToken withExpiryDate:expiryDate withRefreshToken:refreshToken];
-    return (self.token) ? YES : NO;
+    if (self.token) {
+        self.token.delegate = self;
+        return YES;
+    } else return NO;
 
 }
 
@@ -161,14 +170,50 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 {
     // handle auto-renewal of expired access tokens by internal timer event
     // TODO: fix that to do it using a refresh token and not save the user password!
-    if (self.user)
-    {
+    if (self.token.refreshToken) {
+        [self refreshToken:self.token.refreshToken];
+    } else if (self.user) {
         [self loginWithUser:self.user.user password:self.user.password completion:nil];
     }
-    else
-    {
-        self.token = nil;
+    else {
+        [self logout];
     }
+}
+
+-(void)refreshToken:(NSString *)refreshToken
+{
+    NSLog(@"Refreshing session...");
+    // non default params
+    NSDictionary *params = @{
+                             @"grant_type": @"refresh_token",
+                             @"refresh_token": refreshToken
+                             };
+    
+    [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.OAuthClientId password:self.OAuthClientSecret];
+    // OAuth login
+    [self.manager POST:@"oauth/token" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSDictionary *responseDict = responseObject;
+        
+        self.token = [[SparkAccessToken alloc] initWithNewSession:responseDict];
+        if (self.token) // login was successful
+        {
+            NSLog(@"New session created using refresh token");
+            self.token.delegate = self;
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+        
+        NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+        if (errorData)
+        {
+            NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+            NSLog(@"! refreshToken %@ Failed (status code %d): %@", task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
+        }
+    }];
+    
+    [self.manager.requestSerializer clearAuthorizationHeader];
+
 }
 
 

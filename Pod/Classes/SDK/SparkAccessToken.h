@@ -38,6 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, readonly) NSString *accessToken;
 
 /**
+ *  Refresh token string to be used when refreshing an expired token
+ */
+@property (nonatomic, strong, nullable, readonly) NSString *refreshToken;
+
+/**
  *  Delegate to receive didExpireAt method call whenever a token is detected as expired
  */
 @property (nonatomic, nullable, weak) id<SparkAccessTokenDelegate> delegate;

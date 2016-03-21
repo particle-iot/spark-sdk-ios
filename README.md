@@ -26,7 +26,7 @@ Code currently refers to `SparkCloud` and `SparkDevice`, this will soon be repla
 
 This SDK is still under development and is currently released as Beta. Although tested, bugs and issues may be present. Some code might require cleanup. In addition, until version 1.0 is released, we cannot guarantee that API calls will not break from one Cloud SDK version to the next. Be sure to consult the [Change Log](https://github.com/spark/spark-sdk-ios/blob/master/CHANGELOG.md) for any breaking changes / additions to the SDK.
 
-**Major/breaking changes in v0.4.0 notice**
+**Major/breaking changes in v0.4 notice**
 
 If you're new to Particle iOS SDK feel free to skip this notice, if you're upgrading please read this section thoroughly.
 Some major and breaking changes have been incorporated into release v0.4 of the Particle iOS SDK, here's the list:
