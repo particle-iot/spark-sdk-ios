@@ -1,5 +1,5 @@
 //
-//  SparkAccessToken.h
+//  SparkSession.h
 //  Particle iOS Cloud SDK
 //
 //  Created by Ido Kleinman
@@ -21,21 +21,26 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SparkAccessToken;
+@class SparkSession;
 
-@protocol SparkAccessTokenDelegate <NSObject>
+@protocol SparkSessionDelegate <NSObject>
 
 @required
--(void)sparkAccessToken:(SparkAccessToken *)accessToken didExpireAt:(NSDate *)date;
+-(void)SparkSession:(SparkSession *)session didExpireAt:(NSDate *)date;
 
 @end
 
-@interface SparkAccessToken : NSObject
+@interface SparkSession : NSObject
 
 /**
  *  Access token string to be used when calling cloud API
  */
 @property (nonatomic, strong, nullable, readonly) NSString *accessToken;
+
+/**
+ *  Access token string to be used when calling cloud API
+ */
+@property (nonatomic, strong, nullable, readonly) NSString *username;
 
 /**
  *  Refresh token string to be used when refreshing an expired token
@@ -45,26 +50,26 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Delegate to receive didExpireAt method call whenever a token is detected as expired
  */
-@property (nonatomic, nullable, weak) id<SparkAccessTokenDelegate> delegate;
+@property (nonatomic, nullable, weak) id<SparkSessionDelegate> delegate;
 
 /**
- *  Initialze SparkAccessToken class with new session
+ *  Initialze SparkSession class with new session
  *
  *  @param loginResponseDict response object from Spark cloud login deserialized as NSDictionary
  *
- *  @return New SparkAccessToken instance
+ *  @return New SparkSession instance
  */
 -(nullable instancetype)initWithNewSession:(NSDictionary *)loginResponseDict;
 
-// For two Legged Auth you can init SparkAccessToken with access token only/with exact expiry date/with refresh token:
+// For two Legged Auth you can init SparkSession with access token only/with exact expiry date/with refresh token:
 -(nullable instancetype)initWithToken:(NSString *)token;
 -(nullable instancetype)initWithToken:(NSString *)token andExpiryDate:(NSDate *)expiryDate;
 -(nullable instancetype)initWithToken:(NSString *)token withExpiryDate:(NSDate *)expiryDate withRefreshToken:(NSString *)refreshToken;
 
 /**
- *  Initialize SparkAccessToken from existing session stored in keychain
+ *  Initialize SparkSession from existing session stored in keychain
  *
- *  @return A SparkAccessToken instance in case session is stored in keychain and token has not expired, nil if not
+ *  @return A SparkSession instance in case session is stored in keychain and token has not expired, nil if not
  */
 -(nullable instancetype)initWithSavedSession;
 

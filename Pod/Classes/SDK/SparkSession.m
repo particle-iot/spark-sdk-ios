@@ -1,37 +1,39 @@
 //
-//  SparkAccessToken.m
-//  teacup-ios-app
+//  SparkSession.m
+//  Particle iOS Cloud SDK
 //
-//  Created by Ido Kleinman on 1/5/15.
-//  Copyright (c) 2015 spark. All rights reserved.
+//  Created by Ido Kleinman.
+//  Copyright (c) 2015-6 Particle. All rights reserved.
 //
 
-#import "SparkAccessToken.h"
+#import "SparkSession.h"
 #import "KeychainItemWrapper.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import "SparkCloud.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString *const kSparkAccessTokenKeychainEntry = @"io.spark.api.Keychain.AccessToken";
-NSString *const kSparkAccessTokenExpiryDateKey = @"kSparkAccessTokenExpiryDateKey";
-NSString *const kSparkAccessTokenStringKey = @"kSparkAccessTokenStringKey";
-NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
+NSString *const kSparkSessionKeychainEntry = @"io.spark.api.Keychain.AccessToken";
+NSString *const kSparkSessionExpiryDateKey = @"kSparkSessionExpiryDateKey";
+NSString *const kSparkSessionAccessTokenStringKey = @"kSparkSessionAccessTokenStringKey";
+NSString *const kSparkSessionRefreshTokenStringKey = @"kSparkSessionRefreshTokenStringKey";
+NSString *const kSparkSessionUsernameStringKey = @"kSparkSessionUsernameStringKey";
 
 
 // how many seconds before expiry date will a token be considered expired (0 = expire on expiry date, 24*60*60 = expire a day before)
 #define ACCESS_TOKEN_EXPIRY_MARGIN  0
 
-@interface SparkAccessToken()
+@interface SparkSession()
 
 @property (nonatomic, strong) NSDate *expiryDate;
 @property (nonatomic, strong) NSTimer *expiryTimer;
 @property (nonatomic, strong, readwrite) NSString *accessToken;
 @property (nonatomic, nullable, strong, readwrite) NSString *refreshToken;
+@property (nonatomic, strong, nullable, readwrite) NSString *username;
 
 @end
 
-@implementation SparkAccessToken
+@implementation SparkSession
 
 -(nullable instancetype)initWithNewSession:(NSDictionary *)loginResponseDict
 {
@@ -54,6 +56,8 @@ NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
         self.refreshToken = loginResponseDict[@"refresh_token"];
         if (!self.refreshToken)
             return nil;
+        
+        self.username = loginResponseDict[@"username"]; //injected to dict by SDK
         
         // verify response object type
         if (![loginResponseDict[@"token_type"] isEqualToString:@"bearer"])
@@ -96,13 +100,15 @@ NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
     }
     
     NSMutableDictionary *accessTokenDict = [NSMutableDictionary new];
-    accessTokenDict[kSparkAccessTokenStringKey] = self.accessToken;
-    accessTokenDict[kSparkAccessTokenExpiryDateKey] = self.expiryDate;
+    accessTokenDict[kSparkSessionAccessTokenStringKey] = self.accessToken;
+    accessTokenDict[kSparkSessionExpiryDateKey] = self.expiryDate;
     if (self.refreshToken)
-        accessTokenDict[kSparkRefreshTokenStringKey] = self.refreshToken;
+        accessTokenDict[kSparkSessionRefreshTokenStringKey] = self.refreshToken;
+    if (self.username)
+        accessTokenDict[kSparkSessionUsernameStringKey] = self.username;
     
     NSData *keychainData = [NSKeyedArchiver archivedDataWithRootObject:accessTokenDict];
-    KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkAccessTokenKeychainEntry accessGroup:nil];
+    KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkSessionKeychainEntry accessGroup:nil];
     [keychainTokenItem setObject:keychainData forKey:(__bridge id)(kSecValueData)];
 
 }
@@ -123,7 +129,7 @@ NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
         self.expiryDate = expiryDate;
         self.accessToken = token;
         self.refreshToken = nil;
-
+        self.username = nil;
         
         [self storeSessionInKeychainAndSetExpiryTimer];
         return self;
@@ -149,6 +155,7 @@ NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
         self.expiryDate = expiryDate;
         self.accessToken = token;
         self.refreshToken = refreshToken;
+        self.username = nil;
         
         [self storeSessionInKeychainAndSetExpiryTimer];
         return self;
@@ -163,7 +170,7 @@ NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
     self = [super init];
     if (self)
     {
-        KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkAccessTokenKeychainEntry accessGroup:nil];
+        KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkSessionKeychainEntry accessGroup:nil];
         NSData *keychainData = [keychainTokenItem objectForKey:(__bridge id)(kSecValueData)];
         NSDictionary *accessTokenDict;
         if ((keychainData) && (keychainData.length > 0))
@@ -183,15 +190,21 @@ NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
         
         if (accessTokenDict)
         {
-            self.accessToken = accessTokenDict[kSparkAccessTokenStringKey];
-            if ([accessTokenDict objectForKey:kSparkAccessTokenExpiryDateKey]) {
-                self.expiryDate = accessTokenDict[kSparkAccessTokenExpiryDateKey];
+            self.accessToken = accessTokenDict[kSparkSessionAccessTokenStringKey];
+            if ([accessTokenDict objectForKey:kSparkSessionExpiryDateKey]) {
+                self.expiryDate = accessTokenDict[kSparkSessionExpiryDateKey];
             }
-            if ([accessTokenDict objectForKey:kSparkRefreshTokenStringKey]) {
-                self.refreshToken = accessTokenDict[kSparkRefreshTokenStringKey];
+            if ([accessTokenDict objectForKey:kSparkSessionRefreshTokenStringKey]) {
+                self.refreshToken = accessTokenDict[kSparkSessionRefreshTokenStringKey];
             } else {
                 self.refreshToken = nil;
             }
+            if ([accessTokenDict objectForKey:kSparkSessionUsernameStringKey]) {
+                self.username = accessTokenDict[kSparkSessionUsernameStringKey];
+            } else {
+                self.username = nil;
+            }
+            
         }
         else
             return nil;
@@ -228,15 +241,18 @@ NSString *const kSparkRefreshTokenStringKey = @"kSparkRefreshTokenStringKey";
 
 -(void)removeSession
 {
-    KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkAccessTokenKeychainEntry accessGroup:nil];
+    KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkSessionKeychainEntry accessGroup:nil];
     [keychainTokenItem resetKeychainItem];
     self.accessToken = nil;
+    self.username = nil;
+    self.refreshToken = nil;
+    self.expiryDate = [NSDate distantFuture];
 }
 
 -(void)accessTokenExpired:(NSTimer *)timer
 {
     [self.expiryTimer invalidate];
-    [self.delegate sparkAccessToken:self didExpireAt:self.expiryDate];
+    [self.delegate SparkSession:self didExpireAt:self.expiryDate];
 }
 
 -(void)dealloc
