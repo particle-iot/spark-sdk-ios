@@ -17,6 +17,6 @@ FOUNDATION_EXPORT const unsigned char ParticleSDKVersionString[];
 #import <ParticleSDK/SparkCloud.h>
 #import <ParticleSDK/SparkDevice.h>
 #import <ParticleSDK/SparkEvent.h>
-#import <ParticleSDK/SparkAccessToken.h>
-#import <ParticleSDK/SparkUser.h>
+#import <ParticleSDK/SparkSession.h>
+
 
