@@ -19,7 +19,7 @@ iOS Cloud SDK is implemented as an open-source Cocoapod static library and also 
 
 **Rebranding notice**
 
-Spark has been recently rebranded as Particle.
+Spark has been rebranded as Particle.
 Code currently refers to `SparkCloud` and `SparkDevice`, this will soon be replaced with `ParticleCloud` and `ParticleDevice`. A new Cocoapod library will be published and current one will be deprecated and point to the new one. This should not bother or affect your code.
 
 **Beta notice**
@@ -49,7 +49,12 @@ AFNetworking is a networking library for iOS and Mac OS X. It's built on top of 
 The Particle Cloud SDK has been relying on this useful library since the beginning, version 3.0 was released not long ago that contained some breaking changes, the main change from 2.x is that `NSURLConnectionOperation` was removed all together and `NSURLSessionDataTask` was introduced instead - it is used to invoke network access. The major change in Particle iOS Cloud SDK is that now every SDK function will return the [`NSURLSessionDataTask`](https://developer.apple.com/library/prerelease/ios/documentation/Foundation/Reference/NSURLSessionDataTask_class/index.html) object that can be queried by the app developer for further information about the status of the network operation. Refer to the Apple docs link above for further information on how to use it.
 Code changes are optional and if you've been ignoring the return value (since it was `void`) of the SDK functions before you can keep doing so, alternatively you can now make use of the `NSURLSessionDataTask` object as described.
 
-#### 4) Electron support
+#### 4) Two legged auth support / better session handling
+
+If you use your own backend to authenticate users in your app - you can now inject the Particle access token your backend gets from Particle cloud easily using one of the new `injectSessionAccessToken` functions exposed from `SparkCloud` singleton class.
+In turn the `.isLoggedIn` property has been deprcated in favor of `.isAuthenticated` - which checks for the existence of an active access token instead of a username. Additionally the SDK will now automatically renew an expired session if a refresh token exists. As increased security measure the Cloud SDK will no longer save user's password in the Keychain.
+
+#### 5) Electron support
 
 The [Electron](https://store.particle.io/#electron), our cellular development kit for creating connected products that work anywhere has been released!
 Particle iOS Cloud SDK supports it fully, no code changes required!
@@ -69,7 +74,7 @@ Cloud SDK usage involves two basic classes: first is `SparkCloud` which is a sin
 Here are few examples for the most common use cases to get your started:
 
 #### Logging in to Particle cloud
-You don't need to worry about access tokens, SDK takes care of that for you
+You don't need to worry about access tokens and session expiry, SDK takes care of that for you
 
 **Objective-C**
 ```objc
@@ -89,6 +94,24 @@ SparkCloud.sharedInstance().loginWithUser("username@email.com", password: "userp
     else {
         println("Logged in")
     }
+}
+```
+
+#### Injecting a session access token (app utilizes two legged authentication)
+
+**Objective-C**
+```objc
+if ([[SparkCloud sharedInstance] injectSessionAccessToken:@"9bb9f7433940e7c808b191c28cd6738f8d12986c"])
+    NSLog(@"Session is active!");
+else
+    NSLog(@"Bad access token provided");
+```
+**Swift**
+```swift
+if SparkCloud.sharedInstance().injectSessionAccessToken("9bb9f7433940e7c808b191c28cd6738f8d12986c") {
+    println("Session is active")
+} else {
+    println("Bad access token provided")
 }
 ```
 
