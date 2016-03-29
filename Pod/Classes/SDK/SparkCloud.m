@@ -744,7 +744,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 -(NSURLSessionDataTask *)requestPasswordResetForUser:(NSString *)email
                                           completion:(nullable SparkCompletionBlock)completion
 {
-    NSDictionary *params = @{@"email": email};
+    NSDictionary *params = @{@"username": email};
     NSString *urlPath = [NSString stringWithFormat:@"/v1/user/password-reset"];
     
     NSURLSessionDataTask *task = [self.manager POST:urlPath parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
