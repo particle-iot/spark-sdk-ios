@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ---
+## [0.4.1](https://github.com/spark/spark-sdk-ios/releases/tag/0.4.1) (2016-03-29)
+
+* Fix a bug with password reset API endpoint
+
+* Added support for injecting Session access tokens for two legged auth
+
+* SDK no longer saves user password in keychain 
+
+* SDK will now try to auto refresh expired access token using the OAuth "refresh token"
+
+* Merged the SparkUser and SparkAccessToken classes into one SparkSession class
+
 ## [0.4.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.4.0) (2016-03-02)
 
 * Nullability support for even better Swift interoperability. No more implicitly unwrapped arguments in Swift from SDK callbacks!
