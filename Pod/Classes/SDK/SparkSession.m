@@ -27,7 +27,7 @@ NSString *const kSparkSessionUsernameStringKey = @"kSparkSessionUsernameStringKe
 
 @property (nonatomic, strong) NSDate *expiryDate;
 @property (nonatomic, strong) NSTimer *expiryTimer;
-@property (nonatomic, strong, readwrite) NSString *accessToken;
+@property (nonatomic, strong, nullable, readwrite) NSString *accessToken;
 @property (nonatomic, nullable, strong, readwrite) NSString *refreshToken;
 @property (nonatomic, strong, nullable, readwrite) NSString *username;
 
