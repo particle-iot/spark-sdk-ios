@@ -8,6 +8,7 @@
 
 #import "SparkDevice.h"
 #import "SparkCloud.h"
+#import "SparkEvent.h"
 #import <AFNetworking/AFNetworking.h>
 #import <objc/runtime.h>
 

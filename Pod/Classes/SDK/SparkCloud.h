@@ -19,7 +19,6 @@
 
 #import <Foundation/Foundation.h>
 #import "SparkDevice.h"
-#import "SparkEvent.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
