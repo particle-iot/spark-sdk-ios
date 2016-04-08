@@ -18,6 +18,7 @@
 //  limitations under the License.
 
 #import <Foundation/Foundation.h>
+#import "SparkEvent.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,9 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
  * with a nullable error object that will be nil if the task was successful.
  */
 typedef void (^SparkCompletionBlock)(NSError * _Nullable error);
-
-@class SparkEvent;
-typedef void (^SparkEventHandler)(SparkEvent * _Nullable event, NSError * _Nullable error);
 
 typedef NS_ENUM(NSInteger, SparkDeviceType) {
     SparkDeviceTypeCore=0,

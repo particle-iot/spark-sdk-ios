@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5014ED5E1CB73A2400A1063E /* SparkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650A11C8542B30065F02F /* SparkEvent.h */; };
+		5014ED5E1CB73A2400A1063E /* SparkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650A11C8542B30065F02F /* SparkEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5038C5AD1CA220C50084D255 /* SparkSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5038C5AB1CA220C50084D255 /* SparkSession.m */; };
 		5038C5AE1CA220C50084D255 /* SparkSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5038C5AC1CA220C50084D255 /* SparkSession.h */; };
 		50F6507F1C85423D0065F02F /* ParticleSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6507E1C85423D0065F02F /* ParticleSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
