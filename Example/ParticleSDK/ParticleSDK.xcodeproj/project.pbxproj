@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5014ED5E1CB73A2400A1063E /* SparkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650A11C8542B30065F02F /* SparkEvent.h */; };
 		5038C5AD1CA220C50084D255 /* SparkSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5038C5AB1CA220C50084D255 /* SparkSession.m */; };
 		5038C5AE1CA220C50084D255 /* SparkSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5038C5AC1CA220C50084D255 /* SparkSession.h */; };
 		50F6507F1C85423D0065F02F /* ParticleSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6507E1C85423D0065F02F /* ParticleSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -186,8 +187,8 @@
 		50F650A51C8542B30065F02F /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				5038C5AB1CA220C50084D255 /* SparkSession.m */,
 				5038C5AC1CA220C50084D255 /* SparkSession.h */,
+				5038C5AB1CA220C50084D255 /* SparkSession.m */,
 				50F6509D1C8542B30065F02F /* SparkCloud.h */,
 				50F6509E1C8542B30065F02F /* SparkCloud.m */,
 				50F6509F1C8542B30065F02F /* SparkDevice.h */,
@@ -221,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50F6507F1C85423D0065F02F /* ParticleSDK.h in Headers */,
+				5014ED5E1CB73A2400A1063E /* SparkEvent.h in Headers */,
 				50F650A71C8542B30065F02F /* EventSource.h in Headers */,
 				50F650AD1C8542B30065F02F /* SparkCloud.h in Headers */,
 				5038C5AE1CA220C50084D255 /* SparkSession.h in Headers */,
@@ -275,7 +277,7 @@
 		50F650721C85423D0065F02F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Particle;
 				TargetAttributes = {
 					50F6507A1C85423D0065F02F = {
@@ -509,7 +511,6 @@
 		50F650901C85423D0065F02F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -529,7 +530,6 @@
 		50F650911C85423D0065F02F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
