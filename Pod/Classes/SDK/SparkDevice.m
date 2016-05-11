@@ -22,13 +22,21 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL connected; // might be impossible
 @property (strong, nonatomic) NSArray *functions;
 @property (strong, nonatomic) NSDictionary *variables;
-@property (strong, nonatomic) NSString *version;
+@property (strong, nonatomic) NSString *systemFirmwareVersion;
 //@property (nonatomic) SparkDeviceType type;
 @property (nonatomic) BOOL requiresUpdate;
 @property (nonatomic, strong) AFHTTPSessionManager *manager;
 @property (atomic) NSInteger flashingTimeLeft;
 @property (nonatomic, strong) NSTimer *flashingTimer;
 @property (nonatomic, strong) NSURL *baseURL;
+
+@property (strong, nonatomic, nullable) NSString *lastIPAdress;
+@property (strong, nonatomic, nullable) NSString *lastIccid; // Electron only
+@property (strong, nonatomic, nullable) NSString *imei; // Electron only
+@property (nonatomic) NSUInteger platformId;
+@property (nonatomic) NSUInteger productId;
+@property (strong, nonatomic, nullable) NSString *status;
+
 
 @end
 
@@ -123,15 +131,14 @@ NS_ASSUME_NONNULL_BEGIN
             _lastHeard = [formatter dateFromString:dateString];
         }
 
-        /*
-         // Inactive for now // TODO: re-enable when we can distinguish devices in the cloud
-        if (params[@"cc3000_patch_version"]) // check for other version indication strings - ask doc
-        {
-            self.type = SparkDeviceTypeCore;
-            self.version = (params[@"cc3000_patch_version"]);
+        /// WIP
+        if (params[@"cc3000_patch_version"]) { // Core only
+            self.systemFirmwareVersion = (params[@"cc3000_patch_version"]);
+        } else if (params[@"current_build_target"]) { // Electron only
+            self.systemFirmwareVersion = params[@"current_build_target"];
         }
-         */
         
+            
         if (params[@"device_needs_update"])
         {
             self.requiresUpdate = YES;
@@ -290,6 +297,30 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 
+-(NSURLSessionDataTask *)signal:(BOOL)enable completion:(nullable SparkCompletionBlock)completion
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
+    
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    params[@"signal"] = enable ? @"1" : @"0";
+    
+    [self setAuthHeaderWithAccessToken];
+    
+    NSURLSessionDataTask *task = [self.manager PUT:[url description] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (completion)
+        {
+            completion(nil);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (completion) // TODO: better erroring handling
+        {
+            completion(error);
+        }
+    }];
+    
+    return task;
+}
+
 
 -(NSURLSessionDataTask *)unclaim:(nullable SparkCompletionBlock)completion
 {
@@ -389,7 +420,7 @@ NS_ASSUME_NONNULL_BEGIN
                       (self.connected) ? @"true" : @"false",
                       self.variables,
                       self.functions,
-                      self.version,
+                      self.systemFirmwareVersion,
                       (self.requiresUpdate) ? @"true" : @"false",
                       self.lastApp,
                       self.lastHeard];

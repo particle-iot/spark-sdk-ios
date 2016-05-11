@@ -68,11 +68,18 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 
 @property (nonatomic) BOOL isFlashing;
 
+// new properties starting SDK v0.5
+@property (strong, nonatomic, nullable, readonly) NSString *lastIPAdress;
+@property (strong, nonatomic, nullable, readonly) NSString *lastIccid; // Electron only
+@property (strong, nonatomic, nullable, readonly) NSString *imei;
+@property (nonatomic, readonly) NSUInteger platformId;
+@property (nonatomic, readonly) NSUInteger productId;
+@property (strong, nonatomic, nullable, readonly) NSString *status;
 
 /**
  *  Device firmware version string
  */
-@property (strong, nonatomic, readonly) NSString *version;
+@property (strong, nonatomic, readonly) NSString *systemFirmwareVersion;
 @property (nonatomic, readonly) BOOL requiresUpdate;
 @property (nonatomic, readonly) SparkDeviceType type; // inactive for now
 
@@ -98,10 +105,14 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
                         withArguments:(nullable NSArray *)args
                            completion:(nullable void (^)(NSNumber * _Nullable result, NSError * _Nullable error))completion;
 
-/*
--(void)addEventHandler:(NSString *)eventName handler:(void(^)(void))handler;
--(void)removeEventHandler:(NSString *)eventName;
+/**
+ *  Signal device
+ *  Will make the onboard LED "shout rainbows" for easy physical identification of a device
+ *
+ *  @param enale - YES to start or NO to stop LED signal.
+ *
  */
+-(NSURLSessionDataTask *)signal:(BOOL)enable completion:(nullable SparkCompletionBlock)completion;
 
 
 /**
