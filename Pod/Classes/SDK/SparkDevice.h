@@ -29,9 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^SparkCompletionBlock)(NSError * _Nullable error);
 
 typedef NS_ENUM(NSInteger, SparkDeviceType) {
+    SparkDeviceTypeUnknown=-1,
     SparkDeviceTypeCore=0,
-    SparkDeviceTypePhoton=6,
+    SparkDeviceTypePhoton=6, // or P0
+    SparkDeviceTypeP1=8,
     SparkDeviceTypeElectron=10,
+    SparkDeviceTypeRedBearDuo=88,
+    SparkDeviceTypeBluz=103,
+    SparkDeviceTypeDigistumpOak=82,
 };
 
 @interface SparkDevice : NSObject

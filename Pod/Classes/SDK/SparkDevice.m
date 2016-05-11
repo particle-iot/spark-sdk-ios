@@ -58,17 +58,52 @@ NS_ASSUME_NONNULL_BEGIN
         
         _id = params[@"id"];
 
-        _type = SparkDeviceTypePhoton;
+        _type = SparkDeviceTypeUnknown;
+        if ([params[@"platform_id"] isKindOfClass:[NSNumber class]])
+        {
+            self.platformId = [params[@"platform_id"] intValue];
+            
+            if ([params[@"platform_id"] intValue] == SparkDeviceTypeCore)
+                _type = SparkDeviceTypeCore;
+
+            if ([params[@"platform_id"] intValue] == SparkDeviceTypeElectron)
+                _type = SparkDeviceTypeElectron;
+
+            if ([params[@"platform_id"] intValue] == SparkDeviceTypePhoton) // or P0 - same id
+                _type = SparkDeviceTypePhoton;
+            
+            if ([params[@"platform_id"] intValue] == SparkDeviceTypeP1)
+                _type = SparkDeviceTypeP1;
+
+            if ([params[@"platform_id"] intValue] == SparkDeviceTypeRedBearDuo)
+                _type = SparkDeviceTypeRedBearDuo;
+
+            if ([params[@"platform_id"] intValue] == SparkDeviceTypeBluz)
+                _type = SparkDeviceTypeBluz;
+
+            if ([params[@"platform_id"] intValue] == SparkDeviceTypeDigistumpOak)
+                _type = SparkDeviceTypeDigistumpOak;
+        }
+
+        
         if ([params[@"product_id"] isKindOfClass:[NSNumber class]])
         {
-            if ([params[@"product_id"] intValue] == SparkDeviceTypeCore)
-            {
-                _type = SparkDeviceTypeCore;
-            }
-            if ([params[@"product_id"] intValue] == SparkDeviceTypeElectron)
-            {
-                _type = SparkDeviceTypeElectron;
-            }
+            self.productId = [params[@"product_id"] intValue];
+        }
+        
+        if ((params[@"last_iccid"]) && ([params[@"last_iccid"] isKindOfClass:[NSString class]]))
+        {
+            self.lastIccid = params[@"last_iccid"];
+        }
+
+        if ((params[@"imei"]) && ([params[@"imei"] isKindOfClass:[NSString class]]))
+        {
+            self.imei = params[@"imei"];
+        }
+
+        if ((params[@"status"]) && ([params[@"status"] isKindOfClass:[NSString class]]))
+        {
+            self.status = params[@"status"];
         }
 
         
