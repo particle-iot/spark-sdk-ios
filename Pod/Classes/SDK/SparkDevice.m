@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL connected; // might be impossible
 @property (strong, nonatomic) NSArray *functions;
 @property (strong, nonatomic) NSDictionary *variables;
-@property (strong, nonatomic) NSString *systemFirmwareVersion;
+@property (strong, nonatomic) NSString *version;
 //@property (nonatomic) SparkDeviceType type;
 @property (nonatomic) BOOL requiresUpdate;
 @property (nonatomic, strong) AFHTTPSessionManager *manager;
@@ -132,11 +132,13 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         /// WIP
+        /*
         if (params[@"cc3000_patch_version"]) { // Core only
             self.systemFirmwareVersion = (params[@"cc3000_patch_version"]);
         } else if (params[@"current_build_target"]) { // Electron only
             self.systemFirmwareVersion = params[@"current_build_target"];
         }
+         */
         
             
         if (params[@"device_needs_update"])
@@ -420,7 +422,7 @@ NS_ASSUME_NONNULL_BEGIN
                       (self.connected) ? @"true" : @"false",
                       self.variables,
                       self.functions,
-                      self.systemFirmwareVersion,
+                      self.version,
                       (self.requiresUpdate) ? @"true" : @"false",
                       self.lastApp,
                       self.lastHeard];

@@ -79,9 +79,9 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 /**
  *  Device firmware version string
  */
-@property (strong, nonatomic, readonly) NSString *systemFirmwareVersion;
+@property (strong, nonatomic, readonly) NSString *version; // inactive
 @property (nonatomic, readonly) BOOL requiresUpdate;
-@property (nonatomic, readonly) SparkDeviceType type; // inactive for now
+@property (nonatomic, readonly) SparkDeviceType type;
 
 -(nullable instancetype)initWithParams:(NSDictionary *)params NS_DESIGNATED_INITIALIZER;
 -(instancetype)init __attribute__((unavailable("Must use initWithParams:")));
