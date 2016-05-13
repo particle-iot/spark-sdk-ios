@@ -115,6 +115,11 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         
+        if ([params[@"last_ip_address"] isKindOfClass:[NSString class]])
+        {
+            _lastIPAdress = params[@"last_ip_address"];
+        }
+        
         if ([params[@"last_app"] isKindOfClass:[NSString class]])
         {
             _lastApp = params[@"last_app"];
