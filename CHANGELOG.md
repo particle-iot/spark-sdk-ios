@@ -5,13 +5,15 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 ---
 ## [0.5.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.0) (2016-03-29)
 
-* Added more device types (P1, RedBear, Bluz, etc)
+* new SparkDevice API function: getCurrentDataUsage for Electron devices 
+
+* Added more supported device types (P1, RedBear, Bluz, etc)
 
 * Added support for additional SparkDevice properties (ICCID, IMEI, status, platformId, productId)
 
 * Determine device type (family) through platform_id
 
-* Signal API command to SparkDevice (LED shouting rainbows)
+* new SparkDevice API function: Signal device (make on board LED shout rainbows)
 
 ## [0.4.1](https://github.com/spark/spark-sdk-ios/releases/tag/0.4.1) (2016-03-29)
 
