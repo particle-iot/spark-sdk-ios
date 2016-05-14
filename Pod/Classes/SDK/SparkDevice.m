@@ -575,6 +575,50 @@ NS_ASSUME_NONNULL_BEGIN
     [[SparkCloud sharedInstance] unsubscribeFromEventWithID:eventListenerID];
 }
 
+-(NSURLSessionDataTask *)getCurrentDataUsage:(nullable void(^)(float dataUsed, NSError* _Nullable error))completion
+{
+    if (self.type != SparkDeviceTypeElectron) {
+        if (completion)
+        {
+            NSError *err = [self makeErrorWithDescription:@"Command supported only for Electron device" code:4000];
+            completion(-1,err);
+        }
+        return nil;
+    }
+    
+    //curl https://api.particle.io/v1/sims/8934076500002586576/data_usage\?access_token\=5451a5d6c6c54f6b20e3a109ee764596dc38a520
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/sims/%@/data_usage", self.lastIccid]];
+    
+    [self setAuthHeaderWithAccessToken];
+    
+    NSURLSessionDataTask *task = [self.manager GET:[url description] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+                                  {
+                                      if (completion)
+                                      {
+                                          NSArray *responseArr = responseObject;
+                                          float maxUsage = 0;
+                                          for (NSDictionary *usageDict in responseArr) {
+                                              if (usageDict[@"mbs_used_cumulative"]) {
+                                                  float usage = [usageDict[@"mbs_used_cumulative"] floatValue];
+                                                  if (usage > maxUsage) {
+                                                      maxUsage = usage;
+                                                  }
+                                              }
+                                          }
+                                          completion(maxUsage, nil);
+                                      }
+                                  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                                  {
+                                      if (completion)
+                                      {
+                                          completion(-1, error);
+                                      }
+                                  }];
+    
+    return task;
+}
+
+
 @end
 
 NS_ASSUME_NONNULL_END

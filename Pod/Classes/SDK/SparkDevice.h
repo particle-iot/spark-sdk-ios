@@ -145,6 +145,14 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 -(NSURLSessionDataTask *)rename:(NSString *)newName completion:(nullable SparkCompletionBlock)completion;
 
 /**
+ *  Retrieve current data usage report (For Electron only)
+ *
+ *  @param completion   Completion block to be called when function completes with the data used in current payment period in (float)MBs. All devices other than Electron will return an error with -1 value
+ */
+-(NSURLSessionDataTask *)getCurrentDataUsage:(nullable void(^)(float dataUsed, NSError* _Nullable error))completion;
+
+
+/**
  *  Flash files to device
  *
  *  @param filesDict    files dictionary in the following format: @{@"filename.bin" : <NSData>, ...} - that is a NSString filename as key and NSData blob as value. More than one file can be flashed. Data is alway binary.
