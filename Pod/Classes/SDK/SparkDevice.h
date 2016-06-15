@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef void (^SparkCompletionBlock)(NSError * _Nullable error);
 
-typedef NS_ENUM(NSInteger, SparkDeviceType) {
+typedef NS_ENUM(NSInteger, SparkDeviceType) NS_SWIFT_NAME(SparkDevice.Type) {
     SparkDeviceTypeUnknown=-1,
     SparkDeviceTypeCore=0,
     SparkDeviceTypePhoton=6, // or P0
@@ -103,7 +103,11 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  */
 -(NSURLSessionDataTask *)callFunction:(NSString *)functionName
                         withArguments:(nullable NSArray *)args
-                           completion:(nullable void (^)(NSNumber * _Nullable result, NSError * _Nullable error))completion;
+                           completion:(nullable void (^)(NSNumber * _Nullable result, NSError * _Nullable error))completion
+  NS_REFINED_FOR_SWIFT; //https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html
+
+// TODO: add Swift unit test - to check the generated Swift interface 
+
 
 /**
  *  Signal device
@@ -112,7 +116,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  *  @param enale - YES to start or NO to stop LED signal.
  *
  */
--(NSURLSessionDataTask *)signal:(BOOL)enable completion:(nullable SparkCompletionBlock)completion;
+-(NSURLSessionDataTask *)signal:(BOOL)enable completion:(nullable SparkCompletionBlock)completion NS_SWIFT_NAME(signal(start:completion:));
 
 
 /**
@@ -122,7 +126,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
  *  @param completion Completion block called when function completes with NSError object in case of an error or nil if success.
  *
  */
--(NSURLSessionDataTask *)refresh:(nullable SparkCompletionBlock)completion;
+-(NSURLSessionDataTask *)refresh:(nullable SparkCompletionBlock)completion NS_SWIFT_NAME(refresh(completion:));
 
 /**
  *  Remove device from current logged in user account

@@ -24,7 +24,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *const kSparkAPIBaseURL;
+extern NSString *const kSparkAPIBaseURL; // import as member SparkCloud.baseURL
 
 @interface SparkCloud : NSObject
 
@@ -35,7 +35,7 @@ extern NSString *const kSparkAPIBaseURL;
 /**
  *  Currently logged in via app - deprecated
  */
-@property (nonatomic, readonly) BOOL isLoggedIn __deprecated_msg("Use isAuthenticated instead");
+@property (nonatomic, readonly) BOOL isLoggedIn __deprecated_msg("Use isAuthenticated instead"); // unavailable/renamed
 /**
  *  Currently authenticated (does a access token exist?)
  */
@@ -49,7 +49,7 @@ extern NSString *const kSparkAPIBaseURL;
 /**
  *  OAuthClientId unique for your app, use 'particle' for development or generate your OAuth creds for production apps (https://docs.particle.io/reference/api/#create-an-oauth-client)
  */
-@property (nonatomic, null_resettable, strong) NSString *OAuthClientId;
+@property (nonatomic, null_resettable, strong) NSString *OAuthClientId; // swift will lower case (check interface)
 /**
  *  OAuthClientSecret unique for your app, use 'particle' for development or generate your OAuth creds for production apps (https://docs.particle.io/reference/api/#create-an-oauth-client)
  */
@@ -60,7 +60,7 @@ extern NSString *const kSparkAPIBaseURL;
  *
  *  @return initialized SparkCloud singleton
  */
-+ (instancetype)sharedInstance;
++ (instancetype)sharedInstance; // Turn to a Swift class property xcode 8 (check the whats new in foundation swift sesion)
 
 #pragma mark User onboarding functions
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param password   Password
  *  @param completion Completion block will be called when login finished, NSError object will be passed in case of an error, nil if success
  */
--(NSURLSessionDataTask *)loginWithUser:(NSString *)user
+-(NSURLSessionDataTask *)loginWithUser:(NSString *)user // Swift: login:user:password:completion
                               password:(NSString *)password
                             completion:(nullable SparkCompletionBlock)completion;
 
