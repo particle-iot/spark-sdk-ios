@@ -894,7 +894,11 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     }
     else
     {
-        endpoint = [NSString stringWithFormat:@"%@/v1/events/%@", self.baseURL, eventNamePrefix];
+        // URL encode name prefix
+        NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet];
+        NSString *encodedEventPrefix = [eventNamePrefix stringByAddingPercentEncodingWithAllowedCharacters:set];
+
+        endpoint = [NSString stringWithFormat:@"%@/v1/events/%@", self.baseURL, encodedEventPrefix];
     }
     
     return [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
@@ -912,7 +916,11 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     }
     else
     {
-        endpoint = [NSString stringWithFormat:@"%@/v1/devices/events/%@", self.baseURL, eventNamePrefix];
+        // URL encode name prefix
+        NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet];
+        NSString *encodedEventPrefix = [eventNamePrefix stringByAddingPercentEncodingWithAllowedCharacters:set];
+       
+        endpoint = [NSString stringWithFormat:@"%@/v1/devices/events/%@", self.baseURL, encodedEventPrefix];
     }
     
     return [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
@@ -930,7 +938,11 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     }
     else
     {
-        endpoint = [NSString stringWithFormat:@"%@/v1/devices/%@/events/%@", self.baseURL, deviceID, eventNamePrefix];
+        // URL encode name prefix
+        NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet];
+        NSString *encodedEventPrefix = [eventNamePrefix stringByAddingPercentEncodingWithAllowedCharacters:set];
+
+        endpoint = [NSString stringWithFormat:@"%@/v1/devices/%@/events/%@", self.baseURL, deviceID, encodedEventPrefix];
     }
     
     return [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
