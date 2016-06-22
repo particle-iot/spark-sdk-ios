@@ -2,17 +2,18 @@
 <img src="http://oi60.tinypic.com/116jd51.jpg" alt="Particle" title="Particle">
 </p>
 # Particle iOS Cloud SDK
-[![Build Status](https://api.travis-ci.org/spark/spark-sdk-ios.svg)](https://travis-ci.org/spark/spark-sdk-ios) [![license](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/spark/spark-sdk-ios/blob/master/LICENSE) [![version](https://img.shields.io/badge/cocoapods-0.4.0-green.svg)](https://github.com/spark/spark-sdk-ios/blob/master/CHANGELOG.md)
+[![Build Status](https://api.travis-ci.org/spark/spark-sdk-ios.svg)](https://travis-ci.org/spark/spark-sdk-ios) [![license](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/spark/spark-sdk-ios/blob/master/LICENSE) [![version](https://img.shields.io/badge/cocoapods-0.5.0-green.svg)](https://github.com/spark/spark-sdk-ios/blob/master/CHANGELOG.md)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Particle iOS Cloud SDK enables iOS apps to interact with Particle-powered connected products via the Particle Cloud. It’s an easy-to-use wrapper for Particle REST API. The Cloud SDK will allow you to:
 
-- Manage user sessions for the Particle Cloud (access tokens, encrypted session management)
+- Manage & inject user sessions for the Particle Cloud (access tokens, encrypted session management)
 - Claim/Unclaim devices for a user account
 - Get a list of instances of user's Particle devices
 - Read variables from devices
 - Invoke functions on devices
-- Publish events from the mobile app and subscribe to events coming from devices *(New!)*
+- Publish events from the mobile app and subscribe to events coming from devices
+- Get data usage information for Electron devices
 
 All cloud operations take place asynchronously and use the well-known completion blocks (closures for swift) design pattern for reporting results allowing you to build beautiful responsive apps for your Particle products and projects.
 iOS Cloud SDK is implemented as an open-source Cocoapod static library and also as Carthage dynamic framework dependancy. See [Installation](#installation) section for more details. It works well for both Objective-C and [Swift](#support-for-swift-projects) projects.
@@ -88,11 +89,11 @@ You don't need to worry about access tokens and session expiry, SDK takes care o
 **Swift**
 ```swift
 SparkCloud.sharedInstance().loginWithUser("username@email.com", password: "userpass") { (error:NSError?) -> Void in
-    if let e=error {
-        println("Wrong credentials or no internet connectivity, please try again")
+    if let _ = error {
+        print("Wrong credentials or no internet connectivity, please try again")
     }
     else {
-        println("Logged in")
+        print("Logged in")
     }
 }
 ```
@@ -109,9 +110,9 @@ else
 **Swift**
 ```swift
 if SparkCloud.sharedInstance().injectSessionAccessToken("9bb9f7433940e7c808b191c28cd6738f8d12986c") {
-    println("Session is active")
+    print("Session is active")
 } else {
-    println("Bad access token provided")
+    print("Bad access token provided")
 }
 ```
 
@@ -138,8 +139,8 @@ __block SparkDevice *myPhoton;
 ```swift
 var myPhoton : SparkDevice?
 SparkCloud.sharedInstance().getDevices { (sparkDevices:[AnyObject]?, error:NSError?) -> Void in
-    if let e = error {
-        println("Check your internet connectivity")
+    if let _ = error {
+        print("Check your internet connectivity")
     }
     else {
         if let devices = sparkDevices as? [SparkDevice] {
@@ -172,12 +173,12 @@ Assuming here that `myPhoton` is an active instance of `SparkDevice` class which
 **Swift**
 ```swift
 myPhoton!.getVariable("temperature", completion: { (result:AnyObject?, error:NSError?) -> Void in
-    if let e=error {
-        println("Failed reading temperature from device")
+    if let _ = error {
+        print("Failed reading temperature from device")
     }
     else {
         if let temp = result as? Float {
-            println("Room temperature is \(temp) degrees")
+            print("Room temperature is \(temp) degrees")
         }
     }
 })
@@ -203,7 +204,7 @@ int64_t bytesToReceive  = task.countOfBytesExpectedToReceive;
 let funcArgs = ["D7",1]
 var task = myPhoton!.callFunction("digitalWrite", withArguments: funcArgs) { (resultCode : NSNumber?, error : NSError?) -> Void in
     if (error == nil) {
-        println("LED on D7 successfully turned on")
+        print("LED on D7 successfully turned on")
     }
 }
 var bytesToReceive : Int64 = task.countOfBytesExpectedToReceive
@@ -224,10 +225,10 @@ NSLog(@"MyDevice first Function is called %@", myDeviceFunctions[0]);
 **Swift**
 ```swift
 let myDeviceVariables : Dictionary? = myPhoton.variables as? Dictionary<String,String>
-println("MyDevice first Variable is called \(myDeviceVariables!.keys.first) and is from type \(myDeviceVariables?.values.first)")
+print("MyDevice first Variable is called \(myDeviceVariables!.keys.first) and is from type \(myDeviceVariables?.values.first)")
 
 let myDeviceFunction = myPhoton.functions
-println("MyDevice first function is called \(myDeviceFunction!.first)")
+print("MyDevice first function is called \(myDeviceFunction!.first)")
 ```
 
 #### Get an instance of a device
@@ -275,7 +276,7 @@ _or_
 ```swift
 myPhoton!.rename("myNewDeviceName", completion: { (error:NSError?) -> Void in
     if (error == nil) {
-        println("Device successfully renamed")
+        print("Device successfully renamed")
     }
 })
 ```
@@ -378,7 +379,7 @@ You can also publish an event from your app to the Particle Cloud:
 SparkCloud.sharedInstance().publishEventWithName("event_from_app", data: "event_payload", isPrivate: false, ttl: 60, completion: { (error:NSError?) -> Void in
     if let e = error
     {
-        println("Error publishing event" + e.localizedDescription)
+        print("Error publishing event" + e.localizedDescription)
     }
 })
 ```
