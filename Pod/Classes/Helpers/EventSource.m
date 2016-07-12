@@ -178,7 +178,7 @@ static NSString *const ESEventEventKey = @"event";
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.retryInterval * NSEC_PER_SEC));
     dispatch_after(popTime, self.queue, ^(void) {
         if (self.retries < 5) {
-            NSLog(@"connection retries %d",self.retries);
+//            NSLog(@"connection retries %d",self.retries);
             self.retries++;
             [self open];
         }
