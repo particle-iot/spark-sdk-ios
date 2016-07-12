@@ -662,8 +662,13 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     NSDictionary *params;
     if (activationCode) params = @{@"activation_code" : activationCode};
 
-    
-    NSString *urlPath = [NSString stringWithFormat:@"/v1/orgs/%@/products/%@/device_claims", orgSlug, productSlug];
+
+    NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet]; // encode it in case there are special chars in org/product name (there shouldn't be)
+    NSString *encodedOrgSlug = [orgSlug stringByAddingPercentEncodingWithAllowedCharacters:set];
+    NSString *encodedProductSlug = [productSlug stringByAddingPercentEncodingWithAllowedCharacters:set];
+
+    NSString *urlPath = [NSString stringWithFormat:@"/v1/orgs/%@/products/%@/device_claims", encodedOrgSlug, encodedProductSlug];
+
     NSURLSessionDataTask *task = [self.manager POST:urlPath parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
         if (completion)
