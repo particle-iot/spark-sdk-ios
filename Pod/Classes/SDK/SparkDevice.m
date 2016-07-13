@@ -166,64 +166,69 @@ NS_ASSUME_NONNULL_BEGIN
 //        {"name":"spark/safe-mode-updater/updating","data":"1","ttl":"60","published_at":"2016-07-13T06:39:19.560Z","coreid":"particle-internal"}
 //        {"name":"spark/flash/status","data":"started ","ttl":"60","published_at":"2016-07-13T06:39:21.581Z","coreid":"25002a001147353230333635"}
 
+        __weak SparkDevice *weakSelf = self;
         self.systemEventsListenerId = [self subscribeToEventsWithPrefix:@"spark" handler:^(SparkEvent * _Nullable event, NSError * _Nullable error) {
-            if ([event.event isEqualToString:@"spark/status"]) {
-                if ([event.data isEqualToString:@"online"]) {
-                    self.connected = YES;
-                    self.isFlashing = NO;
-                    if ([self.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                        [self.delegate sparkDevice:self receivedSystemEvent:SparkDeviceSystemEventCameOnline];
-                        
+            
+            if (!error) {
+                
+                if ([event.event isEqualToString:@"spark/status"]) {
+                    if ([event.data isEqualToString:@"online"]) {
+                        weakSelf.connected = YES;
+                        weakSelf.isFlashing = NO;
+                        if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
+                            [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventCameOnline];
+                            
+                        }
+                    }
+                    
+                    if ([event.data isEqualToString:@"offline"]) {
+                        weakSelf.connected = NO;
+                        weakSelf.isFlashing = NO;
+                        if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
+                            [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventWentOffline];
+                        }
                     }
                 }
                 
-                if ([event.data isEqualToString:@"offline"]) {
-                    self.connected = NO;
-                    self.isFlashing = NO;
-                    if ([self.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                        [self.delegate sparkDevice:self receivedSystemEvent:SparkDeviceSystemEventWentOffline];
+                if ([event.event isEqualToString:@"spark/flash/status"]) {
+                    if ([event.data containsString:@"started"]) {
+                        weakSelf.isFlashing = YES;
+                        if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
+                            [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventFlashStarted];
+                            
+                        }
                     }
-                }
-            }
-            
-            if ([event.event isEqualToString:@"spark/flash/status"]) {
-                if ([event.data containsString:@"started"]) {
-                    self.isFlashing = YES;
-                    if ([self.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                        [self.delegate sparkDevice:self receivedSystemEvent:SparkDeviceSystemEventFlashStarted];
-                        
+                    
+                    if ([event.data containsString:@"success"]) {
+                        weakSelf.isFlashing = NO;
+                        if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
+                            [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventFlashSucceeded];
+                        }
                     }
                 }
                 
-                if ([event.data containsString:@"success"]) {
-                    self.isFlashing = NO;
-                    if ([self.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                        [self.delegate sparkDevice:self receivedSystemEvent:SparkDeviceSystemEventFlashSucceeded];
+                
+                if ([event.event isEqualToString:@"spark/device/app-hash"]) {
+                    weakSelf.appHash = event.data;
+                    weakSelf.isFlashing = NO;
+                    if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
+                        [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventAppHashUpdated];
+                    }
+                }
+                
+                
+                if ([event.event isEqualToString:@"spark/status/safe-mode"]) {
+                    if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
+                        [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventSafeModeUpdater];
+                    }
+                }
+                
+                if ([event.event isEqualToString:@"spark/safe-mode-updater/updating"]) {
+                    if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
+                        [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventSafeModeUpdater];
                     }
                 }
             }
-            
-            
-            if ([event.event isEqualToString:@"spark/device/app-hash"]) {
-                self.appHash = event.data;
-                if ([self.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                    [self.delegate sparkDevice:self receivedSystemEvent:SparkDeviceSystemEventAppHashUpdated];
-                }
-            }
-
-            
-            if ([event.event isEqualToString:@"spark/status/safe-mode"]) {
-                if ([self.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                    [self.delegate sparkDevice:self receivedSystemEvent:SparkDeviceSystemEventSafeModeUpdater];
-                }
-            }
-            
-            if ([event.event isEqualToString:@"spark/safe-mode-updater/updating"]) {
-                if ([self.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                    [self.delegate sparkDevice:self receivedSystemEvent:SparkDeviceSystemEventSafeModeUpdater];
-                }
-            }
-
 
         }];
         
