@@ -39,6 +39,26 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
     SparkDeviceTypeDigistumpOak=82,
 };
 
+typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
+    SparkDeviceSystemEventCameOnline,
+    SparkDeviceSystemEventWentOffline,
+    SparkDeviceSystemEventFlashStarted,
+    SparkDeviceSystemEventFlashSucceeded,
+    SparkDeviceSystemEventFlashFailed,
+    SparkDeviceSystemEventAppHashUpdated,
+    SparkDeviceSystemEventEnteredSafeMode,
+    SparkDeviceSystemEventSafeModeUpdater
+};
+
+@class SparkDevice;
+
+@protocol SparkDeviceDelegate <NSObject>
+
+@optional
+-(void)sparkDevice:(SparkDevice *)device receivedSystemEvent:(SparkDeviceSystemEvent)event;
+
+@end
+
 @interface SparkDevice : NSObject
 
 /**
@@ -66,7 +86,9 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 
 @property (strong, nonatomic, nullable, readonly) NSDate *lastHeard;
 
-@property (nonatomic) BOOL isFlashing;
+@property (strong, nonatomic, nullable, readonly) NSString *appHash; // app hash received from system event after flashing a new different user app
+
+@property (nonatomic, readonly) BOOL isFlashing;
 
 // new properties starting SDK v0.5
 @property (strong, nonatomic, nullable, readonly) NSString *lastIPAdress;
@@ -85,6 +107,8 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
 
 -(nullable instancetype)initWithParams:(NSDictionary *)params NS_DESIGNATED_INITIALIZER;
 -(instancetype)init __attribute__((unavailable("Must use initWithParams:")));
+
+@property (nonatomic, strong) id <SparkDeviceDelegate> delegate;
 
 /**
  *  Retrieve a variable value from the device
