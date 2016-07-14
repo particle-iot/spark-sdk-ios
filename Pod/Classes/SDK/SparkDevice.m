@@ -167,8 +167,9 @@ NS_ASSUME_NONNULL_BEGIN
 //        {"name":"spark/flash/status","data":"started ","ttl":"60","published_at":"2016-07-13T06:39:21.581Z","coreid":"25002a001147353230333635"}
 
         __weak SparkDevice *weakSelf = self;
+//        self.systemEventsListenerId = [self subscribeToEventsWithPrefix:@"spark" handler:^(SparkEvent * _Nullable event, NSError * _Nullable error) {
+//        self.systemEventsListenerId = [self subscribeToEventsWithPrefix:@"spark" handler:^(SparkEvent * _Nullable event, NSError * _Nullable error) {
         self.systemEventsListenerId = [self subscribeToEventsWithPrefix:@"spark" handler:^(SparkEvent * _Nullable event, NSError * _Nullable error) {
-            
             if (!error) {
                 
                 if ([event.event isEqualToString:@"spark/status"]) {

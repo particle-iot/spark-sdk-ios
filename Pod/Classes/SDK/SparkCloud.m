@@ -818,7 +818,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     }
 
     // TODO: add eventHandler + source to an internal dictionary so it will be removeable later by calling removeEventListener on saved Source
-    EventSource *source = [EventSource eventSourceWithURL:url timeoutInterval:30.0f queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0) accessToken:self.accessToken];
+    EventSource *source = [EventSource eventSourceWithURL:url timeoutInterval:300.0f queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)];
     
     //    if (eventName == nil)
     //        eventName = @"no_name";
@@ -903,7 +903,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
         NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet];
         NSString *encodedEventPrefix = [eventNamePrefix stringByAddingPercentEncodingWithAllowedCharacters:set];
 
-        endpoint = [NSString stringWithFormat:@"%@/v1/events/%@", self.baseURL, encodedEventPrefix];
+        endpoint = [NSString stringWithFormat:@"%@/v1/events/%@?access_token=%@", self.baseURL, encodedEventPrefix, self.accessToken];
     }
     
     return [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
@@ -917,7 +917,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     if ((!eventNamePrefix) || [eventNamePrefix isEqualToString:@""])
     {
         // TODO: check
-        endpoint = [NSString stringWithFormat:@"%@/v1/devices/events", self.baseURL];
+        endpoint = [NSString stringWithFormat:@"%@/v1/devices/events?access_token=%@", self.baseURL, self.accessToken];
     }
     else
     {
@@ -925,7 +925,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
         NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet];
         NSString *encodedEventPrefix = [eventNamePrefix stringByAddingPercentEncodingWithAllowedCharacters:set];
        
-        endpoint = [NSString stringWithFormat:@"%@/v1/devices/events/%@", self.baseURL, encodedEventPrefix];
+        endpoint = [NSString stringWithFormat:@"%@/v1/devices/events/%@?access_token=%@", self.baseURL, encodedEventPrefix, self.accessToken];
     }
     
     return [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];
@@ -938,8 +938,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     NSString *endpoint;
     if ((!eventNamePrefix) || [eventNamePrefix isEqualToString:@""])
     {
-        // TODO: check
-        endpoint = [NSString stringWithFormat:@"%@/v1/devices/%@/events", self.baseURL, deviceID];
+        endpoint = [NSString stringWithFormat:@"%@/v1/devices/%@/events?access_token=%@", self.baseURL, deviceID, self.accessToken];
     }
     else
     {
@@ -947,7 +946,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
         NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet];
         NSString *encodedEventPrefix = [eventNamePrefix stringByAddingPercentEncodingWithAllowedCharacters:set];
 
-        endpoint = [NSString stringWithFormat:@"%@/v1/devices/%@/events/%@", self.baseURL, deviceID, encodedEventPrefix];
+        endpoint = [NSString stringWithFormat:@"%@/v1/devices/%@/events/%@?access_token=%@", self.baseURL, deviceID, encodedEventPrefix, self.accessToken];
     }
     
     return [self subscribeToEventWithURL:[NSURL URLWithString:endpoint] handler:eventHandler];

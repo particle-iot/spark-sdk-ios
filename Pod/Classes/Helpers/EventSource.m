@@ -33,7 +33,6 @@ static NSString *const ESEventEventKey = @"event";
 @property (nonatomic, assign) NSTimeInterval retryInterval;
 @property (nonatomic, strong) id lastEventID;
 @property (nonatomic, strong) dispatch_queue_t queue;
-@property (nonatomic, strong) NSString* accessToken;
 @property (nonatomic) NSInteger* retries;
 @property (atomic, strong) Event *event;
 
@@ -45,13 +44,13 @@ static NSString *const ESEventEventKey = @"event";
 @implementation EventSource
 
 
-+ (instancetype)eventSourceWithURL:(NSURL *)URL timeoutInterval:(NSTimeInterval)timeoutInterval queue:(dispatch_queue_t)queue accessToken:(NSString *)accessToken
++ (instancetype)eventSourceWithURL:(NSURL *)URL timeoutInterval:(NSTimeInterval)timeoutInterval queue:(dispatch_queue_t)queue
 {
-    return [[EventSource alloc] initWithURL:URL timeoutInterval:timeoutInterval queue:queue accessToken:accessToken];
+    return [[EventSource alloc] initWithURL:URL timeoutInterval:timeoutInterval queue:queue];
 }
 
 
-- (instancetype)initWithURL:(NSURL *)URL timeoutInterval:(NSTimeInterval)timeoutInterval queue:(dispatch_queue_t)queue accessToken:(NSString *)accessToken
+- (instancetype)initWithURL:(NSURL *)URL timeoutInterval:(NSTimeInterval)timeoutInterval queue:(dispatch_queue_t)queue
 {
     self = [super init];
     if (self) {
@@ -61,7 +60,6 @@ static NSString *const ESEventEventKey = @"event";
         _retryInterval = ES_RETRY_INTERVAL;
         _queue = queue;
         _retries = 0;
-        _accessToken = accessToken;
         
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_retryInterval * NSEC_PER_SEC));
         dispatch_after(popTime, queue, ^(void){
@@ -111,12 +109,9 @@ static NSString *const ESEventEventKey = @"event";
     // TODO: add the authorization headers/parameters here
     wasClosed = NO;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.eventURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:self.timeoutInterval];
-//    if (self.lastEventID)
-//    {
-//        [request setValue:self.lastEventID forHTTPHeaderField:@"Last-Event-ID"];
-//    }
-    
-    [request addValue:[NSString stringWithFormat:@"Bearer %@",self.accessToken] forHTTPHeaderField:@"Authorization"];
+
+    [request setValue:[NSString stringWithFormat:@"0"] forHTTPHeaderField:@"Content-Length"];
+//    [request addValue:[NSString stringWithFormat:@"Bearer %@",self.accessToken] forHTTPHeaderField:@"Authorization"];
     [request setHTTPMethod:@"GET"];
     
     self.eventSource = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
@@ -131,6 +126,8 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)close
 {
+    NSLog(@"eventSource %@ closed",self.description);
+    
     wasClosed = YES;
     [self.eventSource cancel];
 //    [self.eventSourceTask cancel];
@@ -142,6 +139,8 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
+    NSLog(@"eventSource %@ didReceiveResponse %@",self.description,response.description);
+    
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     if (httpResponse.statusCode == 200) {
         // Opened
@@ -164,6 +163,8 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+    NSLog(@"eventSource %@ didFailWithError %@",self.description,error.description);
+    
     Event *e = [Event new];
     e.readyState = kEventStateClosed;
     e.error = error;
@@ -188,6 +189,8 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+    NSLog(@"eventSource %@ didReceiveData %@",self.description,data.description);
+    
     NSString *eventString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     eventString = [eventString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     NSArray *components = [eventString componentsSeparatedByString:ESEventKeyValuePairSeparator];
@@ -236,6 +239,8 @@ static NSString *const ESEventEventKey = @"event";
     if (wasClosed) {
         return;
     }
+    
+    NSLog(@"eventSource %@ connectionDidFinishLoading",self.description);
     
     Event *e = [Event new];
     e.readyState = kEventStateClosed;
