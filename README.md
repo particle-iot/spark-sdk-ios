@@ -211,6 +211,29 @@ var bytesToReceive : Int64 = task.countOfBytesExpectedToReceive
 // ..do something with bytesToReceive
 ```
 
+
+#### Retrieve current data usage (Electron only)
+_Starting version 0.5.0_
+Assuming here that `myElectron` is an active instance of `SparkDevice` class which represents an Electron device:
+
+**Objective-C**
+```objc
+[myElectron getCurrentDataUsage:^(float dataUsed, NSError * _Nullable error) {
+    if (!error) {
+        NSLog(@"device has used %f MBs of data this month",dataUsed);
+    }
+}];
+```
+**Swift**
+```swift
+self.selectedDevice!.getCurrentDataUsage { (dataUsed: Float, error :NSError?) in
+    if (error == nil) {
+        print("Device has used "+String(dataUsed)+" MBs this month")
+    }
+}
+```
+
+
 #### List device exposed functions and variables
 Functions is just a list of names, variables is a dictionary in which keys are variable names and values are variable types:
 
@@ -384,6 +407,34 @@ SparkCloud.sharedInstance().publishEventWithName("event_from_app", data: "event_
 })
 ```
 
+### Delegate Protocol
+
+_Starting version 0.5.0_
+You can opt-in to conform to the `SparkDeviceDelegate` protocol in your viewcontroller code if you want to register for receiving system events notifications about the specific device.
+You do it by setting `device.delegate = self` where device is an instance of `SparkDevice`.
+
+The function that will be called on the delegate is:
+`-(void)sparkDevice:(SparkDevice *)device didReceiveSystemEvent:(SparkDeviceSystemEvent)event;`
+
+and then you can respond to the various system events by:
+
+```swift
+func sparkDevice(device: SparkDevice, receivedSystemEvent event: SparkDeviceSystemEvent) {
+        print("Received system event "+String(event.rawValue)+" from device "+device.name!)
+        // do something meaningful
+    }
+```
+
+The system events types are:
+- CameOnline (device came online)
+- WentOffline (device went offline)
+- FlashStarted (OTA flashing started)
+- FlashSucceeded (OTA flashing succeeded - new uesr firmware app is live)
+- FlashFailed (OTA flashing process failed - user firmware app was not updated)
+- AppHashUpdated (a new app which is different from last one was flashed to the device)
+- EnteredSafeMode (device has entered safe mode due to system firmware dependency issue )
+- SafeModeUpdater (device is trying to heal itself out of safe mode)
+
 ### OAuth client configuration
 
 If you're creating an app you're required to provide the `SparkCloud` class with OAuth clientId and secret.
@@ -398,9 +449,11 @@ then in your `AppDelegate` class you can supply those credentials by setting the
 
 **Important**
 Those credentials should be kept as secret. We recommend the use of [Cocoapods-keys plugin](https://github.com/orta/cocoapods-keys) for cocoapods
-(which you have to use anyways to install the SDK). It is essentially a key value store for enviroment and application keys.
+(which you have to use anyways to install the SDK). It is essentially a key value store for environment and application keys.
 It's a good security practice to keep production keys out of developer hands. CocoaPods-keys makes it easy to have per-user config settings stored securely in the developer's keychain,
 and not in the application source. It is a plugin that once installed will run on every pod install or pod update.
+
+_Another simpler option is have a different file in your project which contains the key values as constant strings. This file should not be committed to your source control system._
 
 After adding the following additional lines your project `Podfile`:
 ```ruby
@@ -450,7 +503,7 @@ adding `#import "Spark-SDK.h"`. (that is not required for swift projects)
 
 ### Carthage
 
-Starting version 0.4.0 Particle iOS Cloud SDK is available through [Carthage](https://github.com/Carthage/Carthage). Carthage is intended to be the simplest way to add frameworks to your Cocoa application.
+_Starting version 0.4.0_ Particle iOS Cloud SDK is available through [Carthage](https://github.com/Carthage/Carthage). Carthage is intended to be the simplest way to add frameworks to your Cocoa application.
 You must have Carthage installed, if you don't then be sure to [install Carthage](https://github.com/Carthage/Carthage#installing-carthage) before you start.
 Then to build the iOS Cloud SDK, simply create a `Cartfile` on your project root folder, containing the following line:
 
