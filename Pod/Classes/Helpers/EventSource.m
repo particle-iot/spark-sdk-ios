@@ -105,13 +105,9 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)open
 {
-//    NSLog(@"event open");
-    // TODO: add the authorization headers/parameters here
     wasClosed = NO;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.eventURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:self.timeoutInterval];
 
-    [request setValue:[NSString stringWithFormat:@"0"] forHTTPHeaderField:@"Content-Length"];
-//    [request addValue:[NSString stringWithFormat:@"Bearer %@",self.accessToken] forHTTPHeaderField:@"Authorization"];
     [request setHTTPMethod:@"GET"];
     
     self.eventSource = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
@@ -126,7 +122,7 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)close
 {
-    NSLog(@"eventSource %@ closed",self.description);
+//    NSLog(@"eventSource %@ closed",self.description);
     
     wasClosed = YES;
     [self.eventSource cancel];
@@ -139,7 +135,7 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    NSLog(@"eventSource %@ didReceiveResponse %@",self.description,response.description);
+//    NSLog(@"eventSource %@ didReceiveResponse %@",self.description,response.description);
     
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     if (httpResponse.statusCode == 200) {
@@ -163,7 +159,7 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"eventSource %@ didFailWithError %@",self.description,error.description);
+//    NSLog(@"eventSource %@ didFailWithError %@",self.description,error.description);
     
     Event *e = [Event new];
     e.readyState = kEventStateClosed;
@@ -189,7 +185,7 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    NSLog(@"eventSource %@ didReceiveData %@",self.description,data.description);
+//    NSLog(@"eventSource %@ didReceiveData %@",self.description,data.description);
     
     NSString *eventString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     eventString = [eventString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
@@ -240,7 +236,7 @@ static NSString *const ESEventEventKey = @"event";
         return;
     }
     
-    NSLog(@"eventSource %@ connectionDidFinishLoading",self.description);
+//    NSLog(@"eventSource %@ connectionDidFinishLoading",self.description);
     
     Event *e = [Event new];
     e.readyState = kEventStateClosed;
@@ -258,7 +254,7 @@ static NSString *const ESEventEventKey = @"event";
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.retryInterval * NSEC_PER_SEC));
     dispatch_after(popTime, self.queue, ^(void) {
         if (self.retries < 5) {
-            NSLog(@"connectionDidFinishLoading retries %d",self.retries);
+//            NSLog(@"connectionDidFinishLoading retries %d",self.retries);
             self.retries++;
             [self open];
         }

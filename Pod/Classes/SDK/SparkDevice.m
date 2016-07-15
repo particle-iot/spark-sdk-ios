@@ -36,7 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSUInteger productId;
 @property (strong, nonatomic, nullable) NSString *status;
 @property (strong, nonatomic, nullable) NSString *appHash;
-@property (strong, nonatomic, nullable) id systemEventsListenerId;
 @end
 
 @implementation SparkDevice
@@ -155,84 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         if (!self.manager) return nil;
         
-        //{"name":"spark/status","data":"online","ttl":"60","published_at":"2016-07-13T06:20:07.300Z","coreid":"25002a001147353230333635"}
-//        {"name":"spark/flash/status","data":"started ","ttl":"60","published_at":"2016-07-13T06:30:47.130Z","coreid":"25002a001147353230333635"}
-//        {"name":"spark/flash/status","data":"success ","ttl":"60","published_at":"2016-07-13T06:30:47.702Z","coreid":"25002a001147353230333635"}
-//
-//        {"name":"spark/status/safe-mode", "data":"{\"f\":[],\"v\":{},\"p\":6,\"m\":[{\"s\":16384,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"b\",\"n\":\"0\",\"v\":7,\"d\":[]},{\"s\":262144,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"s\",\"n\":\"1\",\"v\":15,\"d\":[]},{\"s\":262144,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"s\",\"n\":\"2\",\"v\":15,\"d\":[{\"f\":\"s\",\"n\":\"1\",\"v\":15,\"_\":\"\"}]},{\"s\":131072,\"l\":\"m\",\"vc\":30,\"vv\":26,\"u\":\"48ABD2D957D0B66069F0BCB04C8591BC8CA01FD1760F1BD47915B2C0D68070B5\",\"f\":\"u\",\"n\":\"1\",\"v\":4,\"d\":[{\"f\":\"s\",\"n\":\"2\",\"v\":17,\"_\":\"\"}]},{\"s\":131072,\"l\":\"f\",\"vc\":30,\"vv\":0,\"d\":[]}]}","ttl":"60","published_at":"2016-07-13T06:39:17.214Z","coreid":"25002a001147353230333635"}
-//        {"name":"spark/device/app-hash", "data":"48ABD2D957D0B66069F0BCB04C8591BC8CA01FD1760F1BD47915B2C0D68070B5","ttl":"60","published_at":"2016-07-13T06:39:17.215Z","coreid":"25002a001147353230333635"}
-//        {"name":"spark/status/safe-mode", "data":"{\"f\":[],\"v\":{},\"p\":6,\"m\":[{\"s\":16384,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"b\",\"n\":\"0\",\"v\":7,\"d\":[]},{\"s\":262144,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"s\",\"n\":\"1\",\"v\":15,\"d\":[]},{\"s\":262144,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"s\",\"n\":\"2\",\"v\":15,\"d\":[{\"f\":\"s\",\"n\":\"1\",\"v\":15,\"_\":\"\"}]},{\"s\":131072,\"l\":\"m\",\"vc\":30,\"vv\":26,\"u\":\"48ABD2D957D0B66069F0BCB04C8591BC8CA01FD1760F1BD47915B2C0D68070B5\",\"f\":\"u\",\"n\":\"1\",\"v\":4,\"d\":[{\"f\":\"s\",\"n\":\"2\",\"v\":17,\"_\":\"\"}]},{\"s\":131072,\"l\":\"f\",\"vc\":30,\"vv\":0,\"d\":[]}]}","ttl":"60","published_at":"2016-07-13T06:39:17.113Z","coreid":"25002a001147353230333635"}
-//        {"name":"spark/safe-mode-updater/updating","data":"1","ttl":"60","published_at":"2016-07-13T06:39:19.467Z","coreid":"particle-internal"}
-//        {"name":"spark/safe-mode-updater/updating","data":"1","ttl":"60","published_at":"2016-07-13T06:39:19.560Z","coreid":"particle-internal"}
-//        {"name":"spark/flash/status","data":"started ","ttl":"60","published_at":"2016-07-13T06:39:21.581Z","coreid":"25002a001147353230333635"}
-
-        __weak SparkDevice *weakSelf = self;
-//        self.systemEventsListenerId = [self subscribeToEventsWithPrefix:@"spark" handler:^(SparkEvent * _Nullable event, NSError * _Nullable error) {
-//        self.systemEventsListenerId = [self subscribeToEventsWithPrefix:@"spark" handler:^(SparkEvent * _Nullable event, NSError * _Nullable error) {
-        self.systemEventsListenerId = [self subscribeToEventsWithPrefix:@"spark" handler:^(SparkEvent * _Nullable event, NSError * _Nullable error) {
-            if (!error) {
-                
-                if ([event.event isEqualToString:@"spark/status"]) {
-                    if ([event.data isEqualToString:@"online"]) {
-                        weakSelf.connected = YES;
-                        weakSelf.isFlashing = NO;
-                        if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                            [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventCameOnline];
-                            
-                        }
-                    }
-                    
-                    if ([event.data isEqualToString:@"offline"]) {
-                        weakSelf.connected = NO;
-                        weakSelf.isFlashing = NO;
-                        if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                            [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventWentOffline];
-                        }
-                    }
-                }
-                
-                if ([event.event isEqualToString:@"spark/flash/status"]) {
-                    if ([event.data containsString:@"started"]) {
-                        weakSelf.isFlashing = YES;
-                        if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                            [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventFlashStarted];
-                            
-                        }
-                    }
-                    
-                    if ([event.data containsString:@"success"]) {
-                        weakSelf.isFlashing = NO;
-                        if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                            [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventFlashSucceeded];
-                        }
-                    }
-                }
-                
-                
-                if ([event.event isEqualToString:@"spark/device/app-hash"]) {
-                    weakSelf.appHash = event.data;
-                    weakSelf.isFlashing = NO;
-                    if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                        [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventAppHashUpdated];
-                    }
-                }
-                
-                
-                if ([event.event isEqualToString:@"spark/status/safe-mode"]) {
-                    if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                        [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventSafeModeUpdater];
-                    }
-                }
-                
-                if ([event.event isEqualToString:@"spark/safe-mode-updater/updating"]) {
-                    if ([weakSelf.delegate respondsToSelector:@selector(sparkDevice:receivedSystemEvent:)]) {
-                        [weakSelf.delegate sparkDevice:weakSelf receivedSystemEvent:SparkDeviceSystemEventSafeModeUpdater];
-                    }
-                }
-            }
-
-        }];
-        
+         
         return self;
     }
     
@@ -240,11 +162,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 
--(void)dealloc {
-    if (self.systemEventsListenerId) {
-        [self unsubscribeFromEventWithID:self.systemEventsListenerId];
-    }
-}
 
 -(NSURLSessionDataTask *)refresh:(nullable SparkCompletionBlock)completion;
 {
@@ -620,7 +537,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(nullable id)subscribeToEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler
 {
-    return [[SparkCloud sharedInstance] subscribeToDeviceEventsWithPrefix:eventNamePrefix deviceID:self.id handler:eventHandler];
+    return [[SparkCloud sharedInstance] subscribeToDeviceEventsWithPrefix:eventNamePrefix deviceID:self.name handler:eventHandler]; // DEBUG TODO self.id
 }
 
 -(void)unsubscribeFromEventWithID:(id)eventListenerID
@@ -669,6 +586,84 @@ NS_ASSUME_NONNULL_BEGIN
                                   }];
     
     return task;
+}
+
+-(void)__receivedSystemEvent:(SparkEvent *)event {
+    //{"name":"spark/status","data":"online","ttl":"60","published_at":"2016-07-13T06:20:07.300Z","coreid":"25002a001147353230333635"}
+    //        {"name":"spark/flash/status","data":"started ","ttl":"60","published_at":"2016-07-13T06:30:47.130Z","coreid":"25002a001147353230333635"}
+    //        {"name":"spark/flash/status","data":"success ","ttl":"60","published_at":"2016-07-13T06:30:47.702Z","coreid":"25002a001147353230333635"}
+    //
+    //        {"name":"spark/status/safe-mode", "data":"{\"f\":[],\"v\":{},\"p\":6,\"m\":[{\"s\":16384,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"b\",\"n\":\"0\",\"v\":7,\"d\":[]},{\"s\":262144,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"s\",\"n\":\"1\",\"v\":15,\"d\":[]},{\"s\":262144,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"s\",\"n\":\"2\",\"v\":15,\"d\":[{\"f\":\"s\",\"n\":\"1\",\"v\":15,\"_\":\"\"}]},{\"s\":131072,\"l\":\"m\",\"vc\":30,\"vv\":26,\"u\":\"48ABD2D957D0B66069F0BCB04C8591BC8CA01FD1760F1BD47915B2C0D68070B5\",\"f\":\"u\",\"n\":\"1\",\"v\":4,\"d\":[{\"f\":\"s\",\"n\":\"2\",\"v\":17,\"_\":\"\"}]},{\"s\":131072,\"l\":\"f\",\"vc\":30,\"vv\":0,\"d\":[]}]}","ttl":"60","published_at":"2016-07-13T06:39:17.214Z","coreid":"25002a001147353230333635"}
+    //        {"name":"spark/device/app-hash", "data":"48ABD2D957D0B66069F0BCB04C8591BC8CA01FD1760F1BD47915B2C0D68070B5","ttl":"60","published_at":"2016-07-13T06:39:17.215Z","coreid":"25002a001147353230333635"}
+    //        {"name":"spark/status/safe-mode", "data":"{\"f\":[],\"v\":{},\"p\":6,\"m\":[{\"s\":16384,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"b\",\"n\":\"0\",\"v\":7,\"d\":[]},{\"s\":262144,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"s\",\"n\":\"1\",\"v\":15,\"d\":[]},{\"s\":262144,\"l\":\"m\",\"vc\":30,\"vv\":30,\"f\":\"s\",\"n\":\"2\",\"v\":15,\"d\":[{\"f\":\"s\",\"n\":\"1\",\"v\":15,\"_\":\"\"}]},{\"s\":131072,\"l\":\"m\",\"vc\":30,\"vv\":26,\"u\":\"48ABD2D957D0B66069F0BCB04C8591BC8CA01FD1760F1BD47915B2C0D68070B5\",\"f\":\"u\",\"n\":\"1\",\"v\":4,\"d\":[{\"f\":\"s\",\"n\":\"2\",\"v\":17,\"_\":\"\"}]},{\"s\":131072,\"l\":\"f\",\"vc\":30,\"vv\":0,\"d\":[]}]}","ttl":"60","published_at":"2016-07-13T06:39:17.113Z","coreid":"25002a001147353230333635"}
+    //        {"name":"spark/safe-mode-updater/updating","data":"1","ttl":"60","published_at":"2016-07-13T06:39:19.467Z","coreid":"particle-internal"}
+    //        {"name":"spark/safe-mode-updater/updating","data":"1","ttl":"60","published_at":"2016-07-13T06:39:19.560Z","coreid":"particle-internal"}
+    //        {"name":"spark/flash/status","data":"started ","ttl":"60","published_at":"2016-07-13T06:39:21.581Z","coreid":"25002a001147353230333635"}
+    
+    
+    if ([event.event isEqualToString:@"spark/status"]) {
+        if ([event.data isEqualToString:@"online"]) {
+            self.connected = YES;
+            self.isFlashing = NO;
+            if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
+                [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventCameOnline];
+                
+            }
+        }
+        
+        if ([event.data isEqualToString:@"offline"]) {
+            self.connected = NO;
+            self.isFlashing = NO;
+            if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
+                [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventWentOffline];
+            }
+        }
+    }
+    
+    if ([event.event isEqualToString:@"spark/flash/status"]) {
+        if ([event.data containsString:@"started"]) {
+            self.isFlashing = YES;
+            if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
+                [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventFlashStarted];
+                
+            }
+        }
+        
+        if ([event.data containsString:@"success"]) {
+            self.isFlashing = NO;
+            if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
+                [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventFlashSucceeded];
+            }
+        }
+    }
+    
+    
+    if ([event.event isEqualToString:@"spark/device/app-hash"]) {
+        self.appHash = event.data;
+        self.isFlashing = NO;
+        if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
+            [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventAppHashUpdated];
+        }
+    }
+    
+    
+    if ([event.event isEqualToString:@"spark/status/safe-mode"]) {
+        if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
+            [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventSafeModeUpdater];
+        }
+    }
+    
+    if ([event.event isEqualToString:@"spark/safe-mode-updater/updating"]) {
+        if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
+            [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventSafeModeUpdater];
+        }
+    }
+    
+    
+    
+    
+    
+    
 }
 
 

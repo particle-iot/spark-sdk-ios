@@ -35,6 +35,8 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 
 @property (nonatomic, strong, nonnull) NSMutableDictionary *eventListenersDict;
 
+@property (nonatomic, strong) NSMapTable *devicesMapTable;
+@property (nonatomic, strong) id systemEventsListenerId;
 @end
 
 
@@ -89,6 +91,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 
         // init event listeners internal dictionary
         self.eventListenersDict = [NSMutableDictionary new];
+        [self subscribeToDevicesSystemEvents];
     }
     return self;
 }
@@ -468,6 +471,14 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
          {
              NSMutableDictionary *responseDict = responseObject;
              SparkDevice *device = [[SparkDevice alloc] initWithParams:responseDict];
+             
+             if (device) { // new 0.5.0 local storage of devices for reporting system events
+                 if (!self.devicesMapTable) {
+                     self.devicesMapTable = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableWeakMemory]; // let the user decide when to release SparkDevice objects 
+                 }
+                 [self.devicesMapTable setObject:device forKey:device.id];
+             }
+             
              if (completion)
              {
                 completion(device, nil);
@@ -530,6 +541,14 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
                              // if it's offline just make an instance for it with the limited data with have
                              SparkDevice *device = [[SparkDevice alloc] initWithParams:deviceDict];
                              [deviceList addObject:device];
+                             
+                             if (device) { // new 0.5.0 local storage of devices for reporting system events
+                                 if (!self.devicesMapTable) {
+                                     self.devicesMapTable = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableWeakMemory]; // let the user decide when to release SparkDevice objects
+                                 }
+                                 [self.devicesMapTable setObject:device forKey:device.id];
+                             }
+
                          }
                      }
                      
@@ -996,6 +1015,34 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     }];
     
     return task;
+}
+
+
+
+-(void)subscribeToDevicesSystemEvents {
+    
+    __weak SparkCloud *weakSelf = self;
+    self.systemEventsListenerId = [self subscribeToMyDevicesEventsWithPrefix:@"spark" handler:^(SparkEvent * _Nullable event, NSError * _Nullable error) {
+
+        if (!error) {
+//            NSLog(@"--> devicesMapTable got %d entries",weakSelf.devicesMapTable.count); // debug
+            SparkDevice *device = [weakSelf.devicesMapTable objectForKey:event.deviceID];
+            if (device) {
+                NSLog(@"* Device %@ (%@) got system event %@:%@",device.name,device.id,event.event,event.data); // debug
+                [device __receivedSystemEvent:event];
+            }
+        } else {
+            NSLog(@"SparkCloud could not subscribe to devices system events %@",error.localizedDescription);
+        }
+    }];
+
+}
+
+
+-(void)dealloc {
+    if (self.systemEventsListenerId) {
+        [self unsubscribeFromEventWithID:self.systemEventsListenerId];
+    }
 }
 
 @end

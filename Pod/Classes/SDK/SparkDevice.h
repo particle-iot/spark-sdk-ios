@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
 @protocol SparkDeviceDelegate <NSObject>
 
 @optional
--(void)sparkDevice:(SparkDevice *)device receivedSystemEvent:(SparkDeviceSystemEvent)event;
+-(void)sparkDevice:(SparkDevice *)device didReceiveSystemEvent:(SparkDeviceSystemEvent)event;
 
 @end
 
@@ -213,6 +213,9 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  *  @param eventListenerID The eventListener registration unique ID returned by the subscribe method which you want to cancel
  */
 -(void)unsubscribeFromEventWithID:(id)eventListenerID;
+
+// Internal use
+-(void)__receivedSystemEvent:(SparkEvent *)event;
 
 @end
 
