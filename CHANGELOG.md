@@ -3,17 +3,29 @@ All notable changes to this project will be documented in this file.
 Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ---
-## [0.5.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.0) (2016-03-29)
+## [0.5.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.0) (2016-07-21)
 
-* new SparkDevice API function: getCurrentDataUsage for Electron devices 
+* Added: SparkDevice API function: getCurrentDataUsage for Electron devices 
 
-* Added more supported device types (P1, RedBear, Bluz, etc)
+* Added: SparkDevice API function: Signal device (make on board LED shout rainbows)
 
-* Added support for additional SparkDevice properties (ICCID, IMEI, status, platformId, productId)
+* Added: SparkDeviceDelegate protocol - allow SDK user to register for device system events (offline/online/flashing etc) 
 
-* Determine device type (family) through platform_id
+* Bigfix: Critical event subsystem bugfixes
 
-* new SparkDevice API function: Signal device (make on board LED shout rainbows)
+* Added: Additional supported device types (P1, RedBear, Bluz, etc)
+
+* Added: Support for additional SparkDevice properties (ICCID, IMEI, status, platformId, productId, lastIPAddress)
+
+* Added: Automatically Determine device type (family) through platform_id
+
+* Bugfix: Correctly encode organization and product names in request URL
+
+* Bugfix: FlashFiles API now works
+
+* Removed: systemFirmwareVersion property for SparkDevice
+
+* Updated: Documentation
 
 ## [0.4.1](https://github.com/spark/spark-sdk-ios/releases/tag/0.4.1) (2016-03-29)
 
