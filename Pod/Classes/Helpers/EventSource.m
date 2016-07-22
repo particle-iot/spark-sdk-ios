@@ -33,7 +33,7 @@ static NSString *const ESEventEventKey = @"event";
 @property (nonatomic, assign) NSTimeInterval retryInterval;
 @property (nonatomic, strong) id lastEventID;
 @property (nonatomic, strong) dispatch_queue_t queue;
-@property (nonatomic) NSInteger* retries;
+@property (nonatomic) NSInteger retries;
 @property (atomic, strong) Event *event;
 
 
