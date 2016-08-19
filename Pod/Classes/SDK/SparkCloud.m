@@ -183,7 +183,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 
 -(void)refreshToken:(NSString *)refreshToken
 {
-    NSLog(@"Refreshing session...");
+//    NSLog(@"Refreshing session...");
     // non default params
     NSDictionary *params = @{
                              @"grant_type": @"refresh_token",
@@ -202,7 +202,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
         self.session = [[SparkSession alloc] initWithNewSession:responseDict];
         if (self.session) // login was successful
         {
-            NSLog(@"New session created using refresh token");
+//            NSLog(@"New session created using refresh token");
             self.session.delegate = self;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -355,13 +355,13 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 //        params[@"activation_code"] = inviteCode;
     
     NSString *url = [NSString stringWithFormat:@"/v1/orgs/%@/customers", orgSlug];
-    NSLog(@"Signing up customer...");
+//    NSLog(@"Signing up customer...");
     
     NSURLSessionDataTask *task = [self.manager POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
         NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
         NSMutableDictionary *responseDict = [responseObject mutableCopy];
-        NSLog(@"Got status code %d, and response: %@",(int)serverResponse.statusCode,responseDict);
+//        NSLog(@"Got status code %d, and response: %@",(int)serverResponse.statusCode,responseDict);
 
         responseDict[@"username"] = email;
         
@@ -807,7 +807,6 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     NSURLSessionDataTask *task = [self.manager GET:@"/v1/access_tokens" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
         NSArray *responseArr = responseObject;
-        NSLog(@"(debug) listTokens:\n%@",[responseArr description]);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
     {
         NSLog(@"listTokens %@",[error localizedDescription]);
@@ -1029,11 +1028,11 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 //            NSLog(@"--> devicesMapTable got %d entries",weakSelf.devicesMapTable.count); // debug
             SparkDevice *device = [weakSelf.devicesMapTable objectForKey:event.deviceID];
             if (device) {
-                NSLog(@"* Device %@ (%@) got system event %@:%@",device.name,device.id,event.event,event.data); // debug
+//                NSLog(@"* Device %@ (%@) got system event %@:%@",device.name,device.id,event.event,event.data); // debug
                 [device __receivedSystemEvent:event];
             }
         } else {
-            NSLog(@"SparkCloud could not subscribe to devices system events %@",error.localizedDescription);
+            NSLog(@"! SparkCloud could not subscribe to devices system events %@",error.localizedDescription);
         }
     }];
 
