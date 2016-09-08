@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ---
+## [0.5.1](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.1) (2016-09-07)
+
+* Bigfix: Functions (Array) and Variables (Dictionary) in a SparkDevice instance will sometimes contain unknown type values for offline devices, this might cause problems with Swift - fixed.
+
+* Added: Set both those fields to nonnull for better Swift interoperability.
+
 ## [0.5.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.0) (2016-07-21)
 
 * Added: SparkDevice API function: getCurrentDataUsage for Electron devices 
