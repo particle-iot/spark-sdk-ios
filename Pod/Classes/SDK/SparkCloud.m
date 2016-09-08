@@ -806,7 +806,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
     
     NSURLSessionDataTask *task = [self.manager GET:@"/v1/access_tokens" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
-        NSArray *responseArr = responseObject;
+//        NSArray *responseArr = responseObject;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
     {
         NSLog(@"listTokens %@",[error localizedDescription]);
