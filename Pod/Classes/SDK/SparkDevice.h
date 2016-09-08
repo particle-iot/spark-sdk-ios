@@ -76,11 +76,11 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
 /**
  *  List of function names exposed by device
  */
-@property (strong, nonatomic, readonly) NSArray<NSString *> *functions;
+@property (strong, nonatomic, nonnull, readonly) NSArray<NSString *> *functions;
 /**
  *  Dictionary of exposed variables on device with their respective types.
  */
-@property (strong, nonatomic, readonly) NSDictionary<NSString *, NSString *> *variables; // @{varName : varType, ...}
+@property (strong, nonatomic, nonnull, readonly) NSDictionary<NSString *, NSString *> *variables; // @{varName : varType, ...}
 
 @property (strong, nonatomic, nullable, readonly) NSString *lastApp;
 

@@ -18,11 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SparkDevice()
 
-@property (strong, nonatomic) NSString* id;
+@property (strong, nonatomic, nonnull) NSString* id;
 @property (nonatomic) BOOL connected; // might be impossible
-@property (strong, nonatomic) NSArray *functions;
-@property (strong, nonatomic) NSDictionary *variables;
-@property (strong, nonatomic) NSString *version;
+@property (strong, nonatomic, nonnull) NSArray *functions;
+@property (strong, nonatomic, nonnull) NSDictionary *variables;
+@property (strong, nonatomic, nullable) NSString *version;
 //@property (nonatomic) SparkDeviceType type;
 @property (nonatomic) BOOL requiresUpdate;
 @property (nonatomic, strong) AFHTTPSessionManager *manager;
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
             return nil;
         }
      
-        self.requiresUpdate = NO;
+        _requiresUpdate = NO;
         
         _name = nil;
         if ([params[@"name"] isKindOfClass:[NSString class]])
@@ -57,11 +57,19 @@ NS_ASSUME_NONNULL_BEGIN
             _name = params[@"name"];
         }
         
-        self.connected = [params[@"connected"] boolValue] == YES;
+        _connected = [params[@"connected"] boolValue] == YES;
         
-        self.functions = params[@"functions"] ?: @[];
-        self.variables = params[@"variables"] ?: @{};
+        _functions = params[@"functions"] ?: @[];
+        _variables = params[@"variables"] ?: @{};
         
+        if (![_functions isKindOfClass:[NSArray class]]) {
+            self.functions = @[];
+        }
+
+        if (![_variables isKindOfClass:[NSDictionary class]]) {
+            _variables = @{};
+        }
+
         _id = params[@"id"];
 
         _type = SparkDeviceTypeUnknown;
@@ -94,22 +102,22 @@ NS_ASSUME_NONNULL_BEGIN
         
         if ([params[@"product_id"] isKindOfClass:[NSNumber class]])
         {
-            self.productId = [params[@"product_id"] intValue];
+            _productId = [params[@"product_id"] intValue];
         }
         
         if ((params[@"last_iccid"]) && ([params[@"last_iccid"] isKindOfClass:[NSString class]]))
         {
-            self.lastIccid = params[@"last_iccid"];
+            _lastIccid = params[@"last_iccid"];
         }
 
         if ((params[@"imei"]) && ([params[@"imei"] isKindOfClass:[NSString class]]))
         {
-            self.imei = params[@"imei"];
+            _imei = params[@"imei"];
         }
 
         if ((params[@"status"]) && ([params[@"status"] isKindOfClass:[NSString class]]))
         {
-            self.status = params[@"status"];
+            _status = params[@"status"];
         }
 
         
@@ -146,7 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
             
         if (params[@"device_needs_update"])
         {
-            self.requiresUpdate = YES;
+            _requiresUpdate = YES;
         }
         
         self.manager = [[AFHTTPSessionManager alloc] initWithBaseURL:self.baseURL];
