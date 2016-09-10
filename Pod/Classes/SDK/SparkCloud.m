@@ -474,7 +474,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
              
              if (device) { // new 0.5.0 local storage of devices for reporting system events
                  if (!self.devicesMapTable) {
-                     self.devicesMapTable = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableWeakMemory]; // let the user decide when to release SparkDevice objects 
+                     self.devicesMapTable = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableObjectPointerPersonality]; // let the user decide when to release SparkDevice objects
                  }
                  [self.devicesMapTable setObject:device forKey:device.id];
              }
@@ -544,7 +544,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
                              
                              if (device) { // new 0.5.0 local storage of devices for reporting system events
                                  if (!self.devicesMapTable) {
-                                     self.devicesMapTable = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableWeakMemory]; // let the user decide when to release SparkDevice objects
+                                     self.devicesMapTable = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableObjectPointerPersonality]; // let the user decide when to release SparkDevice objects
                                  }
                                  [self.devicesMapTable setObject:device forKey:device.id];
                              }
