@@ -23,8 +23,8 @@ NSString *const kEventListenersDictEventSourceKey = @"eventSource";
 NSString *const kEventListenersDictHandlerKey = @"eventHandler";
 NSString *const kEventListenersDictIDKey = @"id";
 
-static NSString *const kDefaultOAuthClientId = @"particle";
-static NSString *const kDefaultOAuthClientSecret = @"particle";
+static NSString *const kDefaultoAuthClientId = @"particle";
+static NSString *const kDefaultoAuthClientSecret = @"particle";
 
 @interface SparkCloud () <SparkSessionDelegate>
 
@@ -69,8 +69,8 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 
 //        self.loggedIn = NO;
 
-        self.OAuthClientId = kDefaultOAuthClientId;
-        self.OAuthClientSecret = kDefaultOAuthClientSecret;
+        self.oAuthClientId = kDefaultoAuthClientId;
+        self.oAuthClientSecret = kDefaultoAuthClientSecret;
 
         // try to restore session (user and access token)
 //        self.user = [[SparkUser alloc] initWithSavedSession];
@@ -159,12 +159,12 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 
 #pragma mark Setter functions
 
--(void)setOAuthClientId:(nullable NSString *)OAuthClientId {
-    _OAuthClientId = OAuthClientId ?: kDefaultOAuthClientId;
+-(void)setoAuthClientId:(nullable NSString *)oAuthClientId {
+    _oAuthClientId = oAuthClientId ?: kDefaultoAuthClientId;
 }
 
--(void)setOAuthClientSecret:(nullable NSString *)OAuthClientSecret {
-    _OAuthClientSecret = OAuthClientSecret ?: kDefaultOAuthClientSecret;
+-(void)setoAuthClientSecret:(nullable NSString *)oAuthClientSecret {
+    _oAuthClientSecret = oAuthClientSecret ?: kDefaultoAuthClientSecret;
 }
 
 #pragma mark Delegate functions
@@ -190,7 +190,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
                              @"refresh_token": refreshToken
                              };
     
-    [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.OAuthClientId password:self.OAuthClientSecret];
+    [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.oAuthClientId password:self.oAuthClientSecret];
     // OAuth login
     [self.manager POST:@"oauth/token" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -232,7 +232,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
                              @"password": password,
                              };
     
-    [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.OAuthClientId password:self.OAuthClientSecret];
+    [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.oAuthClientId password:self.oAuthClientSecret];
     // OAuth login
     NSURLSessionDataTask *task = [self.manager POST:@"oauth/token" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -333,7 +333,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
         return nil;
     }
 
-    if ((!self.OAuthClientId) || (!self.OAuthClientSecret))
+    if ((!self.oAuthClientId) || (!self.oAuthClientSecret))
     {
         if (completion)
         {
@@ -342,7 +342,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
         return nil;
     }
     
-    [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.OAuthClientId password:self.OAuthClientSecret];
+    [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.oAuthClientId password:self.oAuthClientSecret];
 
     // non default params
     NSMutableDictionary *params = [@{
@@ -507,7 +507,7 @@ static NSString *const kDefaultOAuthClientSecret = @"particle";
 }
 
 
--(NSURLSessionDataTask *)getDevices:(nullable void (^)(NSArray * _Nullable sparkDevices, NSError * _Nullable error))completion
+-(NSURLSessionDataTask *)getDevices:(nullable void (^)(NSArray<SparkDevice *> * _Nullable sparkDevices, NSError * _Nullable error))completion
 {
     if (self.session.accessToken) {
         NSString *authorization = [NSString stringWithFormat:@"Bearer %@", self.session.accessToken];

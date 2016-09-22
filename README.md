@@ -443,8 +443,8 @@ Please follow the procedure decribed [in our guide](https://docs.particle.io/gui
 then in your `AppDelegate` class you can supply those credentials by setting the following properties in `SparkCloud` singleton:
 
 ```objc
-@property (nonatomic, strong) NSString *OAuthClientId;
-@property (nonatomic, strong) NSString *OAuthClientSecret;
+@property (nonatomic, strong) NSString *oAuthClientId;
+@property (nonatomic, strong) NSString *oAuthClientSecret;
 ```
 
 **Important**
@@ -460,12 +460,12 @@ After adding the following additional lines your project `Podfile`:
 plugin 'cocoapods-keys', {
     :project => "YourAppName",
     :keys => [
-        "OAuthClientId",
+        "oAuthClientId",
         "OAuthSecret"
     ]}
 ```
 
-go to your project folder in shell and run `pod install` - it will now ask you for "OAuthClientId", "OAuthSecret" - you can copy/paste the generated keys there
+go to your project folder in shell and run `pod install` - it will now ask you for "oAuthClientId", "OAuthSecret" - you can copy/paste the generated keys there
 and from that point on you can feed those keys into `SparkCloud` by adding this code to your AppDelegate `didFinishLaunchingWithOptions` function which gets called
 when your app starts:
 
@@ -474,8 +474,8 @@ when your app starts:
 ```swift
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     var keys = YourappnameKeys()
-    SparkCloud.sharedInstance().OAuthClientId = keys.oAuthClientId()
-    SparkCloud.sharedInstance().OAuthClientSecret = keys.oAuthSecret()
+    SparkCloud.sharedInstance().oAuthClientId = keys.oAuthClientId()
+    SparkCloud.sharedInstance().oAuthClientSecret = keys.oAuthSecret()
 
     return true
 }

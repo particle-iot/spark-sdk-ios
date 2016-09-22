@@ -588,6 +588,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0720;
+				TargetAttributes = {
+					1F57186D2894C4A48A4E3758BE511E8C = {
+						LastSwiftMigration = 0800;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -826,9 +831,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9CC17BAB564F895A608DE32745251FE8 /* Spark-SDK.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Spark-SDK/Spark-SDK-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -837,6 +844,8 @@
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "../../Pod/Classes/SDK/Spark-SDK-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -844,9 +853,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9CC17BAB564F895A608DE32745251FE8 /* Spark-SDK.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Spark-SDK/Spark-SDK-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -855,6 +866,9 @@
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "../../Pod/Classes/SDK/Spark-SDK-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};

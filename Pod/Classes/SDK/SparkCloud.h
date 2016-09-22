@@ -47,13 +47,13 @@ extern NSString *const kSparkAPIBaseURL;
 @property (nonatomic, strong, nullable, readonly) NSString *accessToken;
 
 /**
- *  OAuthClientId unique for your app, use 'particle' for development or generate your OAuth creds for production apps (https://docs.particle.io/reference/api/#create-an-oauth-client)
+ *  oAuthClientId unique for your app, use 'particle' for development or generate your OAuth creds for production apps (https://docs.particle.io/reference/api/#create-an-oauth-client)
  */
-@property (nonatomic, null_resettable, strong) NSString *OAuthClientId;
+@property (nonatomic, nullable, strong) NSString *oAuthClientId;
 /**
- *  OAuthClientSecret unique for your app, use 'particle' for development or generate your OAuth creds for production apps (https://docs.particle.io/reference/api/#create-an-oauth-client)
+ *  oAuthClientSecret unique for your app, use 'particle' for development or generate your OAuth creds for production apps (https://docs.particle.io/reference/api/#create-an-oauth-client)
  */
-@property (nonatomic, null_resettable, strong) NSString *OAuthClientSecret;
+@property (nonatomic, nullable, strong) NSString *oAuthClientSecret;
 
 /**
  *  Singleton instance of SparkCloud class
@@ -76,7 +76,7 @@ extern NSString *const kSparkAPIBaseURL;
  */
 -(NSURLSessionDataTask *)loginWithUser:(NSString *)user
                               password:(NSString *)password
-                            completion:(nullable SparkCompletionBlock)completion;
+                            completion:(nullable SparkCompletionBlock)completion; 
 
 /**
  *  Sign up with new account credentials to Spark cloud
@@ -158,7 +158,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param completion Completion block with the device instances array in case of success or with NSError object if failure
  *  @return NSURLSessionDataTask task for requested network access
  */
--(NSURLSessionDataTask *)getDevices:(nullable void (^)(NSArray * _Nullable sparkDevices, NSError * _Nullable error))completion;
+-(NSURLSessionDataTask *)getDevices:(nullable void (^)(NSArray<SparkDevice *> * _Nullable sparkDevices, NSError * _Nullable error))completion;
 
 /**
  *  Get a specific device instance by its deviceID. If the device is offline the instance will contain only partial information the cloud has cached, 
