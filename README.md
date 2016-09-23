@@ -2,7 +2,7 @@
 <img src="http://oi60.tinypic.com/116jd51.jpg" alt="Particle" title="Particle">
 </p>
 # Particle iOS Cloud SDK
-[![Build Status](https://api.travis-ci.org/spark/spark-sdk-ios.svg)](https://travis-ci.org/spark/spark-sdk-ios) [![license](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/spark/spark-sdk-ios/blob/master/LICENSE) [![version](https://img.shields.io/badge/cocoapods-0.5.0-green.svg)](https://github.com/spark/spark-sdk-ios/blob/master/CHANGELOG.md)
+[![Build Status](https://api.travis-ci.org/spark/spark-sdk-ios.svg)](https://travis-ci.org/spark/spark-sdk-ios) [![license](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/spark/spark-sdk-ios/blob/master/LICENSE) [![version](https://img.shields.io/badge/cocoapods-0.5.2-green.svg)](https://github.com/spark/spark-sdk-ios/blob/master/CHANGELOG.md)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Particle iOS Cloud SDK enables iOS apps to interact with Particle-powered connected products via the Particle Cloud. It’s an easy-to-use wrapper for Particle REST API. The Cloud SDK will allow you to:
@@ -226,7 +226,7 @@ Assuming here that `myElectron` is an active instance of `SparkDevice` class whi
 ```
 **Swift**
 ```swift
-self.selectedDevice!.getCurrentDataUsage { (dataUsed: Float, error :NSError?) in
+self.selectedDevice!.getCurrentDataUsage { (dataUsed: Float, error :Error?) in
     if (error == nil) {
         print("Device has used "+String(dataUsed)+" MBs this month")
     }
