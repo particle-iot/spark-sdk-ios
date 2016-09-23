@@ -88,7 +88,7 @@ You don't need to worry about access tokens and session expiry, SDK takes care o
 ```
 **Swift**
 ```swift
-SparkCloud.sharedInstance().loginWithUser("username@email.com", password: "userpass") { (error:NSError?) -> Void in
+SparkCloud.sharedInstance().loginWithUser("username@email.com", password: "userpass") { (error:Error?) -> Void in
     if let _ = error {
         print("Wrong credentials or no internet connectivity, please try again")
     }
@@ -138,13 +138,13 @@ __block SparkDevice *myPhoton;
 
 ```swift
 var myPhoton : SparkDevice?
-SparkCloud.sharedInstance().getDevices { (sparkDevices:[AnyObject]?, error:NSError?) -> Void in
+SparkCloud.sharedInstance().getDevices { (devices:[SparkDevice]?, error:Error?) -> Void in
     if let _ = error {
         print("Check your internet connectivity")
     }
     else {
-        if let devices = sparkDevices as? [SparkDevice] {
-            for device in devices {
+        if let d = devices {
+            for device in d {
                 if device.name == "myNewPhotonName" {
                     myPhoton = device
                 }
@@ -172,13 +172,13 @@ Assuming here that `myPhoton` is an active instance of `SparkDevice` class which
 ```
 **Swift**
 ```swift
-myPhoton!.getVariable("temperature", completion: { (result:AnyObject?, error:NSError?) -> Void in
+myPhoton!.getVariable("temperature", completion: { (result:Any?, error:Error?) -> Void in
     if let _ = error {
         print("Failed reading temperature from device")
     }
     else {
-        if let temp = result as? Float {
-            print("Room temperature is \(temp) degrees")
+        if let temp = result as? NSNumber {
+            print("Room temperature is \(temp.stringValue) degrees")
         }
     }
 })
@@ -202,7 +202,7 @@ int64_t bytesToReceive  = task.countOfBytesExpectedToReceive;
 **Swift**
 ```swift
 let funcArgs = ["D7",1]
-var task = myPhoton!.callFunction("digitalWrite", withArguments: funcArgs) { (resultCode : NSNumber?, error : NSError?) -> Void in
+var task = myPhoton!.callFunction("digitalWrite", withArguments: funcArgs) { (resultCode : NSNumber?, error : Error?) -> Void in
     if (error == nil) {
         print("LED on D7 successfully turned on")
     }
@@ -269,7 +269,7 @@ NSString *deviceID = @"53fa73265066544b16208184";
 **Swift**
 ```swift
 var myOtherDevice : SparkDevice? = nil
-    SparkCloud.sharedInstance().getDevice("53fa73265066544b16208184", completion: { (device:SparkDevice?, error:NSError?) -> Void in
+    SparkCloud.sharedInstance().getDevice("53fa73265066544b16208184", completion: { (device:SparkDevice?, error:Error?) -> Void in
         if let d = device {
             myOtherDevice = d
         }
@@ -297,7 +297,7 @@ myPhoton!.name = "myNewDeviceName"
 ```
 _or_
 ```swift
-myPhoton!.rename("myNewDeviceName", completion: { (error:NSError?) -> Void in
+myPhoton!.rename("myNewDeviceName", completion: { (error:Error?) -> Void in
     if (error == nil) {
         print("Device successfully renamed")
     }
@@ -399,7 +399,7 @@ You can also publish an event from your app to the Particle Cloud:
 **Swift**
 
 ```swift
-SparkCloud.sharedInstance().publishEventWithName("event_from_app", data: "event_payload", isPrivate: false, ttl: 60, completion: { (error:NSError?) -> Void in
+SparkCloud.sharedInstance().publishEventWithName("event_from_app", data: "event_payload", isPrivate: false, ttl: 60, completion: { (error:Error?) -> Void in
     if let e = error
     {
         print("Error publishing event" + e.localizedDescription)
@@ -461,18 +461,18 @@ plugin 'cocoapods-keys', {
     :project => "YourAppName",
     :keys => [
         "oAuthClientId",
-        "OAuthSecret"
+        "oAuthSecret"
     ]}
 ```
 
-go to your project folder in shell and run `pod install` - it will now ask you for "oAuthClientId", "OAuthSecret" - you can copy/paste the generated keys there
+go to your project folder in shell and run `pod install` - it will now ask you for "oAuthClientId", "oAuthSecret" - you can copy/paste the generated keys there
 and from that point on you can feed those keys into `SparkCloud` by adding this code to your AppDelegate `didFinishLaunchingWithOptions` function which gets called
 when your app starts:
 
 *Swift example code*
 
 ```swift
-func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     var keys = YourappnameKeys()
     SparkCloud.sharedInstance().oAuthClientId = keys.oAuthClientId()
     SparkCloud.sharedInstance().oAuthClientSecret = keys.oAuthSecret()
@@ -482,6 +482,13 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 ```
 
 Be sure to replace `YourAppName` with your project name.
+
+### Deploying apps with Particle cloud SDK
+
+Starting iOS 10 / XCode 8, Apple requires the developer to enable *Keychain sharing* under the app Capabilities tab when clicking on your target in the project navigator pane. Otherwise an exception will be thrown when a user logs in, the the SDK tries to write the session token to the secure keychain and will fail without this capability enabled.
+
+Consult this screenshot for reference:
+![Keychain sharing screenshot](http://i63.tinypic.com/szc3nc.png "Enable keychain sharing capability before deploying")
 
 ### Additional reference
 For additional reference check out the [Reference in Cocoadocs website](http://cocoadocs.org/docsets/Spark-SDK/) for full coverage of `SparkDevice` and `SparkCloud` functions and member variables. In addition you can consult the javadoc style comments in `SparkCloud.h` and `SparkDevice.h` for each public method. If Particle iOS Cloud SDK is integrated in your Xcode project you should be able to press `Esc` to get an auto-complete hints for each cloud and device method.

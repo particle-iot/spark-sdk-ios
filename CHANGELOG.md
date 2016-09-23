@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ---
+## [0.5.2](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.2) (2016-09-22)
+
+* Bigfix: SparkDevice.refresh() now does not nullify the delegate property 
+
+* Bigfix: Internal device maptable issue
+
+* Added: Syntax changes for interoperability with Xcode 8 / Swift 3.0
+
 ## [0.5.1](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.1) (2016-09-07)
 
 * Bigfix: Functions (Array) and Variables (Dictionary) in a SparkDevice instance will sometimes contain unknown type values for offline devices, this might cause problems with Swift - fixed.
