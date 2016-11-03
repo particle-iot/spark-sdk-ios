@@ -34,6 +34,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceType) {
     SparkDeviceTypePhoton=6, // or P0
     SparkDeviceTypeP1=8,
     SparkDeviceTypeElectron=10,
+    SparkDeviceTypeRaspberryPi=31,
     SparkDeviceTypeRedBearDuo=88,
     SparkDeviceTypeBluz=103,
     SparkDeviceTypeDigistumpOak=82,
