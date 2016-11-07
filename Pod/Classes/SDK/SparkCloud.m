@@ -270,54 +270,73 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
     
     return task;
 }
-
--(NSURLSessionDataTask *)signupWithUser:(NSString *)user password:(NSString *)password completion:(nullable SparkCompletionBlock)completion
+-(NSURLSessionDataTask *)createUser:(NSString *)username
+                           password:(NSString *)password
+                        accountInfo:(NSDictionary *)accountInfo
+                         completion:(nullable SparkCompletionBlock)completion
 {
-    
     // non default params
-    NSDictionary *params = @{
-                             @"username": user,
+    NSMutableDictionary *params = [@{
+                             @"username": username,
                              @"password": password,
-                             };
+                             } mutableCopy];
+    
+//    ,"account_info":{"first_name":"bvfbcv","last_name":"bxcvbcv","business_account":true,"company_name":"qqqq"}}
+    if (accountInfo) {
+        NSString *firstName = accountInfo[@"firstName"] ? accountInfo[@"firstName"] : @"";
+        NSString *lastName = accountInfo[@"lastName"] ? accountInfo[@"lastName"] : @"";
+        NSString *companyName = accountInfo[@"companyName"] ? accountInfo[@"companyName"] : @"";
+        NSString *businessAccount = ([accountInfo[@"businessAccount"] boolValue] ? @"true" : @"false");
+        
+        params[@"account_info"] = [NSString stringWithFormat:@"{\"first_name\":\"%@\",\"last_name\":\"%@\",\"business_account\":%@,\"company_name\":\"%@\"}",firstName,lastName,businessAccount,companyName];
+    }
     
     NSURLSessionDataTask *task = [self.manager POST:@"/v1/users/" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-         NSDictionary *responseDict = responseObject;
-         if (completion) {
-             if ([responseDict[@"ok"] boolValue])
-             {
-                 completion(nil);
-             }
-             else
-             {
-                 NSString *errorString;
-                 if (responseDict[@"errors"][0])
-                     errorString = [NSString stringWithFormat:@"Could not sign up: %@",responseDict[@"errors"][0]];
-                 else
-                     errorString = @"Error signing up";
-                 completion([self makeErrorWithDescription:errorString code:1004]);
-             }
-         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
-    {
-        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
-         // check type of error?
-         if (completion)
-         {
-             completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
-         }
-
-         NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         if (errorData)
-         {
-             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! signupWithUser %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
-         }
-    }];
+                                  {
+                                      NSDictionary *responseDict = responseObject;
+                                      if (completion) {
+                                          if ([responseDict[@"ok"] boolValue])
+                                          {
+                                              completion(nil);
+                                          }
+                                          else
+                                          {
+                                              NSString *errorString;
+                                              if (responseDict[@"errors"][0])
+                                              errorString = [NSString stringWithFormat:@"Could not sign up: %@",responseDict[@"errors"][0]];
+                                              else
+                                              errorString = @"Error signing up";
+                                              completion([self makeErrorWithDescription:errorString code:1004]);
+                                          }
+                                      }
+                                  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                                  {
+                                      NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+                                      // check type of error?
+                                      if (completion)
+                                      {
+                                          completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+                                      }
+                                      
+                                      NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+                                      if (errorData)
+                                      {
+                                          NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+                                          NSLog(@"! signupWithUser %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
+                                      }
+                                  }];
     
     [self.manager.requestSerializer clearAuthorizationHeader];
     
     return task;
+    
+}
+
+
+-(NSURLSessionDataTask *)signupWithUser:(NSString *)user password:(NSString *)password completion:(nullable SparkCompletionBlock)completion
+{
+    return [self createUser:user password:password accountInfo:nil completion:completion];
+    
 }
 
 

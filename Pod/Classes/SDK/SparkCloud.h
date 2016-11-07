@@ -87,7 +87,23 @@ extern NSString *const kSparkAPIBaseURL;
  */
 -(NSURLSessionDataTask *)signupWithUser:(NSString *)user
                                password:(NSString *)password
-                             completion:(nullable SparkCompletionBlock)completion;
+                             completion:(nullable SparkCompletionBlock)completion __deprecated_msg("use createUser:password:accountInfo:completion instead");;
+
+
+// NEW
+/**
+ *  Sign up with new account credentials to Particle cloud
+ *
+ *  @param user       Required user name, must be a valid email address
+ *  @param password   Required password
+ *  @param accountInfo Optional dictionary with extended account info fields: firstName, lastName, isBusinessAccount [NSNumber @0=false, @1=true], companyName
+ *  @param completion Completion block will be called when sign-up finished, NSError object will be passed in case of an error, nil if success
+ */
+-(NSURLSessionDataTask *)createUser:(NSString *)username
+                           password:(NSString *)password
+                        accountInfo:(nullable NSDictionary *)accountInfo
+                         completion:(nullable SparkCompletionBlock)completion;
+
 
 
 /**
@@ -98,10 +114,26 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param orgSlug    Organization string to include in cloud API endpoint URL
  *  @param completion Completion block will be called when sign-up finished, NSError object will be passed in case of an error, nil if success
  */
--(nullable NSURLSessionDataTask *)signupWithCustomer:(NSString *)email
+-(nullable NSURLSessionDataTask *)signupWithCustomer:(NSString *)username
                                             password:(NSString *)password
                                              orgSlug:(NSString *)orgSlug
-                                          completion:(nullable SparkCompletionBlock)completion;
+                                          completion:(nullable SparkCompletionBlock)completion __deprecated_msg("use createCustomer:password:productId:completion instead");
+
+// NEW
+/**
+ *  Sign up with new account credentials to Spark cloud
+ *
+ *  @param email      Required user name, must be a valid email address
+ *  @param password   Required password
+ *  @param orgSlug    Organization string to include in cloud API endpoint URL
+ *  @param completion Completion block will be called when sign-up finished, NSError object will be passed in case of an error, nil if success
+ */
+-(nullable NSURLSessionDataTask *)createCustomer:(NSString *)username
+                                        password:(NSString *)password
+                                       productId:(NSUInteger *)productId
+                                     accountInfo:(NSDictionary *)accountInfo
+                                      completion:(nullable SparkCompletionBlock)completion;
+
 
 /**
  *  Logout user, remove session data
@@ -140,9 +172,16 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param email      user email
  *  @param completion Completion block with NSError object if failure, nil if success
  */
+
 -(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)orgSlug
                                                    email:(NSString *)email
+                                              completion:(nullable SparkCompletionBlock)completion __deprecated_msg("use requestPasswordResetForCustomer:email:productId:completion instead");
+
+// NEW
+-(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)email
+                                               productId:(NSUInteger)productId
                                               completion:(nullable SparkCompletionBlock)completion;
+
 -(NSURLSessionDataTask *)requestPasswordResetForUser:(NSString *)email
                                           completion:(nullable SparkCompletionBlock)completion;
 
@@ -205,7 +244,11 @@ extern NSString *const kSparkAPIBaseURL;
 -(NSURLSessionDataTask *)generateClaimCodeForOrganization:(NSString *)orgSlug
                                                andProduct:(NSString *)productSlug
                                        withActivationCode:(nullable NSString *)activationCode
-                                               completion:(nullable void(^)(NSString *_Nullable claimCode, NSArray * _Nullable userClaimedDeviceIDs, NSError * _Nullable error))completion;
+                                               completion:(nullable void(^)(NSString *_Nullable claimCode, NSArray * _Nullable userClaimedDeviceIDs, NSError * _Nullable error))completion __deprecated_msg("use generateClaimCodeForProduct:completion instead");
+
+// NEW
+-(NSURLSessionDataTask *)generateClaimCodeForProduct:(NSUInteger)productId
+                                          completion:(nullable void(^)(NSString *_Nullable claimCode, NSArray * _Nullable userClaimedDeviceIDs, NSError * _Nullable error))completion;
 
 
 #pragma mark Events subsystem functions
@@ -240,6 +283,9 @@ extern NSString *const kSparkAPIBaseURL;
  *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
 -(nullable id)subscribeToDeviceEventsWithPrefix:(nullable NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(nullable SparkEventHandler)eventHandler;
+
+
+// ADD: subscribe to product events...
 
 /**
  *  Unsubscribe from event/events.
