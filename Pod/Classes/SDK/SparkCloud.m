@@ -272,7 +272,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 }
 -(NSURLSessionDataTask *)createUser:(NSString *)username
                            password:(NSString *)password
-                        accountInfo:(NSDictionary *)accountInfo
+                        accountInfo:(nullable NSDictionary *)accountInfo
                          completion:(nullable SparkCompletionBlock)completion
 {
     // non default params
