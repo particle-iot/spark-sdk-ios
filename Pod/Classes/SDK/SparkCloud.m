@@ -275,22 +275,17 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
                         accountInfo:(nullable NSDictionary *)accountInfo
                          completion:(nullable SparkCompletionBlock)completion
 {
-    // non default params
+    
     NSMutableDictionary *params = [@{
                              @"username": username,
                              @"password": password,
                              } mutableCopy];
     
-//    ,"account_info":{"first_name":"bvfbcv","last_name":"bxcvbcv","business_account":true,"company_name":"qqqq"}}
+
     if (accountInfo) {
-        NSString *firstName = accountInfo[@"firstName"] ? accountInfo[@"firstName"] : @"";
-        NSString *lastName = accountInfo[@"lastName"] ? accountInfo[@"lastName"] : @"";
-        NSString *companyName = accountInfo[@"companyName"] ? accountInfo[@"companyName"] : @"";
-        NSString *businessAccount = ([accountInfo[@"businessAccount"] boolValue] ? @"true" : @"false");
-        
-        params[@"account_info"] = [NSString stringWithFormat:@"{\"first_name\":\"%@\",\"last_name\":\"%@\",\"business_account\":%@,\"company_name\":\"%@\"}",firstName,lastName,businessAccount,companyName];
+        params[@"account_info"] = accountInfo;
     }
-    
+        
     NSURLSessionDataTask *task = [self.manager POST:@"/v1/users/" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
                                   {
                                       NSDictionary *responseDict = responseObject;
