@@ -687,61 +687,62 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
                                        withActivationCode:(nullable NSString *)activationCode
                                                completion:(nullable void(^)(NSString * _Nullable claimCode, NSArray * _Nullable userClaimedDeviceIDs, NSError * _Nullable error))completion
 {
+    return [self generateClaimCodeForProduct:[productSlug integerValue] completion:completion];
+}
+
+
+-(NSURLSessionDataTask *)generateClaimCodeForProduct:(NSUInteger)productId
+                                          completion:(nullable void(^)(NSString *_Nullable claimCode, NSArray * _Nullable userClaimedDeviceIDs, NSError * _Nullable error))completion
+{
     if (self.session.accessToken) {
         NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.session.accessToken];
         [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
     }
     
-    NSDictionary *params;
-    if (activationCode) params = @{@"activation_code" : activationCode};
-
-
-    NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet]; // encode it in case there are special chars in org/product name (there shouldn't be)
-    NSString *encodedOrgSlug = [orgSlug stringByAddingPercentEncodingWithAllowedCharacters:set];
-    NSString *encodedProductSlug = [productSlug stringByAddingPercentEncodingWithAllowedCharacters:set];
-
-    NSString *urlPath = [NSString stringWithFormat:@"/v1/orgs/%@/products/%@/device_claims", encodedOrgSlug, encodedProductSlug];
-
-    NSURLSessionDataTask *task = [self.manager POST:urlPath parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        if (completion)
-        {
-            NSDictionary *responseDict = responseObject;
-            if (responseDict[@"claim_code"])
-            {
-                NSArray *claimedDeviceIDs = responseDict[@"device_ids"];
-                if ((claimedDeviceIDs) && (claimedDeviceIDs.count > 0))
-                {
-                    completion(responseDict[@"claim_code"], responseDict[@"device_ids"], nil);
-                }
-                else
-                {
-                    completion(responseDict[@"claim_code"], nil, nil);
-                }
-            }
-            else
-            {
-                completion(nil, nil, [self makeErrorWithDescription:@"Could not generate a claim code" code:1007]);
-            }
-        }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
-    {
-        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
-        NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-        if (errorData)
-        {
-            NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-            NSLog(@"! generateClaimCodeForOrganization %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
-        }
-        
-        if (completion) {
-            completion(nil, nil, [NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
-        }
-    }];
+    NSString *urlPath = [NSString stringWithFormat:@"/v1/products/%tu/device_claims", productId];
+    
+    NSURLSessionDataTask *task = [self.manager POST:urlPath parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+                                  {
+                                      if (completion)
+                                      {
+                                          NSDictionary *responseDict = responseObject;
+                                          if (responseDict[@"claim_code"])
+                                          {
+                                              NSArray *claimedDeviceIDs = responseDict[@"device_ids"];
+                                              if ((claimedDeviceIDs) && (claimedDeviceIDs.count > 0))
+                                              {
+                                                  completion(responseDict[@"claim_code"], responseDict[@"device_ids"], nil);
+                                              }
+                                              else
+                                              {
+                                                  completion(responseDict[@"claim_code"], nil, nil);
+                                              }
+                                          }
+                                          else
+                                          {
+                                              completion(nil, nil, [self makeErrorWithDescription:@"Could not generate a claim code" code:1007]);
+                                          }
+                                      }
+                                      
+                                  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                                  {
+                                      NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+                                      NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+                                      if (errorData)
+                                      {
+                                          NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+                                          NSLog(@"! generateClaimCodeForOrganization %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
+                                      }
+                                      
+                                      if (completion) {
+                                          completion(nil, nil, [NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+                                      }
+                                  }];
     
     return task;
 }
+
+
 
 -(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)orgSlug
                                                    email:(NSString *)email
