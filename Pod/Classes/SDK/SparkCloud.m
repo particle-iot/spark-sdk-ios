@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define GLOBAL_API_TIMEOUT_INTERVAL     31.0f
 
-NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
+//NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
+NSString *const kSparkAPIBaseURL = @"http://localhost:9090";
 NSString *const kEventListenersDictEventSourceKey = @"eventSource";
 NSString *const kEventListenersDictHandlerKey = @"eventHandler";
 NSString *const kEventListenersDictIDKey = @"id";
@@ -743,40 +744,49 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 }
 
 
+-(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)email
+                                               productId:(NSUInteger)productId
+                                              completion:(nullable SparkCompletionBlock)completion
+
+{
+    NSDictionary *params = @{@"email": email};
+    
+    NSString *urlPath = [NSString stringWithFormat:@"/v1/products/%tu/customers/reset_password", productId];
+    
+    
+    NSURLSessionDataTask *task = [self.manager POST:urlPath parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+                                  {
+                                      if (completion) // TODO: check responses
+                                      {
+                                          completion(nil);
+                                      }
+                                  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                                  {
+                                      NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+                                      if (completion)
+                                      {
+                                          // make error have the HTTP response status code
+                                          // TODO: for all
+                                          completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+                                      }
+                                      
+                                      NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+                                      if (errorData)
+                                      {
+                                          NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+                                          NSLog(@"! requestPasswordReset %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
+                                      }
+                                  }];
+    
+    return task;
+    
+}
 
 -(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)orgSlug
                                                    email:(NSString *)email
                                               completion:(nullable SparkCompletionBlock)completion
 {
-    NSDictionary *params = @{@"email": email};
-    NSString *urlPath = [NSString stringWithFormat:@"/v1/orgs/%@/customers/reset_password", orgSlug];
-    
-    
-    NSURLSessionDataTask *task = [self.manager POST:urlPath parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        if (completion) // TODO: check responses
-        {
-            completion(nil);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
-    {
-        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
-        if (completion)
-        {
-            // make error have the HTTP response status code
-            // TODO: for all
-            completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
-        }
-        
-        NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-        if (errorData)
-        {
-            NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-            NSLog(@"! requestPasswordReset %@ Failed (status code %d): %@",task.originalRequest.URL,(int)serverResponse.statusCode,serializedFailedBody);
-        }
-    }];
-    
-    return task;
+    return [self requestPasswordResetForCustomer:email productId:[orgSlug integerValue] completion:completion];
 }
 
 
