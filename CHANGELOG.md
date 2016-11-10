@@ -3,7 +3,13 @@ All notable changes to this project will be documented in this file.
 Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ---
-## [0.5.2](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.2) (2016-09-22)
+## [0.6.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.6.0) (????)
+
+* Updated: Product endpoints depracates Org endpoints
+
+* Added: Raspberry pi platform 31 support
+
+* Added: accountInfo field to createUser (add optional first/last name, company name and business account info to every user signup)
 
 * Bigfix: SparkDevice.refresh() now does not nullify the delegate property 
 
