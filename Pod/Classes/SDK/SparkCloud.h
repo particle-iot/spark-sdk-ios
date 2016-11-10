@@ -123,15 +123,16 @@ extern NSString *const kSparkAPIBaseURL;
 /**
  *  Sign up with new account credentials to Spark cloud
  *
- *  @param email      Required user name, must be a valid email address
+ *  @param username   Required user name, must be a valid email address
  *  @param password   Required password
- *  @param orgSlug    Organization string to include in cloud API endpoint URL
+ *  @param productId  Required ProductID number should be copied from console for your specific product
+ *  @param accountInfo Optional account information metadata that contains fields: first_name, last_name, company_name, business_account [boolean] - currently has no effect for customers
  *  @param completion Completion block will be called when sign-up finished, NSError object will be passed in case of an error, nil if success
  */
 -(nullable NSURLSessionDataTask *)createCustomer:(NSString *)username
                                         password:(NSString *)password
-                                       productId:(NSUInteger *)productId
-                                     accountInfo:(NSDictionary *)accountInfo
+                                       productId:(NSUInteger)productId
+                                     accountInfo:(nullable NSDictionary *)accountInfo
                                       completion:(nullable SparkCompletionBlock)completion;
 
 

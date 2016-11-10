@@ -336,18 +336,22 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 }
 
 
--(nullable NSURLSessionDataTask *)signupWithCustomer:(NSString *)email password:(NSString *)password orgSlug:(NSString *)orgSlug completion:(nullable SparkCompletionBlock)completion
+-(nullable NSURLSessionDataTask *)createCustomer:(NSString *)username
+                                        password:(NSString *)password
+                                       productId:(NSUInteger)productId
+                                     accountInfo:(nullable NSDictionary *)accountInfo
+                                      completion:(nullable SparkCompletionBlock)completion
 {
     // Make sure we got an orgSlug that was neither nil nor the empty string
-    if (orgSlug.length == 0)
+    if (productId == 0)
     {
         if (completion)
         {
-            completion([self makeErrorWithDescription:@"Organization slug must be specified" code:1006]);
+            completion([self makeErrorWithDescription:@"productId value must be set to a non-zero value" code:1006]);
         }
         return nil;
     }
-
+    
     if ((!self.oAuthClientId) || (!self.oAuthClientSecret))
     {
         if (completion)
@@ -358,67 +362,71 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
     }
     
     [self.manager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.oAuthClientId password:self.oAuthClientSecret];
-
-    // non default params
+    
     NSMutableDictionary *params = [@{
-                             @"email": email,
-                             @"password": password,
-                             @"grant_type" : @"client_credentials",
-                             } mutableCopy];
+                                     @"email": username,
+                                     @"password": password,
+                                     @"grant_type" : @"client_credentials",
+                                     } mutableCopy];
     
-//    if (inviteCode)
-//        params[@"activation_code"] = inviteCode;
     
-    NSString *url = [NSString stringWithFormat:@"/v1/orgs/%@/customers", orgSlug];
-//    NSLog(@"Signing up customer...");
+    NSString *url = [NSString stringWithFormat:@"/v1/products/%tu/customers", productId];
+    //    NSLog(@"Signing up customer...");
     
     NSURLSessionDataTask *task = [self.manager POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
-        NSMutableDictionary *responseDict = [responseObject mutableCopy];
-//        NSLog(@"Got status code %d, and response: %@",(int)serverResponse.statusCode,responseDict);
-
-        responseDict[@"username"] = email;
-        
-         self.session = [[SparkSession alloc] initWithNewSession:responseDict];
-        
-         if (self.session) // customer login was successful
-         {
-             self.session.delegate = self;
-         }
-         
-         if (completion)
-         {
-             if (serverResponse.statusCode == 201)
-             {
-                 completion(nil);
-             }
-             else
-             {
-                 NSString *errorDesc = ([responseDict[@"error"] stringValue]); // check name of field
-                 completion([self makeErrorWithDescription:errorDesc code:1004]);
-             }
-         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
-    {
-         NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
-         // check type of error?
-         if (completion)
-         {
-             completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
-         }
-        
-         NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-         if (errorData)
-         {
-             NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
-             NSLog(@"! signupWithCustomer %@ Failed (status code %d): %@", url, (int)serverResponse.statusCode,serializedFailedBody);
-         }
-    }];
+                                  {
+                                      NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+                                      NSMutableDictionary *responseDict = [responseObject mutableCopy];
+                                      //        NSLog(@"Got status code %d, and response: %@",(int)serverResponse.statusCode,responseDict);
+                                      
+                                      responseDict[@"username"] = username;
+                                      
+                                      self.session = [[SparkSession alloc] initWithNewSession:responseDict];
+                                      
+                                      if (self.session) // customer login was successful
+                                      {
+                                          self.session.delegate = self;
+                                      }
+                                      
+                                      if (completion)
+                                      {
+                                          if (serverResponse.statusCode == 201)
+                                          {
+                                              completion(nil);
+                                          }
+                                          else
+                                          {
+                                              NSString *errorDesc = ([responseDict[@"error"] stringValue]); // check name of field
+                                              completion([self makeErrorWithDescription:errorDesc code:1004]);
+                                          }
+                                      }
+                                  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                                  {
+                                      NSHTTPURLResponse *serverResponse = (NSHTTPURLResponse *)task.response;
+                                      // check type of error?
+                                      if (completion)
+                                      {
+                                          completion([NSError errorWithDomain:error.domain code:serverResponse.statusCode userInfo:error.userInfo]);
+                                      }
+                                      
+                                      NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+                                      if (errorData)
+                                      {
+                                          NSDictionary *serializedFailedBody = [NSJSONSerialization JSONObjectWithData:errorData options:kNilOptions error:nil];
+                                          NSLog(@"! createCustomer %@ Failed (status code %d): %@", url, (int)serverResponse.statusCode,serializedFailedBody);
+                                      }
+                                  }];
     
     [self.manager.requestSerializer clearAuthorizationHeader];
     
     return task;
+
+}
+
+
+-(nullable NSURLSessionDataTask *)signupWithCustomer:(NSString *)email password:(NSString *)password orgSlug:(NSString *)orgSlug completion:(nullable SparkCompletionBlock)completion
+{
+    return [self createCustomer:email password:password productId:[orgSlug integerValue] accountInfo:nil completion:completion];
 }
 
 -(void)logout
