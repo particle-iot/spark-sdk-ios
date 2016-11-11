@@ -18,8 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define GLOBAL_API_TIMEOUT_INTERVAL     31.0f
 
-//NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
-NSString *const kSparkAPIBaseURL = @"http://localhost:9090";
+NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
 NSString *const kEventListenersDictEventSourceKey = @"eventSource";
 NSString *const kEventListenersDictHandlerKey = @"eventHandler";
 NSString *const kEventListenersDictIDKey = @"id";
