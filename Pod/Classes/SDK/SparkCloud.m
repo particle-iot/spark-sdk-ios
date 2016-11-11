@@ -91,7 +91,9 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 
         // init event listeners internal dictionary
         self.eventListenersDict = [NSMutableDictionary new];
-        [self subscribeToDevicesSystemEvents];
+        if (self.session.accessToken) {
+            [self subscribeToDevicesSystemEvents];
+        }
     }
     return self;
 }
@@ -110,6 +112,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
     self.session = [[SparkSession alloc] initWithToken:accessToken];
     if (self.session) {
         self.session.delegate = self;
+        [self subscribeToDevicesSystemEvents];
         return YES;
     } else return NO;
 }
@@ -120,6 +123,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
     self.session = [[SparkSession alloc] initWithToken:accessToken andExpiryDate:expiryDate];
     if (self.session) {
         self.session.delegate = self;
+        [self subscribeToDevicesSystemEvents];
         return YES;
     } else return NO;
 }
@@ -130,6 +134,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
     self.session = [[SparkSession alloc] initWithToken:accessToken withExpiryDate:expiryDate withRefreshToken:refreshToken];
     if (self.session) {
         self.session.delegate = self;
+        [self subscribeToDevicesSystemEvents];
         return YES;
     } else return NO;
 
@@ -243,6 +248,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
         if (self.session) // login was successful
         {
             self.session.delegate = self;
+            [self subscribeToDevicesSystemEvents];
         }
         
         if (completion)
@@ -431,6 +437,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 -(void)logout
 {
     [self.session removeSession];
+    [self unsubscribeToDevicesSystemEvents];
 }
 
 -(NSURLSessionDataTask *)claimDevice:(NSString *)deviceID completion:(nullable SparkCompletionBlock)completion
@@ -1070,11 +1077,15 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 
 }
 
-
--(void)dealloc {
+-(void)unsubscribeToDevicesSystemEvents {
     if (self.systemEventsListenerId) {
         [self unsubscribeFromEventWithID:self.systemEventsListenerId];
     }
+}
+
+
+-(void)dealloc {
+    [self unsubscribeToDevicesSystemEvents];
 }
 
 @end
