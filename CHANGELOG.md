@@ -15,6 +15,8 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 * Bigfix: Internal device maptable issue
 
+* Bigfix: System events subscribe only when SDK has an active access token
+
 * Added: Syntax changes for interoperability with Xcode 8 / Swift 3.0
 
 ## [0.5.1](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.1) (2016-09-07)
