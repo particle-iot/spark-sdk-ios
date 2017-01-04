@@ -322,7 +322,9 @@ You can make an API call that will open a stream of [Server-Sent Events (SSEs)](
 
 #### Subscribe to events
 
-Subscribe to the firehose of public events, plus private events published by devices one owns:
+Subscribe to the firehose of public events with name that starts with "temp", plus the private events published by devices one owns:
+
+**Objective-C**
 
 ```objc
 // The event handler:
@@ -344,25 +346,67 @@ SparkEventHandler handler = ^(SparkEvent *event, NSError *error) {
 id eventListenerID = [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:@"temp" handler:handler];
 ```
 
+**Swift**
+
+```swift
+var handler : Any?
+handler = SparkCloud.sharedInstance().subscribeToAllEvents(withPrefix: "temp", handler: { (event :SparkEvent?, error : Error?) in
+    if let _ = error {
+        print ("could not subscribe to events")
+    } else {
+        DispatchQueue.main.async(execute: {
+            print("got event with data \(event?.data)")
+        })
+    }
+})
+```
+
 *Note:* specifying nil or empty string in the eventNamePrefix parameter will subscribe to ALL events (lots of data!)
 You can have multiple handlers per event name and/or same handler per multiple events names.
 
-Subscribe to all events, public and private, published by devices the user owns:
+Subscribe to all events, public and private, published by devices the user owns (`handler` is a [Obj-C block](http://goshdarnblocksyntax.com/) or [Swift closure](http://fuckingswiftblocksyntax.com/)):
+
+**Objective-C**
 
 ```objc
 id eventListenerID = [[SparkCloud sharedInstance] subscribeToMyDevicesEventsWithPrefix:@"temp" handler:handler];
 ```
 
+**Swift**
+
+```swift
+var eventListenerID : Any?
+eventListenerID = SparkCloud.sharedInstance().subscribeToMyDevicesEvents(withPrefix: "temp", handler: handler)
+```
+
 Subscribe to events from one specific device (by deviceID, second parameter). If the API user owns the device, then he'll receive all events, public and private, published by that device. If the API user does not own the device he will only receive public events.
+
+**Objective-C**
 
 ```objc
 id eventListenerID = [[SparkCloud sharedInstance] subscribeToDeviceEventsWithPrefix:@"temp" deviceID:@"53ff6c065075535119511687" handler:handler];
 ```
 
+**Swift**
+
+```swift
+var eventListenerID : Any?
+eventListenerID = SparkCloud.sharedInstance().subscribeToDeviceEvents(withPrefix: "temp", deviceID: "53ff6c065075535119511687", handler: handler)
+```
+
 other option is calling same method via the `SparkDevice` instance:
+
+**Objective-C**
 
 ```objc
 id eventListenerID = [device subscribeToEventsWithPrefix:@"temp" handler:handler];
+```
+
+**Swift**
+
+```swift
+var eventListenerID : Any?
+eventListenerID = device.subscribeToEvents(withPrefix : "temp", handler : handler)
 ```
 
 this guarantees that private events will be received since having access device instance in your app signifies that the user has this device claimed.
@@ -371,16 +415,32 @@ this guarantees that private events will be received since having access device 
 
 Very straightforward. Keep the id object the subscribe method returned and use it as parameter to call the unsubscribe method:
 
+**Objective-C**
+
 ```objc
-[[SparkCloud sharedInstance] unsubscribeFromEventWithID:self.eventListenerID];
+[[SparkCloud sharedInstance] unsubscribeFromEventWithID:eventListenerID];
 ```
 
+**Swift**
+
+```swift
+if let sid = eventListenerID {
+    SparkCloud.sharedInstance().unsubscribeFromEvent(withID: sid)
+}
+```
 or via the `SparkDevice` instance (if applicable):
+
+**Objective-C**
 
 ```objc
 [device unsubscribeFromEventWithID:self.eventListenerID];
 ```
 
+**Swift**
+
+```swift
+device.unsubscribeFromEvent(withID : eventListenerID)
+```
 #### Publishing an event
 
 You can also publish an event from your app to the Particle Cloud:
