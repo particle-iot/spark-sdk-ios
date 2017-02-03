@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ---
-## [0.6.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.6.0) (????)
+## [0.6.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.6.0) (2017-02-03)
 
 * Updated: Product endpoints depracates Org endpoints
 
@@ -18,6 +18,8 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 * Bigfix: System events subscribe only when SDK has an active access token
 
 * Added: Syntax changes for interoperability with Xcode 8 / Swift 3.0
+
+* Bigfix: MBs Usage for Electron endpoint API response fix
 
 ## [0.5.1](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.1) (2016-09-07)
 
