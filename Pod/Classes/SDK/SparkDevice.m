@@ -577,9 +577,10 @@ NS_ASSUME_NONNULL_BEGIN
                                   {
                                       if (completion)
                                       {
-                                          NSArray *responseArr = responseObject;
+                                          NSDictionary *responseDict = responseObject;
+                                          NSDictionary *responseUsageDict = responseDict[@"usage_by_day"];
                                           float maxUsage = 0;
-                                          for (NSDictionary *usageDict in responseArr) {
+                                          for (NSDictionary *usageDict in responseUsageDict) {
                                               if (usageDict[@"mbs_used_cumulative"]) {
                                                   float usage = [usageDict[@"mbs_used_cumulative"] floatValue];
                                                   if (usage > maxUsage) {
