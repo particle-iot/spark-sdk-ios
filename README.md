@@ -559,13 +559,18 @@ For additional reference check out the [Reference in Cocoadocs website](http://c
 
 Particle iOS Cloud SDK is available through [CocoaPods](http://cocoapods.org). Cocoapods is an easy to use dependency manager for iOS.
 You must have Cocoapods installed, if you don't then be sure to [Install Cocoapods](https://guides.cocoapods.org/using/getting-started.html) before you start:
-To install the iOS Cloud SDK, simply add the following line to your Podfile on main project folder:
+To install the iOS Cloud SDK (only), simply create a file named `Podfile` on main project folder:
 
 ```ruby
-pod "Spark-SDK"
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'YourAppName' do
+    pod 'Spark-SDK'
+end
 ```
 
-and then run `pod update`. A new `.xcworkspace` file will be created for you to open by Cocoapods, open that file workspace file in Xcode and you can start interacting with Particle cloud and devices by
+Replace `YourAppName` with your app target name - usually shown as the root item name in the XCode project.
+In your shell - run `pod update` in the project folder. A new `.xcworkspace` file will be created for you to open by Cocoapods, open that file workspace file in Xcode and you can start interacting with Particle cloud and devices by
 adding `#import "Spark-SDK.h"`. (that is not required for swift projects)
 
 ### Carthage
