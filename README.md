@@ -1,11 +1,10 @@
 <p align="center" >
 <img src="http://oi60.tinypic.com/116jd51.jpg" alt="Particle" title="Particle">
 </p>
-# Particle iOS Cloud SDK
-[![Build Status](https://api.travis-ci.org/spark/spark-sdk-ios.svg)](https://travis-ci.org/spark/spark-sdk-ios) [![license](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/spark/spark-sdk-ios/blob/master/LICENSE) [![version](https://img.shields.io/badge/cocoapods-0.5.2-green.svg)](https://github.com/spark/spark-sdk-ios/blob/master/CHANGELOG.md)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-## iOS Cloud SDK
+# Particle iOS Cloud SDK
+[![Build Status](https://api.travis-ci.org/spark/spark-sdk-ios.svg)](https://travis-ci.org/spark/spark-sdk-ios) [![license](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/spark/spark-sdk-ios/blob/master/LICENSE) [![version](https://img.shields.io/badge/cocoapods-0.6.0-green.svg)](https://github.com/spark/spark-sdk-ios/blob/master/CHANGELOG.md)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ### Introduction
 
@@ -49,16 +48,6 @@ It's built on top of the Foundation URL Loading System, extending the powerful h
 The Particle Cloud SDK has been relying on this powerful library since the beginning, but when version 3.0 was released not long ago it contained some breaking changes, the main change from 2.x is that `NSURLConnectionOperation` was deprecated by Apple and `NSURLSessionDataTask` was introduced to replace it.
 You can ignore the return value (previously it was just `void`) coming out of the SDK functions, alternatively you can now make use of the `NSURLSessionDataTask` object as described.
 
-##### Swift support
-
-One of the great things about Swift is that it transparently interoperates with Objective-C code, both existing frameworks written in Objective-C and code in your app. However, in Swift there’s a strong distinction between optional and non-optional references, e.g. `NSView` vs. `NSView?`, while Objective-C represents both of these two types as `NSView *`. Because the Swift compiler can’t be sure whether a particular `NSView *` is optional or not, the type is brought into Swift as an implicitly unwrapped optional, NSView!.
-In previous Xcode releases, some Apple frameworks had been specially audited so that their API would show up with proper Swift optionals. Starting Xcode 6.3 there's support for this on your own code with a new Objective-C language feature: nullability annotations.
-The new nullability annotations have been integrated into the Particle iOS Cloud SDK library so now it plays nicely with Swift projects.
-
-All SDK callbacks return real optionals (`SparkDevice?`) instead of implicitly unwrapped optionals (`SparkDevice!`). See Swift examples below. Basically only a simple change required from the SDK user: to replace your callback argument types from `!` suffix to `?` suffix.
-
----
-
 Here are few examples for the most common use cases to get your started:
 
 #### Logging in to Particle cloud
@@ -73,7 +62,7 @@ You don't need to worry about access tokens and session expiry, SDK takes care o
         NSLog(@"Wrong credentials or no internet connectivity, please try again");
 }];
 ```
----
+
 
 **Swift**
 ```swift
@@ -86,7 +75,7 @@ SparkCloud.sharedInstance().login(withUser: "username@email.com", password: "use
     }
 }
 ```
----
+
 #### Injecting a session access token (app utilizes two legged authentication)
 
 If you use your own backend to authenticate users in your app - you can now inject the Particle access token your back end gets from Particle cloud easily using one of the new `injectSessionAccessToken` functions exposed from `SparkCloud` singleton class.
@@ -99,7 +88,7 @@ if ([[SparkCloud sharedInstance] injectSessionAccessToken:@"9bb9f7433940e7c808b1
 else
     NSLog(@"Bad access token provided");
 ```
----
+
 
 **Swift**
 ```swift
@@ -109,7 +98,7 @@ if SparkCloud.sharedInstance().injectSessionAccessToken("9bb9f7433940e7c808b191c
     print("Bad access token provided")
 }
 ```
----
+
 #### Get a list of all devices
 List the devices that belong to currently logged in user and find a specific device by name:
 
@@ -127,7 +116,7 @@ __block SparkDevice *myPhoton;
     }
 }];
 ```
----
+
 
 **Swift**
 
@@ -148,7 +137,7 @@ SparkCloud.sharedInstance().getDevices { (devices:[SparkDevice]?, error:Error?) 
     }
 }
 ```
----
+
 
 #### Read a variable from a Particle device (Core/Photon/Electron)
 Assuming here that `myPhoton` is an active instance of `SparkDevice` class which represents a device claimed to current user:
@@ -165,7 +154,7 @@ Assuming here that `myPhoton` is an active instance of `SparkDevice` class which
     }
 }];
 ```
----
+
 
 **Swift**
 ```swift
@@ -180,7 +169,7 @@ myPhoton!.getVariable("temperature", completion: { (result:Any?, error:Error?) -
     }
 })
 ```
----
+
 #### Call a function on a Particle device (Core/Photon/Electron)
 Invoke a function on the device and pass a list of parameters to it, `resultCode` on the completion block will represent the returned result code of the function on the device.
 This example also demonstrates usage of the new `NSURLSessionDataTask` object returned from every SDK function call.
@@ -196,7 +185,7 @@ NSURLSessionDataTask *task = [myPhoton callFunction:@"digitalWrite" withArgument
 int64_t bytesToReceive  = task.countOfBytesExpectedToReceive;
 // ..do something with bytesToReceive
 ```
----
+
 
 **Swift**
 ```swift
@@ -209,7 +198,7 @@ var task = myPhoton!.callFunction("digitalWrite", withArguments: funcArgs) { (re
 var bytesToReceive : Int64 = task.countOfBytesExpectedToReceive
 // ..do something with bytesToReceive
 ```
----
+
 
 #### Retrieve current data usage (Electron only)
 _Starting SDK version 0.5.0_
@@ -223,7 +212,7 @@ Assuming here that `myElectron` is an active instance of `SparkDevice` class whi
     }
 }];
 ```
----
+
 
 **Swift**
 ```swift
@@ -233,7 +222,7 @@ self.selectedDevice!.getCurrentDataUsage { (dataUsed: Float, error :Error?) in
     }
 }
 ```
----
+
 
 #### List device exposed functions and variables
 Functions is just a list of names, variables is a dictionary in which keys are variable names and values are variable types:
@@ -246,7 +235,7 @@ NSLog(@"MyDevice first Variable is called %@ and is from type %@", myDeviceVaria
 NSArray *myDeviceFunctions = myPhoton.functions;
 NSLog(@"MyDevice first Function is called %@", myDeviceFunctions[0]);
 ```
----
+
 
 **Swift**
 ```swift
@@ -256,7 +245,7 @@ print("MyDevice first Variable is called \(myDeviceVariables!.keys.first) and is
 let myDeviceFunction = myPhoton.functions
 print("MyDevice first function is called \(myDeviceFunction!.first)")
 ```
----
+
 #### Get an instance of a device
 Get a device instance by its ID:
 
@@ -269,7 +258,7 @@ NSString *deviceID = @"53fa73265066544b16208184";
         myOtherDevice = device;
 }];
 ```
----
+
 
 **Swift**
 ```swift
@@ -280,7 +269,7 @@ var myOtherDevice : SparkDevice? = nil
         }
     })
 ```
----
+
 #### Rename a device
 you can simply set the `.name` property or use -rename() method if you need a completion block to be called (for example updating a UI after renaming was done):
 
@@ -296,13 +285,13 @@ _or_
         NSLog(@"Device renamed successfully");
 }];
 ```
----
+
 
 **Swift**
 ```swift
 myPhoton!.name = "myNewDeviceName"
 ```
----
+
 _or_
 ```swift
 myPhoton!.rename("myNewDeviceName", completion: { (error:Error?) -> Void in
@@ -311,7 +300,7 @@ myPhoton!.rename("myNewDeviceName", completion: { (error:Error?) -> Void in
     }
 })
 ```
----
+
 #### Logout
 Also clears user session and access token
 
@@ -319,13 +308,13 @@ Also clears user session and access token
 ```objc
 [[SparkCloud sharedInstance] logout];
 ```
----
+
 
 **Swift**
 ```swift
 SparkCloud.sharedInstance().logout()
 ```
----
+
 ### Events sub-system
 
 You can make an API call that will open a stream of [Server-Sent Events (SSEs)](http://www.w3.org/TR/eventsource/). You will make one API call that opens a connection to the Particle Cloud. That connection will stay open, unlike normal HTTP calls which end quickly. Very little data will come to you across the connection unless your Particle device publishes an event, at which point you will be immediately notified. In each case, the event name filter is `eventNamePrefix` and is optional. When specifying an event name filter, published events will be limited to those events with names that begin with the specified string. For example, specifying an event name filter of 'temp' will return events with names 'temp' and 'temperature'.
@@ -354,7 +343,7 @@ SparkEventHandler handler = ^(SparkEvent *event, NSError *error) {
 // This line actually subscribes to the event stream:
 id eventListenerID = [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:@"temp" handler:handler];
 ```
----
+
 
 **Swift**
 ```swift
@@ -369,7 +358,7 @@ handler = SparkCloud.sharedInstance().subscribeToAllEvents(withPrefix: "temp", h
     }
 })
 ```
----
+
 
 *Note:* specifying nil or empty string in the eventNamePrefix parameter will subscribe to ALL events (lots of data!)
 You can have multiple handlers per event name and/or same handler per multiple events names.
@@ -381,7 +370,7 @@ Subscribe to all events, public and private, published by devices the user owns 
 ```objc
 id eventListenerID = [[SparkCloud sharedInstance] subscribeToMyDevicesEventsWithPrefix:@"temp" handler:handler];
 ```
----
+
 
 **Swift**
 
@@ -389,7 +378,7 @@ id eventListenerID = [[SparkCloud sharedInstance] subscribeToMyDevicesEventsWith
 var eventListenerID : Any?
 eventListenerID = SparkCloud.sharedInstance().subscribeToMyDevicesEvents(withPrefix: "temp", handler: handler)
 ```
----
+
 
 Subscribe to events from one specific device (by deviceID, second parameter). If the API user owns the device, then he'll receive all events, public and private, published by that device. If the API user does not own the device he will only receive public events.
 
@@ -398,7 +387,7 @@ Subscribe to events from one specific device (by deviceID, second parameter). If
 ```objc
 id eventListenerID = [[SparkCloud sharedInstance] subscribeToDeviceEventsWithPrefix:@"temp" deviceID:@"53ff6c065075535119511687" handler:handler];
 ```
----
+
 
 **Swift**
 
@@ -406,7 +395,7 @@ id eventListenerID = [[SparkCloud sharedInstance] subscribeToDeviceEventsWithPre
 var eventListenerID : Any?
 eventListenerID = SparkCloud.sharedInstance().subscribeToDeviceEvents(withPrefix: "temp", deviceID: "53ff6c065075535119511687", handler: handler)
 ```
----
+
 
 other option is calling same method via the `SparkDevice` instance:
 
@@ -415,7 +404,7 @@ other option is calling same method via the `SparkDevice` instance:
 ```objc
 id eventListenerID = [device subscribeToEventsWithPrefix:@"temp" handler:handler];
 ```
----
+
 
 **Swift**
 
@@ -423,7 +412,7 @@ id eventListenerID = [device subscribeToEventsWithPrefix:@"temp" handler:handler
 var eventListenerID : Any?
 eventListenerID = device.subscribeToEvents(withPrefix : "temp", handler : handler)
 ```
----
+
 
 this guarantees that private events will be received since having access device instance in your app signifies that the user has this device claimed.
 
@@ -436,7 +425,7 @@ Very straightforward. Keep the id object the subscribe method returned and use i
 ```objc
 [[SparkCloud sharedInstance] unsubscribeFromEventWithID:eventListenerID];
 ```
----
+
 
 **Swift**
 
@@ -445,7 +434,7 @@ if let sid = eventListenerID {
     SparkCloud.sharedInstance().unsubscribeFromEvent(withID: sid)
 }
 ```
----
+
 
 or via the `SparkDevice` instance (if applicable):
 
@@ -454,14 +443,14 @@ or via the `SparkDevice` instance (if applicable):
 ```objc
 [device unsubscribeFromEventWithID:self.eventListenerID];
 ```
----
+
 
 **Swift**
 
 ```swift
 device.unsubscribeFromEvent(withID : eventListenerID)
 ```
----
+
 
 #### Publishing an event
 
@@ -477,7 +466,7 @@ You can also publish an event from your app to the Particle Cloud:
     }
 }];
 ```
----
+
 
 **Swift**
 
@@ -489,7 +478,7 @@ SparkCloud.sharedInstance().publishEvent(withName: "event_from_app", data: "even
     }
 })
 ```
----
+
 
 ### Delegate Protocol
 
@@ -508,7 +497,7 @@ func sparkDevice(device: SparkDevice, receivedSystemEvent event: SparkDeviceSyst
         // do something meaningful
     }
 ```
----
+
 
 The system events types are:
 - `CameOnline` (device came online)
@@ -547,7 +536,7 @@ plugin 'cocoapods-keys', {
         "OAuthSecret"
     ]}
 ```
----
+
 go to your project folder in shell and run `pod install` - it will now ask you for "OAuthClientId", "OAuthSecret" - you can copy/paste the generated keys there
 and from that point on you can feed those keys into `SparkCloud` by adding this code to your AppDelegate `didFinishLaunchingWithOptions` function which gets called
 when your app starts:
@@ -595,6 +584,8 @@ In your shell - run `pod update` in the project folder. A new `.xcworkspace` fil
 adding `#import "Spark-SDK.h"`. (that is not required for swift projects)
 
 ##### Support for Swift projects
+
+All SDK callbacks return real optionals (`SparkDevice?`) instead of implicitly unwrapped optionals (`SparkDevice!`).
 
 To use iOS Cloud SDK from within Swift based projects [read here](http://swiftalicio.us/2014/11/using-cocoapods-from-swift/).
 For a detailed step-by-step help on integrating the Cloud SDK within a Swift project check out this [Particle community posting](https://community.particle.io/t/mobile-sdk-building-the-bridge-from-swift-to-objective-c/12020/1).
