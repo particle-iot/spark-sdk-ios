@@ -83,7 +83,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  */
 @property (strong, nonatomic, nonnull, readonly) NSDictionary<NSString *, NSString *> *variables; // @{varName : varType, ...}
 
-@property (strong, nonatomic, nullable, readonly) NSString *lastApp;
+@property (strong, nonatomic, nullable, readonly) NSString *lastApp; // inactive
 
 @property (strong, nonatomic, nullable, readonly) NSDate *lastHeard;
 
@@ -94,10 +94,10 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
 // new properties starting SDK v0.5
 @property (strong, nonatomic, nullable, readonly) NSString *lastIPAdress;
 @property (strong, nonatomic, nullable, readonly) NSString *lastIccid; // Electron only
-@property (strong, nonatomic, nullable, readonly) NSString *imei;
+@property (strong, nonatomic, nullable, readonly) NSString *imei; // inactive
 @property (nonatomic, readonly) NSUInteger platformId;
 @property (nonatomic, readonly) NSUInteger productId;
-@property (strong, nonatomic, nullable, readonly) NSString *status;
+@property (strong, nonatomic, nullable, readonly) NSString *status; // inactive
 
 /**
  *  Device firmware version string

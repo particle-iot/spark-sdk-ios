@@ -142,7 +142,7 @@ extern NSString *const kSparkAPIBaseURL;
 -(void)logout;
 
 /**
- *  Inject session access token received from a custom backend service in case Two-legged auth is being used. This session does not expire.
+ *  Inject session access token received from a custom backend service in case Two-legged auth is being used. This session expected not to expire, or at least SDK won't know about its expiration date.
  *
  *  @param accessToken      Particle Access token string
  *  @return YES if session injected successfully
@@ -167,7 +167,7 @@ extern NSString *const kSparkAPIBaseURL;
 -(BOOL)injectSessionAccessToken:(NSString *)accessToken withExpiryDate:(NSDate *)expiryDate andRefreshToken:(NSString *)refreshToken;
 
 /**
- *  Request password reset for user or customer (organization mode)
+ *  Request password reset for customer (organization mode) DEPRECATED
  *  command generates confirmation token and sends email to customer using org SMTP settings
  *
  *  @param email      user email
@@ -178,11 +178,25 @@ extern NSString *const kSparkAPIBaseURL;
                                                    email:(NSString *)email
                                               completion:(nullable SparkCompletionBlock)completion __deprecated_msg("use requestPasswordResetForCustomer:email:productId:completion instead");
 
-// NEW
+/**
+ *  Request password reset for customer (in product mode)
+ *  command generates confirmation token and sends email to customer using org SMTP settings
+ *
+ *  @param email      user email
+ *  @param productId  Product ID number
+ *  @param completion Completion block with NSError object if failure, nil if success
+ */
 -(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)email
                                                productId:(NSUInteger)productId
                                               completion:(nullable SparkCompletionBlock)completion;
 
+/**
+*  Request password reset for user
+*  command generates confirmation token and sends email to customer using org SMTP settings
+*
+*  @param email      user email
+*  @param completion Completion block with NSError object if failure, nil if success
+*/
 -(NSURLSessionDataTask *)requestPasswordResetForUser:(NSString *)email
                                           completion:(nullable SparkCompletionBlock)completion;
 
@@ -247,7 +261,13 @@ extern NSString *const kSparkAPIBaseURL;
                                        withActivationCode:(nullable NSString *)activationCode
                                                completion:(nullable void(^)(NSString *_Nullable claimCode, NSArray * _Nullable userClaimedDeviceIDs, NSError * _Nullable error))completion __deprecated_msg("use generateClaimCodeForProduct:completion instead");
 
-// NEW
+/**
+ *  Get a short-lived claiming token for transmitting to soon-to-be-claimed device in soft AP setup process for specific product and organization (different API endpoints)
+ *  @param productId - the product id number
+ *
+ *  @param completion Completion block with claimCode string returned (48 random bytes base64 encoded to 64 ASCII characters), second argument is a list of the devices currently claimed by current session user and third is NSError object for a failure, nil if success
+ *  @return NSURLSessionDataTask task for requested network access
+ */
 -(NSURLSessionDataTask *)generateClaimCodeForProduct:(NSUInteger)productId
                                           completion:(nullable void(^)(NSString *_Nullable claimCode, NSArray * _Nullable userClaimedDeviceIDs, NSError * _Nullable error))completion;
 
@@ -273,6 +293,8 @@ extern NSString *const kSparkAPIBaseURL;
  *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
 -(nullable id)subscribeToMyDevicesEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler;
+
+
 
 /**
  *  Subscribe to events from one specific device. If the API user has the device claimed, then she will receive all events, public and private, published by that device. 
