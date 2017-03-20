@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ---
+
+## [0.7.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.7.0) (2017-03-20)
+
+* Grand rename Spark->Particle !
+
 ## [0.6.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.6.0) (2017-02-03)
 
 * Updated: Product endpoints depracates Org endpoints

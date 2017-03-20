@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:ParticleSDK/ParticleSDK.xcodeproj">
+      location = "group:/Users/ido/projects/Spark/spark-sdk-ios/Example/ParticleSDK/Particle-SDK-Framework.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Spark-SDK.xcodeproj">
+      location = "group:/Users/ido/projects/Spark/spark-sdk-ios/Example/Particle-SDK-Pod.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

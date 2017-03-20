@@ -17,7 +17,7 @@
                BlueprintIdentifier = "50F6507A1C85423D0065F02F"
                BuildableName = "ParticleSDK.framework"
                BlueprintName = "ParticleSDK"
-               ReferencedContainer = "container:ParticleSDK.xcodeproj">
+               ReferencedContainer = "container:Particle-SDK-Framework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "50F650841C85423D0065F02F"
                BuildableName = "ParticleSDKTests.xctest"
                BlueprintName = "ParticleSDKTests"
-               ReferencedContainer = "container:ParticleSDK.xcodeproj">
+               ReferencedContainer = "container:Particle-SDK-Framework.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -45,7 +45,7 @@
             BlueprintIdentifier = "50F6507A1C85423D0065F02F"
             BuildableName = "ParticleSDK.framework"
             BlueprintName = "ParticleSDK"
-            ReferencedContainer = "container:ParticleSDK.xcodeproj">
+            ReferencedContainer = "container:Particle-SDK-Framework.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -67,7 +67,7 @@
             BlueprintIdentifier = "50F6507A1C85423D0065F02F"
             BuildableName = "ParticleSDK.framework"
             BlueprintName = "ParticleSDK"
-            ReferencedContainer = "container:ParticleSDK.xcodeproj">
+            ReferencedContainer = "container:Particle-SDK-Framework.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -85,7 +85,7 @@
             BlueprintIdentifier = "50F6507A1C85423D0065F02F"
             BuildableName = "ParticleSDK.framework"
             BlueprintName = "ParticleSDK"
-            ReferencedContainer = "container:ParticleSDK.xcodeproj">
+            ReferencedContainer = "container:Particle-SDK-Framework.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
