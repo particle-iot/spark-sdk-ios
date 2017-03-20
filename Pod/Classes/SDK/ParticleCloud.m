@@ -1,24 +1,24 @@
 //
-//  SparkCloud.m
+//  ParticleCloud.m
 //  mobile-sdk-ios
 //
 //  Created by Ido Kleinman on 11/7/14.
-//  Copyright (c) 2014-2015 Spark. All rights reserved.
+//  Copyright (c) 2014-2015 Particle. All rights reserved.
 //
 
-#import "SparkCloud.h"
+#import "ParticleCloud.h"
 #import "KeychainItemWrapper.h"
-#import "SparkSession.h"
-//#import "SparkUser.h"
+#import "ParticleSession.h"
+//#import "ParticleUser.h"
 #import <AFNetworking/AFNetworking.h>
 #import <EventSource.h>
-#import "SparkEvent.h"
+#import "ParticleEvent.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #define GLOBAL_API_TIMEOUT_INTERVAL     31.0f
 
-NSString *const kSparkAPIBaseURL = @"https://api.particle.io";
+NSString *const kParticleAPIBaseURL = @"https://api.particle.io";
 NSString *const kEventListenersDictEventSourceKey = @"eventSource";
 NSString *const kEventListenersDictHandlerKey = @"eventHandler";
 NSString *const kEventListenersDictIDKey = @"id";
@@ -26,11 +26,11 @@ NSString *const kEventListenersDictIDKey = @"id";
 static NSString *const kDefaultoAuthClientId = @"particle";
 static NSString *const kDefaultoAuthClientSecret = @"particle";
 
-@interface SparkCloud () <SparkSessionDelegate>
+@interface ParticleCloud () <ParticleSessionDelegate>
 
 @property (nonatomic, strong, nonnull) NSURL* baseURL;
-@property (nonatomic, strong, nullable) SparkSession* session;
-//@property (nonatomic, strong, nullable) SparkUser* user;
+@property (nonatomic, strong, nullable) ParticleSession* session;
+//@property (nonatomic, strong, nullable) ParticleUser* user;
 @property (nonatomic, strong, nonnull) AFHTTPSessionManager *manager;
 
 @property (nonatomic, strong, nonnull) NSMutableDictionary *eventListenersDict;
@@ -40,14 +40,14 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 @end
 
 
-@implementation SparkCloud
+@implementation ParticleCloud
 
 #pragma mark Class initialization and singleton instancing
 
 + (instancetype)sharedInstance;
 {
     // TODO: no singleton, initializer gets: CloudConnection, CloudEndpoint (URL) to allow private cloud, dependency injection
-    static SparkCloud *sharedInstance = nil;
+    static ParticleCloud *sharedInstance = nil;
     @synchronized(self) {
         if (sharedInstance == nil)
         {
@@ -61,7 +61,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 {
     self = [super init];
     if (self) {
-        self.baseURL = [NSURL URLWithString:kSparkAPIBaseURL];
+        self.baseURL = [NSURL URLWithString:kParticleAPIBaseURL];
         if (!self.baseURL)
         {
             return nil;
@@ -73,8 +73,8 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
         self.oAuthClientSecret = kDefaultoAuthClientSecret;
 
         // try to restore session (user and access token)
-//        self.user = [[SparkUser alloc] initWithSavedSession];
-        self.session = [[SparkSession alloc] initWithSavedSession];
+//        self.user = [[ParticleUser alloc] initWithSavedSession];
+        self.session = [[ParticleSession alloc] initWithSavedSession];
         if (self.session)
         {
             self.session.delegate = self;
@@ -109,7 +109,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 -(BOOL)injectSessionAccessToken:(NSString * _Nonnull)accessToken
 {
     [self logout];
-    self.session = [[SparkSession alloc] initWithToken:accessToken];
+    self.session = [[ParticleSession alloc] initWithToken:accessToken];
     if (self.session) {
         self.session.delegate = self;
         [self subscribeToDevicesSystemEvents];
@@ -120,7 +120,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 -(BOOL)injectSessionAccessToken:(NSString *)accessToken withExpiryDate:(NSDate *)expiryDate
 {
     [self logout];
-    self.session = [[SparkSession alloc] initWithToken:accessToken andExpiryDate:expiryDate];
+    self.session = [[ParticleSession alloc] initWithToken:accessToken andExpiryDate:expiryDate];
     if (self.session) {
         self.session.delegate = self;
         [self subscribeToDevicesSystemEvents];
@@ -131,7 +131,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 -(BOOL)injectSessionAccessToken:(NSString *)accessToken withExpiryDate:(NSDate *)expiryDate andRefreshToken:(nonnull NSString *)refreshToken
 {
     [self logout];
-    self.session = [[SparkSession alloc] initWithToken:accessToken withExpiryDate:expiryDate withRefreshToken:refreshToken];
+    self.session = [[ParticleSession alloc] initWithToken:accessToken withExpiryDate:expiryDate withRefreshToken:refreshToken];
     if (self.session) {
         self.session.delegate = self;
         [self subscribeToDevicesSystemEvents];
@@ -174,7 +174,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 
 #pragma mark Delegate functions
 
--(void)SparkSession:(SparkSession *)session didExpireAt:(NSDate *)date
+-(void)ParticleSession:(ParticleSession *)session didExpireAt:(NSDate *)date
 {
     // handle auto-renewal of expired access tokens by internal timer event
     // TODO: fix that to do it using a refresh token and not save the user password!
@@ -204,7 +204,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
         if (self.session.username)
             responseDict[@"username"] = self.session.username;
         
-        self.session = [[SparkSession alloc] initWithNewSession:responseDict];
+        self.session = [[ParticleSession alloc] initWithNewSession:responseDict];
         if (self.session) // login was successful
         {
 //            NSLog(@"New session created using refresh token");
@@ -228,7 +228,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 
 #pragma mark SDK public functions
 
--(NSURLSessionDataTask *)loginWithUser:(NSString *)user password:(NSString *)password completion:(nullable SparkCompletionBlock)completion
+-(NSURLSessionDataTask *)loginWithUser:(NSString *)user password:(NSString *)password completion:(nullable ParticleCompletionBlock)completion
 {
     // non default params
     NSDictionary *params = @{
@@ -244,7 +244,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
         NSMutableDictionary *responseDict = [responseObject mutableCopy];
 
         responseDict[@"username"] = user;
-        self.session = [[SparkSession alloc] initWithNewSession:responseDict];
+        self.session = [[ParticleSession alloc] initWithNewSession:responseDict];
         if (self.session) // login was successful
         {
             self.session.delegate = self;
@@ -279,7 +279,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 -(NSURLSessionDataTask *)createUser:(NSString *)username
                            password:(NSString *)password
                         accountInfo:(nullable NSDictionary *)accountInfo
-                         completion:(nullable SparkCompletionBlock)completion
+                         completion:(nullable ParticleCompletionBlock)completion
 {
     
     NSMutableDictionary *params = [@{
@@ -334,7 +334,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 }
 
 
--(NSURLSessionDataTask *)signupWithUser:(NSString *)user password:(NSString *)password completion:(nullable SparkCompletionBlock)completion
+-(NSURLSessionDataTask *)signupWithUser:(NSString *)user password:(NSString *)password completion:(nullable ParticleCompletionBlock)completion
 {
     return [self createUser:user password:password accountInfo:nil completion:completion];
     
@@ -345,7 +345,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
                                         password:(NSString *)password
                                        productId:(NSUInteger)productId
                                      accountInfo:(nullable NSDictionary *)accountInfo
-                                      completion:(nullable SparkCompletionBlock)completion
+                                      completion:(nullable ParticleCompletionBlock)completion
 {
     // Make sure we got an orgSlug that was neither nil nor the empty string
     if (productId == 0)
@@ -386,7 +386,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
                                       
                                       responseDict[@"username"] = username;
                                       
-                                      self.session = [[SparkSession alloc] initWithNewSession:responseDict];
+                                      self.session = [[ParticleSession alloc] initWithNewSession:responseDict];
                                       
                                       if (self.session) // customer login was successful
                                       {
@@ -429,7 +429,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 }
 
 
--(nullable NSURLSessionDataTask *)signupWithCustomer:(NSString *)email password:(NSString *)password orgSlug:(NSString *)orgSlug completion:(nullable SparkCompletionBlock)completion
+-(nullable NSURLSessionDataTask *)signupWithCustomer:(NSString *)email password:(NSString *)password orgSlug:(NSString *)orgSlug completion:(nullable ParticleCompletionBlock)completion
 {
     return [self createCustomer:email password:password productId:[orgSlug integerValue] accountInfo:nil completion:completion];
 }
@@ -440,7 +440,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
     [self unsubscribeToDevicesSystemEvents];
 }
 
--(NSURLSessionDataTask *)claimDevice:(NSString *)deviceID completion:(nullable SparkCompletionBlock)completion
+-(NSURLSessionDataTask *)claimDevice:(NSString *)deviceID completion:(nullable ParticleCompletionBlock)completion
 {
     if (self.session.accessToken) {
         NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.session.accessToken];
@@ -485,7 +485,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 }
 
 -(NSURLSessionDataTask *)getDevice:(NSString *)deviceID
-                        completion:(nullable void (^)(SparkDevice * _Nullable device, NSError * _Nullable error))completion
+                        completion:(nullable void (^)(ParticleDevice * _Nullable device, NSError * _Nullable error))completion
 {
     if (self.session.accessToken) {
         NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.session.accessToken];
@@ -499,11 +499,11 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
          if (completion)
          {
              NSMutableDictionary *responseDict = responseObject;
-             SparkDevice *device = [[SparkDevice alloc] initWithParams:responseDict];
+             ParticleDevice *device = [[ParticleDevice alloc] initWithParams:responseDict];
              
              if (device) { // new 0.5.0 local storage of devices for reporting system events
                  if (!self.devicesMapTable) {
-                     self.devicesMapTable = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableObjectPointerPersonality]; // let the user decide when to release SparkDevice objects
+                     self.devicesMapTable = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableObjectPointerPersonality]; // let the user decide when to release ParticleDevice objects
                  }
                  [self.devicesMapTable setObject:device forKey:device.id];
              }
@@ -536,7 +536,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 }
 
 
--(NSURLSessionDataTask *)getDevices:(nullable void (^)(NSArray<SparkDevice *> * _Nullable sparkDevices, NSError * _Nullable error))completion
+-(NSURLSessionDataTask *)getDevices:(nullable void (^)(NSArray<ParticleDevice *> * _Nullable sparkDevices, NSError * _Nullable error))completion
 {
     if (self.session.accessToken) {
         NSString *authorization = [NSString stringWithFormat:@"Bearer %@", self.session.accessToken];
@@ -568,12 +568,12 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
                          else
                          {
                              // if it's offline just make an instance for it with the limited data with have
-                             SparkDevice *device = [[SparkDevice alloc] initWithParams:deviceDict];
+                             ParticleDevice *device = [[ParticleDevice alloc] initWithParams:deviceDict];
                              [deviceList addObject:device];
                              
                              if (device) { // new 0.5.0 local storage of devices for reporting system events
                                  if (!self.devicesMapTable) {
-                                     self.devicesMapTable = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableObjectPointerPersonality]; // let the user decide when to release SparkDevice objects
+                                     self.devicesMapTable = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableObjectPointerPersonality]; // let the user decide when to release ParticleDevice objects
                                  }
                                  [self.devicesMapTable setObject:device forKey:device.id];
                              }
@@ -584,13 +584,13 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
                  }
              }
              
-             // iterate thru deviceList and create SparkDevice instances through query
+             // iterate thru deviceList and create ParticleDevice instances through query
              __block dispatch_group_t group = dispatch_group_create();
              
              for (NSString *deviceID in queryDeviceIDList)
              {
                  dispatch_group_enter(group);
-                 [self getDevice:deviceID completion:^(SparkDevice *device, NSError *error) {
+                 [self getDevice:deviceID completion:^(ParticleDevice *device, NSError *error) {
                      if ((!error) && (device))
                          [deviceList addObject:device];
                      
@@ -601,7 +601,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
                  }];
              }
              
-             // call user's completion block on main thread after all concurrent GET requests finished and SparkDevice instances created
+             // call user's completion block on main thread after all concurrent GET requests finished and ParticleDevice instances created
              dispatch_group_notify(group, dispatch_get_main_queue(), ^{
                  if (completion)
                  {
@@ -760,7 +760,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 
 -(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)email
                                                productId:(NSUInteger)productId
-                                              completion:(nullable SparkCompletionBlock)completion
+                                              completion:(nullable ParticleCompletionBlock)completion
 
 {
     NSDictionary *params = @{@"email": email};
@@ -798,14 +798,14 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 
 -(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)orgSlug
                                                    email:(NSString *)email
-                                              completion:(nullable SparkCompletionBlock)completion
+                                              completion:(nullable ParticleCompletionBlock)completion
 {
     return [self requestPasswordResetForCustomer:email productId:[orgSlug integerValue] completion:completion];
 }
 
 
 -(NSURLSessionDataTask *)requestPasswordResetForUser:(NSString *)email
-                                          completion:(nullable SparkCompletionBlock)completion
+                                          completion:(nullable ParticleCompletionBlock)completion
 {
     NSDictionary *params = @{@"username": email};
     NSString *urlPath = [NSString stringWithFormat:@"/v1/user/password-reset"];
@@ -860,13 +860,13 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 {
     NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
     [errorDetail setValue:desc forKey:NSLocalizedDescriptionKey];
-    return [NSError errorWithDomain:@"SparkAPIError" code:errorCode userInfo:errorDetail];
+    return [NSError errorWithDomain:@"ParticleAPIError" code:errorCode userInfo:errorDetail];
 }
 
 
 #pragma mark Events subsystem implementation
 
--(nullable id)subscribeToEventWithURL:(NSURL *)url handler:(nullable SparkEventHandler)eventHandler
+-(nullable id)subscribeToEventWithURL:(NSURL *)url handler:(nullable ParticleEventHandler)eventHandler
 {
     if (!self.accessToken)
     {
@@ -910,7 +910,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
                     {
                         eventDict[@"event"] = event.name; // add event name to dict
                     }
-                    SparkEvent *sparkEvent = [[SparkEvent alloc] initWithEventDict:eventDict];
+                    ParticleEvent *sparkEvent = [[ParticleEvent alloc] initWithEventDict:eventDict];
                     eventHandler(sparkEvent ,nil); // callback with parsed data
                 }
                 else if (error)
@@ -947,7 +947,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 }
 
 
--(nullable id)subscribeToAllEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler
+-(nullable id)subscribeToAllEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable ParticleEventHandler)eventHandler
 {
     // GET /v1/events[/:event_name]
     NSString *endpoint;
@@ -968,7 +968,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 }
 
 
--(nullable id)subscribeToMyDevicesEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler
+-(nullable id)subscribeToMyDevicesEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable ParticleEventHandler)eventHandler
 {
     // GET /v1/devices/events[/:event_name]
     NSString *endpoint;
@@ -990,7 +990,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
     
 }
 
--(nullable id)subscribeToDeviceEventsWithPrefix:(nullable NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(nullable SparkEventHandler)eventHandler
+-(nullable id)subscribeToDeviceEventsWithPrefix:(nullable NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(nullable ParticleEventHandler)eventHandler
 {
     // GET /v1/devices/:device_id/events[/:event_name]
     NSString *endpoint;
@@ -1016,7 +1016,7 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
                                          data:(NSString *)data
                                     isPrivate:(BOOL)isPrivate
                                           ttl:(NSUInteger)ttl
-                                   completion:(nullable SparkCompletionBlock)completion
+                                   completion:(nullable ParticleCompletionBlock)completion
 {
     NSMutableDictionary *params = [NSMutableDictionary new];
     if (self.session.accessToken) {
@@ -1060,18 +1060,18 @@ static NSString *const kDefaultoAuthClientSecret = @"particle";
 
 -(void)subscribeToDevicesSystemEvents {
     
-    __weak SparkCloud *weakSelf = self;
-    self.systemEventsListenerId = [self subscribeToMyDevicesEventsWithPrefix:@"spark" handler:^(SparkEvent * _Nullable event, NSError * _Nullable error) {
+    __weak ParticleCloud *weakSelf = self;
+    self.systemEventsListenerId = [self subscribeToMyDevicesEventsWithPrefix:@"spark" handler:^(ParticleEvent * _Nullable event, NSError * _Nullable error) {
 
         if (!error) {
 //            NSLog(@"--> devicesMapTable got %d entries",weakSelf.devicesMapTable.count); // debug
-            SparkDevice *device = [weakSelf.devicesMapTable objectForKey:event.deviceID];
+            ParticleDevice *device = [weakSelf.devicesMapTable objectForKey:event.deviceID];
             if (device) {
 //                NSLog(@"* Device %@ (%@) got system event %@:%@",device.name,device.id,event.event,event.data); // debug
                 [device __receivedSystemEvent:event];
             }
         } else {
-            NSLog(@"! SparkCloud could not subscribe to devices system events %@",error.localizedDescription);
+            NSLog(@"! ParticleCloud could not subscribe to devices system events %@",error.localizedDescription);
         }
     }];
 

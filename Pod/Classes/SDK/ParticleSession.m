@@ -1,29 +1,29 @@
 //
-//  SparkSession.m
+//  ParticleSession.m
 //  Particle iOS Cloud SDK
 //
 //  Created by Ido Kleinman.
 //  Copyright (c) 2015-6 Particle. All rights reserved.
 //
 
-#import "SparkSession.h"
+#import "ParticleSession.h"
 #import "KeychainItemWrapper.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
-#import "SparkCloud.h"
+#import "ParticleCloud.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString *const kSparkSessionKeychainEntry = @"io.spark.api.Keychain.AccessToken";
-NSString *const kSparkSessionExpiryDateKey = @"kSparkSessionExpiryDateKey";
-NSString *const kSparkSessionAccessTokenStringKey = @"kSparkSessionAccessTokenStringKey";
-NSString *const kSparkSessionRefreshTokenStringKey = @"kSparkSessionRefreshTokenStringKey";
-NSString *const kSparkSessionUsernameStringKey = @"kSparkSessionUsernameStringKey";
+NSString *const kParticleSessionKeychainEntry = @"io.spark.api.Keychain.AccessToken";
+NSString *const kParticleSessionExpiryDateKey = @"kParticleSessionExpiryDateKey";
+NSString *const kParticleSessionAccessTokenStringKey = @"kParticleSessionAccessTokenStringKey";
+NSString *const kParticleSessionRefreshTokenStringKey = @"kParticleSessionRefreshTokenStringKey";
+NSString *const kParticleSessionUsernameStringKey = @"kParticleSessionUsernameStringKey";
 
 
 // how many seconds before expiry date will a token be considered expired (0 = expire on expiry date, 24*60*60 = expire a day before)
 #define ACCESS_TOKEN_EXPIRY_MARGIN  0
 
-@interface SparkSession()
+@interface ParticleSession()
 
 @property (nonatomic, strong) NSDate *expiryDate;
 @property (nonatomic, strong) NSTimer *expiryTimer;
@@ -33,7 +33,7 @@ NSString *const kSparkSessionUsernameStringKey = @"kSparkSessionUsernameStringKe
 
 @end
 
-@implementation SparkSession
+@implementation ParticleSession
 
 -(nullable instancetype)initWithNewSession:(NSDictionary *)loginResponseDict
 {
@@ -100,15 +100,15 @@ NSString *const kSparkSessionUsernameStringKey = @"kSparkSessionUsernameStringKe
     }
     
     NSMutableDictionary *accessTokenDict = [NSMutableDictionary new];
-    accessTokenDict[kSparkSessionAccessTokenStringKey] = self.accessToken;
-    accessTokenDict[kSparkSessionExpiryDateKey] = self.expiryDate;
+    accessTokenDict[kParticleSessionAccessTokenStringKey] = self.accessToken;
+    accessTokenDict[kParticleSessionExpiryDateKey] = self.expiryDate;
     if (self.refreshToken)
-        accessTokenDict[kSparkSessionRefreshTokenStringKey] = self.refreshToken;
+        accessTokenDict[kParticleSessionRefreshTokenStringKey] = self.refreshToken;
     if (self.username)
-        accessTokenDict[kSparkSessionUsernameStringKey] = self.username;
+        accessTokenDict[kParticleSessionUsernameStringKey] = self.username;
     
     NSData *keychainData = [NSKeyedArchiver archivedDataWithRootObject:accessTokenDict];
-    KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkSessionKeychainEntry accessGroup:nil];
+    KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kParticleSessionKeychainEntry accessGroup:nil];
     [keychainTokenItem setObject:keychainData forKey:(__bridge id)(kSecValueData)];
 
 }
@@ -170,7 +170,7 @@ NSString *const kSparkSessionUsernameStringKey = @"kSparkSessionUsernameStringKe
     self = [super init];
     if (self)
     {
-        KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkSessionKeychainEntry accessGroup:nil];
+        KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kParticleSessionKeychainEntry accessGroup:nil];
         NSData *keychainData = [keychainTokenItem objectForKey:(__bridge id)(kSecValueData)];
         NSDictionary *accessTokenDict;
         if ((keychainData) && (keychainData.length > 0))
@@ -190,17 +190,17 @@ NSString *const kSparkSessionUsernameStringKey = @"kSparkSessionUsernameStringKe
         
         if (accessTokenDict)
         {
-            self.accessToken = accessTokenDict[kSparkSessionAccessTokenStringKey];
-            if ([accessTokenDict objectForKey:kSparkSessionExpiryDateKey]) {
-                self.expiryDate = accessTokenDict[kSparkSessionExpiryDateKey];
+            self.accessToken = accessTokenDict[kParticleSessionAccessTokenStringKey];
+            if ([accessTokenDict objectForKey:kParticleSessionExpiryDateKey]) {
+                self.expiryDate = accessTokenDict[kParticleSessionExpiryDateKey];
             }
-            if ([accessTokenDict objectForKey:kSparkSessionRefreshTokenStringKey]) {
-                self.refreshToken = accessTokenDict[kSparkSessionRefreshTokenStringKey];
+            if ([accessTokenDict objectForKey:kParticleSessionRefreshTokenStringKey]) {
+                self.refreshToken = accessTokenDict[kParticleSessionRefreshTokenStringKey];
             } else {
                 self.refreshToken = nil;
             }
-            if ([accessTokenDict objectForKey:kSparkSessionUsernameStringKey]) {
-                self.username = accessTokenDict[kSparkSessionUsernameStringKey];
+            if ([accessTokenDict objectForKey:kParticleSessionUsernameStringKey]) {
+                self.username = accessTokenDict[kParticleSessionUsernameStringKey];
             } else {
                 self.username = nil;
             }
@@ -241,7 +241,7 @@ NSString *const kSparkSessionUsernameStringKey = @"kSparkSessionUsernameStringKe
 
 -(void)removeSession
 {
-    KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kSparkSessionKeychainEntry accessGroup:nil];
+    KeychainItemWrapper *keychainTokenItem = [[KeychainItemWrapper alloc] initWithIdentifier:kParticleSessionKeychainEntry accessGroup:nil];
     [keychainTokenItem resetKeychainItem];
     self.accessToken = nil;
     self.username = nil;
@@ -252,7 +252,7 @@ NSString *const kSparkSessionUsernameStringKey = @"kSparkSessionUsernameStringKe
 -(void)accessTokenExpired:(NSTimer *)timer
 {
     [self.expiryTimer invalidate];
-    [self.delegate SparkSession:self didExpireAt:self.expiryDate];
+    [self.delegate ParticleSession:self didExpireAt:self.expiryDate];
 }
 
 -(void)dealloc

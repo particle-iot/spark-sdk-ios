@@ -1,5 +1,5 @@
 //
-//  Spark-SDK.h
+//  Particle-SDK.h
 //  Particle iOS Cloud SDK
 //
 //  Created by Ido Kleinman
@@ -19,11 +19,11 @@
 
 #import <Foundation/Foundation.h>
 
-#ifndef Pods_Spark_SDK_h
-#define Pods_Spark_SDK_h
+#ifndef Pods_Particle_SDK_h
+#define Pods_Particle_SDK_h
 
-#import "SparkCloud.h"
-#import "SparkDevice.h"
+#import "ParticleCloud.h"
+#import "ParticleDevice.h"
 
 #endif
 

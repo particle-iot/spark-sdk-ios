@@ -1,26 +1,26 @@
 //
-//  SparkViewController.m
-//  Spark-SDK
+//  ParticleViewController.m
+//  Particle-SDK
 //
 //  Created by Ido Kleinman on 03/01/2015.
 //  Copyright (c) 2014 Ido Kleinman. All rights reserved.
 //
 
-#import "SparkViewController.h"
-#import "Spark-SDK.h"
+#import "ParticleViewController.h"
+#import "Particle-SDK.h"
 
 #define TEST_USER   @"testuser@particle.io"
 #define TEST_PASS   @"testpass"
 
 
-@interface SparkViewController ()
+@interface ParticleViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *loggedInLabel;
 @property (nonatomic, strong) id eventListenerID_A;
 @property (nonatomic, strong) id eventListenerID_B;
 
 @end
 
-@implementation SparkViewController
+@implementation ParticleViewController
 
 - (void)viewDidLoad
 {
@@ -36,7 +36,7 @@
 
 - (IBAction)testButton:(id)sender {
     // logging in
-    [[SparkCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
+    [[ParticleCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
         if (!error)
             NSLog(@"Logged in to cloud");
         else
@@ -44,13 +44,13 @@
     }];
     
     // get specific device by name:
-    __block SparkDevice *myPhoton;
+    __block ParticleDevice *myPhoton;
     
-    [[SparkCloud sharedInstance] getDevices:^(NSArray *sparkDevices, NSError *error) {
+    [[ParticleCloud sharedInstance] getDevices:^(NSArray *sparkDevices, NSError *error) {
         NSLog(@"%@",sparkDevices.description); // print all devices claimed to user
       
         // search for a specific device by name
-        for (SparkDevice *device in sparkDevices)
+        for (ParticleDevice *device in sparkDevices)
         {
             if ([device.name isEqualToString:@"myNewPhotonName"])
                 myPhoton = device;
@@ -79,9 +79,9 @@
     }];
     
     // get a device instance by ID
-    __block SparkDevice *myOtherDevice;
+    __block ParticleDevice *myOtherDevice;
     NSString *deviceID = @"53fa73265066544b16208184";
-    [[SparkCloud sharedInstance] getDevice:deviceID completion:^(SparkDevice *device, NSError *error) {
+    [[ParticleCloud sharedInstance] getDevice:deviceID completion:^(ParticleDevice *device, NSError *error) {
         if (!error)
             myOtherDevice = device;
     }];
@@ -108,7 +108,7 @@
     
 
     // logout
-    [[SparkCloud sharedInstance] logout];
+    [[ParticleCloud sharedInstance] logout];
     
 }
 
@@ -116,10 +116,10 @@
 - (IBAction)loginButton:(id)sender
 {
     // logging in
-    [[SparkCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
+    [[ParticleCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
         if (!error)
         {
-            NSLog(@"Logged in to cloud\nAccess Token: %@",[SparkCloud sharedInstance].accessToken);
+            NSLog(@"Logged in to cloud\nAccess Token: %@",[ParticleCloud sharedInstance].accessToken);
             self.loggedInLabel.text = @"Logged In";
 
         }
@@ -131,7 +131,7 @@
 
 - (IBAction)subscribeButton:(id)sender
 {
-    SparkEventHandler handler = ^(SparkEvent *event, NSError *error) {
+    ParticleEventHandler handler = ^(ParticleEvent *event, NSError *error) {
         if (!error)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -145,12 +145,12 @@
         
     };
     
-    self.eventListenerID_A = [[SparkCloud sharedInstance] subscribeToAllEventsWithPrefix:nil handler:handler];
+    self.eventListenerID_A = [[ParticleCloud sharedInstance] subscribeToAllEventsWithPrefix:nil handler:handler];
     
 }
 
 - (IBAction)unsubscribeButton:(id)sender {
-    [[SparkCloud sharedInstance] unsubscribeFromEventWithID:self.eventListenerID_A];
+    [[ParticleCloud sharedInstance] unsubscribeFromEventWithID:self.eventListenerID_A];
 }
 
 @end

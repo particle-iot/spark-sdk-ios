@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "Spark-SDK.h"
+#import "Particle-SDK.h"
 
 #define TEST_USER   @"testuser@particle.io"
 #define TEST_PASS   @"testpass"
@@ -22,7 +22,7 @@
 
 - (void)setUp {
     [super setUp];
-    [[SparkCloud sharedInstance] loginWithUser:@"fsdfds" password:@"fdsfsdf" completion:^(NSError *error) {
+    [[ParticleCloud sharedInstance] loginWithUser:@"fsdfds" password:@"fdsfsdf" completion:^(NSError *error) {
         //
     }];
     // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -40,12 +40,12 @@
 
 - (void)testLoginLogout {
     XCTestExpectation *completionExpectation = [self expectationWithDescription:@"Login test"];
-    [[SparkCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
+    [[ParticleCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
         XCTAssertEqualObjects(error, nil, @"Login failed!");
-        XCTAssertEqualObjects([SparkCloud sharedInstance].loggedInUsername, TEST_USER, @"Login user mismatch");
-        XCTAssertNotEqualObjects([SparkCloud sharedInstance].accessToken, nil, @"Session access token missing");
-        [[SparkCloud sharedInstance] logout];
-        XCTAssertEqualObjects([SparkCloud sharedInstance].accessToken, nil, @"Session Access token was not cleared on logout");
+        XCTAssertEqualObjects([ParticleCloud sharedInstance].loggedInUsername, TEST_USER, @"Login user mismatch");
+        XCTAssertNotEqualObjects([ParticleCloud sharedInstance].accessToken, nil, @"Session access token missing");
+        [[ParticleCloud sharedInstance] logout];
+        XCTAssertEqualObjects([ParticleCloud sharedInstance].accessToken, nil, @"Session Access token was not cleared on logout");
         [completionExpectation fulfill];
     }];
 
@@ -56,10 +56,10 @@
 -(void)testGetDevices
 {
     XCTestExpectation *completionExpectation = [self expectationWithDescription:@"Login test"];
-    [[SparkCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
+    [[ParticleCloud sharedInstance] loginWithUser:TEST_USER password:TEST_PASS completion:^(NSError *error) {
         XCTAssertEqualObjects(error, nil, @"Login failed!");
-        XCTAssertEqualObjects([SparkCloud sharedInstance].loggedInUsername, TEST_USER, @"Login user mismatch");
-        [[SparkCloud sharedInstance] getDevices:^(NSArray *sparkDevices, NSError *error) {
+        XCTAssertEqualObjects([ParticleCloud sharedInstance].loggedInUsername, TEST_USER, @"Login user mismatch");
+        [[ParticleCloud sharedInstance] getDevices:^(NSArray *sparkDevices, NSError *error) {
             XCTAssertEqualObjects(error, nil, @"GetDevices call failed");
 //            XCTAssertNotEqualObjects(sparkDevices, nil, @"GetDevices returned empty list");
             NSLog(@"%@",sparkDevices.description);

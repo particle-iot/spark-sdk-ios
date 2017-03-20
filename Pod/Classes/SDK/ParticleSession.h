@@ -1,5 +1,5 @@
 //
-//  SparkSession.h
+//  ParticleSession.h
 //  Particle iOS Cloud SDK
 //
 //  Created by Ido Kleinman
@@ -21,16 +21,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SparkSession;
+@class ParticleSession;
 
-@protocol SparkSessionDelegate <NSObject>
+@protocol ParticleSessionDelegate <NSObject>
 
 @required
--(void)SparkSession:(SparkSession *)session didExpireAt:(NSDate *)date;
+-(void)ParticleSession:(ParticleSession *)session didExpireAt:(NSDate *)date;
 
 @end
 
-@interface SparkSession : NSObject
+@interface ParticleSession : NSObject
 
 /**
  *  Access token string to be used when calling cloud API
@@ -50,26 +50,26 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Delegate to receive didExpireAt method call whenever a token is detected as expired
  */
-@property (nonatomic, nullable, weak) id<SparkSessionDelegate> delegate;
+@property (nonatomic, nullable, weak) id<ParticleSessionDelegate> delegate;
 
 /**
- *  Initialze SparkSession class with new session
+ *  Initialze ParticleSession class with new session
  *
- *  @param loginResponseDict response object from Spark cloud login deserialized as NSDictionary
+ *  @param loginResponseDict response object from Particle cloud login deserialized as NSDictionary
  *
- *  @return New SparkSession instance
+ *  @return New ParticleSession instance
  */
 -(nullable instancetype)initWithNewSession:(NSDictionary *)loginResponseDict;
 
-// For two Legged Auth you can init SparkSession with access token only/with exact expiry date/with refresh token:
+// For two Legged Auth you can init ParticleSession with access token only/with exact expiry date/with refresh token:
 -(nullable instancetype)initWithToken:(NSString *)token;
 -(nullable instancetype)initWithToken:(NSString *)token andExpiryDate:(NSDate *)expiryDate;
 -(nullable instancetype)initWithToken:(NSString *)token withExpiryDate:(NSDate *)expiryDate withRefreshToken:(NSString *)refreshToken;
 
 /**
- *  Initialize SparkSession from existing session stored in keychain
+ *  Initialize ParticleSession from existing session stored in keychain
  *
- *  @return A SparkSession instance in case session is stored in keychain and token has not expired, nil if not
+ *  @return A ParticleSession instance in case session is stored in keychain and token has not expired, nil if not
  */
 -(nullable instancetype)initWithSavedSession;
 

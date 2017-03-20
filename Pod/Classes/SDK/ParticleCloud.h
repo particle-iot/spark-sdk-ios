@@ -1,5 +1,5 @@
 //
-//  SparkCloud.h
+//  ParticleCloud.h
 //  Particle iOS Cloud SDK
 //
 //  Created by Ido Kleinman
@@ -18,15 +18,15 @@
 //  limitations under the License.
 
 #import <Foundation/Foundation.h>
-#import "SparkDevice.h"
-#import "SparkEvent.h"
+#import "ParticleDevice.h"
+#import "ParticleEvent.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *const kSparkAPIBaseURL;
+extern NSString *const kParticleAPIBaseURL;
 
-@interface SparkCloud : NSObject
+@interface ParticleCloud : NSObject
 
 /**
  *  Currently logged in user name, nil if no valid session
@@ -56,9 +56,9 @@ extern NSString *const kSparkAPIBaseURL;
 @property (nonatomic, nullable, strong) NSString *oAuthClientSecret;
 
 /**
- *  Singleton instance of SparkCloud class
+ *  Singleton instance of ParticleCloud class
  *
- *  @return initialized SparkCloud singleton
+ *  @return initialized ParticleCloud singleton
  */
 + (instancetype)sharedInstance;
 
@@ -68,7 +68,7 @@ extern NSString *const kSparkAPIBaseURL;
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- *  Login with existing account credentials to Spark cloud
+ *  Login with existing account credentials to Particle cloud
  *
  *  @param user       User name, must be a valid email address
  *  @param password   Password
@@ -76,10 +76,10 @@ extern NSString *const kSparkAPIBaseURL;
  */
 -(NSURLSessionDataTask *)loginWithUser:(NSString *)user
                               password:(NSString *)password
-                            completion:(nullable SparkCompletionBlock)completion; 
+                            completion:(nullable ParticleCompletionBlock)completion; 
 
 /**
- *  Sign up with new account credentials to Spark cloud
+ *  Sign up with new account credentials to Particle cloud
  *
  *  @param user       Required user name, must be a valid email address
  *  @param password   Required password
@@ -87,7 +87,7 @@ extern NSString *const kSparkAPIBaseURL;
  */
 -(NSURLSessionDataTask *)signupWithUser:(NSString *)user
                                password:(NSString *)password
-                             completion:(nullable SparkCompletionBlock)completion __deprecated_msg("use createUser:password:accountInfo:completion instead");;
+                             completion:(nullable ParticleCompletionBlock)completion __deprecated_msg("use createUser:password:accountInfo:completion instead");;
 
 
 // NEW
@@ -102,12 +102,12 @@ extern NSString *const kSparkAPIBaseURL;
 -(NSURLSessionDataTask *)createUser:(NSString *)username
                            password:(NSString *)password
                         accountInfo:(nullable NSDictionary *)accountInfo
-                         completion:(nullable SparkCompletionBlock)completion;
+                         completion:(nullable ParticleCompletionBlock)completion;
 
 
 
 /**
- *  Sign up with new account credentials to Spark cloud
+ *  Sign up with new account credentials to Particle cloud
  *
  *  @param email      Required user name, must be a valid email address
  *  @param password   Required password
@@ -117,11 +117,11 @@ extern NSString *const kSparkAPIBaseURL;
 -(nullable NSURLSessionDataTask *)signupWithCustomer:(NSString *)username
                                             password:(NSString *)password
                                              orgSlug:(NSString *)orgSlug
-                                          completion:(nullable SparkCompletionBlock)completion __deprecated_msg("use createCustomer:password:productId:completion instead");
+                                          completion:(nullable ParticleCompletionBlock)completion __deprecated_msg("use createCustomer:password:productId:completion instead");
 
 // NEW
 /**
- *  Sign up with new account credentials to Spark cloud
+ *  Sign up with new account credentials to Particle cloud
  *
  *  @param username   Required user name, must be a valid email address
  *  @param password   Required password
@@ -133,7 +133,7 @@ extern NSString *const kSparkAPIBaseURL;
                                         password:(NSString *)password
                                        productId:(NSUInteger)productId
                                      accountInfo:(nullable NSDictionary *)accountInfo
-                                      completion:(nullable SparkCompletionBlock)completion;
+                                      completion:(nullable ParticleCompletionBlock)completion;
 
 
 /**
@@ -176,7 +176,7 @@ extern NSString *const kSparkAPIBaseURL;
 
 -(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)orgSlug
                                                    email:(NSString *)email
-                                              completion:(nullable SparkCompletionBlock)completion __deprecated_msg("use requestPasswordResetForCustomer:email:productId:completion instead");
+                                              completion:(nullable ParticleCompletionBlock)completion __deprecated_msg("use requestPasswordResetForCustomer:email:productId:completion instead");
 
 /**
  *  Request password reset for customer (in product mode)
@@ -188,7 +188,7 @@ extern NSString *const kSparkAPIBaseURL;
  */
 -(NSURLSessionDataTask *)requestPasswordResetForCustomer:(NSString *)email
                                                productId:(NSUInteger)productId
-                                              completion:(nullable SparkCompletionBlock)completion;
+                                              completion:(nullable ParticleCompletionBlock)completion;
 
 /**
 *  Request password reset for user
@@ -198,7 +198,7 @@ extern NSString *const kSparkAPIBaseURL;
 *  @param completion Completion block with NSError object if failure, nil if success
 */
 -(NSURLSessionDataTask *)requestPasswordResetForUser:(NSString *)email
-                                          completion:(nullable SparkCompletionBlock)completion;
+                                          completion:(nullable ParticleCompletionBlock)completion;
 
 #pragma mark Device management functions
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -212,7 +212,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param completion Completion block with the device instances array in case of success or with NSError object if failure
  *  @return NSURLSessionDataTask task for requested network access
  */
--(NSURLSessionDataTask *)getDevices:(nullable void (^)(NSArray<SparkDevice *> * _Nullable sparkDevices, NSError * _Nullable error))completion;
+-(NSURLSessionDataTask *)getDevices:(nullable void (^)(NSArray<ParticleDevice *> * _Nullable sparkDevices, NSError * _Nullable error))completion;
 
 /**
  *  Get a specific device instance by its deviceID. If the device is offline the instance will contain only partial information the cloud has cached, 
@@ -223,7 +223,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @return NSURLSessionDataTask task for requested network access
  */
 -(NSURLSessionDataTask *)getDevice:(NSString *)deviceID
-                        completion:(nullable void (^)(SparkDevice * _Nullable device, NSError * _Nullable error))completion;
+                        completion:(nullable void (^)(ParticleDevice * _Nullable device, NSError * _Nullable error))completion;
 
 // Not available yet
 //-(void)publishEvent:(NSString *)eventName data:(NSData *)data;
@@ -236,7 +236,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @return NSURLSessionDataTask task for requested network access
  */
 -(NSURLSessionDataTask *)claimDevice:(NSString *)deviceID
-                          completion:(nullable SparkCompletionBlock)completion;
+                          completion:(nullable ParticleCompletionBlock)completion;
 
 /**
  *  Get a short-lived claiming token for transmitting to soon-to-be-claimed device in soft AP setup process
@@ -280,11 +280,11 @@ extern NSString *const kSparkAPIBaseURL;
 /**
  *  Subscribe to the firehose of public events, plus private events published by devices one owns
  *
- *  @param eventHandler SparkEventHandler event handler method - receiving NSDictionary argument which contains keys: event (name), data (payload), ttl (time to live), published_at (date/time emitted), coreid (device ID). Second argument is NSError object in case error occured in parsing the event payload.
+ *  @param eventHandler ParticleEventHandler event handler method - receiving NSDictionary argument which contains keys: event (name), data (payload), ttl (time to live), published_at (date/time emitted), coreid (device ID). Second argument is NSError object in case error occured in parsing the event payload.
  *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
  *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
--(nullable id)subscribeToAllEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler;
+-(nullable id)subscribeToAllEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable ParticleEventHandler)eventHandler;
 /**
  *  Subscribe to all events, public and private, published by devices one owns
  *
@@ -292,7 +292,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param eventNamePrefix  Filter only events that match name eventNamePrefix, for exact match pass whole string, if nil/empty string is passed any event will trigger eventHandler
  *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
--(nullable id)subscribeToMyDevicesEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler;
+-(nullable id)subscribeToMyDevicesEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable ParticleEventHandler)eventHandler;
 
 
 
@@ -305,7 +305,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  @param eventHandler     Event handler function that accepts the event payload dictionary and an NSError object in case of an error
  *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
--(nullable id)subscribeToDeviceEventsWithPrefix:(nullable NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(nullable SparkEventHandler)eventHandler;
+-(nullable id)subscribeToDeviceEventsWithPrefix:(nullable NSString *)eventNamePrefix deviceID:(NSString *)deviceID handler:(nullable ParticleEventHandler)eventHandler;
 
 
 // ADD: subscribe to product events...
@@ -332,7 +332,7 @@ extern NSString *const kSparkAPIBaseURL;
                                          data:(NSString *)data
                                     isPrivate:(BOOL)isPrivate
                                           ttl:(NSUInteger)ttl
-                                   completion:(nullable SparkCompletionBlock)completion;
+                                   completion:(nullable ParticleCompletionBlock)completion;
 
 
 @end

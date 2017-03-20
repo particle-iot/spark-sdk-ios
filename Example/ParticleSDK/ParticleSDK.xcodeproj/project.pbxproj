@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5014ED5E1CB73A2400A1063E /* SparkEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650A11C8542B30065F02F /* SparkEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5038C5AD1CA220C50084D255 /* SparkSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5038C5AB1CA220C50084D255 /* SparkSession.m */; };
-		5038C5AE1CA220C50084D255 /* SparkSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5038C5AC1CA220C50084D255 /* SparkSession.h */; };
+		5014ED5E1CB73A2400A1063E /* ParticleEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650A11C8542B30065F02F /* ParticleEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5038C5AD1CA220C50084D255 /* ParticleSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5038C5AB1CA220C50084D255 /* ParticleSession.m */; };
+		5038C5AE1CA220C50084D255 /* ParticleSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5038C5AC1CA220C50084D255 /* ParticleSession.h */; };
 		509749BE1D42E2D700C5DF0B /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509749BD1D42E2D700C5DF0B /* AFNetworking.framework */; };
 		50F6507F1C85423D0065F02F /* ParticleSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6507E1C85423D0065F02F /* ParticleSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50F650861C85423D0065F02F /* ParticleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F6507B1C85423D0065F02F /* ParticleSDK.framework */; };
@@ -18,11 +18,11 @@
 		50F650A81C8542B30065F02F /* EventSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F650971C8542B30065F02F /* EventSource.m */; };
 		50F650A91C8542B30065F02F /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F650981C8542B30065F02F /* KeychainItemWrapper.h */; };
 		50F650AA1C8542B30065F02F /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F650991C8542B30065F02F /* KeychainItemWrapper.m */; };
-		50F650AD1C8542B30065F02F /* SparkCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6509D1C8542B30065F02F /* SparkCloud.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50F650AE1C8542B30065F02F /* SparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F6509E1C8542B30065F02F /* SparkCloud.m */; };
-		50F650AF1C8542B30065F02F /* SparkDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6509F1C8542B30065F02F /* SparkDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50F650B01C8542B30065F02F /* SparkDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F650A01C8542B30065F02F /* SparkDevice.m */; };
-		50F650B21C8542B30065F02F /* SparkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F650A21C8542B30065F02F /* SparkEvent.m */; };
+		50F650AD1C8542B30065F02F /* ParticleCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6509D1C8542B30065F02F /* ParticleCloud.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50F650AE1C8542B30065F02F /* ParticleCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F6509E1C8542B30065F02F /* ParticleCloud.m */; };
+		50F650AF1C8542B30065F02F /* ParticleDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F6509F1C8542B30065F02F /* ParticleDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50F650B01C8542B30065F02F /* ParticleDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F650A01C8542B30065F02F /* ParticleDevice.m */; };
+		50F650B21C8542B30065F02F /* ParticleEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F650A21C8542B30065F02F /* ParticleEvent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,8 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5038C5AB1CA220C50084D255 /* SparkSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkSession.m; sourceTree = "<group>"; };
-		5038C5AC1CA220C50084D255 /* SparkSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkSession.h; sourceTree = "<group>"; };
+		5038C5AB1CA220C50084D255 /* ParticleSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticleSession.m; sourceTree = "<group>"; };
+		5038C5AC1CA220C50084D255 /* ParticleSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleSession.h; sourceTree = "<group>"; };
 		509749BD1D42E2D700C5DF0B /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = "<group>"; };
 		50F6507B1C85423D0065F02F /* ParticleSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ParticleSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F6507E1C85423D0065F02F /* ParticleSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleSDK.h; sourceTree = "<group>"; };
@@ -49,12 +49,12 @@
 		50F650971C8542B30065F02F /* EventSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSource.m; sourceTree = "<group>"; };
 		50F650981C8542B30065F02F /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		50F650991C8542B30065F02F /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
-		50F6509D1C8542B30065F02F /* SparkCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkCloud.h; sourceTree = "<group>"; };
-		50F6509E1C8542B30065F02F /* SparkCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkCloud.m; sourceTree = "<group>"; };
-		50F6509F1C8542B30065F02F /* SparkDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkDevice.h; sourceTree = "<group>"; };
-		50F650A01C8542B30065F02F /* SparkDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkDevice.m; sourceTree = "<group>"; };
-		50F650A11C8542B30065F02F /* SparkEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkEvent.h; sourceTree = "<group>"; };
-		50F650A21C8542B30065F02F /* SparkEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkEvent.m; sourceTree = "<group>"; };
+		50F6509D1C8542B30065F02F /* ParticleCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleCloud.h; sourceTree = "<group>"; };
+		50F6509E1C8542B30065F02F /* ParticleCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticleCloud.m; sourceTree = "<group>"; };
+		50F6509F1C8542B30065F02F /* ParticleDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleDevice.h; sourceTree = "<group>"; };
+		50F650A01C8542B30065F02F /* ParticleDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticleDevice.m; sourceTree = "<group>"; };
+		50F650A11C8542B30065F02F /* ParticleEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleEvent.h; sourceTree = "<group>"; };
+		50F650A21C8542B30065F02F /* ParticleEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticleEvent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,14 +131,14 @@
 		50F650A51C8542B30065F02F /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				5038C5AC1CA220C50084D255 /* SparkSession.h */,
-				5038C5AB1CA220C50084D255 /* SparkSession.m */,
-				50F6509D1C8542B30065F02F /* SparkCloud.h */,
-				50F6509E1C8542B30065F02F /* SparkCloud.m */,
-				50F6509F1C8542B30065F02F /* SparkDevice.h */,
-				50F650A01C8542B30065F02F /* SparkDevice.m */,
-				50F650A11C8542B30065F02F /* SparkEvent.h */,
-				50F650A21C8542B30065F02F /* SparkEvent.m */,
+				5038C5AC1CA220C50084D255 /* ParticleSession.h */,
+				5038C5AB1CA220C50084D255 /* ParticleSession.m */,
+				50F6509D1C8542B30065F02F /* ParticleCloud.h */,
+				50F6509E1C8542B30065F02F /* ParticleCloud.m */,
+				50F6509F1C8542B30065F02F /* ParticleDevice.h */,
+				50F650A01C8542B30065F02F /* ParticleDevice.m */,
+				50F650A11C8542B30065F02F /* ParticleEvent.h */,
+				50F650A21C8542B30065F02F /* ParticleEvent.m */,
 			);
 			name = SDK;
 			path = ../../Pod/Classes/SDK;
@@ -152,11 +152,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				50F6507F1C85423D0065F02F /* ParticleSDK.h in Headers */,
-				5014ED5E1CB73A2400A1063E /* SparkEvent.h in Headers */,
+				5014ED5E1CB73A2400A1063E /* ParticleEvent.h in Headers */,
 				50F650A71C8542B30065F02F /* EventSource.h in Headers */,
-				50F650AD1C8542B30065F02F /* SparkCloud.h in Headers */,
-				5038C5AE1CA220C50084D255 /* SparkSession.h in Headers */,
-				50F650AF1C8542B30065F02F /* SparkDevice.h in Headers */,
+				50F650AD1C8542B30065F02F /* ParticleCloud.h in Headers */,
+				5038C5AE1CA220C50084D255 /* ParticleSession.h in Headers */,
+				50F650AF1C8542B30065F02F /* ParticleDevice.h in Headers */,
 				50F650A91C8542B30065F02F /* KeychainItemWrapper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,12 +259,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5038C5AD1CA220C50084D255 /* SparkSession.m in Sources */,
-				50F650B21C8542B30065F02F /* SparkEvent.m in Sources */,
-				50F650B01C8542B30065F02F /* SparkDevice.m in Sources */,
+				5038C5AD1CA220C50084D255 /* ParticleSession.m in Sources */,
+				50F650B21C8542B30065F02F /* ParticleEvent.m in Sources */,
+				50F650B01C8542B30065F02F /* ParticleDevice.m in Sources */,
 				50F650AA1C8542B30065F02F /* KeychainItemWrapper.m in Sources */,
 				50F650A81C8542B30065F02F /* EventSource.m in Sources */,
-				50F650AE1C8542B30065F02F /* SparkCloud.m in Sources */,
+				50F650AE1C8542B30065F02F /* ParticleCloud.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

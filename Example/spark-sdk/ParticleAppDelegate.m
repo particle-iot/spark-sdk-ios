@@ -1,14 +1,14 @@
 //
-//  SparkAppDelegate.m
-//  Spark-SDK
+//  ParticleAppDelegate.m
+//  Particle-SDK
 //
 //  Created by CocoaPods on 03/01/2015.
 //  Copyright (c) 2014 Ido Kleinman. All rights reserved.
 //
 
-#import "SparkAppDelegate.h"
+#import "ParticleAppDelegate.h"
 
-@implementation SparkAppDelegate
+@implementation ParticleAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

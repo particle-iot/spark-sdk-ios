@@ -1,5 +1,5 @@
 //
-//  SparkDevice.h
+//  ParticleDevice.h
 //  Particle iOS Cloud SDK
 //
 //  Created by Ido Kleinman
@@ -18,7 +18,7 @@
 //  limitations under the License.
 
 #import <Foundation/Foundation.h>
-#import "SparkEvent.h"
+#import "ParticleEvent.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,41 +26,41 @@ NS_ASSUME_NONNULL_BEGIN
  * Standard completion block for API calls, will be called when the task is completed
  * with a nullable error object that will be nil if the task was successful.
  */
-typedef void (^SparkCompletionBlock)(NSError * _Nullable error);
+typedef void (^ParticleCompletionBlock)(NSError * _Nullable error);
 
-typedef NS_ENUM(NSInteger, SparkDeviceType) {
-    SparkDeviceTypeUnknown=-1,
-    SparkDeviceTypeCore=0,
-    SparkDeviceTypePhoton=6, // or P0
-    SparkDeviceTypeP1=8,
-    SparkDeviceTypeElectron=10,
-    SparkDeviceTypeRaspberryPi=31,
-    SparkDeviceTypeRedBearDuo=88,
-    SparkDeviceTypeBluz=103,
-    SparkDeviceTypeDigistumpOak=82,
+typedef NS_ENUM(NSInteger, ParticleDeviceType) {
+    ParticleDeviceTypeUnknown=-1,
+    ParticleDeviceTypeCore=0,
+    ParticleDeviceTypePhoton=6, // or P0
+    ParticleDeviceTypeP1=8,
+    ParticleDeviceTypeElectron=10,
+    ParticleDeviceTypeRaspberryPi=31,
+    ParticleDeviceTypeRedBearDuo=88,
+    ParticleDeviceTypeBluz=103,
+    ParticleDeviceTypeDigistumpOak=82,
 };
 
-typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
-    SparkDeviceSystemEventCameOnline,
-    SparkDeviceSystemEventWentOffline,
-    SparkDeviceSystemEventFlashStarted,
-    SparkDeviceSystemEventFlashSucceeded,
-    SparkDeviceSystemEventFlashFailed,
-    SparkDeviceSystemEventAppHashUpdated,
-    SparkDeviceSystemEventEnteredSafeMode,
-    SparkDeviceSystemEventSafeModeUpdater
+typedef NS_ENUM(NSInteger, ParticleDeviceSystemEvent) {
+    ParticleDeviceSystemEventCameOnline,
+    ParticleDeviceSystemEventWentOffline,
+    ParticleDeviceSystemEventFlashStarted,
+    ParticleDeviceSystemEventFlashSucceeded,
+    ParticleDeviceSystemEventFlashFailed,
+    ParticleDeviceSystemEventAppHashUpdated,
+    ParticleDeviceSystemEventEnteredSafeMode,
+    ParticleDeviceSystemEventSafeModeUpdater
 };
 
-@class SparkDevice;
+@class ParticleDevice;
 
-@protocol SparkDeviceDelegate <NSObject>
+@protocol ParticleDeviceDelegate <NSObject>
 
 @optional
--(void)sparkDevice:(SparkDevice *)device didReceiveSystemEvent:(SparkDeviceSystemEvent)event;
+-(void)sparkDevice:(ParticleDevice *)device didReceiveSystemEvent:(ParticleDeviceSystemEvent)event;
 
 @end
 
-@interface SparkDevice : NSObject
+@interface ParticleDevice : NSObject
 
 /**
  *  DeviceID string
@@ -104,12 +104,12 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  */
 @property (strong, nonatomic, readonly) NSString *version; // inactive
 @property (nonatomic, readonly) BOOL requiresUpdate;
-@property (nonatomic, readonly) SparkDeviceType type;
+@property (nonatomic, readonly) ParticleDeviceType type;
 
 -(nullable instancetype)initWithParams:(NSDictionary *)params NS_DESIGNATED_INITIALIZER;
 -(instancetype)init __attribute__((unavailable("Must use initWithParams:")));
 
-@property (nonatomic, strong) id <SparkDeviceDelegate> delegate;
+@property (nonatomic, strong) id <ParticleDeviceDelegate> delegate;
 
 /**
  *  Retrieve a variable value from the device
@@ -137,7 +137,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  *  @param enale - YES to start or NO to stop LED signal.
  *
  */
--(NSURLSessionDataTask *)signal:(BOOL)enable completion:(nullable SparkCompletionBlock)completion;
+-(NSURLSessionDataTask *)signal:(BOOL)enable completion:(nullable ParticleCompletionBlock)completion;
 
 
 /**
@@ -147,14 +147,14 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  *  @param completion Completion block called when function completes with NSError object in case of an error or nil if success.
  *
  */
--(NSURLSessionDataTask *)refresh:(nullable SparkCompletionBlock)completion;
+-(NSURLSessionDataTask *)refresh:(nullable ParticleCompletionBlock)completion;
 
 /**
  *  Remove device from current logged in user account
  *
  *  @param completion Completion block called when function completes with NSError object in case of an error or nil if success.
  */
--(NSURLSessionDataTask *)unclaim:(nullable SparkCompletionBlock)completion;
+-(NSURLSessionDataTask *)unclaim:(nullable ParticleCompletionBlock)completion;
 
 /*
 -(void)compileAndFlash:(NSString *)sourceCode completion:(void(^)(NSError* error))completion;
@@ -167,7 +167,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  *  @param newName      New device name
  *  @param completion   Completion block called when function completes with NSError object in case of an error or nil if success.
  */
--(NSURLSessionDataTask *)rename:(NSString *)newName completion:(nullable SparkCompletionBlock)completion;
+-(NSURLSessionDataTask *)rename:(NSString *)newName completion:(nullable ParticleCompletionBlock)completion;
 
 /**
  *  Retrieve current data usage report (For Electron only)
@@ -183,7 +183,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  *  @param filesDict    files dictionary in the following format: @{@"filename.bin" : <NSData>, ...} - that is a NSString filename as key and NSData blob as value. More than one file can be flashed. Data is alway binary.
  *  @param completion   Completion block called when function completes with NSError object in case of an error or nil if success. NSError.localized descripion will contain a detailed error report in case of a
  */
--(nullable NSURLSessionDataTask *)flashFiles:(NSDictionary *)filesDict completion:(nullable SparkCompletionBlock)completion; //@{@"<filename>" : NSData, ...}
+-(nullable NSURLSessionDataTask *)flashFiles:(NSDictionary *)filesDict completion:(nullable ParticleCompletionBlock)completion; //@{@"<filename>" : NSData, ...}
 
 /**
  *  Flash known firmware images to device
@@ -191,7 +191,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  *  @param knownAppName    NSString of known app name. Currently @"tinker" is supported. 
  *  @param completion      Completion block called when function completes with NSError object in case of an error or nil if success. NSError.localized descripion will contain a detailed error report in case of a
  */
--(NSURLSessionDataTask *)flashKnownApp:(NSString *)knownAppName completion:(nullable SparkCompletionBlock)completion; // knownAppName = @"tinker", @"blinky", ... see http://docs.
+-(NSURLSessionDataTask *)flashKnownApp:(NSString *)knownAppName completion:(nullable ParticleCompletionBlock)completion; // knownAppName = @"tinker", @"blinky", ... see http://docs.
 
 //-(void)compileAndFlashFiles:(NSDictionary *)filesDict completion:(void(^)(NSError* error))completion; //@{@"<filename>" : @"<file contents>"}
 //-(void)complileFiles:(NSDictionary *)filesDict completion:(void(^)(NSData *resultBinary, NSError* error))completion; //@{@"<filename>" : @"<file contents>"}
@@ -206,7 +206,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  *  @param eventNamePrefix  Filter only events that match name eventNamePrefix, for exact match pass whole string, if nil/empty string is passed any event will trigger eventHandler
  *  @param eventHandler     Event handler function that accepts the event payload dictionary and an NSError object in case of an error
  */
--(nullable id)subscribeToEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler;
+-(nullable id)subscribeToEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable ParticleEventHandler)eventHandler;
 
 /**
  *  Unsubscribe from event/events.
@@ -216,7 +216,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
 -(void)unsubscribeFromEventWithID:(id)eventListenerID;
 
 // Internal use
--(void)__receivedSystemEvent:(SparkEvent *)event;
+-(void)__receivedSystemEvent:(ParticleEvent *)event;
 
 @end
 

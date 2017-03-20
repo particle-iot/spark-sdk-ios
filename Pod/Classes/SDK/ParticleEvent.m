@@ -1,16 +1,16 @@
 //
-//  SparkEvent.m
+//  ParticleEvent.m
 //  Pods
 //
 //  Created by Ido on 7/14/15.
 //
 //
 
-#import "SparkEvent.h"
+#import "ParticleEvent.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation SparkEvent
+@implementation ParticleEvent
 
 -(instancetype)initWithEventDict:(NSDictionary *)eventDict
 {

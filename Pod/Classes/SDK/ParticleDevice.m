@@ -1,14 +1,14 @@
 //
-//  SparkDevice.m
+//  ParticleDevice.m
 //  mobile-sdk-ios
 //
 //  Created by Ido Kleinman on 11/7/14.
-//  Copyright (c) 2014-2015 Spark. All rights reserved.
+//  Copyright (c) 2014-2015 Particle. All rights reserved.
 //
 
-#import "SparkDevice.h"
-#import "SparkCloud.h"
-#import "SparkEvent.h"
+#import "ParticleDevice.h"
+#import "ParticleCloud.h"
+#import "ParticleEvent.h"
 #import <AFNetworking/AFNetworking.h>
 #import <objc/runtime.h>
 
@@ -16,14 +16,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SparkDevice()
+@interface ParticleDevice()
 
 @property (strong, nonatomic, nonnull) NSString* id;
 @property (nonatomic) BOOL connected; // might be impossible
 @property (strong, nonatomic, nonnull) NSArray *functions;
 @property (strong, nonatomic, nonnull) NSDictionary *variables;
 @property (strong, nonatomic, nullable) NSString *version;
-//@property (nonatomic) SparkDeviceType type;
+//@property (nonatomic) ParticleDeviceType type;
 @property (nonatomic) BOOL requiresUpdate;
 @property (nonatomic, strong) AFHTTPSessionManager *manager;
 @property (nonatomic) BOOL isFlashing;
@@ -38,13 +38,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) NSString *appHash;
 @end
 
-@implementation SparkDevice
+@implementation ParticleDevice
 
 -(nullable instancetype)initWithParams:(NSDictionary *)params
 {
     if (self = [super init])
     {
-        _baseURL = [NSURL URLWithString:kSparkAPIBaseURL];
+        _baseURL = [NSURL URLWithString:kParticleAPIBaseURL];
         if (!_baseURL) {
             return nil;
         }
@@ -72,31 +72,31 @@ NS_ASSUME_NONNULL_BEGIN
 
         _id = params[@"id"];
 
-        _type = SparkDeviceTypeUnknown;
+        _type = ParticleDeviceTypeUnknown;
         if ([params[@"platform_id"] isKindOfClass:[NSNumber class]])
         {
             self.platformId = [params[@"platform_id"] intValue];
             
-            if ([params[@"platform_id"] intValue] == SparkDeviceTypeCore)
-                _type = SparkDeviceTypeCore;
+            if ([params[@"platform_id"] intValue] == ParticleDeviceTypeCore)
+                _type = ParticleDeviceTypeCore;
 
-            if ([params[@"platform_id"] intValue] == SparkDeviceTypeElectron)
-                _type = SparkDeviceTypeElectron;
+            if ([params[@"platform_id"] intValue] == ParticleDeviceTypeElectron)
+                _type = ParticleDeviceTypeElectron;
 
-            if ([params[@"platform_id"] intValue] == SparkDeviceTypePhoton) // or P0 - same id
-                _type = SparkDeviceTypePhoton;
+            if ([params[@"platform_id"] intValue] == ParticleDeviceTypePhoton) // or P0 - same id
+                _type = ParticleDeviceTypePhoton;
             
-            if ([params[@"platform_id"] intValue] == SparkDeviceTypeP1)
-                _type = SparkDeviceTypeP1;
+            if ([params[@"platform_id"] intValue] == ParticleDeviceTypeP1)
+                _type = ParticleDeviceTypeP1;
 
-            if ([params[@"platform_id"] intValue] == SparkDeviceTypeRedBearDuo)
-                _type = SparkDeviceTypeRedBearDuo;
+            if ([params[@"platform_id"] intValue] == ParticleDeviceTypeRedBearDuo)
+                _type = ParticleDeviceTypeRedBearDuo;
 
-            if ([params[@"platform_id"] intValue] == SparkDeviceTypeBluz)
-                _type = SparkDeviceTypeBluz;
+            if ([params[@"platform_id"] intValue] == ParticleDeviceTypeBluz)
+                _type = ParticleDeviceTypeBluz;
 
-            if ([params[@"platform_id"] intValue] == SparkDeviceTypeDigistumpOak)
-                _type = SparkDeviceTypeDigistumpOak;
+            if ([params[@"platform_id"] intValue] == ParticleDeviceTypeDigistumpOak)
+                _type = ParticleDeviceTypeDigistumpOak;
         }
 
         
@@ -171,9 +171,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
--(NSURLSessionDataTask *)refresh:(nullable SparkCompletionBlock)completion;
+-(NSURLSessionDataTask *)refresh:(nullable ParticleCompletionBlock)completion;
 {
-    return [[SparkCloud sharedInstance] getDevice:self.id completion:^(SparkDevice * _Nullable updatedDevice, NSError * _Nullable error) {
+    return [[ParticleCloud sharedInstance] getDevice:self.id completion:^(ParticleDevice * _Nullable updatedDevice, NSError * _Nullable error) {
         if (!error)
         {
             if (updatedDevice)
@@ -316,7 +316,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 
--(NSURLSessionDataTask *)signal:(BOOL)enable completion:(nullable SparkCompletionBlock)completion
+-(NSURLSessionDataTask *)signal:(BOOL)enable completion:(nullable ParticleCompletionBlock)completion
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
     
@@ -341,7 +341,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 
--(NSURLSessionDataTask *)unclaim:(nullable SparkCompletionBlock)completion
+-(NSURLSessionDataTask *)unclaim:(nullable ParticleCompletionBlock)completion
 {
 
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
@@ -371,7 +371,7 @@ NS_ASSUME_NONNULL_BEGIN
     return task;
 }
 
--(NSURLSessionDataTask *)rename:(NSString *)newName completion:(nullable SparkCompletionBlock)completion
+-(NSURLSessionDataTask *)rename:(NSString *)newName completion:(nullable ParticleCompletionBlock)completion
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
 
@@ -403,17 +403,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableDictionary *)defaultParams
 {
     // TODO: change access token to be passed in header not in body
-    if ([SparkCloud sharedInstance].accessToken)
+    if ([ParticleCloud sharedInstance].accessToken)
     {
-        return [@{@"access_token" : [SparkCloud sharedInstance].accessToken} mutableCopy];
+        return [@{@"access_token" : [ParticleCloud sharedInstance].accessToken} mutableCopy];
     }
     else return nil;
 }
 
 -(void)setAuthHeaderWithAccessToken
 {
-    if ([SparkCloud sharedInstance].accessToken) {
-        NSString *authorization = [NSString stringWithFormat:@"Bearer %@",[SparkCloud sharedInstance].accessToken];
+    if ([ParticleCloud sharedInstance].accessToken) {
+        NSString *authorization = [NSString stringWithFormat:@"Bearer %@",[ParticleCloud sharedInstance].accessToken];
         [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
     }
 }
@@ -424,16 +424,16 @@ NS_ASSUME_NONNULL_BEGIN
     
     NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
     [errorDetail setValue:desc forKey:NSLocalizedDescriptionKey];
-    return [NSError errorWithDomain:@"SparkAPIError" code:errorCode userInfo:errorDetail];
+    return [NSError errorWithDomain:@"ParticleAPIError" code:errorCode userInfo:errorDetail];
 }
 
 
 
 -(NSString *)description
 {
-    NSString *desc = [NSString stringWithFormat:@"<SparkDevice 0x%lx, type: %@, id: %@, name: %@, connected: %@, variables: %@, functions: %@, version: %@, requires update: %@, last app: %@, last heard: %@>",
+    NSString *desc = [NSString stringWithFormat:@"<ParticleDevice 0x%lx, type: %@, id: %@, name: %@, connected: %@, variables: %@, functions: %@, version: %@, requires update: %@, last app: %@, last heard: %@>",
                       (unsigned long)self,
-                      (self.type == SparkDeviceTypeCore) ? @"Core" : @"Photon",
+                      (self.type == ParticleDeviceTypeCore) ? @"Core" : @"Photon",
                       self.id,
                       self.name,
                       (self.connected) ? @"true" : @"false",
@@ -449,7 +449,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 
--(NSURLSessionDataTask *)flashKnownApp:(NSString *)knownAppName completion:(nullable SparkCompletionBlock)completion
+-(NSURLSessionDataTask *)flashKnownApp:(NSString *)knownAppName completion:(nullable ParticleCompletionBlock)completion
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
     
@@ -485,7 +485,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 
--(nullable NSURLSessionDataTask *)flashFiles:(NSDictionary *)filesDict completion:(nullable SparkCompletionBlock)completion // binary
+-(nullable NSURLSessionDataTask *)flashFiles:(NSDictionary *)filesDict completion:(nullable ParticleCompletionBlock)completion // binary
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"v1/devices/%@", self.id]];
     
@@ -547,19 +547,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
--(nullable id)subscribeToEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler
+-(nullable id)subscribeToEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable ParticleEventHandler)eventHandler
 {
-    return [[SparkCloud sharedInstance] subscribeToDeviceEventsWithPrefix:eventNamePrefix deviceID:self.name handler:eventHandler]; // DEBUG TODO self.id
+    return [[ParticleCloud sharedInstance] subscribeToDeviceEventsWithPrefix:eventNamePrefix deviceID:self.name handler:eventHandler]; // DEBUG TODO self.id
 }
 
 -(void)unsubscribeFromEventWithID:(id)eventListenerID
 {
-    [[SparkCloud sharedInstance] unsubscribeFromEventWithID:eventListenerID];
+    [[ParticleCloud sharedInstance] unsubscribeFromEventWithID:eventListenerID];
 }
 
 -(NSURLSessionDataTask *)getCurrentDataUsage:(nullable void(^)(float dataUsed, NSError* _Nullable error))completion
 {
-    if (self.type != SparkDeviceTypeElectron) {
+    if (self.type != ParticleDeviceTypeElectron) {
         if (completion)
         {
             NSError *err = [self makeErrorWithDescription:@"Command supported only for Electron device" code:4000];
@@ -601,7 +601,7 @@ NS_ASSUME_NONNULL_BEGIN
     return task;
 }
 
--(void)__receivedSystemEvent:(SparkEvent *)event {
+-(void)__receivedSystemEvent:(ParticleEvent *)event {
     //{"name":"spark/status","data":"online","ttl":"60","published_at":"2016-07-13T06:20:07.300Z","coreid":"25002a001147353230333635"}
     //        {"name":"spark/flash/status","data":"started ","ttl":"60","published_at":"2016-07-13T06:30:47.130Z","coreid":"25002a001147353230333635"}
     //        {"name":"spark/flash/status","data":"success ","ttl":"60","published_at":"2016-07-13T06:30:47.702Z","coreid":"25002a001147353230333635"}
@@ -619,7 +619,7 @@ NS_ASSUME_NONNULL_BEGIN
             self.connected = YES;
             self.isFlashing = NO;
             if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
-                [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventCameOnline];
+                [self.delegate sparkDevice:self didReceiveSystemEvent:ParticleDeviceSystemEventCameOnline];
                 
             }
         }
@@ -628,7 +628,7 @@ NS_ASSUME_NONNULL_BEGIN
             self.connected = NO;
             self.isFlashing = NO;
             if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
-                [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventWentOffline];
+                [self.delegate sparkDevice:self didReceiveSystemEvent:ParticleDeviceSystemEventWentOffline];
             }
         }
     }
@@ -637,7 +637,7 @@ NS_ASSUME_NONNULL_BEGIN
         if ([event.data containsString:@"started"]) {
             self.isFlashing = YES;
             if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
-                [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventFlashStarted];
+                [self.delegate sparkDevice:self didReceiveSystemEvent:ParticleDeviceSystemEventFlashStarted];
                 
             }
         }
@@ -645,7 +645,7 @@ NS_ASSUME_NONNULL_BEGIN
         if ([event.data containsString:@"success"]) {
             self.isFlashing = NO;
             if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
-                [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventFlashSucceeded];
+                [self.delegate sparkDevice:self didReceiveSystemEvent:ParticleDeviceSystemEventFlashSucceeded];
             }
         }
     }
@@ -655,20 +655,20 @@ NS_ASSUME_NONNULL_BEGIN
         self.appHash = event.data;
         self.isFlashing = NO;
         if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
-            [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventAppHashUpdated];
+            [self.delegate sparkDevice:self didReceiveSystemEvent:ParticleDeviceSystemEventAppHashUpdated];
         }
     }
     
     
     if ([event.event isEqualToString:@"spark/status/safe-mode"]) {
         if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
-            [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventSafeModeUpdater];
+            [self.delegate sparkDevice:self didReceiveSystemEvent:ParticleDeviceSystemEventSafeModeUpdater];
         }
     }
     
     if ([event.event isEqualToString:@"spark/safe-mode-updater/updating"]) {
         if ([self.delegate respondsToSelector:@selector(sparkDevice:didReceiveSystemEvent:)]) {
-            [self.delegate sparkDevice:self didReceiveSystemEvent:SparkDeviceSystemEventSafeModeUpdater];
+            [self.delegate sparkDevice:self didReceiveSystemEvent:ParticleDeviceSystemEventSafeModeUpdater];
         }
     }
     

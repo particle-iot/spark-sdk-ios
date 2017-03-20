@@ -11,7 +11,7 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 * Added: accountInfo field to createUser (add optional first/last name, company name and business account info to every user signup)
 
-* Bigfix: SparkDevice.refresh() now does not nullify the delegate property 
+* Bigfix: ParticleDevice.refresh() now does not nullify the delegate property 
 
 * Bigfix: Internal device maptable issue
 
@@ -23,23 +23,23 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.5.1](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.1) (2016-09-07)
 
-* Bigfix: Functions (Array) and Variables (Dictionary) in a SparkDevice instance will sometimes contain unknown type values for offline devices, this might cause problems with Swift - fixed.
+* Bigfix: Functions (Array) and Variables (Dictionary) in a ParticleDevice instance will sometimes contain unknown type values for offline devices, this might cause problems with Swift - fixed.
 
 * Added: Set both those fields to nonnull for better Swift interoperability.
 
 ## [0.5.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.5.0) (2016-07-21)
 
-* Added: SparkDevice API function: getCurrentDataUsage for Electron devices 
+* Added: ParticleDevice API function: getCurrentDataUsage for Electron devices 
 
-* Added: SparkDevice API function: Signal device (make on board LED shout rainbows)
+* Added: ParticleDevice API function: Signal device (make on board LED shout rainbows)
 
-* Added: SparkDeviceDelegate protocol - allow SDK user to register for device system events (offline/online/flashing etc) 
+* Added: ParticleDeviceDelegate protocol - allow SDK user to register for device system events (offline/online/flashing etc) 
 
 * Bigfix: Critical event subsystem bugfixes
 
 * Added: Additional supported device types (P1, RedBear, Bluz, etc)
 
-* Added: Support for additional SparkDevice properties (ICCID, IMEI, status, platformId, productId, lastIPAddress)
+* Added: Support for additional ParticleDevice properties (ICCID, IMEI, status, platformId, productId, lastIPAddress)
 
 * Added: Automatically Determine device type (family) through platform_id
 
@@ -47,7 +47,7 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 * Bugfix: FlashFiles API now works
 
-* Removed: systemFirmwareVersion property for SparkDevice
+* Removed: systemFirmwareVersion property for ParticleDevice
 
 * Updated: Documentation
 
@@ -61,7 +61,7 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 * SDK will now try to auto refresh expired access token using the OAuth "refresh token"
 
-* Merged the SparkUser and SparkAccessToken classes into one SparkSession class
+* Merged the ParticleUser and ParticleAccessToken classes into one ParticleSession class
 
 ## [0.4.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.4.0) (2016-03-02)
 
@@ -97,7 +97,7 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 * isLoggedin flag
 
-* remove OAuth credentials plist file in favor of new class variables (used to 'feed' client/secret to SparkCloud class)
+* remove OAuth credentials plist file in favor of new class variables (used to 'feed' client/secret to ParticleCloud class)
 
 * README fixes, CHANGELOG added
 
@@ -133,7 +133,7 @@ Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.2.6](https://github.com/spark/spark-sdk-ios/releases/tag/0.2.6) (2015-05-06)
 
-* Added device type field to SparkDevice
+* Added device type field to ParticleDevice
 
 * Bug fix rename device API call
 
