@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 Particle iOS Cloud SDK adheres to [Semantic Versioning](http://semver.org/).
 
 ---
+## [0.6.1](https://github.com/spark/spark-sdk-ios/releases/tag/0.6.1) (2017-04-05)
+
+* DEPRECATED
+
+* Cocoapod Library has been deprecated in favor of the renamed library Particle-SDK
+
 ## [0.6.0](https://github.com/spark/spark-sdk-ios/releases/tag/0.6.0) (2017-02-03)
 
 * Updated: Product endpoints depracates Org endpoints

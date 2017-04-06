@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = "Spark-SDK"
-    s.version          = "0.6.0"
+    s.version          = "0.6.1"
     s.summary          = "Particle iOS Cloud SDK for interacting with Particle powered devices (Core/Photon/Electron)"
     s.description      = <<-DESC
                         Particle (formerly Spark) iOS Cloud SDK Cocoapod library
@@ -16,6 +16,9 @@ Pod::Spec.new do |s|
 
     s.platform     = :ios, '8.0'
     s.requires_arc = true
+
+    s.deprecated_in_favor_of = 'Particle-SDK'
+    s.deprecated = true
 
     s.public_header_files = 'Pod/Classes/*.h'
     s.source_files = 'Pod/Classes/*.h'
