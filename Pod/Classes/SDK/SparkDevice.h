@@ -29,36 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^SparkCompletionBlock)(NSError * _Nullable error);
 
 typedef NS_ENUM(NSInteger, SparkDeviceType) {
-    SparkDeviceTypeUnknown=-1,
     SparkDeviceTypeCore=0,
-    SparkDeviceTypePhoton=6, // or P0
-    SparkDeviceTypeP1=8,
+    SparkDeviceTypePhoton=6,
     SparkDeviceTypeElectron=10,
-    SparkDeviceTypeRaspberryPi=31,
-    SparkDeviceTypeRedBearDuo=88,
-    SparkDeviceTypeBluz=103,
-    SparkDeviceTypeDigistumpOak=82,
 };
-
-typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
-    SparkDeviceSystemEventCameOnline,
-    SparkDeviceSystemEventWentOffline,
-    SparkDeviceSystemEventFlashStarted,
-    SparkDeviceSystemEventFlashSucceeded,
-    SparkDeviceSystemEventFlashFailed,
-    SparkDeviceSystemEventAppHashUpdated,
-    SparkDeviceSystemEventEnteredSafeMode,
-    SparkDeviceSystemEventSafeModeUpdater
-};
-
-@class SparkDevice;
-
-@protocol SparkDeviceDelegate <NSObject>
-
-@optional
--(void)sparkDevice:(SparkDevice *)device didReceiveSystemEvent:(SparkDeviceSystemEvent)event;
-
-@end
 
 @interface SparkDevice : NSObject
 
@@ -77,39 +51,28 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
 /**
  *  List of function names exposed by device
  */
-@property (strong, nonatomic, nonnull, readonly) NSArray<NSString *> *functions;
+@property (strong, nonatomic, readonly) NSArray<NSString *> *functions;
 /**
  *  Dictionary of exposed variables on device with their respective types.
  */
-@property (strong, nonatomic, nonnull, readonly) NSDictionary<NSString *, NSString *> *variables; // @{varName : varType, ...}
+@property (strong, nonatomic, readonly) NSDictionary<NSString *, NSString *> *variables; // @{varName : varType, ...}
 
-@property (strong, nonatomic, nullable, readonly) NSString *lastApp; // inactive
+@property (strong, nonatomic, nullable, readonly) NSString *lastApp;
 
 @property (strong, nonatomic, nullable, readonly) NSDate *lastHeard;
 
-@property (strong, nonatomic, nullable, readonly) NSString *appHash; // app hash received from system event after flashing a new different user app
+@property (nonatomic) BOOL isFlashing;
 
-@property (nonatomic, readonly) BOOL isFlashing;
-
-// new properties starting SDK v0.5
-@property (strong, nonatomic, nullable, readonly) NSString *lastIPAdress;
-@property (strong, nonatomic, nullable, readonly) NSString *lastIccid; // Electron only
-@property (strong, nonatomic, nullable, readonly) NSString *imei; // inactive
-@property (nonatomic, readonly) NSUInteger platformId;
-@property (nonatomic, readonly) NSUInteger productId;
-@property (strong, nonatomic, nullable, readonly) NSString *status; // inactive
 
 /**
  *  Device firmware version string
  */
-@property (strong, nonatomic, readonly) NSString *version; // inactive
+@property (strong, nonatomic, readonly) NSString *version;
 @property (nonatomic, readonly) BOOL requiresUpdate;
-@property (nonatomic, readonly) SparkDeviceType type;
+@property (nonatomic, readonly) SparkDeviceType type; // inactive for now
 
 -(nullable instancetype)initWithParams:(NSDictionary *)params NS_DESIGNATED_INITIALIZER;
 -(instancetype)init __attribute__((unavailable("Must use initWithParams:")));
-
-@property (nonatomic, strong) id <SparkDeviceDelegate> delegate;
 
 /**
  *  Retrieve a variable value from the device
@@ -130,14 +93,10 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
                         withArguments:(nullable NSArray *)args
                            completion:(nullable void (^)(NSNumber * _Nullable result, NSError * _Nullable error))completion;
 
-/**
- *  Signal device
- *  Will make the onboard LED "shout rainbows" for easy physical identification of a device
- *
- *  @param enale - YES to start or NO to stop LED signal.
- *
+/*
+-(void)addEventHandler:(NSString *)eventName handler:(void(^)(void))handler;
+-(void)removeEventHandler:(NSString *)eventName;
  */
--(NSURLSessionDataTask *)signal:(BOOL)enable completion:(nullable SparkCompletionBlock)completion;
 
 
 /**
@@ -168,14 +127,6 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  *  @param completion   Completion block called when function completes with NSError object in case of an error or nil if success.
  */
 -(NSURLSessionDataTask *)rename:(NSString *)newName completion:(nullable SparkCompletionBlock)completion;
-
-/**
- *  Retrieve current data usage report (For Electron only)
- *
- *  @param completion   Completion block to be called when function completes with the data used in current payment period in (float)MBs. All devices other than Electron will return an error with -1 value
- */
--(NSURLSessionDataTask *)getCurrentDataUsage:(nullable void(^)(float dataUsed, NSError* _Nullable error))completion;
-
 
 /**
  *  Flash files to device
@@ -214,9 +165,6 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  *  @param eventListenerID The eventListener registration unique ID returned by the subscribe method which you want to cancel
  */
 -(void)unsubscribeFromEventWithID:(id)eventListenerID;
-
-// Internal use
--(void)__receivedSystemEvent:(SparkEvent *)event;
 
 @end
 
