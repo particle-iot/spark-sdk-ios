@@ -4,7 +4,7 @@
 //
 //  Created by Neil on 25/07/2013.
 //  Copyright (c) 2013 Neil Cowburn. All rights reserved,
-//  Heavily modified to match Particle event structure by Ido Kleinman, 2015
+//  Heavily modified to match Spark event structure by Ido Kleinman, 2015
 //  Original codebase:
 //  https://github.com/neilco/EventSource
 
@@ -21,19 +21,18 @@ static NSString *const ESEventKeyValuePairSeparator = @"\n";
 static NSString *const ESEventDataKey = @"data";
 static NSString *const ESEventEventKey = @"event";
 
-@interface EventSource () <NSURLConnectionDelegate, NSURLConnectionDataDelegate> { //<NSURLSessionDelegate, NSURLSessionDataDelegate> {
+@interface EventSource () <NSURLConnectionDelegate, NSURLConnectionDataDelegate> {
     BOOL wasClosed;
 }
 
 @property (nonatomic, strong) NSURL *eventURL;
 @property (nonatomic, strong) NSURLConnection *eventSource;
-@property (nonatomic, strong) NSURLSessionDataTask *eventSourceTask;
 @property (nonatomic, strong) NSMutableDictionary *listeners;
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
 @property (nonatomic, assign) NSTimeInterval retryInterval;
 @property (nonatomic, strong) id lastEventID;
 @property (nonatomic, strong) dispatch_queue_t queue;
-@property (nonatomic) NSInteger retries;
+@property (nonatomic, strong) NSString* accessToken;
 @property (atomic, strong) Event *event;
 
 
@@ -44,13 +43,13 @@ static NSString *const ESEventEventKey = @"event";
 @implementation EventSource
 
 
-+ (instancetype)eventSourceWithURL:(NSURL *)URL timeoutInterval:(NSTimeInterval)timeoutInterval queue:(dispatch_queue_t)queue
++ (instancetype)eventSourceWithURL:(NSURL *)URL timeoutInterval:(NSTimeInterval)timeoutInterval queue:(dispatch_queue_t)queue accessToken:(NSString *)accessToken
 {
-    return [[EventSource alloc] initWithURL:URL timeoutInterval:timeoutInterval queue:queue];
+    return [[EventSource alloc] initWithURL:URL timeoutInterval:timeoutInterval queue:queue accessToken:accessToken];
 }
 
 
-- (instancetype)initWithURL:(NSURL *)URL timeoutInterval:(NSTimeInterval)timeoutInterval queue:(dispatch_queue_t)queue
+- (instancetype)initWithURL:(NSURL *)URL timeoutInterval:(NSTimeInterval)timeoutInterval queue:(dispatch_queue_t)queue accessToken:(NSString *)accessToken
 {
     self = [super init];
     if (self) {
@@ -59,7 +58,7 @@ static NSString *const ESEventEventKey = @"event";
         _timeoutInterval = timeoutInterval;
         _retryInterval = ES_RETRY_INTERVAL;
         _queue = queue;
-        _retries = 0;
+        _accessToken = accessToken;
         
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_retryInterval * NSEC_PER_SEC));
         dispatch_after(popTime, queue, ^(void){
@@ -105,15 +104,19 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)open
 {
+    NSLog(@"event open");
+    // TODO: add the authorization headers/parameters here
     wasClosed = NO;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.eventURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:self.timeoutInterval];
-
+//    if (self.lastEventID)
+//    {
+//        [request setValue:self.lastEventID forHTTPHeaderField:@"Last-Event-ID"];
+//    }
+    
+    [request addValue:[NSString stringWithFormat:@"Bearer %@",self.accessToken] forHTTPHeaderField:@"Authorization"];
     [request setHTTPMethod:@"GET"];
     
     self.eventSource = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-//    self.eventSourceTask = [[NSURLSession sharedSession] dataTaskWithRequest:request];
-//    [self.eventSourceTask resume];
-    
     
     if (![NSThread isMainThread]) {
         CFRunLoopRun();
@@ -122,21 +125,15 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)close
 {
-//    NSLog(@"eventSource %@ closed",self.description);
-    
     wasClosed = YES;
     [self.eventSource cancel];
-//    [self.eventSourceTask cancel];
     self.queue = nil;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-//    NSLog(@"eventSource %@ didReceiveResponse %@",self.description,response.description);
-    
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     if (httpResponse.statusCode == 200) {
         // Opened
@@ -159,8 +156,6 @@ static NSString *const ESEventEventKey = @"event";
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-//    NSLog(@"eventSource %@ didFailWithError %@",self.description,error.description);
-    
     Event *e = [Event new];
     e.readyState = kEventStateClosed;
     e.error = error;
@@ -173,20 +168,13 @@ static NSString *const ESEventEventKey = @"event";
     }
     
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.retryInterval * NSEC_PER_SEC));
-    dispatch_after(popTime, self.queue, ^(void) {
-        if (self.retries < 5) {
-//            NSLog(@"connection retries %d",self.retries);
-            self.retries++;
-            [self open];
-        }
-        
+    dispatch_after(popTime, self.queue, ^(void){
+        [self open];
     });
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-//    NSLog(@"eventSource %@ didReceiveData %@",self.description,data.description);
-    
     NSString *eventString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     eventString = [eventString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     NSArray *components = [eventString componentsSeparatedByString:ESEventKeyValuePairSeparator];
@@ -236,8 +224,6 @@ static NSString *const ESEventEventKey = @"event";
         return;
     }
     
-//    NSLog(@"eventSource %@ connectionDidFinishLoading",self.description);
-    
     Event *e = [Event new];
     e.readyState = kEventStateClosed;
     e.error = [NSError errorWithDomain:@""
@@ -251,20 +237,7 @@ static NSString *const ESEventEventKey = @"event";
         });
     }
     
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.retryInterval * NSEC_PER_SEC));
-    dispatch_after(popTime, self.queue, ^(void) {
-        if (self.retries < 5) {
-//            NSLog(@"connectionDidFinishLoading retries %d",self.retries);
-            self.retries++;
-            [self open];
-        }
-        
-    });
-
-}
-
--(void)dealloc {
-    [self close];
+    [self open];
 }
 
 @end

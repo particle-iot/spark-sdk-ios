@@ -23,10 +23,10 @@ typedef void (^SparkEventHandler)(SparkEvent * _Nullable event, NSError * _Nulla
 @interface SparkEvent : NSObject
 
 @property (nonatomic, strong) NSString *deviceID;   // Event published by this device ID
-@property (nonatomic, nullable, strong) NSString *data;  // Event payload in string format
+@property (nonatomic, nullable, strong) NSString *data;       // Event string payload
 @property (nonatomic, strong) NSString *event;      // Event name
-@property (nonatomic, strong) NSDate *time;         // Event "published at" time/date UTC
-@property (nonatomic) NSInteger ttl;                // Event time to live (currently unused)
+@property (nonatomic, strong) NSDate *time;         // Event "published at" time/dat
+@property (nonatomic) NSInteger ttl;                // Event time to live
 
 -(instancetype)initWithEventDict:(NSDictionary *)eventDict;
 
