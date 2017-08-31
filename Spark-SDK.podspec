@@ -6,6 +6,7 @@ Pod::Spec.new do |s|
                         Particle (formerly Spark) iOS Cloud SDK Cocoapod library
                         The Particle iOS Cloud SDK enables iOS apps to interact with Particle-powered connected products via the Particle Cloud.
                         Library will enable your app to easily manage active user sessions to the Particle cloud, query for device's type, info, read and write data to and from the Core, Photon and Electron devices (via exposed firmware variables and functions) as well as publish/subscribe device and cloud events.
+                        DEPRECATED.
                         DESC
     s.homepage         = "https://github.com/spark/spark-sdk-ios"
     s.screenshots      = "http://i59.tinypic.com/mrthqc.jpg"
