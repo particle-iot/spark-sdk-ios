@@ -281,7 +281,7 @@ extern NSString *const kSparkAPIBaseURL;
  *  Subscribe to the firehose of public events, plus private events published by devices one owns
  *
  *  @param eventHandler SparkEventHandler event handler method - receiving NSDictionary argument which contains keys: event (name), data (payload), ttl (time to live), published_at (date/time emitted), coreid (device ID). Second argument is NSError object in case error occured in parsing the event payload.
- *  @param eventName    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
+ *  @param eventNamePrefix    Filter only events that match name eventName, if nil is passed any event will trigger eventHandler
  *  @return eventListenerID function will return an id type object as the eventListener registration unique ID - keep and pass this object to the unsubscribe method in order to remove this event listener
  */
 -(nullable id)subscribeToAllEventsWithPrefix:(nullable NSString *)eventNamePrefix handler:(nullable SparkEventHandler)eventHandler;

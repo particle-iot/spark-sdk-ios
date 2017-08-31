@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, SparkDeviceSystemEvent) {
  *  Signal device
  *  Will make the onboard LED "shout rainbows" for easy physical identification of a device
  *
- *  @param enale - YES to start or NO to stop LED signal.
+ *  @param enable - YES to start or NO to stop LED signal.
  *
  */
 -(NSURLSessionDataTask *)signal:(BOOL)enable completion:(nullable SparkCompletionBlock)completion;
