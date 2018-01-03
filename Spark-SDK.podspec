@@ -8,11 +8,11 @@ Pod::Spec.new do |s|
                         Library will enable your app to easily manage active user sessions to the Particle cloud, query for device's type, info, read and write data to and from the Core, Photon and Electron devices (via exposed firmware variables and functions) as well as publish/subscribe device and cloud events.
                         DEPRECATED.
                         DESC
-    s.homepage         = "https://github.com/spark/spark-sdk-ios"
+    s.homepage         = "https://github.com/particle-iot/spark-sdk-ios"
     s.screenshots      = "http://i59.tinypic.com/mrthqc.jpg"
     s.license          = 'Apache 2.0'
     s.author           = { "Particle" => "ido@particle.io" }
-    s.source           = { :git => "https://github.com/spark/Spark-SDK-ios.git", :tag => s.version.to_s }
+    s.source           = { :git => "https://github.com/particle-iot/Spark-SDK-ios.git", :tag => s.version.to_s }
     s.social_media_url = 'https://twitter.com/particle'
 
     s.platform     = :ios, '8.0'
