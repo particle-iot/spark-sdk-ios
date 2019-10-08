@@ -1,5 +1,5 @@
 <p align="center" >
-<img src="http://oi60.tinypic.com/116jd51.jpg" alt="Particle" title="Particle">
+<img src="particle-mark.png" alt="Particle" title="Particle">
 </p>
 
 <p align="center" >
